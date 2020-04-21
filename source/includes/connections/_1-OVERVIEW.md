@@ -78,7 +78,7 @@ Section of one or more classes for this connection:
 
 `<ports>`
    `<port>`
-`<number>8750</number>`
+`    <number>8750</number>`
    `</port>`
 `</ports>`
 
@@ -109,5 +109,5 @@ This is the number of bytes to grow the size of receive buffers by when the orig
 The optional flag above marks this class as needed to be autobound. If an idautobind is provided then this class will be connected on that binding, otherwise it will be connected on the first connection in the project providing this class.
 
 
-`</connections>
-`The above closes this connections section.
+`</connections>`
+The above closes this connections section.

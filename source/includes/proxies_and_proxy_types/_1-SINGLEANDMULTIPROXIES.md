@@ -19,8 +19,8 @@ Alternatively, even for a single proxy driver, you may choose to use the more co
 
 or
 
-`<proxies>
-`` <proxy proxybindingid="5001">~tv~</proxy>`
+`<proxies>`
+` <proxy proxybindingid="5001">~tv~</proxy>`
 `</proxies>`
 
 This is also the format used with multi-proxy devices.  Here are some examples:
@@ -36,8 +36,8 @@ or
 `<proxies>`
   ` <proxy proxybindingid="5001">receiver</proxy>`
   ` <proxy proxybindingid="5002">tuner</proxy>`
-`<proxy proxybindingid="5003">tunerXM</proxy>`
-`<proxy proxybindingid="5004">dvd</proxy>`
+`  <proxy proxybindingid="5003">tunerXM</proxy>`
+`  <proxy proxybindingid="5004">dvd</proxy>`
    ` <proxy proxybindingid="5005">tunerXM</proxy>`
  `</proxies>`
 

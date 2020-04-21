@@ -19,6 +19,7 @@ The serial port’s communication parameters are defined in the \<config\> or th
 	</connection>
 
 The serial port’s communication parameters are defined in the \<config\> or the \<capabilities\> section of the .c4z using:
+
 `<serialsettings>9600 8 odd 1 none</serialsettings`
 
 The statement above defines the following communication parameters:
