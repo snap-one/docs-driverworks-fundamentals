@@ -42,5 +42,4 @@ Note the use of the `<*_text>` XML elements in this example. The values entered 
 `30.     <description>NAME Light is On is STRING</description>`
 `31.     <true_text>True</true_text>`
 `32.     <false_text>False</false_text>`
-`33.  </conditional>`
-
+`33.   </conditional>`

@@ -1,4 +1,4 @@
-##  Creating Dynamic Driver Conditionals
+## Creating Dynamic Driver Conditionals
 
 All of the preceding conditional content has referred to statically created conditionals defined within the driver’s XML code. While the types and functionality of Dynamic Conditionals are identical to the static variety, they differ in that they are created dynamically by the driver. This is useful in instances where a driver conditionals are based off of the drivers properties or based off of the configuration of the device the driver is connected to. 
 
@@ -37,8 +37,6 @@ The same conditional’s required table information to enable it to be created d
 `tConditionals["10"]["description"] = "NAME is On"`
 
 
-
-### Example
 	function GetConditionals()
 	    -- starting conditionals with ID 10
 	    local tConditionals = {}
@@ -84,7 +82,7 @@ The same conditional’s required table information to enable it to be created d
 	    tConditionals["15"]["type"] = "STRING"
 	    tConditionals["15"]["condition_statement"] = "Light Level"
 	    tConditionals["15"]["description"] = "NAME Level is LOGIC STRING"
-	 
+	
 	    tConditionals["16"] = {} 
 	    tConditionals["16"]["name"] = "LIST_LIGHT_LEVEL"
 	    tConditionals["16"]["type"] = "LIST"
@@ -106,4 +104,3 @@ The same conditional’s required table information to enable it to be created d
 	
 	    return tConditionals
 	end
-

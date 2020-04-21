@@ -20,13 +20,13 @@ Alternatively, even for a single proxy driver, you may choose to use the more co
 or
 
 `<proxies>
-` ` <proxy proxybindingid="5001">tv</proxy>
-``</proxies>
-`
+`` <proxy proxybindingid="5001">~tv~</proxy>`
+`</proxies>`
+
 This is also the format used with multi-proxy devices.  Here are some examples:
 
-`<proxies>
-`   `<proxy proxybindingid="5001">tuner</proxy>`
+`<proxies>`
+  `<proxy proxybindingid="5001">tuner</proxy>`
    `<proxy proxybindingid="5002">tuner</proxy>`
    `<proxy proxybindingid="5003">tunerXM</proxy>`
 `</proxies>`
@@ -36,9 +36,9 @@ or
 `<proxies>`
   ` <proxy proxybindingid="5001">receiver</proxy>`
   ` <proxy proxybindingid="5002">tuner</proxy>`
-   `<proxy proxybindingid="5003">tunerXM</proxy>`
-   `<proxy proxybindingid="5004">dvd</proxy>`
-  ` <proxy proxybindingid="5005">tunerXM</proxy>`
+`<proxy proxybindingid="5003">tunerXM</proxy>`
+`<proxy proxybindingid="5004">dvd</proxy>`
+   ` <proxy proxybindingid="5005">tunerXM</proxy>`
  `</proxies>`
 
 Each proxy within a driver is given a binding ID in the \<connections\> section of the .c4z.  If you have multiple proxies of the same type you’ll need to explicitly state the proxybinding id for each proxy.  The proxy binding ID is included in every command received from the system for your DriverWorks driver.

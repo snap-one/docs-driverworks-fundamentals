@@ -1,4 +1,4 @@
-##  Understanding XML in a LIST Type Conditional
+## Understanding XML in a LIST Type Conditional
 
 In this section, we’ll define a LIST type conditional called `LIST_LIGHT_LEVEL`. LIST type conditionals provide a list of values which can be selected for use in programming. Here is the example XML code used to define this type of conditional:
 
@@ -19,7 +19,7 @@ In this section, we’ll define a LIST type conditional called `LIST_LIGHT_LEVEL
 `64.      <item>80%</item>`
 `65.      <item>90%</item>`
 `66.      <item>100%</item>`
-`67.    </items>`
+`67.     </items>`
 `68.  </conditional>`
 
 
