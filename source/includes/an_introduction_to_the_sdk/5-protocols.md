@@ -1,0 +1,7 @@
+## Understanding the Role of Protocols and the Protocol Driver
+
+We mentioned earlier how a Control4 Proxy is a representation of a class of device commands. The protocol is similar except for one major difference: it is device specific. Simply put, Protocols contain the definition for a specific device (the device you’re creating a driver for) and they are composed of functionality that is unique to that specific device.
+
+Protocols are important as two similar devices may have the same functionality but utilize a very different command syntax. A protocol driver provides the device-specific information needed to communicate with the Control4 system.  Inside of your device driver, protocol code is written in XML and Lua which is an embedded scripting language delivered with the DriverWorks SDK. The resulting file is referred to as the “Protocol Driver”. When combined with the Proxy Driver, it provides the foundation needed to implement a 2-way device driver in the Control4 OS.
+
+Keep in mind, when we refer to a Protocol Driver, we’re talking about the implementation of the protocol in the form of a driver file. Protocol drivers must have a “.C4i or .C4z” file extension. When this driver is added to a Control4 Automation system, device control is dictated by the functions defined in the protocol driver based upon the commands published by the device manufacturer.

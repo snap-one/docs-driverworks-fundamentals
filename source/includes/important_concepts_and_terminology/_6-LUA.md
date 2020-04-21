@@ -1,0 +1,3 @@
+## Lua
+
+Lua is a powerful, fast, light-weight and embeddable scripting language that combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics. DriverWorks contains an embedded Lua interpreter. Lua is dynamically typed, runs by interpreting bytecode for a register-based virtual machine, and has automatic memory management with incremental garbage collection. All of these features combine to make it ideal for configuration, scripting, and rapid prototyping. You can find out more about Lua at: http://www.lua.org

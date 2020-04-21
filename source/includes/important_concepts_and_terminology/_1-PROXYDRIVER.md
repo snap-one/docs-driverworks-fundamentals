@@ -1,0 +1,3 @@
+## Proxy Driver
+
+A Proxy Driver is an interface to the Control4 system for a set of devices that have common functionality. For instance, most DVD disc changers have common controls such as PLAY, STOP, PAUSE, FAST FORWARD, etc.  The disc changer proxy allows for a common user interface to control all disc changers.  The Control4 system (Director) sends information to and receives information from the proxy drivers.  The Proxy Drivers send information to and receive information from the Protocol Drivers.
