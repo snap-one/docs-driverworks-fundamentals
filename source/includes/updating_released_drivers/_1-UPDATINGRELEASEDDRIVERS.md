@@ -4,7 +4,7 @@ The ability for a driver to update to a newer version through a new ComposerPro 
 
 For consideration regarding whether or not your driver is a candidate for Driver Update (as opposed to a new driver release) please see Driver Update Considerations
 
-There are two main components involved in supporting this functionality. These include several, new XML tags that need to be included in the driver. These new tags can reside anywhere at the top level of the driver XML under \<devicedata\>. The second component involves enabling the Driver Update Agent in ComposerPro.
+There are two main components involved in supporting this functionality. These include several, new XML tags that need to be included in the driver. These new tags can reside anywhere at the top level of the driver XML under `<devicedata>`. The second component involves enabling the Driver Update Agent in ComposerPro.
 
 The new driver XML tags include: 
 
@@ -26,4 +26,12 @@ Assuming `<auto_update>` is set to true, this tag designates the minimum require
 The above example indicates that the Control4 operating system being used must be version 2.8.0 (at a minimum) in order for the driver to be updated automatically.
 
 As mentioned above, the other component to managing driver auto updates is found in ComposerPro's Manage Drivers/Auto Update screen. The screen is accessed through the ComposerPro toolbar by selecting Driver/ Manage Drivers:
+
+![]()
+
+Note the addition of the new check box called Enable Driver Update Agent:
+
+![]()
+
+When the check box populated, every driver that has `<auto_update>true</auto_update>` will be listed here. The check boxes next to the driver’s name can be used to keep that specific driver from auto updating even if the `auto_update` XML tag is set to true. Leaving the Enable Driver Update Agent check box unpopulated will prevent any drivers from auto updating – regardless of XML settings.
 
