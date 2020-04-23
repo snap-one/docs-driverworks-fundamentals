@@ -6,7 +6,7 @@
 
 **Capabilities** - Capabilities are defined in a proxy and referenced in protocol drivers. They represent typical functionality and physical characteristics found in devices of a given device class. Values for each Capability are entered in a protocol driver and then in-turn are exposed to the Proxy.  This enables the proxy driver to determine what capabilities are supported by the device defined by the protocol.
 
-**Combo Driver** – A standalone driver that does not bind itself to a Control4 proxy. User interaction is accomplished through programming, events and bindings. A Navigator UI is not provided for combo drivers.
+**Combo Driver** – A standalone driver that does not bind itself to a Control4 proxy. User interaction is accomplished through programming, events and bindings. A Navigator UI is not provided for combo drivers. The `<combo>true</combo>` tag must be added to every combo driver. This addition of this tag and its true setting in a combo driver (drivers that contain their own proxy and protocol) will avoid naming conflicts. Without the tag, the combo driver and its proxy must use identical names.
 
 **Command** – A command comes from the Control4 system and its destination is a device or a driver.
 
