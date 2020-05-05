@@ -1,0 +1,3 @@
+## Introduction
+
+This section is intended to provide an overview of the fundamental components that make up a device driver as well as the architectural layers that a device driver must interact with.  As a driver developer, you’re tasked with implementing this “interaction”. Successful driver developers build drivers that not only handle numerous dependencies placed on their driver code – but also seek out ways to enhance a device’s capabilities in an automated environment. This level of interaction manifests itself as seamless device integration, a high level of device controllability and ultimately - a quality end user experience. This is something we refer to as the Control4 Interoperability Model.
