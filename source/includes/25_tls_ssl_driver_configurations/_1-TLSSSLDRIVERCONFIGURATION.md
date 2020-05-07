@@ -1,6 +1,6 @@
 ## TLS/SSL Driver Configuration
 
-A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4i) is defined below. As part of this, the “port” section supports some additional properties that enable various features of SSL. Here is an example taken from the HC-800 driver file.
+A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined below. As part of this, the “port” section supports some additional properties that enable various features of SSL. Here is an example taken from the HC-800 driver file.
  
           `<classname>SSL</classname>`
           `<ports>`
@@ -47,7 +47,7 @@ See below for GetPrivateKeyPassword definition.
 
 `verify_mode` - Specifies the verification mode to use for the connection. The verify mode corresponds to those supported by OpenSSL. A detailed description of the verification modes can be found here:
 
- `https://www.openssl.org/docs/ssl/SSL_CTX_set_verify.html. `_ 
+ `https://www.openssl.org/docs/ssl/SSL_CTX_set_verify.html. `\_ 
 Note that Control4 currently supports only the peer verification mode (`SSL_VERIFY_PEER`). Value values include:
 
 - `none`
