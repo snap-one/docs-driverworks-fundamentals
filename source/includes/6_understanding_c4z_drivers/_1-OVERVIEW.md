@@ -11,12 +11,12 @@ These objects include items such as graphics and icon directories to support cus
 The image below is a look into a .c4z file at its root level:
 
 
-![]()
+todo img 1
 
 
 You’ll notice several files at the root level of the .c4z which were described in the section above. The www folder must contain the documentation file to support the driver. 
 
-![]()
+todo img 2
 
 This is an architectural change implemented with the release of OS 2.8.1. 
 
@@ -29,20 +29,20 @@ Using this structure, ComposerPro will load the RTF documentation file and ignor
 
 Below that is the .lua file that contains all of the .lua code for the driver. It is possible to have multiple .lua files included in the .c4z file. For example, here is an opened .c4z file for a pool controller: 
 
-![]()
+todo img 3
 
 As you can see, this .c4z contains numerous .lua files. In order for all of the .lua files to be recognized not just by DriverEditor but Director as well - the use of the Lua require function is needed. The required Function loads and runs libraries. All of the .lua files that need to be included in .c4z file are identified in the .c4z file's driver. lua file. If we open the pool controller's driver.lua file we see this: 
 
-![]()
+todo img 4
 
-In the example above, the file names are surrounded by quotation marks. The require Function uses the global variable LUA_PATH to find the file. This variable is defined as LUA_PATH = C4Sytem; Driver. Based on this, Director will look for the .lua file on the controller first, The LUA_PATH environment on the controller is:
+In the example above, the file names are surrounded by quotation marks. The require Function uses the global variable LUA\_PATH to find the file. This variable is defined as LUA\_PATH = C4Sytem; Driver. Based on this, Director will look for the .lua file on the controller first, The LUA\_PATH environment on the controller is:
 /control4/drivers/lua/?.lua; 
-As each driver contains its own environment the LUA_PATH for each driver would be: 
+As each driver contains its own environment the LUA\_PATH for each driver would be: 
 
-LUA_PATH=/control4/drivers/lua/?.lua;/etc/c4i/test_driver_name/?.lua;
+LUA\_PATH=/control4/drivers/lua/?.lua;/etc/c4i/test\_driver\_name/?.lua;
 
 The require Function can also navigate a path to the .lua file if it is defined. For example:
-require "/usr/local/lua/pool_init.lua"
+require "/usr/local/lua/pool\_init.lua"
 When Director loads this .c4z file it will load all of the required .lua files into memory as one large .lua file and execute based on the contents of the assembled file. 
 lua files can be included in a .c4z, defined using the require Function and still be excluded when DriverPackager assembles the final .c4z. This is useful in the event that a .lua file was included for testing purposes but is not needed when the final .c4z is delivered. This is handled in the .c4zproj file. Specifically, with the exclude parameter. For example, say a test.lua file was included in our .c4z, but is not needed when the driver is delivered. The .c4zproj file would look like this:
 
@@ -60,14 +60,14 @@ lua files can be included in a .c4z, defined using the require Function and stil
 
 Note the test.lua line with exclude set to True. This is will prevent this file from being packaged by DriverPackager.
 
-Next we can see another driver file. This contains all of the XML that was previously found between the \<devicedata\> tags of a .c4i file. These are elements such as \<creator\>, \<name\>, \<model\>, \<manufacturer\>, \<identify_image\>, \<identify_text\> and so on.
+Next we can see another driver file. This contains all of the XML that was previously found between the \<devicedata\> tags of a .c4i file. These are elements such as \<creator\>, \<name\>, \<model\>, \<manufacturer\>, \<identify\_image\>, \<identify\_text\> and so on.
 If we open the www directory we see the following:
 
-![]()
+todo img 5
 
 As mentioned above, a c4z file can contain graphical elements to support the driver’s use in Navigator. When opened, the icons folder for this driver looks like this:
 
-![]()
+todo img 6
 
 The icons directory contains all of the images, organized by their resolutions, which are displayed during the use of the driver. The images in this particular driver are found under the root level of “www” placing them within the .c4z in this manner makes them accessible from via the controller’s webserver. For example, accessing an image can be accomplished by appending the .c4z icon path to a URL such as: 
 

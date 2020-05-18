@@ -48,10 +48,10 @@ Included is an example of XML containing Actions with Parameters.
 
 When clicking on the Actions tab from within the Properties window in ComposerPro, the option to Test Action with Parameters is presented:
 
-![]()
+todo img 1
 
 
 Clicking this button displays all of the driver's Actions along their parameters. Note that only the default parameter is displayed in this window.
 
-![]()
+todo img 2
 

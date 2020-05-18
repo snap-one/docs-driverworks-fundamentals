@@ -27,11 +27,11 @@ The above example indicates that the Control4 operating system being used must b
 
 As mentioned above, the other component to managing driver auto updates is found in ComposerPro's Manage Drivers/Auto Update screen. The screen is accessed through the ComposerPro toolbar by selecting Driver/ Manage Drivers:
 
-![]()
+todo img 1
 
 Note the addition of the new check box called Enable Driver Update Agent:
 
-![]()
+todo img 2
 
 When the check box populated, every driver that has `<auto_update>true</auto_update>` will be listed here. The check boxes next to the driver’s name can be used to keep that specific driver from auto updating even if the `auto_update` XML tag is set to true. Leaving the Enable Driver Update Agent check box unpopulated will prevent any drivers from auto updating – regardless of XML settings.
 
