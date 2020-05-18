@@ -1,6 +1,6 @@
-## Proxy Binding Multiple Proxies 
+## Proxy Binding Multiple Proxies
 
-This example comes from one of the receiver drivers that Control4 publishes. As you can see, a device with multiple proxies will have multiple connection bindings defined: one for each proxy. There will be an instance of the driver loaded for each proxy when these devices are added to the project using Composer.
+The example from the right comes from one of the receiver drivers that Control4 publishes. As you can see, a device with multiple proxies will have multiple connection bindings defined: one for each proxy. There will be an instance of the driver loaded for each proxy when these devices are added to the project using Composer.
 
 	<connection>
 	      <id>5001</id>
