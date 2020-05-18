@@ -1,10 +1,13 @@
 ## Overview
 
 As every trained Control4 installer knows, each driver within the Control4 system publishes the connections capabilities that are available for the device being controlled. These connections are utilized to create the bindings within the Control4 system. The connections to the device you are creating a driver for can be implemented using serial (RS-232) or Internet (TCP/IP) protocols.
-Devices with serial ports are bound using the Control/AV tab to bind the Control Inputs to the appropriate serial port on any controller or serial extender in the Control4 system
+
+Devices with serial ports are bound using the Control/AV tab to bind the Control Inputs to the appropriate serial port on any controller or serial extender in the Control4 system.
 
 Devices communicating using Internet protocols are configured using the Network tab to identify the IP address of the device. 
+
 In addition to the network/communication bindings, your DriverWorks driver will have all of the other bindings necessary for your device (just like any other driver) as long as they are correctly defined in the \<connections\> section of the .c4z file.
+
 As the driver creator, you will define those connections capabilities within the .c4z file.
 Connections are critical and can be complicated. The following information outlines the various parameters that can be utilized in the .c4z file for configuring connections.
 

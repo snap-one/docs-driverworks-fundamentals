@@ -1,6 +1,6 @@
 ## Contact and Relay Bindings
 
- Contact and Relay bindings are also control bindings; here are some examples:
+ Contact and Relay bindings are also control bindings. To the right are some examples:
 
 	<connection>
 	      <id>11</id>
@@ -36,5 +36,5 @@
 	      </classes>
 	 </connection>
 
-Remember, you can always refer to existing drivers for the device type that you are creating to see how the \<connections\> section should be defined.
+Remember, you can always refer to existing drivers for the device type that you are creating to see how the \<connections\> XML section should be defined.
 

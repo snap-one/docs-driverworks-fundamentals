@@ -3,7 +3,7 @@
 The traditional connection in Composer represents a cable that is attached from the output of one device to the input of another device. A non-binding connection lacks the physical cable and is used with devices that are not intended to be connected by the dealer in Composer. Likewise, a non-binding connection does not require a dealer to identify the connection. Non-binding connections are beneficial as they remove the burden of Director and Composer to maintain bindings that don't actually exist. Their use makes the model in Director more accurately reflect the real world. In many cases these are web based connections between devices that are not connected by a cable. 
 
 For example, consider an IP Video Matrix which has the following connection path:
-﻿
+
 BlueRay -\> HDMI Server \<\>--Non-Binding Connection--\<\> HDMI Client -\> TV -\> Room Video Endpoint
 
 In this example, the BlueRay will appear as a video source in the project's TV Room.
@@ -58,5 +58,5 @@ Next is the Consumer-side example for the non-binding connection. Note the use o
 	 </classes>
 	</connection>
 
-In both examples above the connection uses the hidden element set to True as typically a non-binding connection should not be displayed.
+In both examples to the right, the connection uses the hidden element set to True as typically a non-binding connection should not be displayed.
 

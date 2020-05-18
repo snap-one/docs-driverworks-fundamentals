@@ -35,14 +35,17 @@ As you can see, this .c4z contains numerous .lua files. In order for all of the 
 
 todo img 4
 
-In the example above, the file names are surrounded by quotation marks. The require Function uses the global variable LUA\_PATH to find the file. This variable is defined as LUA\_PATH = C4Sytem; Driver. Based on this, Director will look for the .lua file on the controller first, The LUA\_PATH environment on the controller is:
+In the example above, the file names are surrounded by quotation marks. The required Function uses the global variable LUA\_PATH to find the file. This variable is defined as LUA\_PATH = C4System; Driver. Based on this, Director will look for the .lua file on the controller first, The LUA\_PATH environment on the controller is:
 /control4/drivers/lua/?.lua; 
+
 As each driver contains its own environment the LUA\_PATH for each driver would be: 
 
 LUA\_PATH=/control4/drivers/lua/?.lua;/etc/c4i/test\_driver\_name/?.lua;
 
-The require Function can also navigate a path to the .lua file if it is defined. For example:
+The required Function can also navigate a path to the .lua file if it is defined. For example:
+
 require "/usr/local/lua/pool\_init.lua"
+
 When Director loads this .c4z file it will load all of the required .lua files into memory as one large .lua file and execute based on the contents of the assembled file. 
 lua files can be included in a .c4z, defined using the require Function and still be excluded when DriverPackager assembles the final .c4z. This is useful in the event that a .lua file was included for testing purposes but is not needed when the final .c4z is delivered. This is handled in the .c4zproj file. Specifically, with the exclude parameter. For example, say a test.lua file was included in our .c4z, but is not needed when the driver is delivered. The .c4zproj file would look like this:
 

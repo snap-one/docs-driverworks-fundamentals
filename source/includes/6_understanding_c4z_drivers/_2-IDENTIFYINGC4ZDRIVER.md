@@ -13,5 +13,5 @@ The ability to specify a unique driver identification image and instructional te
  
 Both the text string and the .gif are pulled from the .c4z file at the relative path specified in the driver. In the example above they would just be in the root of the c4z.
  
-For identify images, .gifs are recommended as they can be animated. Other formats should work fine however.
- 
+For identify images, .gifs are recommended as they can be animated. Other formats should work fine, however.
+  

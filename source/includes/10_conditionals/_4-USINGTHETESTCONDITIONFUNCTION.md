@@ -29,11 +29,13 @@ STRING: table of two name/value pairs:
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
-LIST:table of two name/value pairs:
+
+LIST: table of two name/value pairs:
 `tParams[“VALUE”] contains the STRING macro value of the code item in programming.`
 `tParams[“LOGIC”] contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUAL` `and NOT_EQUAL.`
 
 You may use `C4:EvaluateExpression`n to simplify the evaluation of the LOGIC field.
+
 
 ROOM: table of two name/value pairs
 `tParams[“VALUE”] contains the room id of the ROOM macro value of the code item in programming.`
@@ -41,13 +43,15 @@ ROOM: table of two name/value pairs
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
+
 DEVICE: table of two name/value pairs
 `tParams[“VALUE”] contains the device id of the DEVICE macro value of the code item in programming.`
 `tParams[“LOGIC”] contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUAL` `and NOT_EQUAL.`
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
-Return Value:
+
+### Returns
 The function must return a Boolean value. If the expression results to true then return true, otherwise return false.
 
 	Sample TestCondition function

@@ -1,4 +1,4 @@
-## Control4 OS 3 and LuaJIT 
+## Control4 OS 3 and LuaJIT
 
 Prior to OS 3, Control4 loaded drivers into the controller environment using the Lua run time compiler known as "standard Lua" or "PUC Lua". With the release of OS 3, support for Lua's Just In Time compiler (LuaJIT) has been added. Note that LuaJIT compatibility is an addition and not a replacement for PUC Lua. This means that driver modification is not a requirement for OS 3 compatibility. PUC Lua will continue to load previously released drivers as it has in the past.
 
@@ -30,19 +30,19 @@ Note: There is no fall back to using the PUC Lua compiler for drivers that were 
 Beginning with OS 3, the ability to send debug Lua messages upon a driver failing to update has changed. Sending Lua debug messages are determined on how the driver's properties are set. When a driver is updated from using the previous PUC Lua compiler to LuaJIT, the driver's state and properties are temporarily lost. This is also true if a driver is updated involves going from LuaJIT to PUC Lua. The state and properties are not restored until the driver has loaded successfully. During this time frame, driver debug messages are not sent. The following are use cases to consider regarding this:
 
 
-### Driver updating from PUC to PUC. 
+### Driver updating from PUC to PUC.
 
 This is a driver that was initially loaded with PUC and the updated driver likewise loads with PUC. There is no "jit" attribute applied to the driver script. In this case, the same driver instance is reused and the driver will function as it did prior to 3.x. 
 
 
-### Driver updating from PUC to LuaJIT: 
+### Driver updating from PUC to LuaJIT:
 
 This is a driver that was initially loaded with PUC and the updated driver expects to load with LuaJIT. The specified "jit" attribute has been applied to the driver script. In this case, the old driver instance is destroyed and then re-loaded with LuaJIT. In doing so, all of the driver properties that set for this driver are temporarily lost. This results in the following two scenarios:
 If the driver loads successfully all of the properties & state data is restored.
 If the driver fails to load successfully, the LuaJIT instance is abandoned and then reloaded with PUC Lua. The properties & state data is restored after the driver loads. Debug Lua messaging is  impacted.
 
 
-### Driver updating from LuaJIT to LuaJIT: 
+### Driver updating from LuaJIT to LuaJIT:
 
 This is a driver that was initially loaded with LuaJIT and the updated driver likewise loads with LuaJIT. The specified "jit" attribute has been applied to the driver script. In this case,an attempt is made to re-use the same driver instance. This results in the following two scenarios:
 If the driver loads successfully, then this will function as it did prior to 3.x.
@@ -90,7 +90,7 @@ The following table shows two examples of 5.0 escape sequences and how to fix th
 _The Lua 5.1 Language Manual details its incompatibilities with previous versions. For more information see Section #7 of the manual here: http://www.lua.org/manual/5.1/manual.html_
 
 
-### Order Dependency in Lua Tables 
+### Order Dependency in Lua Tables
 
 As best practice, Control4 recommends against the use of Lua Tables that depend on consistency with regards to the ordering of pairs. It is important to understand that LuaJIT does not iterate through a table of functions in the same way that PUC Lua does. For example, consider a table of functions that is iterated through using OnDriverInit() with the following code:
 
@@ -116,29 +116,30 @@ _For further information regarding system logging, please see the System Manager
 
 For reference, a list of sample load conditions and their respective log entries follows:
 
-Condition
-Sample Entry
-A Lua driver loaded successfully with LuaJIT	
-2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234]() DEBUG: Lua driver loaded successful with LuaJIT [id: 42]()[name: HeloWorld Driver]()[file: HeloWorld.c4z]()
 
-A Lua driver loaded successful with LuaJIT, but there are runtime errors: 
+Condition : A Lua driver loaded successfully with LuaJIT	
 
-`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with LuaJIT but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+Sample Entry: `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successful with LuaJIT [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
-A Lua driver failed to load with LuaJIT due to syntax errors. Director will proceed to reload the driver with PUC Lua:
+Condition : A Lua driver loaded successful with LuaJIT, but there are runtime errors: 
 
-`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver failed to load with LuaJIT; retrying with PUC Lua  [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
-
-
-A Lua driver loaded successfully with PUC Lua:
-
-`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successfully with PUC Lua [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with LuaJIT but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
-A Lua driver loaded successfully with PUC Lua, but there are runtime errors:
+Condition : A Lua driver failed to load with LuaJIT due to syntax errors. Director will proceed to reload the driver with PUC Lua:
 
-`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with PUC Lua but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver failed to load with LuaJIT; retrying with PUC Lua  [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+
+
+Condition : A Lua driver loaded successfully with PUC Lua:
+
+Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successfully with PUC Lua [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+
+
+Condition : A Lua driver loaded successfully with PUC Lua, but there are runtime errors:
+
+Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with PUC Lua but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
 ### Driver Validation using DriverValidator

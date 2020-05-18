@@ -1,20 +1,22 @@
 ## SquishLua and Driver Encryption
 
-All .lua files included in a .c4z file must be squished prior to encryption. This is accomplished using Squish Lua. Squish is a tool that can pack many individual Lua scripts and their modules into a single Lua script. Whether or not Squish is run on the .lua files inside of a .c4z file is defined in the .c4z project file. in the example project file below you can see that the squishLua parameter has a value of "true." With this setting, Driver Packager will squish all of the .lua files before encryption. This is a requirement for successful driver encryption.
+All .lua files included in a .c4z file must be squished prior to encryption. This is accomplished using Squish Lua. Squish is a tool that can pack many individual Lua scripts and their modules into a single Lua script. Whether or not Squish is run on the .lua files inside of a .c4z file is defined in the .c4z project file. in the example project file below you can see that the squishLua parameter has a value of "true." With this setting, Driver Packager will squish all of the .lua files before encryption. This is a requirement for successful driver encryption. See the example to the right.
 
-\`<Driver type="c4z" name="sample" squishLua="true" Encryption="True" >
-\`\`<Items>
-\`\`<Item type="dir" name="www" recurse="true" />
-\`\`<Item type="dir" name="common" c4zDir="Common" />
-\`\`<Item type="dir" name="tests" exclude="true" />
-\`\`<Item type="file" name="driver.xml"/>
-\`\`<Item type="file" name="squish.lua" />
-\`\`<Item type="file" name="foo1.lua" />
-\`\`<Item type="file" name="foo2.lua" />
-\`\`<Item type="file" name="library.lua" c4zDir="Common" />
-\`\`<Item type="file" name="readme.txt" exclude="true" />
-\`\`</Items>
-\`
+```xml
+<Driver type="c4z" name="sample" squishLua="true" Encryption="True" >
+<Items>
+ <Item type="dir" name="www" recurse="true" />
+ <Item type="dir" name="common" c4zDir="Common" />
+ <Item type="dir" name="tests" exclude="true" />
+ <Item type="file" name="driver.xml"/>
+ <Item type="file" name="squish.lua" />
+ <Item type="file" name="foo1.lua" />
+ <Item type="file" name="foo2.lua" />
+ <Item type="file" name="library.lua" c4zDir="Common" />
+ <Item type="file" name="readme.txt" exclude="true" />
+</Items>
+```
+
 
 The first line of the proj file contains the following:
 
@@ -24,16 +26,17 @@ The first line of the proj file contains the following:
 
 **squishLua** – Must be set to “true” or “false”. It defaults to a value of "false." There are two options when encrypting a driver: encrypt a single Lua file or Squish all Lua files into one file and encrypt it. Squish is a tool that packs many individual Lua scripts and their modules into a single Lua script. A file called “squishy” must be created for the squish tool. This file contains all of the Lua files to be included in the squished file. Here is an example of a basic squishy file:
 
-\`Main "driver.lua"
-\`
-\`Module "module1"
-\`\`Module "module2"
-\`\`Module "common.command"     "common/command.lua"
-\`\`Module "common.common"      "common/common.lua"
-\`\`Module "common.diagnostics" "common/diagnostics.lua"
-\`
-\`Output "squished.lua"
-\`
+`Main "driver.lua"
+`
+`Module "module1"
+``Module "module2"
+``Module "common.command" "common/command.lua"
+``Module "common.common"  "common/common.lua"
+``Module "common.diagnostics" "common/diagnostics.lua"
+`
+`Output "squished.lua"
+`
+
 **Encryption** – Designates whether or not the driver will be encrypted or not.
 
 Next you’ll notice the `<Items></Items>` section:

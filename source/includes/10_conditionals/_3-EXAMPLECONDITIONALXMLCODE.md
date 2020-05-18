@@ -85,5 +85,5 @@ Previously, we discussed how to define a SIMPLE type conditional. The remainder 
 	82.    <description>[8] NAME Device Selection LOGIC DEVICE</description>
 	83.  </conditional>
 	84.</conditionals>
-	
-Note: The order in which the conditionals defined in the XML will be reversed in their order of display in ComposerPro. For example, above the` SIMPLE_LIGHT_ON` conditional is defined first. It will display at the bottom of the conditional list in the Programming area of ComposerPro.
+
+Note: The order in which the conditionals defined in the XML will be reversed in their order of display in ComposerPro. For example, above the`SIMPLE_LIGHT_ON` conditional is defined first. It will display at the bottom of the conditional list in the Programming area of ComposerPro.

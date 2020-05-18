@@ -17,44 +17,52 @@ The HelloWorld File Folder was created by DriverEditor. All of the changes made 
 todo img 9
 
 
-Note the addition of the HelloWorld.c4zproj file. This file allows DriverEditor to assemble, encrypt, name the .c4z file along with defining several other file level functions. If we open the .c4zproj file we'd find this:
+Note the addition of the HelloWorld.c4zproj file. This file allows DriverEditor to assemble, encrypt, name the .c4z file along with defining several other file level functions. If we open the .c4zproj file we'd find the example to the right:
 
-  `<Driver type="c4z" name="sample" squishLua="true" Encryption="True/False" >`
-`<Items>`
-`<Item type="dir" name="www" recurse="true" />`
-`<Item type="dir" name="common" c4zDir="Common" />`
-`<Item type="dir" name="tests" exclude="true"/>`
-`<Item type="file" name="driver.xml"/>`
-`<Item type="file" name="squish.lua"/>`
-`<Item type="file" name="foo1.lua"/>`
-`<Item type="file" name="foo2.lua"/>`
-`<Item type="file" name="library.lua" c4zDir="Common" />`
-`<Item type="file" name="readme.txt" exclude="true" />`
-  `</Items>`
-`</Driver>`
+```xml
+<Driver type="c4z" name="sample" squishLua="true" Encryption="True/False">
+<Items>
+ <Item type="dir" name="www" recurse="true"/>
+ <Item type="dir" name="common" c4zDir="Common"/>
+ <Item type="dir" name="tests" exclude="true"/>
+ <Item type="file" name="driver.xml"/>
+ <Item type="file" name="squish.lua"/>
+ <Item type="file" name="foo1.lua"/>
+ <Item type="file" name="foo2.lua"/>
+ <Item type="file" name="library.lua" c4zDir="Common"/>
+ <Item type="file" name="readme.txt" exclude="true"/>
+ </Items
+</Driver>
+```
 
 The first line of the proj file contains the following:
 **Driver type** – This must be “c4z” for the manifest to be valid.
-**nam**e – This is the name of the driver in quotes  without its extension.
+
+**name** – This is the name of the driver in quotes  without its extension.
+
 **squishLua** – Must be set to “true” or “false”. It defaults to a value of "false." There are two options when encrypting a driver: encrypt a single Lua file or Squish all Lua files into one file and encrypt it. Squish is a tool that packs many individual Lua scripts and their respective modules into a single Lua script. A file called “squishy” must be created for the squish tool. This file contains all of the Lua files to be included in the squished file. Here is an example of a basic squishy file:
 
 
-\`Main "driver.lua"
-\`
-\`Module "module1"
-\`\`Module "module2"
-\`\`Module "common.command"     "common/command.lua"
-\`\`Module "common.common"      "common/common.lua"
-\`\`Module "common.diagnostics" "common/diagnostics.lua"
-\`
-\`Output "squished.lua"
-\`
+`Main "driver.lua"
+`
+`Module "module1"
+``Module "module2"
+``Module "common.command" "common/command.lua"
+``Module "common.common" "common/common.lua"
+``Module "common.diagnostics" "common/diagnostics.lua"
+`
+`Output "squished.lua"
+`
 **Encryption** – Designates whether or not the driver will be encrypted or not.
 
 Next you'll notice the \<Items\>\</Items\> section:
 **Item type** - Must be “dir” or “file”. This specifies if the item is a file or a directory. “dir” creates a folder 'name' and adds all immediate files beneath 'name' to the c4z. “file” adds file 'name' to the c4z.
+
 **Item name** - Name of folder or file to be added to c4z.
+
 **recurse** - Optional. Only applicable to type 'dir' items. Must be "true" or "false", default is "false" if not specified. If "true", recursively adds all files beneath 'name' to c4z. 
+
 **c4zDir** - Optional. The name of the c4z folder where the 'dir' or 'file' item is added. 
+
 **exclude** - Optional. Must be "true" of "false", default is "false" if not specified. This specifies if an item is excluded from the c4z. 
 
