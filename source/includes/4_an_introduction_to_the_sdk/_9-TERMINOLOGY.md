@@ -44,7 +44,7 @@
 
 **Proxy** – A Proxy contains the definition for a specific class of device. Proxies are comprised of the most common examples of functionality for each device class. The use of a proxy provides a common interface between the Control4 Navigator UI and a device driver. Proxies are pre-defined and supplied by Control4.
 
-**Proxy Binding Id** - A proxy binding id is a numerical value that is assigned to each proxy used within a protocol driver. It is a unique reference that can be utilized in the protocol driver code. . This id value is used often when sending data and ensures that the correct proxy-data relationship is always enforced.
+**Proxy Binding Id** - A proxy binding id is a numerical value that is assigned to each proxy used within a protocol driver. It is a unique reference that can be utilized in the protocol driver code. This id value is used often when sending data and ensures that the correct proxy-data relationship is always enforced.
 
 **Proxy Driver **– An implementation of a proxy in the form of a driver (.c4i) file. When this file is included in a Control4 Automation system, device control includes that of the pre-defined functionality provided in the proxy. User interaction is provided through a Control4 Navigator interface.
 

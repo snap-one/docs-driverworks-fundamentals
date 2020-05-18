@@ -32,5 +32,4 @@ Beginning with OS 3, driver developers can leverage Lua's Just In Time compiler 
 
 New information regarding driver debug messaging and LuaJIT updates has been added to the Driver Update Considerations area.
 
-The Device and Service Icon presentation content has been is updated in conjunction with OS 3. This includes new icon guidelines, design templates and instructions to assist with delivering the best experience across a variety of wallpapers and to ensure consistency across all icons within the interface. The new content can be found in the DriverWorks SDK at:
-DriverWorks SDK/Icon Templates directory.
+The Device and Service Icon presentation content has been is updated in conjunction with OS 3. This includes new icon guidelines, design templates and instructions to assist with delivering the best experience across a variety of wallpapers and to ensure consistency across all icons within the interface. The new content can be found in the DriverWorks SDK at: DriverWorks SDK/Icon Templates directory.
