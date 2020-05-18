@@ -1,6 +1,6 @@
 ## Capabilities
 
-Capabilities tell the Proxy what your device can do. Not all devices of a particular type have the same capabilities.  In these cases, the .c4z file contains information which enables the proxy driver to determine what capabilities are available.  For example, a Receiver-Tuner might have the included example caode in the .c4z file:
+Capabilities tell the Proxy what your device can do. Not all devices of a particular type have the same capabilities.  In these cases, the .c4z file contains information which enables the proxy driver to determine what capabilities are available.  For example, a Receiver-Tuner might have the included example code to the right in the .c4z file:
 
 	<capabilities>
 	    <has_discrete_volume_control>True</has_discrete_volume_control>

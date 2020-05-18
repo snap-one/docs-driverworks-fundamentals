@@ -4,7 +4,7 @@ Use the `<actions>` section to define programming which is specific to initial i
 
 Actions are defined in the driver's XML and consist of the following types: STRING, LIST, RANGED INTEGER, RANGED FLOAT and COLOR SELECTOR.
 
-Included is an example of XML containing Actions with Parameters.
+To the right is an example of XML containing Actions with Parameters.
 
 	       <action>
 	                <name>Test Action with Parameters</name>

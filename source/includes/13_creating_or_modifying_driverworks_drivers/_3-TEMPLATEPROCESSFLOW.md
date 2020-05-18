@@ -7,6 +7,7 @@ As you can see by the following steps, there is a great deal of similarity betwe
 Several templates have been included in the SDK.  These templates and sample drivers range from very simple .c4z’s to partially functional DriverWorks drivers.  If a template exists for the device (proxy) type that you are creating your driver for, it is very easy to begin with the pre-existing template.
 
 The steps are as follows:
+
 1. Copy the template .c4z and rename your copy
 2. Change the .c4z elements that you need to change in order to make your driver.
 3. Fields that should be changed include: `<manufacturer>, <model>, <creator>, <name>, <created>, <modified>`
@@ -19,6 +20,7 @@ The steps are as follows:
 Occasionally, and particularly for AV devices, you might find it easier to take an existing one-way driver’s .c4z file and convert it for use as a DriverWorks driver.  This enables you to leverage all the connections and capabilities information required to model your device.
 
 The steps are as follows:
+
 1. Copy the existing one-way driver’s .c4z file and rename your copy
 2. Change the .c4z elements that you need to change in order to make your driver.
 3. Fields that must be changed include: `<driver>, <control>`
