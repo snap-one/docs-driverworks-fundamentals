@@ -28,22 +28,27 @@ For example, the code created for the example in this document would look like t
 
 todo img 2
 
+
 QR Codes and ComposerExpress
 The dealer or installer experience when using QR codes to add device drivers is very straightforward. With the project loaded and the Design page open, the "+" button is selected to Add a Device.
 
 todo img 3
 
+
 From the Add Device page, the Scan QR Code button is selected:
 
 todo img 4
+
 
 The mobile device is held approximately 8" from the QR code to initiate the scan process:
 
 todo img 5
 
+
 When the code is scanned, the Add Device page is displayed. At this point, the installer can select the room where the device will reside and rename the driver if desired:
 
 todo img 6
+
 
 When the Add Device button is selected, the driver is downloaded to the controller and installed into the project. It is then ready for identification and configuration.
 

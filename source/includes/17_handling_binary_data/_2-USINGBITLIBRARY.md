@@ -13,23 +13,27 @@ The bit library is a C library for Lua that is included in DriverWorks to perfor
 
 A simple example of using the bit.bor operation follows. It assumes the following binary data set:
 
-`8    4    2    1     `(byte positions)`
-``1    1    0    0          (12)
+`8    4    2    1     (byte positions)`
+`1    1    0    0          (12)
 ``1    0    1    1          (11)
 `
 Input:
+
 `foo = 12`
 `bar = 11`
 `print(bit.bor(foo, bar))`
 
 Output:
+
 `15`
 
 Here is another example using the bit.rshift operator based on the same binary data set:
 
 Input:
+
 `foo = 12`
 `print(bit.rshift(foo, 2))`
 
 Output:
+
 `3`
