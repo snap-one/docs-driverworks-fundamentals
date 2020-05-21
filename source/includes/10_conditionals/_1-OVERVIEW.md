@@ -2,17 +2,19 @@
 
 Driver conditionals are useful to include in your driver as they provide the opportunity for custom programming through the interface found in ComposerPro. When considering conditionals, it’s helpful to think of them as “If” programming statements. For example, a light driver may have a simple conditional defined for when the light is in the On state. Using this conditional can then support programming in the project that will be executed if the light is On.
 
-Conditionals are defined in the driver’s XML area within the conditionals tag. For example:
+Conditionals are defined in the driver’s XML area within the conditionals tag. See the example to the right:
 
-`1.  <conditionals>`
-`2.   <conditional>`
-`3.     <id>0</id>`
-`4.     <name>SIMPLE_LIGHT_ON</name>`
-`5.     <type>SIMPLE</type>`
-`6.     <condition_statement>The light is on</condition_statement>`
-`7.     <description>NAME is On</description>`
-`8.   </conditional>`
-`9.  </conditionals>`
+```xml
+1.  <conditionals>
+2.   <conditional>
+3.     <id>0</id>
+4.     <name>SIMPLE_LIGHT_ON</name>
+5.     <type>SIMPLE</type>
+6.     <condition_statement>The light is on</condition_statement>
+7.     <description>NAME is On</description>
+8.   </conditional>
+9.  </conditionals>
+```
 
 
 ### Conditional Types

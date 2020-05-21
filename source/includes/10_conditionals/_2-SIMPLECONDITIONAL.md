@@ -2,17 +2,19 @@
 
 ### Understanding XML in a SIMPLE Type Conditional
 
-Your conditional XML code must be defined in a manner that can be used by ComposerPro. In this section, we’ll define a SIMPLE type conditional called `SIMPLE_LIGHT_ON`. In doing so we’ll look at each line of XML required to define this type of conditional:
+Your conditional XML code must be defined in a manner that can be used by ComposerPro. In this section, we’ll define a SIMPLE type conditional called `SIMPLE_LIGHT_ON`. In doing so we’ll look at each line of XML required to define this type of conditional to the right:
 
-`1.  <conditionals>`
-`2.   <conditional>`
-`3.     <id>0</id>`
-`4.     <name>SIMPLE_LIGHT_ON</name>`
-`5.     <type>SIMPLE</type>`
-`6.     <condition_statement>The light is on</condition_statement>`
-`7.     <description>NAME is On</description>`
-`8.   </conditional>`
-`9.  </conditionals>`
+```xml
+1.  <conditionals>
+2.   <conditional>
+3.     <id>0</id>
+4.     <name>SIMPLE_LIGHT_ON</name>
+5.     <type>SIMPLE</type>
+6.     <condition_statement>The light is on</condition_statement>
+7.     <description>NAME is On</description>
+8.   </conditional>
+9.  </conditionals>
+```
 
 Line 1: `<conditionals></conditionals> `
 This is the driver’s root XML tag that contains all the driver’s conditional code.
