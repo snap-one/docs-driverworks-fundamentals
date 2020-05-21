@@ -19,12 +19,14 @@ The driver.lua code defines two variables:
 
 `SERVICE_IDS` This is a table which contains keys of the unique device type code used by a device driver (or class of device drivers) mapped to a code that defines how to launch this service on that device.  For example (from the Amazon Video minidriver):
 
-`SERVICE_IDS = {`
-    `UM_ROKU = '13',`
-   ` UM_SAMSUNG2017 = 'amazon',`
-    `UM_AMAZON = 'com.amazon.avod',`
-   ` UM_SONY_TV = 'Amazon Video',`
-`}`
+```lua
+SERVICE_IDS = {
+    UM_ROKU = '13',
+    UM_SAMSUNG2017 = 'amazon',
+    UM_AMAZON = 'com.amazon.avod',
+    UM_SONY_TV = 'Amazon Video',
+}
+```
 
 The channel ID for Amazon Video on Roku is 13.  The application name used to start the Amazon Video service on the Amazon Fire products is com.amazon.avod.  These are the values that will be discovered and used by the device specific drivers for their application launch code – so the Roku driver will discover the channel ID of 13 and plug that into the channel launch function unique to Roku, ignoring the other values from this table.
 
@@ -46,9 +48,9 @@ The artwork should be placed into the www/icons folder with these names:
 - 90x90 - `/device/experience_90.png`
 - 300x300 - `/device/experience_300.png`
 
-The driver should then be run through the build process at Control4 by submitting this information to \<universal_minidriver_dev@control4.com\> for inclusion in the online driver database.
+The driver should then be run through the build process at Control4 by submitting this information to \<universal\_minidriver\_dev@control4.com\> for inclusion in the online driver database.
 
-Alternatively, it's possible to take an existing driver and edit the driver.lua and driver.xml to have the correct values.  If you do this, please also still submit the information to \<universal_minidriver_dev@control4.com\> so we can update the online driver database.
+Alternatively, it's possible to take an existing driver and edit the driver.lua and driver.xml to have the correct values.  If you do this, please also still submit the information to \<universal\_minidriver\_dev@control4.com\> so we can update the online driver database.
 
 
 Making a New Device Driver Compatible with Universal Minidrivers
@@ -103,4 +105,4 @@ This is the Unique ID used to key into the `SERVICE_IDS` table in the Minidriver
 
 
 ### Finishing Up
-In order to test that your driver supports Universal Minidrivers you will likely need to modify an existing Minidriver to support your new device as described above.  Once you are confident that the driver is working, but BEFORE releasing your driver, please contact ,universal_minidriver_dev@control4.com. to confirm the `SERVICE_IDS` table entry you have chosen is unique and descriptive. You will also need to provide a list of values for all services that your device supports so they can be included in the online database in time for your release.
+In order to test that your driver supports Universal Minidrivers you will likely need to modify an existing Minidriver to support your new device as described above.  Once you are confident that the driver is working, but BEFORE releasing your driver, please contact ,universal\_minidriver\_dev@control4.com. to confirm the `SERVICE_IDS` table entry you have chosen is unique and descriptive. You will also need to provide a list of values for all services that your device supports so they can be included in the online database in time for your release.
