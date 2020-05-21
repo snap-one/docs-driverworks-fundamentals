@@ -40,30 +40,34 @@ In the example above, the file names are surrounded by quotation marks. The requ
 
 As each driver contains its own environment the LUA\_PATH for each driver would be: 
 
-LUA\_PATH=/control4/drivers/lua/?.lua;/etc/c4i/test\_driver\_name/?.lua;
+`LUA\_PATH=/control4/drivers/lua/?.lua;/etc/c4i/test\_driver\_name/?.lua`
 
 The required Function can also navigate a path to the .lua file if it is defined. For example:
 
-require "/usr/local/lua/pool\_init.lua"
+`require "/usr/local/lua/pool\_init.lua"`
 
 When Director loads this .c4z file it will load all of the required .lua files into memory as one large .lua file and execute based on the contents of the assembled file. 
-lua files can be included in a .c4z, defined using the require Function and still be excluded when DriverPackager assembles the final .c4z. This is useful in the event that a .lua file was included for testing purposes but is not needed when the final .c4z is delivered. This is handled in the .c4zproj file. Specifically, with the exclude parameter. For example, say a test.lua file was included in our .c4z, but is not needed when the driver is delivered. The .c4zproj file would look like this:
 
-`<Items>`
-`<Item type="dir" name="www" recurse="true"/>`
-`<Item type="dir" name="common" c4zDir="Common"/>`
-`<Item type="dir" name="tests" exclude="true"/>`
-`<Item type="file" name="driver.xml"/>`
-`<Item type="file" name="squish.lua" />`
-`<Item type="file" name="foo1.lua" />`
-`<Item type="file" name="foo2.lua" />`
-`<Item type="file" name="library.lua" c4zDir="Common"/>`
-`<Item type="file" name="test.lua" exclude="true"/>`
-`</Items>`
+Lua files can be included in a .c4z, defined using the require Function and still be excluded when DriverPackager assembles the final .c4z. This is useful in the event that a .lua file was included for testing purposes but is not needed when the final .c4z is delivered. This is handled in the .c4zproj file. Specifically, with the exclude parameter. For example, say a test.lua file was included in our .c4z, but is not needed when the driver is delivered. The .c4zproj file would look like the example to the right:
+
+```xml
+<Items>
+ <Item type="dir" name="www" recurse="true"/>
+ <Item type="dir" name="common" c4zDir="Common"/>
+ <Item type="dir" name="tests" exclude="true"/>
+ <Item type="file" name="driver.xml"/>
+ <Item type="file" name="squish.lua" />
+ <Item type="file" name="foo1.lua" />
+ <Item type="file" name="foo2.lua" />
+ <Item type="file" name="library.lua" c4zDir="Common"/>
+ <Item type="file" name="test.lua" exclude="true"/>
+</Items>
+```
 
 Note the test.lua line with exclude set to True. This is will prevent this file from being packaged by DriverPackager.
 
-Next we can see another driver file. This contains all of the XML that was previously found between the \<devicedata\> tags of a .c4i file. These are elements such as \<creator\>, \<name\>, \<model\>, \<manufacturer\>, \<identify\_image\>, \<identify\_text\> and so on.
+Next we can see another driver file. This contains all of the XML that was previously found between the `\<devicedata\>` tags of a .c4i file. These are elements such as `\<creator\>, \<name\>, \<model\>, \<manufacturer\>, \<identify\_image\>, \<identify\_text\>` and so on.
+
 If we open the www directory we see the following:
 
 todo img 5
@@ -75,7 +79,9 @@ todo img 6
 The icons directory contains all of the images, organized by their resolutions, which are displayed during the use of the driver. The images in this particular driver are found under the root level of “www” placing them within the .c4z in this manner makes them accessible from via the controller’s webserver. For example, accessing an image can be accomplished by appending the .c4z icon path to a URL such as: 
 
 `http://urlstring/driver/drivername/icons/20x20/driverimage.png`
+
 or
+
 `http://127.0.0.1/driver/myc4zdriver/icons/20X20/driverimage.png`
 
 The other directory file found under this driver’s www directory is the languages folder. This folder contains all of the .po files used for localizing this driver.
