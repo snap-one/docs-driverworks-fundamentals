@@ -1,16 +1,18 @@
-##  Understanding XML in a NUMBER Type Conditional
+## Understanding XML in a NUMBER Type Conditional
 
 In this section, we’ll define a NUMBER type conditional called `NUMBER_LIGHT_LEVE`L. NUMBER type conditionals compare the current device value with an integer entered in ComposerPro programming by the integrator. This comparison can use the following operators: =, !=. Here is the example XML code used to define this type of conditional:
 
-`34.  <conditional>`
-`35.     <id>4</id>`
-`36.     <name>NUMBER_LIGHT_LEVEL</name>`
-`37.     <type>NUMBER</type>`
-`38.     <condition_statement>Light Level</condition_statement>`
-`39.     <description>NAME is LOGIC INTEGER</description>`
-`40.     <minimum>10</minimum>`
-`41.     <maximum>150</maximum>`
-`42.   </conditional>`
+```xml
+34.  <conditional>
+35.     <id>4</id>
+36.     <name>NUMBER_LIGHT_LEVEL</name>
+37.     <type>NUMBER</type>
+38.     <condition_statement>Light Level</condition_statement>
+39.     <description>NAME is LOGIC INTEGER</description>
+40.     <minimum>10</minimum>
+41.     <maximum>150</maximum>
+42.   </conditional>
+```
 
 Line 34: `<conditional></conditional>`
 XML tag for this unique conditional.
