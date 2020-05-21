@@ -4,13 +4,15 @@ In this section, we’ll define a Device type conditional called `DEVICE_SELECTI
 
 Here is the example XML code used to define this type of conditional:
 
-`77.  <conditional>`
-`78.    <id>8</id>`
-`79.    <name>DEVICE_SELECTION</name>`
-`80.    <type>DEVICE</type>`
-`81.    <condition_statement>[8-DEVICE] Device Selection is</condition_statement>`
-`82.    <description>[8] NAME Device Selection LOGIC DEVICE</description>`
-`83.  </conditional>`
+```xml
+77.  <conditional>
+78.    <id>8</id>
+79.    <name>DEVICE_SELECTION</name>
+80.    <type>DEVICE</type>
+81.    <condition_statement>[8-DEVICE] Device Selection is</condition_statement>
+82.    <description>[8] NAME Device Selection LOGIC DEVICE</description>
+83.  </conditional>
+```
 
 
 Line 77: `<conditional></conditional>`

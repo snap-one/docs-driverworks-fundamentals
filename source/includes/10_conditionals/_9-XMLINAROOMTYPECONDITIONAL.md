@@ -4,13 +4,15 @@ In this section, we’ll define a Room type conditional called `ROOM_SELECTION`.
 
 Here is the example XML code used to define this type of conditional:
 
-`70.  <conditional>`
-`71.    <id>7</id>`
-`72.    <name>ROOM_SELECTION</name>`
-`73.    <type>ROOM</type>`
-`74.    <condition_statement>[7-ROOM] Room Selection is</condition_statement>`
-`75.    <description>[7] NAME Room Selection LOGIC ROOM</description>`
-`76.  </conditional>`
+```xml
+70.  <conditional>
+71.    <id>7</id>
+72.    <name>ROOM_SELECTION</name>
+73.    <type>ROOM</type>
+74.    <condition_statement>[7-ROOM] Room Selection is</condition_statement>
+75.    <description>[7] NAME Room Selection LOGIC ROOM</description>
+76.  </conditional>
+```
 
 
 Line 70: `<conditional></conditional>`
