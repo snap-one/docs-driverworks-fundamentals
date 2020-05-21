@@ -36,13 +36,13 @@ This is the id for the connection. WARNING! This id number must be in the correc
 `<facing>0</facing>`
 This value indicates which side of the device this connection is on if it is a physical connection. Values are:
 
-Front - 0
-Back - 1
-Top - 2
-Bottom - 3
-Left - 4
-Right - 5
-Unknown - 6
+- Front - 0
+- Back - 1
+- Top - 2
+- Bottom - 3
+- Left - 4
+- Right - 5
+- Unknown - 6
 
 
 `<connectionname>TV</connectionname>`
@@ -51,13 +51,14 @@ The value indicates the name of this connection. This name is used by Composer t
 
 `<type>2</type>`
 The value indicates the type of this connection. Values are:
-Control - 1
-Proxy - 2
-Audio/Video - 3
-Network - 4
-Video - 5
-Audio - 6
-Room - 7
+
+- Control - 1
+- Proxy - 2
+- Audio/Video - 3
+- Network - 4
+- Video - 5
+- Audio - 6
+- Room - 7
 
 
 `<consumer>False</consumer>`
@@ -79,13 +80,15 @@ This is an optional tag to specify if this connection should be hidden or not. T
 `<classes>`
 Section of one or more classes for this connection:
 
-`<ports>`
-   `<port>`
-`    <number>8750</number>`
-   `</port>`
-`</ports>`
+```xml
+<ports>
+   <port>
+    <number>8750</number>
+  </port>
+</ports>
+```
 
-If the class is TCP or UDP then there may be a ports section as seen above. This includes the IP Port number for the network connection.
+If the class is TCP or UDP then there may be a ports section as seen to the right. This includes the IP Port number for the network connection.
 
 
 `<auto_connect>True</auto_connect>`
