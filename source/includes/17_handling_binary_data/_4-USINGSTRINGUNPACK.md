@@ -7,12 +7,16 @@ The following example uses string.pack to take a decimal input and create a hexa
 Input:
 
 `mybyte = 22`
+
 `mylong = 16909060`
+
 `msg = string.pack("b>l", mybyte, mylong)`
+
 `hexdump(msg)`
 
 Output:
 
 `00000000 16 01 02 03 04`
-`Note the use of the big endian modifier in the example above.`
+
+Note the use of the big endian modifier in the example above.
 

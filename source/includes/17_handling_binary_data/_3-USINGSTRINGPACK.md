@@ -7,7 +7,9 @@ The following example uses string.unpack to take a hexadecimal value and create 
 Input:
 
 `foo =   "\022\001\002\003\004"`
+
 `pos, mybyte, mylong = string.unpack(foo, "b>l")`
+
 `print("mybyte = " .. mybyte .. " mydword = " .. mylong)`
 
 Output:
