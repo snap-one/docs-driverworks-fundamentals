@@ -4,11 +4,13 @@
 **Determining the Status of a Log File**
 Using the sysman logging interface you can ascertain the status of a log file with the following:
 
-`/# sysman log director`
-`lighttpd syslog err enabled file /var/log/director.log`
-`OK`
+```js
+/# sysman log director
+lighttpd syslog err enabled file /var/log/director.log
+OK
+```
 
-From the example output above, we can see that the director logging utility is set to a level of ERROR and it is using a file appender with a directory destination of: /var/log.
+From the example to the right, we can see that the director logging utility is set to a level of ERROR and it is using a file appender with a directory destination of: /var/log.
 
 
 
@@ -17,15 +19,19 @@ Prior to 2.6.0, the only way to change a logging utility's level was to edit its
 
 The Sysman Logging utility allows you to assign log levels to a specific log through its interface.  For example, if we wanted to set the logging level for our director log to DEBUG, we would enter the following:  
 
-`/# sysman log director debug`
-` Logging for director set to debug`
-` OK`
+```js
+/# sysman log director debug
+ Logging for director set to debug
+ OK
+```
 
 We can also return the log to value its default value of ERROR with the following:
 
-`/# sysman log director default`
-`  Logging for director set to default`
-`  OK`
+```js
+/# sysman log director default
+  Logging for director set to default
+  OK
+```
 
 Note that Logs for programs are always enabled. It is not possible to disable logging for a program. You can only reset it to its default value. Supported Log Levels include:
 
@@ -43,6 +49,7 @@ By default, logging is enabled for all Control4 processes. The default log level
 
 
 **Targeting Log Directories**
+
 Prior to 2.6.0, the only way to change a logging utility’s destination directory was to edit its .config file and then restart the controller. 
 
 Beginning with OS 2.6.0, the use “Log Appenders” is supported. Log Appenders deliver a log file to a specific destination. The assignment of a Log Appender cannot be done through the sysman interface. It must be done through an SSL connection. There are three kinds of Log Appenders supported by the sysman logging interface:
@@ -55,15 +62,19 @@ Most Control4 programs use a simple file appender at the root logger. The sysman
 
 First, we’ll set the log level using the same syntax used previously:
 
-`/# sysman log director debug`
-`Logging for director set to debug`
-`OK`
+```js
+/# sysman log director debug
+Logging for director set to debug
+OK
+```
 
 Next, we’ll add a new destination directory for the director’s log file. To do this we need to add a file appender:
 
-/`# sysman log director add /tmp/my-director.log`
-`Added file appender director_0 to director for /tmp/my-director.log`
-`OK`
+```js
+/# sysman log director add /tmp/my-director.log
+Added file appender director_0 to director for /tmp/my-director.log
+OK
+```
 
 The code sample above adds a new file appender which will write the log file to: /tmp/my-director.log. 
 
@@ -71,9 +82,11 @@ Note that the confirmation message displayed by sysman also includes the appende
 
 The `director_0` name is also used when we need to delete the appender:
 
-`/# sysman log director remove director_0`
-`Removed appender director_0 from director`
-`OK`
+```js
+/# sysman log director remove director_0
+Removed appender director_0 from director
+OK
+```
 
 Any log file destination must begin with a slash "/" character as this creates the log4cplus file appender.
 
@@ -83,9 +96,11 @@ If the destination is a host name, for example, "director" (this is the host nam
 
 For Example:
 
-`/# sysman log director add /tmp/tmp_director.log`
-`Log file for director set to /tmp/tmp_light.log`
-`OK`
+```js
+/# sysman log director add /tmp/tmp_director.log
+Log file for director set to /tmp/tmp_light.log
+OK
+```
 
 
 
@@ -96,33 +111,35 @@ Configuration of log file size and rotation setting has not changed with new sys
 
 **Reviewing the Status of All Active Loggers**
 An overview of the status of all loggers can be displayed through the sysman command line by entering: sysman.log
-The resulting output is below:
+The resulting output is to the right:
 
-` Logger            Type      Level    Status      Appender         Destination `
-` audio3client      program   error    defaulted   rootAppender     /var/log/audio.log`
-` audio3client_nl   named     error    defaulted`
-` audio3server      program   error    defaulted   rootAppender     /var/log/audio.log`
-` audio3server_nl   named     error    defaulted`
-` audio_asp_nl      named     error    defaulted`
-` audio_buffer_nl   named     error    defaulted`
-` audio_utils_nl    named     error    defaulted`
-` audioclient       program   error    defaulted   rootAppender     /var/log/audio.log`
-` audioclient_nl    named     error    defaulted`
-` audioserver       program   error    defaulted   rootAppender     /var/log/audio.log`
-` audioserver_nl    named     error    defaulted`
-` c4lookup          program   error    defaulted   rootAppender     /var/log/c4lookup.log`
-` c4lookup_nl       named     error    defaulted`
-` c4net_nl          named     error    defaulted`
-` c4perfd           program   error    defaulted   rootAppender     /var/log/c4perfd.log`
-` c4perfd_nl        named     error    defaulted`
-` c4rmengined       program   error    defaulted   rootAppender     /var/log/c4rmengined.log`
-` c4rmengined_nl    named     error    defaulted`
-` c4server          program   error    defaulted   rootAppender     /var/log/c4server.log`
-` c4server_nl       named     error    defaulted`
-` cli_event         named     error    defaulted   cli_event        unknown`
-` daemon            syslog    debug    set         syslog           director`
-` default           program   error    set         rootAppender    `
-` director          program   error    set         rootAppender     /var/log/director.log`
+```js
+ Logger            Type      Level    Status      Appender         Destination 
+ audio3client      program   error    defaulted   rootAppender     /var/log/audio.log
+ audio3client_nl   named     error    defaulted
+ audio3server      program   error    defaulted   rootAppender     /var/log/audio.log
+ audio3server_nl   named     error    defaulted
+ audio_asp_nl      named     error    defaulted
+ audio_buffer_nl   named     error    defaulted
+ audio_utils_nl    named     error    defaulted
+ audioclient       program   error    defaulted   rootAppender     /var/log/audio.log
+ audioclient_nl    named     error    defaulted
+ audioserver       program   error    defaulted   rootAppender     /var/log/audio.log
+ audioserver_nl    named     error    defaulted
+ c4lookup          program   error    defaulted   rootAppender     /var/log/c4lookup.log
+ c4lookup_nl       named     error    defaulted
+ c4net_nl          named     error    defaulted
+ c4perfd           program   error    defaulted   rootAppender     /var/log/c4perfd.log
+ c4perfd_nl        named     error    defaulted
+ c4rmengined       program   error    defaulted   rootAppender     /var/log/c4rmengined.log
+ c4rmengined_nl    named     error    defaulted
+ c4server          program   error    defaulted   rootAppender     /var/log/c4server.log
+ c4server_nl       named     error    defaulted
+ cli_event         named     error    defaulted   cli_event        unknown
+ daemon            syslog    debug    set         syslog           director
+ default           program   error    set         rootAppender    
+ director          program   error    set         rootAppender     /var/log/director.log
+```
 
 
 - The first column titled “Logger” shows the program or named logger.

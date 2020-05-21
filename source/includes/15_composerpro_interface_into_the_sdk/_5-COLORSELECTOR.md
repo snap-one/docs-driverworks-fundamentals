@@ -2,11 +2,13 @@
 
 The ability to assign a color to interface elements through a device driver is possible with the use of a DriverWorks Property Type called `COLOR_SELECTOR`. This property has most often been used for backlight purposes on thermostats or LED lights on Thermostat drivers but it’s applicable to any driver supporting color based interfaces. A prototype of the property looks like this:
 
-`<property>`
-`  <name>Test Color Selector</name>`
-`  <type>COLOR_SELECTOR</type>`
-`  <default>255,0,0</default>`
-`</property>`
+```xml
+<property>
+  <name>Test Color Selector</name>
+  <type>COLOR_SELECTOR</type>
+  <default>255,0,0</default>
+</property>
+```
 
 The property contains a comma delimited RGB value which the driver receives through the OnPropertyChanged event. OnPropertyChanged is invoked when the user defines a color within the Color Selector and hits the Set button from within Composer Pro:
 
