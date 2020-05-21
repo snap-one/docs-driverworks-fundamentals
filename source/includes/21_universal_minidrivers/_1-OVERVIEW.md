@@ -106,3 +106,6 @@ This is the Unique ID used to key into the `SERVICE_IDS` table in the Minidriver
 
 ### Finishing Up
 In order to test that your driver supports Universal Minidrivers you will likely need to modify an existing Minidriver to support your new device as described above.  Once you are confident that the driver is working, but BEFORE releasing your driver, please contact ,universal\_minidriver\_dev@control4.com. to confirm the `SERVICE_IDS` table entry you have chosen is unique and descriptive. You will also need to provide a list of values for all services that your device supports so they can be included in the online database in time for your release.
+
+
+**For sample drivers please see the Samples/Universal Minidrivers area of the DriverWorks SDK.**
