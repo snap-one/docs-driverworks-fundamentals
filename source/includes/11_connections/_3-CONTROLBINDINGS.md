@@ -1,22 +1,24 @@
 ## Control Bindings
 
-The serial port’s communication parameters are defined in the \<config\> or the \<capabilities\> section of the driver using:
+The serial port’s communication parameters are defined in the \<config\> or the \<capabilities\> section of the driver using as shown to the right:
 
-	<connection>
-	      <id>1</id>
-	      <facing>6</facing>
-	      <connectionname>Serial RS-232</connectionname>
-	      <type>1</type>
-	      <consumer>True</consumer>
-	      <audiosource>False</audiosource>
-	      <videosource>False</videosource>
-	      <linelevel>False</linelevel>
-	      <classes>
-	        <class>
-	          <classname>RS_232</classname>
-	        </class>
-	      </classes>
-	</connection>
+```xml
+<connection>
+      <id>1</id>
+      <facing>6</facing>
+      <connectionname>Serial RS-232</connectionname>
+      <type>1</type>
+      <consumer>True</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>RS_232</classname>
+        </class>
+      </classes>
+</connection>
+```
 
 The serial port’s communication parameters are defined in the \<config\> or the \<capabilities\> section of the .c4z using:
 
@@ -32,18 +34,21 @@ The statement above defines the following communication parameters:
 
 
 The serial port binding is also a control binding
-	<connection>
-	      <id>1</id>
-	      <facing>6</facing>
-	      <connectionname>Serial RS-232</connectionname>
-	      <type>1</type>
-	      <consumer>True</consumer>
-	      <audiosource>False</audiosource>
-	      <videosource>False</videosource>
-	      <linelevel>False</linelevel>
-	      <classes>
-	        <class>
-	          <classname>RS_232</classname>
-	        </class>
-	      </classes>
-	</connection>
+
+```xml
+<connection>
+      <id>1</id>
+      <facing>6</facing>
+      <connectionname>Serial RS-232</connectionname>
+      <type>1</type>
+      <consumer>True</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>RS_232</classname>
+        </class>
+      </classes>
+</connection>
+```
