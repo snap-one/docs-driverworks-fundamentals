@@ -18,6 +18,7 @@ Beginning with OS 3, Director looks for a LuaJIT XML attribute within the driver
 In order for your driver to be loaded using the LuaJIT compiler it will be necessary to modify your driver.xml to include the LuaJIT XML attribute in the driver's XML code. This attribute is added to the driver's script XML element. A value of "1" specifies that the driver should be loaded with LuaJIT. A value of "0" (or lack of the attribute altogether) will result in PUC Lua loading the driver. For example:
 
 Driver loads using LuaJIT: `<script encryption="2" file="driver.lua" jit="1"/>`
+
 Driver loads using PUC Lua: `<script encryption="2" file="driver.lua" jit="0"/>`
 
 After your driver has been modified to include the LuaJIT XML attribute and it contains a value of "1" a restart of Director is required. Director will then attempt to load the driver using LuaJIT. If LuaJIT indicates that syntax errors occurred during the load process Director will destroy the driver instance and then reload the driver using the PUC Lua compiler. 
@@ -63,18 +64,20 @@ In the Lua 5.1 language standard the pseudo-argument arg is no longer supported.
 | `arg.n` | `select("#", …)`|
 | `unpack.(arg)` | `unpack({...})`|
 
-Replacements for individual arg syntax lines will resolve this issue. However, it may be more effective to convert the vararg ... into a local variable named 'arg' at the beginning of the function where the arg parameter is used:
+Replacements for individual arg syntax lines will resolve this issue. However, it may be more effective to convert the vararg into a local variable named 'arg' at the beginning of the function where the arg parameter is used. See the example to the right:
 
-`function test(...)`
- ` local arg = {...}`
+```xml
+function test(...)
+  local arg = {...}
 
- ` -- Now all the arg-based code will work properly again...`
- ` print(#arg)`
- ` for i = 1, #arg do`
-    `print(arg[i])`
- ` end`
-    `print(unpack(arg))`
-`end`
+  -- Now all the arg-based code will work properly again...
+  print(#arg)
+  for i = 1, #arg do
+    print(arg[i])
+  end
+    print(unpack(arg))
+end
+```
 
 
 ### Invalid Escape Sequences
@@ -85,21 +88,23 @@ The following table shows two examples of 5.0 escape sequences and how to fix th
 | 5.0 Syntax | 5.1 Syntax |
 | --- | --- |
 | `string.gsub(s, '\&quot\;', '"')` | `string.gsub (s, '%&quot%;' , '"') string.gsub (s, '&quot;' , '"')` |
-| `string.match(C4:GetVersionInfo().version, '(%d+)\.(%d+)\.(%d+)\.(%d+)')` | `string.match(C4:GetVersionInfo().version, '(%d+)%.(%d+)%.(%d+)%.(%d+)')` |
+| `string.match(C4:GetVersionInfo().version, '(%d+)\.(%d+)\.(%d+)\.(%d+)')`  | `string.match(C4:GetVersionInfo().version, '(%d+)%.(%d+)%.(%d+)%.(%d+)')` |
 
 _The Lua 5.1 Language Manual details its incompatibilities with previous versions. For more information see Section #7 of the manual here: http://www.lua.org/manual/5.1/manual.html_
 
 
 ### Order Dependency in Lua Tables
 
-As best practice, Control4 recommends against the use of Lua Tables that depend on consistency with regards to the ordering of pairs. It is important to understand that LuaJIT does not iterate through a table of functions in the same way that PUC Lua does. For example, consider a table of functions that is iterated through using OnDriverInit() with the following code:
+As best practice, Control4 recommends against the use of Lua Tables that depend on consistency with regard to the ordering of pairs. It is important to understand that LuaJIT does not iterate through a table of functions in the same way that PUC Lua does. For example, consider a table of functions that is iterated through using OnDriverInit() with the code to the right:
 
-`for k,v in pairs(PROTOCOL_DECLARATIONS) do`
-`if (PROTOCOL_DECLARATIONS[k] ~= nil and type(PROTOCOL_DECLARATIONS[k]) == "function") then`
-`print(k,v)`             
-`PROTOCOL_DECLARATIONS[k]()`
-`end`
-`end`
+```xml
+for k,v in pairs(PROTOCOL_DECLARATIONS) do
+if (PROTOCOL_DECLARATIONS[k] ~= nil and type(PROTOCOL_DECLARATIONS[k]) == "function") then
+print(k,v)             
+PROTOCOL_DECLARATIONS[k]()
+end
+end
+```
 
 There is no guarantee that that order of iteration through this table will be the same in LuaPUC and LuaJIT. A dependency on order in the table will likely result in a run-time Lua error. 
 
@@ -108,6 +113,7 @@ There is no guarantee that that order of iteration through this table will be th
 When Director attempts to load a driver it reports various errors and conditions to both the director.log and the `driver_debug.log` or: 
 
 `/var/log/debug/director.log`
+
 `/mtn/internal/log/driver_debug.log`
 
 Note that the director.log rotates out its content frequently so driver errors are quickly lost. However, `driver_debug.log` should have very little content and will likely be easier to inspect.   `driver_debug.log` resides in a different directory as it is not cleared on controller reboots. By default, `driver_debug_nl` is set at Error level logging and won’t capture debug log statements. This can be changed to capture debug level for development testing with the following command: sysman log `driver_debug_nl` debug
@@ -122,9 +128,11 @@ Condition : A Lua driver loaded successfully with LuaJIT
 Sample Entry: `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successful with LuaJIT [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
+
 Condition : A Lua driver loaded successful with LuaJIT, but there are runtime errors: 
 
 Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with LuaJIT but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+
 
 
 Condition : A Lua driver failed to load with LuaJIT due to syntax errors. Director will proceed to reload the driver with PUC Lua:
@@ -132,9 +140,11 @@ Condition : A Lua driver failed to load with LuaJIT due to syntax errors. Direct
 Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver failed to load with LuaJIT; retrying with PUC Lua  [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
+
 Condition : A Lua driver loaded successfully with PUC Lua:
 
 Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successfully with PUC Lua [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
+
 
 
 Condition : A Lua driver loaded successfully with PUC Lua, but there are runtime errors:
