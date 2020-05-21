@@ -2,15 +2,17 @@
 
 In this section, we’ll define a Boolean type conditional called `BOOL_LIGHT`. BOOLEAN type conditionals ask a True/False question based on True/False text provided by the driver conditional configuration. Programming is completed by the integrator responding to the True/False question by making response selections in the programming window. Here is the example XML code used to define this type of conditional:
 
-`16.   <conditional>`
-`17.     <id>2</id>`
-`18.     <name>BOOL_LIGHT</name>`
-`19.     <type>BOOL</type>`
-`20.     <condition_statement>Light is</condition_statement>`
-`21.     <description>NAME Light is STRING</description>`
-`22.     <true_text>On</true_text>`
-`23.     <false_text>Off</false_text>`
-`24.   </conditional>`
+```xml
+16.   <conditional>
+17.     <id>2</id>
+18.     <name>BOOL_LIGHT</name>
+19.     <type>BOOL</type>
+20.     <condition_statement>Light is</condition_statement>
+21.     <description>NAME Light is STRING</description>
+22.     <true_text>On</true_text>
+23.     <false_text>Off</false_text>
+24.   </conditional>
+```
 
 Line 16: `<conditional></conditional>`
 XML tag for this unique conditional.
