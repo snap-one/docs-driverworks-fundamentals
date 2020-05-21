@@ -1,16 +1,18 @@
-##  Understanding XML in a STRING Type Conditional
+## Understanding XML in a STRING Type Conditional
 
 In this section, we’ll define a STRING type conditional called `STRING_LIGHT`. STRING type conditionals provide values (in string format) which can be selected for use in programming. Here is the example XML code used to define this type of conditional:
 
 
-`43.   <conditional>`
-`44.     <id>5</id>`
-`45.     <name>STRING_LIGHT</name>`
-`46.     <type>STRING</type>`
-`47.     <condition_statement>Light Level</condition_statement>`
-`48.     <description>NAME Level is LOGIC STRING</description>`
-`49.   </conditional>`
-`50.   <conditional>`
+```xml
+43.   <conditional>`
+44.     <id>5</id>`
+45.     <name>STRING_LIGHT</name>`
+46.     <type>STRING</type>`
+47.     <condition_statement>Light Level</condition_statement>`
+48.     <description>NAME Level is LOGIC STRING</description>`
+49.   </conditional>`
+50.   <conditional>`
+```
 
 
 Line 43: `<conditional></conditional>`
