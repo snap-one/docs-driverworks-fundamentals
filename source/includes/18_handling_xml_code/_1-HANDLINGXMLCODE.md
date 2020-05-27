@@ -2,9 +2,9 @@
 
 The included Lua method will escape XML code to the Lua driver. Any time string data is put into XML this method must be called.
 
-```js
-`''int LuaC4Object::XmlEscapeString(lua_State *L)
-``{
+```lua
+int LuaC4Object::XmlEscapeString(lua_State *L)
+ {
        LuaParamType params[] ``=
        ``{
               {"string", "stringToEscape" }``,
