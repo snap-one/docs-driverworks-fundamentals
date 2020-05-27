@@ -58,9 +58,9 @@ Beginning with OS 2.6.0, the use “Log Appenders” is supported. Log Appenders
 - file appenders - These write log messages to a file. 
 - socket appenders - These send log messages to a specific host and port number.
 
-Most Control4 programs use a simple file appender at the root logger. The sysman log interface allows users to add additional appenders, as well as remove appenders. The following example shows these actions using the director log:
+Most Control4 programs use a simple file appender at the root logger. The sysman log interface allows users to add additional appenders, as well as remove appenders. The following examples to the right show these actions using the director log.
 
-First, we’ll set the log level using the same syntax used previously:
+First, we’ll set the log level of debug using the same syntax used previously.
 
 ```js
 /# sysman log director debug
@@ -68,7 +68,7 @@ Logging for director set to debug
 OK
 ```
 
-Next, we’ll add a new destination directory for the director’s log file. To do this we need to add a file appender:
+Next, we’ll add a new destination directory for the director’s log file (my-director.log). To do this we need to add a file appender.
 
 ```js
 /# sysman log director add /tmp/my-director.log
@@ -76,11 +76,11 @@ Added file appender director_0 to director for /tmp/my-director.log
 OK
 ```
 
-The code sample above adds a new file appender which will write the log file to: /tmp/my-director.log. 
+This code sample adds a new file appender which will write the log file to: /tmp/my-director.log. 
 
-Note that the confirmation message displayed by sysman also includes the appender name or `director_0` in the example above.
+Note that the confirmation message displayed by sysman also includes the appender name or `director_0` in the example.
 
-The `director_0` name is also used when we need to delete the appender:
+The `director_0` name is also used when we need to remove the appender.
 
 ```js
 /# sysman log director remove director_0
@@ -92,9 +92,8 @@ Any log file destination must begin with a slash "/" character as this creates t
 
 If the destination is a host:port number, for example "192.168.0.100:5400", sysman will create a socket appender and configure it for the given host and port.
 
-If the destination is a host name, for example, "director" (this is the host name of the controller running the director process), sysman will create a syslog appender and send log messages there. Note that the target syslog process must be configured to receive these messages and route them appropriately.
+If the destination is a host name, for example, "director" (this is the host name of the controller running the director process), sysman will create a syslog appender and send log messages there. Note that the target syslog process must be configured to receive these messages and route them appropriately. See the fourth example to the right.
 
-For Example:
 
 ```js
 /# sysman log director add /tmp/tmp_director.log
