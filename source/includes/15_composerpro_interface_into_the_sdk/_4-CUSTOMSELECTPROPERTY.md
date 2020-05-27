@@ -54,7 +54,7 @@ end
 
 You can also create a browsing experience with folders. Note, that the function can return an arbitrary string value as second return value. If this occurs a “Back” link with that value will be displayed. The first example to the right also allows selecting the “Most Popular” folder. By default folders are not selectable.
 
-```xml
+```lua
 function SelectChannelParamSelect(currentValue) 
  local back = nil
  local list = {}
@@ -98,7 +98,7 @@ You can also defer returning the list. This may be useful if you are waiting for
 In order to defer returning data, you would not return anything from the function, but then when you have the data, call the provided function. Note that if you fail to call this provided function, and also don’t return anything from your function, then Composer will display an error message. Also, you may only call this function once. See the second example to the right.
 
 
-```xml
+```lua
 g_tickets = {}
 
 function ReceivedAsync(ticketId, strData, responseCode, tHeaders, strError) 
