@@ -2,7 +2,7 @@
 
 
 **Determining the Status of a Log File**
-Using the sysman logging interface you can ascertain the status of a log file with the following:
+Using the sysman logging interface you can ascertain the status of a log file using the first example to the right:
 
 ```js
 /# sysman log director
@@ -10,14 +10,14 @@ lighttpd syslog err enabled file /var/log/director.log
 OK
 ```
 
-From the example to the right, we can see that the director logging utility is set to a level of ERROR and it is using a file appender with a directory destination of: /var/log.
+In this example, we can see that the director logging utility is set to a level of ERROR and it is using a file appender with a directory destination of: /var/log.
 
 
 
 **Assigning Log Levels**
 Prior to 2.6.0, the only way to change a logging utility's level was to edit its .config file and then restart the controller. 
 
-The Sysman Logging utility allows you to assign log levels to a specific log through its interface.  For example, if we wanted to set the logging level for our director log to DEBUG, we would enter the following:  
+The Sysman Logging utility allows you to assign log levels to a specific log through its interface.  For example, if we wanted to set the logging level for our director log to DEBUG, we would enter the code from the second example:  
 
 ```js
 /# sysman log director debug
@@ -25,7 +25,7 @@ The Sysman Logging utility allows you to assign log levels to a specific log thr
  OK
 ```
 
-We can also return the log to value its default value of ERROR with the following:
+In the third example, we can also return the log to value its default value of ERROR.
 
 ```js
 /# sysman log director default
