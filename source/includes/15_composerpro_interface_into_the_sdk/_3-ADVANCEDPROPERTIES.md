@@ -1,7 +1,7 @@
 ## Advanced Properties
 
 **LABEL**
-Prior to OS Release 2.10.0, the only way to create a separator or section between properties in the driver was to use a STRING type property and mark it read only. Now, with the inclusion of the following XML, a much cleaner header can be created:
+Prior to OS Release 2.10.0, the only way to create a separator or section between properties in the driver was to use a STRING type property and mark it read only. Now, with the inclusion of the XML to the right, a much cleaner header can be created:
 
 ```xml
 <config>
@@ -26,7 +26,7 @@ Note that this PropertyType could also be used to make a blank space by omitting
 
 **Scroll**
 
-Prior to OS Release 2.10.0, the only way to set a integer value on a scale was to have a `RANGED_INTEGER` type property. Now, with the inclusion of the following XML, a more graphical view can be provided:
+Prior to OS Release 2.10.0, the only way to set an integer value on a scale was to have a `RANGED_INTEGER` type property. Now, with the inclusion of the XML to the right, a more graphical view can be provided:
 
 ```xml
 <config>
@@ -49,7 +49,7 @@ todo img 2
 
 **TRACK**
 
-A second option is available for setting an integer value which is similar to Scroll. Track is more of a discrete slider control. The XML for Track is:
+A second option is available for setting an integer value which is similar to Scroll. Track is more of a discrete slider control. The XML for Track is also to the right:
 
 ```xml
 <config>
