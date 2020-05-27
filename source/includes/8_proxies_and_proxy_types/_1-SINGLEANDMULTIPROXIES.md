@@ -12,7 +12,7 @@ or
 
 If you decide to not use an existing proxy and create one; you should specify the proxy with the same name as the .c4z filename.  Your driver will not show up for selection within Composer if your proxy name is not a valid proxy type for the Control4 system and doesn’t match your .c4i filename.
 
-Alternatively, even for a single proxy driver, you may choose to use the more complete declaration:
+Alternatively, even for a single proxy driver, you may choose to use the more complete declaration as in the first two examples to the right:
 
 ```xml
 <proxies>
@@ -20,7 +20,7 @@ Alternatively, even for a single proxy driver, you may choose to use the more co
 </proxies>
 ```
 
-or
+
 
 ```xml
 <proxies>
@@ -28,7 +28,7 @@ or
 </proxies>
 ```
 
-This is also the format used with multi-proxy devices.  Here are some examples:
+This is also the format used with multi-proxy devices as seen in the remaining examples:
 
 ```xml
 <proxies>
@@ -38,7 +38,6 @@ This is also the format used with multi-proxy devices.  Here are some examples:
 </proxies>
 ```
 
-or
 
 ```xml
 <proxies>
