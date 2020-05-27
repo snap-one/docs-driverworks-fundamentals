@@ -6,28 +6,32 @@ With regard to handling Binary Data in OS 3, Lua JIT uses a bit Library called b
 
 While this change does not impact computations, printing to ComposerPro's Lua Output Window can be impacted if using PUC LUA's bitlib and bitwise operators for data that exceeds more than single byte operations. 
 
-For example, here are two outputs using bitlib:
+For example, to the right two outputs using bitlib:
 
 2.10.X use of bitlib:
 
-	a = bit.lshift(0xc0,24)
-	print(a)
-	3221225472
+```js
+a = bit.lshift(0xc0,24)
+print(a)
+3221225472
+```
 
 
 OS 3 use of bitlib:﻿
 
-	OS3
-	print(bit.lshift(0xc0,24))
-	-1073741824
-	print(bit.band(bit.lshift(0xc0,24),0xffffffff))
-	-1073741824
-	a = bit.lshift(0xc0,24)
-	if a<0 then
-	a=bit.band(a,0x7fffffff) + 0x80000000
-	end
-	print(a)
-	3221225472
+```js
+OS3
+print(bit.lshift(0xc0,24))
+-1073741824
+print(bit.band(bit.lshift(0xc0,24),0xffffffff))
+-1073741824
+a = bit.lshift(0xc0,24)
+if a<0 then
+a=bit.band(a,0x7fffffff) + 0x80000000
+end
+print(a)
+3221225472
+```
 
 If PUC LUA's bitlib is used, Control4 does not recommend its use for anything more than single byte operations.
 
