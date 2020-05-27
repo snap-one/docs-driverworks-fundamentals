@@ -25,17 +25,12 @@ A non-binding connection is created in the `<connection`\> section of the the dr
  <consumer>False</consumer>
  <audiosource>True</audiosource>
  <videosource>False</videosource>
-
-
  <hidden>True</hidden>
  <nobindingkey>Connection Key</nobindingkey>
-
-
  </classes>
   <class>
    <classname>SOME_CLASS</classname>
   </class>
-
  </classes>
 </connection>
 ```
@@ -50,10 +45,8 @@ Next is the Consumer-side example for the non-binding connection. Note the use o
  <consumer>True</consumer>
  <audiosource>False</audiosource>
  <videosource>False</videosource>
-
  <hidden>True</hidden>
  <nobindingkey>Connection Key</nobindingkey>
-
  </classes>
   <class>
    <classname>SOME_CLASS</classname>
