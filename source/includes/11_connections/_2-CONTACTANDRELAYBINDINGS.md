@@ -1,6 +1,6 @@
 ## Contact and Relay Bindings
 
- Contact and Relay bindings are also control bindings. To the right are some examples:
+ Contact and Relay bindings are also control bindings. To the right are two examples:
 
 ```xml
  <connection>
