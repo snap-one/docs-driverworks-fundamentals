@@ -15,7 +15,7 @@ A variable is a representation of information about the controlled device, such 
 
 
 **Conditionals**
-The use of conditionals in the custom driver is linked with the device variables. It is an ”if” statement. An ‘if” statement asks a true/false question to the device. Examples of conditionals include:
+The use of conditionals in the custom driver is linked with the device variables. It is an ”if” statement. An “if” statement asks a true/false question to the device. Examples of conditionals include:
 
 - If door is open
 - If after 5:00 PM
