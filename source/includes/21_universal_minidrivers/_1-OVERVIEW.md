@@ -17,7 +17,7 @@ The driver.lua code defines two variables:
 
 `APP_NAME` This is the full name of the service.
 
-`SERVICE_IDS` This is a table which contains keys of the unique device type code used by a device driver (or class of device drivers) mapped to a code that defines how to launch this service on that device.  For example (from the Amazon Video minidriver):
+`SERVICE_IDS` This is a table which contains keys of the unique device type code used by a device driver (or class of device drivers) mapped to a code that defines how to launch this service on that device.  An example from the Amazon Video minidriver is to the right.
 
 ```lua
 SERVICE_IDS = {
