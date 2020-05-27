@@ -2,7 +2,7 @@
 
 Commands come from the Device Proxy. For example, a AV Switch might have the following section in the XML of the .c4z file:
 
-```xml
+```lua
 <commands>
     >        <command>
     >          <name>MAIN_ZONE_ON</name>
