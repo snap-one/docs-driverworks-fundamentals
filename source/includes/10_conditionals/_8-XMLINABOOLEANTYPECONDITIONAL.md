@@ -33,15 +33,19 @@ Line 21: `<description></description>`
 The description element needs to contain the NAME macro. NAME is a key value that is equivalent to your driver’s unique name. Every conditional needs to include NAME. ComposerPro treats the NAME macro in your conditional XML in a way that replaces it with your driver’s unique name. The unique name is formatted by the name of the room where the driver resides followed by “-\>”, followed by the name of the driver as it is named in the project. For example, consider that the name of our example driver is “Living Room Lamp” and it is in the Living Room. Based on this, “Living Room-\>Living Room Lamp” will replace NAME when your conditional programming description is displayed in the conditionals window and the script actions area of ComposerPro. Using the example above, ComposerPro can display the description XML element as: “If Living Room-\>Living Room Lamp is Off” where the Off value was selected by the integrator. 
 
 Line 22: \<`true_text></true_text>`
-Line 23: \<`false_text></false_text>`
-Note the use of the `<*_text>` XML elements in this example. The values entered here will be the responses to the True/False questions asked by the conditional. Note that these values can be any string value. For example, here is another BOOLEAN conditional taken from the code sample above. It is called `BOOL_LIGHT_ON` and asks the question “If Living Room-\>Living Room Lamp is On”. The integrator can then select either of the text XML elements of “True” and “False” to complete programming.
 
-`25.   <conditional>`
-`26.     <id>3</id>`
-`27.     <name>BOOL_LIGHT_ON</name>`
-`28.     <type>BOOL</type>`
-`29.     <condition_statement>Light is On</condition_statement>`
-`30.     <description>NAME Light is On is STRING</description>`
-`31.     <true_text>True</true_text>`
-`32.     <false_text>False</false_text>`
-`33.   </conditional>`
+Line 23: \<`false_text></false_text>`
+
+Note the use of the `<*_text>` XML elements in this example. The values entered here will be the responses to the True/False questions asked by the conditional. Note that these values can be any string value. For example, to the right is another BOOLEAN conditional taken from the code sample above. It is called `BOOL_LIGHT_ON` and asks the question “If Living Room-\>Living Room Lamp is On”. The integrator can then select either of the text XML elements of “True” and “False” to complete programming.
+
+```xml
+25.   <conditional>
+26.     <id>3</id>
+27.     <name>BOOL_LIGHT_ON</name>
+28.     <type>BOOL</type>
+29.     <condition_statement>Light is On</condition_statement>
+30.     <description>NAME Light is On is STRING</description>
+31.     <true_text>True</true_text>
+32.     <false_text>False</false_text>
+33.   </conditional>
+```
