@@ -66,7 +66,7 @@ In the Lua 5.1 language standard the pseudo-argument arg is no longer supported.
 
 Replacements for individual arg syntax lines will resolve this issue. However, it may be more effective to convert the vararg into a local variable named 'arg' at the beginning of the function where the arg parameter is used. See the example to the right:
 
-```xml
+```lua
 function test(...)
   local arg = {...}
 
