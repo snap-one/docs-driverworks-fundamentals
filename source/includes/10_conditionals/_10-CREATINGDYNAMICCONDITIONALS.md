@@ -33,80 +33,79 @@ Dynamic conditionals support all the same types that are supported with static c
 The same conditional’s required table information to enable it to be created dynamically is shown to the right:
 
 ```lua
-`tConditionals["10"] = {} `
-`tConditionals["10"]["name"] = "SIMPLE_LIGHT_ON"`
-`tConditionals["10"]["type"] = "SIMPLE"`
-`tConditionals["10"]["condition_statement"] = "The Light is on"`
-`tConditionals["10"]["description"] = "NAME is On"`
+tConditionals["10"] = {} 
+tConditionals["10"]["name"] = "SIMPLE_LIGHT_ON"
+tConditionals["10"]["type"] = "SIMPLE"
+ttConditionals["10"]["description"] = "NAME is On"
 ```
 
 
 ```lua
-`''function GetConditionals()
-    -- starting conditionals with ID 1``0
-    local tConditionals = {``}``
+function GetConditionals()
+    -- starting conditionals with ID 10
+    local tConditionals = {}
 
     tConditionals["10"] = {}`` 
-    tConditionals["10"]["name"] = "SIMPLE_LIGHT_ON``"
+    tConditionals["10"]["name"] = "SIMPLE_LIGHT_ON"
     tConditionals["10"]["type"] = "SIMPLE``"
-    tConditionals["10"]["condition_statement"] = "Light is on``"
-    tConditionals["10"]["description"] = "NAME is On``"``
+    tConditionals["10"]["condition_statement"] = "Light is on"
+    tConditionals["10"]["description"] = "NAME is On"
 
-    tConditionals["11"] = {}`` 
-    tConditionals["11"]["name"] = "SIMPLE_LIGHT_OFF``"
-    tConditionals["11"]["type"] = "SIMPLE``"
-    tConditionals["11"]["condition_statement"] = "Light is off``"
-    tConditionals["11"]["description"] = "[11] NAME is Off``"``
+    tConditionals["11"] = {} 
+    tConditionals["11"]["name"] = "SIMPLE_LIGHT_OFF"
+    tConditionals["11"]["type"] = "SIMPLE"
+    tConditionals["11"]["condition_statement"] = "Light is off"
+    tConditionals["11"]["description"] = "[11] NAME is Off"
 
-    tConditionals["12"] = {}`` 
-    tConditionals["12"]["name"] = "BOOL_LIGHT``"
-    tConditionals["12"]["type"] = "BOOL``"
-    tConditionals["12"]["condition_statement"] = "Light is``"
-    tConditionals["12"]["description"] = "NAME Light is STRING``"
-    tConditionals["12"]["true_text"] = "On``"
-    tConditionals["12"]["false_text"] = "Off``"``
+    tConditionals["12"] = {} 
+    tConditionals["12"]["name"] = "BOOL_LIGHT"
+    tConditionals["12"]["type"] = "BOOL"
+    tConditionals["12"]["condition_statement"] = "Light is"
+    tConditionals["12"]["description"] = "NAME Light is STRING"
+    tConditionals["12"]["true_text"] = "On"
+    tConditionals["12"]["false_text"] = "Off"
 
-    tConditionals["13"] = {}`` 
-    tConditionals["13"]["name"] = "BOOL_LIGHT_ON``"
-    tConditionals["13"]["type"] = "BOOL``"
-    tConditionals["13"]["condition_statement"] = "Light is On``"
-    tConditionals["13"]["description"] = "[13] NAME Light is On is STRING``"
-    tConditionals["13"]["true_text"] = "True``"
-    tConditionals["13"]["false_text"] = "False``"``
+    tConditionals["13"] = {} 
+    tConditionals["13"]["name"] = "BOOL_LIGHT_ON"
+    tConditionals["13"]["type"] = "BOOL"
+    tConditionals["13"]["condition_statement"] = "Light is On"
+    tConditionals["13"]["description"] = "[13] NAME Light is On is STRING"
+    tConditionals["13"]["true_text"] = "True"
+    tConditionals["13"]["false_text"] = "False"
 
-    tConditionals["14"] = {}`` 
-    tConditionals["14"]["name"] = "NUMBER_LIGHT_LEVEL``"
-    tConditionals["14"]["type"] = "NUMBER``"
-    tConditionals["14"]["condition_statement"] = "Light Level``"
-    tConditionals["14"]["description"] = "NAME is LOGIC INTEGER``"
-    tConditionals["14"]["minimum"] = "10``"
-    tConditionals["14"]["maximum"] = "150``"``
+    tConditionals["14"] = {} 
+    tConditionals["14"]["name"] = "NUMBER_LIGHT_LEVEL"
+    tConditionals["14"]["type"] = "NUMBER"
+    tConditionals["14"]["condition_statement"] = "Light Level"
+    tConditionals["14"]["description"] = "NAME is LOGIC INTEGER"
+    tConditionals["14"]["minimum"] = "10"
+    tConditionals["14"]["maximum"] = "150"
 
-    tConditionals["15"] = {}`` 
-    tConditionals["15"]["name"] = "STRING_LIGHT``"
-    tConditionals["15"]["type"] = "STRING``"
-    tConditionals["15"]["condition_statement"] = "Light Level``"
-    tConditionals["15"]["description"] = "NAME Level is LOGIC STRING``"``
+    tConditionals["15"] = {} 
+    tConditionals["15"]["name"] = "STRING_LIGHT"
+    tConditionals["15"]["type"] = "STRING"
+    tConditionals["15"]["condition_statement"] = "Light Level"
+    tConditionals["15"]["description"] = "NAME Level is LOGIC STRING"
 
-    tConditionals["16"] = {}`` 
-    tConditionals["16"]["name"] = "LIST_LIGHT_LEVEL``"
-    tConditionals["16"]["type"] = "LIST``"
-    tConditionals["16"]["condition_statement"] = "Light Level``"
-    tConditionals["16"]["description"] = "NAME is LOGIC STRING``"
-    tConditionals["16"]["list_items"] = "10%,20%,30%,40%,50%,60%,70%,80%,90%,100%"`` ``
+    tConditionals["16"] = {} 
+    tConditionals["16"]["name"] = "LIST_LIGHT_LEVEL"
+    tConditionals["16"]["type"] = "LIST"
+    tConditionals["16"]["condition_statement"] = "Light Level"
+    tConditionals["16"]["description"] = "NAME is LOGIC STRING"
+    tConditionals["16"]["list_items"] = "10%,20%,30%,40%,50%,60%,70%,80%,90%,100%"
 
-    tConditionals["17"] = {}`` 
-    tConditionals["17"]["name"] = "ROOM_SELECTION``"
-    tConditionals["17"]["type"] = "ROOM``"
-    tConditionals["17"]["condition_statement"] = "Room Selection is``"
-    tConditionals["17"]["description"] = "NAME is LOGIC STRING``"``
+    tConditionals["17"] = {}
+    tConditionals["17"]["name"] = "ROOM_SELECTION"
+    tConditionals["17"]["type"] = "ROOM"
+    tConditionals["17"]["condition_statement"] = "Room Selection is"
+    tConditionals["17"]["description"] = "NAME is LOGIC STRING"
 
-    tConditionals["18"] = {}`` 
-    tConditionals["18"]["name"] = "DEVICE_SELECTION``"
-    tConditionals["18"]["type"] = "DEVICE``"
-    tConditionals["18"]["condition_statement"] = "Device Selection is``"
-    tConditionals["18"]["description"] = "NAME Device Selection LOGIC DEVICE``"``
+    tConditionals["18"] = {} 
+    tConditionals["18"]["name"] = "DEVICE_SELECTION"
+    tConditionals["18"]["type"] = "DEVICE"
+    tConditionals["18"]["condition_statement"] = "Device Selection is"
+    tConditionals["18"]["description"] = "NAME Device Selection LOGIC DEVICE"
 
-    return tConditional``s
-en`d
+    return tConditionals
+end
 ```
