@@ -85,10 +85,15 @@ Also due to the Lua 5.1 language standard requirement, invalid escape sequences 
 
 The following table shows two examples of 5.0 escape sequences and how to fix them to meet the 5.1 language standard:
 
-| 5.0 Syntax | 5.1 Syntax |
-| --- | --- |
-| `string.gsub(s, '\&quot\;', '"')` | `string.gsub (s, '%&quot%;' , '"') string.gsub (s, '&quot;' , '"')` |
-| `string.match(C4:GetVersionInfo().version, '(%d+)\.(%d+)\.(%d+)\.(%d+)')`  | `string.match(C4:GetVersionInfo().version, '(%d+)%.(%d+)%.(%d+)%.(%d+)')` |
+| 5.0 Syntax | 
+| --- | 
+| `string.gsub(s, '\&quot\;', '"')` | 
+| `string.match(C4:GetVersionInfo().version, '(%d+)\.(%d+)\.(%d+)\.(%d+)')`  | 
+
+| 5.1 Syntax |
+| --- | 
+| `string.gsub (s, '%&quot%;' , '"') string.gsub (s, '&quot;' , '"')` |
+| `string.match(C4:GetVersionInfo().version, '(%d+)%.(%d+)%.(%d+)%.(%d+)')` |
 
 _The Lua 5.1 Language Manual details its incompatibilities with previous versions. For more information see Section #7 of the manual here: http://www.lua.org/manual/5.1/manual.html_
 
@@ -124,31 +129,25 @@ For reference, a list of sample load conditions and their respective log entries
 
 
 Condition : A Lua driver loaded successfully with LuaJIT	
-
-Sample Entry: `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successful with LuaJIT [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
-
+Sample Entry: 
+`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successful with LuaJIT [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
 Condition : A Lua driver loaded successful with LuaJIT, but there are runtime errors: 
-
-Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with LuaJIT but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
-
-
+Sample Entry :
+`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with LuaJIT but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 Condition : A Lua driver failed to load with LuaJIT due to syntax errors. Director will proceed to reload the driver with PUC Lua:
-
-Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver failed to load with LuaJIT; retrying with PUC Lua  [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
-
+Sample Entry :
+ `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver failed to load with LuaJIT; retrying with PUC Lua  [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
 Condition : A Lua driver loaded successfully with PUC Lua:
-
-Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successfully with PUC Lua [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
-
+Sample Entry : 
+`2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] DEBUG: Lua driver loaded successfully with PUC Lua [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
 Condition : A Lua driver loaded successfully with PUC Lua, but there are runtime errors:
-
 Sample Entry : `2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR: Lua driver loaded with PUC Lua but there were one, or more, runtime errors. This driver may not function correctly [id: 42][name: HeloWorld Driver][file: HeloWorld.c4z]`
 
 
