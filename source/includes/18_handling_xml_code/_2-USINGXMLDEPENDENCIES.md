@@ -10,7 +10,7 @@ First we'll look at the dependencies XML for the Keypad driver:
 
 
 ```xml
-1. <dependencies>
+1.<dependencies>
 2. <dependency alwaysAdd="true" addMultiple="true">
 3.   <name>light_for_keypad.c4z</name>
 4.   <auto_bindings>
@@ -18,30 +18,30 @@ First we'll look at the dependencies XML for the Keypad driver:
 6.    <id>1</id>
 7.    <isconsumer>false</isconsumer>
 8.    <classes>
-9.    <class>
-10.   <classname>KEYPAD_LIGHT</classname>
+9.     <class>
+10.     <classname>KEYPAD_LIGHT</classname>
 11.    </class>
-12.    </classes>
-13.    <dep_binding_id>14</dep_binding_id>
-14.    </auto_binding>
-15.    </auto_bindings>
-16.    </dependency>
-17.  <dependency alwaysAdd="true" addMultiple="true">
+12.   </classes>
+13.   <dep_binding_id>14</dep_binding_id>
+14.   </auto_binding>
+15.   </auto_bindings>
+16.   </dependency>
+17. <dependency alwaysAdd="true" addMultiple="true">
 18.    <name>light_for_keypad.c4z</name>
 19.    <auto_bindings>
-20.   <auto_binding>
-21.    <id>2</id>
+20.    <auto_binding>
+21.     <id>2</id>
 22.    <isconsumer>false</isconsumer>
 23.    <classes>
-24.    <class>
-25.   <classname>KEYPAD_LIGHT</classname>
-26.    </class>
+24.     <class>
+25.       <classname>KEYPAD_LIGHT</classname>
+26.     </class>
 27.    </classes>
 28.    <dep_binding_id>14</dep_binding_id>
 29.    </auto_binding>
 30.    </auto_bindings>
 31.    </dependency>
-32. </dependencies>
+32.</dependencies>
 ```
 
 
@@ -61,7 +61,7 @@ light_for_keypad driver Connections XML
  <consumer>True</consumer>
  <classes>
    <class>
-<classname>KEYPAD_LIGHT</classname>
+     <classname>KEYPAD_LIGHT</classname>
    </class>
  </classes>
  </connection>
