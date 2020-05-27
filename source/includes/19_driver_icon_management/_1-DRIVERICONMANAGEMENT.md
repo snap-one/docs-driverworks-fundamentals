@@ -37,12 +37,12 @@ Combo Drivers are drivers that represent both the proxy and protocol information
 
 ```xml
 <created></created
- <modified></modified>
- <version></version>
- <small></small>
- <large></large>
- <control></control>
- <controlmethod></controlmethod>
+<modified></modified>
+<version></version>
+<small></small>
+<large></large>
+<control></control>
+<controlmethod></controlmethod>
 <combo></combo>
 ```
 
@@ -103,11 +103,11 @@ If we look at the XML attributes for the proxy section we can see the proxy bind
 `small_image="devices_sm/keypad_16.gif"`
 
 `large_image="devices_lg/keypad_32.gif"`
-`
-`
-In the example above, we can see the `small_image` and `large_image` directories that are installed with ComposerPro as well as the small and large icon names within each``.``
+\`
+\`
+In the example above, we can see the `small_image` and `large_image` directories that are installed with ComposerPro as well as the small and large icon names within each`.`
 
-If our single proxy driver requires the use of icons through a URL, the proxy XML would look like this:`` ``
+If our single proxy driver requires the use of icons through a URL, the proxy XML would look like this:\`\` \`\`
 
 ```xml
 <proxies qty="1">
@@ -118,7 +118,7 @@ If our single proxy driver requires the use of icons through a URL, the proxy XM
 ```
 
 
-Again we see the proxy binding ID and name attributes defined followed by the `image_source` value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with "http://``"``
+Again we see the proxy binding ID and name attributes defined followed by the `image_source` value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with "http://`"`
 
 Finally, if our single proxy driver uses an image provided through the .c4z file, our \<proxy\> XML would look like this:
 
@@ -162,6 +162,6 @@ large_image="images/devices_lg/media_player_32.gif">dvd</proxy>
 </proxies>
 ```
 
-It's worth noting several attributes in the XML example above. First, the \<proxies qty\> tag has a value equal to 3, the amount of proxies this driver uses: one Receiver and two DVD proxies. Note that each of the individual proxies uses their own proxy binding IDs: 5001, 5002 and 5003. Proxy Binding IDs are required each so the correct icons are displayed. Also, this example shows the usefulness of the name= attribute. Each of the proxies have a unique name. This is especially useful with the multiple instances of DVD sub-proxies. In addition to unique driver icons, the use of "Media Player" and "Streaming" for the name attributes will make it easier to distinguish between the two in ComposerPro and Navigators:
+It's worth noting several attributes in the XML example to the right. First, the \<proxies qty\> tag has a value equal to 3, the amount of proxies this driver uses: one Receiver and two DVD proxies. Note that each of the individual proxies uses their own proxy binding IDs: 5001, 5002 and 5003. Proxy Binding IDs are required each so the correct icons are displayed. Also, this example shows the usefulness of the name= attribute. Each of the proxies have a unique name. This is especially useful with the multiple instances of DVD sub-proxies. In addition to unique driver icons, the use of "Media Player" and "Streaming" for the name attributes will make it easier to distinguish between the two in ComposerPro and Navigators:
 
 todo img 6
