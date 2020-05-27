@@ -102,12 +102,12 @@ _The Lua 5.1 Language Manual details its incompatibilities with previous version
 
 As best practice, Control4 recommends against the use of Lua Tables that depend on consistency with regard to the ordering of pairs. It is important to understand that LuaJIT does not iterate through a table of functions in the same way that PUC Lua does. For example, consider a table of functions that is iterated through using OnDriverInit() with the code to the right:
 
-```xml
+```lua
 for k,v in pairs(PROTOCOL_DECLARATIONS) do
-if (PROTOCOL_DECLARATIONS[k] ~= nil and type(PROTOCOL_DECLARATIONS[k]) == "function") then
-print(k,v)             
-PROTOCOL_DECLARATIONS[k]()
-end
+  if (PROTOCOL_DECLARATIONS[k] ~= nil and type(PROTOCOL_DECLARATIONS[k]) == "function") then
+  print(k,v)             
+  PROTOCOL_DECLARATIONS[k]()
+ end
 end
 ```
 
