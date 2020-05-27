@@ -33,7 +33,7 @@ Driver icons are defined in the driver's XML. The remainder of this document wil
 
 
 ### Combo Drivers
-Combo Drivers are drivers that represent both the proxy and protocol information in a single driver file. They are also the simplest with regard to implementing driver icons. The example below shows a combo driver's XML and identifies the attributes that define the driver's icons: the small and large XML tags:
+Combo Drivers are drivers that represent both the proxy and protocol information in a single driver file. They are also the simplest with regard to implementing driver icons. The example to the right shows a combo driver's XML and identifies the attributes that define the driver's icons: the small and large XML tags:
 
 ```xml
 <created></created
@@ -90,7 +90,7 @@ Single Proxy drivers define their icons using the same XML strings as a combo dr
 
 If the \<small\>\</small\> XML tag is populated with an image or UL to an image, that file will always be used in the My Drivers list of the Items area in ComposerPro. The \<large\>\</large\> XML tag is used to populate the List View area of ComposerPro unless a different icon is defined in the \<proxies\>\</proxies\> XML section of the driver. If a different icon is defined, the contents of the \<large\>\</large\> XML tag will be disregarded.
 
-Additional icons and other useful attributes are defined under the \<proxies\> XML tag. For example, let's consider a Keypad driver that obtains its icon from the delivered images with ComposerPro. It's proxy XML definition looks like this:
+Additional icons and other useful attributes are defined under the \<proxies\> XML tag. For example, let's consider a Keypad driver that obtains its icon from the delivered images with ComposerPro. Its proxy XML definition is shown to the right.
 
 ```xml
 <proxies qty="1">~
@@ -107,7 +107,7 @@ If we look at the XML attributes for the proxy section we can see the proxy bind
 \`
 In the example above, we can see the `small_image` and `large_image` directories that are installed with ComposerPro as well as the small and large icon names within each`.`
 
-If our single proxy driver requires the use of icons through a URL, the proxy XML would look like this:\`\` \`\`
+If our single proxy driver requires the use of icons through a URL, the proxy XML would look like code to the right.
 
 ```xml
 <proxies qty="1">
@@ -120,7 +120,7 @@ If our single proxy driver requires the use of icons through a URL, the proxy XM
 
 Again we see the proxy binding ID and name attributes defined followed by the `image_source` value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with "http://`"`
 
-Finally, if our single proxy driver uses an image provided through the .c4z file, our \<proxy\> XML would look like this:
+Finally, if our single proxy driver uses an image provided through the .c4z file, our \<proxy\> XML would look like the last example.
 
 ```xml
 <proxies qty = "1">
@@ -146,7 +146,7 @@ Note that if no custom images are defined in the driver's XML, the default icon 
 ### Multi Proxy Drivers
 Icons are handled in multi-proxy drivers in much the same way as single proxy drivers. The XML differs only slightly in that additional proxy tags are included for each proxy used by the driver. For this example, we'll use XML for a receiver driver that uses the Receiver Proxy as its primary proxy. The driver also has two DVD sub-proxies, which are used to control a media player and a media streaming device. 
 
-This driver implements icons from two different locations: the receiver portion of the driver gets its icons from Control4's Receiver Proxy, the media player and the streaming device get their icons from a .c4z file. The XML for the driver looks like this:
+This driver implements icons from two different locations: the receiver portion of the driver gets its icons from Control4's Receiver Proxy, the media player and the streaming device get their icons from a .c4z file. The XML for the driver is shown to the right
 
 ```xml
 <small image_source="c4z">images/devices_sm/receiver_16.gif</small>
