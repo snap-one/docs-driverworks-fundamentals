@@ -42,7 +42,7 @@ List content is delivered from the driver to ComposerPro by using the new Update
 
 ```lua
 function OnDriverInit()
-C4:UpdatePropertyList("Test Dynamic List","Item 4,Item 5,Item 6")
+  C4:UpdatePropertyList("Test Dynamic List","Item 4,Item 5,Item 6")
 end
 ```
 
@@ -52,7 +52,7 @@ Here is an example of the API used to populate the items in the second example o
 
 ```lua
 function OnDriverInit()
-C4:UpdatePropertyList("Test Dynamic List No Default","Item 7,Item 8,Item 9")
+  C4:UpdatePropertyList("Test Dynamic List No Default","Item 7,Item 8,Item 9")
 end
 ```
 
