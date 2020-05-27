@@ -33,8 +33,8 @@ This is also the format used with multi-proxy devices as seen in the remaining e
 ```xml
 <proxies>
   <proxy proxybindingid="5001">tuner</proxy>
-   <proxy proxybindingid="5002">tuner</proxy>
-   <proxy proxybindingid="5003">tunerXM</proxy>
+  <proxy proxybindingid="5002">tuner</proxy>
+  <proxy proxybindingid="5003">tunerXM</proxy>
 </proxies>
 ```
 
