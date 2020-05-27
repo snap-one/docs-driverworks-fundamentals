@@ -11,7 +11,7 @@ The steps are as follows:
 1. Copy the template .c4z and rename your copy
 2. Change the .c4z elements that you need to change in order to make your driver.
 3. Fields that should be changed include: `<manufacturer>, <model>, <creator>, <name>, <created>, <modified>`
-4. Fields that may need to be changed include: `<documentation>, <properties>, <actions>, <commands>, <connections>`
+4. Fields that may need modification include: `<documentation>, <properties>, <actions>, <commands>, <connections>`
 5. After each major change you make ensure that your .c4z file can be seen by and loaded into your project using Composer. It is good practice to verify this throughout the time you work on the .c4i file.
 6. Add/change the Lua code that will be used by your driver.
 7. After all the change iterations have been completed, reload your driver 
