@@ -72,7 +72,7 @@ Note that the `light_for_keypad` driver's connection XML shares the same classna
 
 Note in Line 3 that this specific connection in the `light_for_keypad` driver has an ID of 14. If you look up in the dependency XML for the Keypad driver you'll see in line 28 the `dep_binding__id `value of 14 which matches this connection in the `light_for_keypad` driver. 
 
-Finally, if we look at the connection XML for the Keypad driver we'll see this:
+Following this , is the connection XML for the Keypad driver.
 
 
 ```xml
@@ -108,7 +108,7 @@ Note in Line 9 that it has the same connection name as found in the `light_for_k
 
 The dependency XML found in the Keypad Driver and the coordinated connection XML between the Keypad driver and the `light_for_keypad` driver results in the driver being loaded when the Keypad driver loads. Also, the first binding for the Keypad driver is connected to the `light_for_keypad` driver at binding ID 14.
 
-In the beginning of this document, we indicated that the use case calls for two instances of the `light_for_keypad` driver to load. This happens due to the second dependency binding XML found in the Keypad driver. Specifically, lines 17 through 32 represent another dependent binding that will be automatically created between the keypad driver and the `light_for_keypad` driver when they load.  
+In the beginning of this section, we indicated that the use case calls for two instances of the `light_for_keypad` driver to load. This happens due to the second dependency binding XML found in the Keypad driver. Specifically, lines 17 through 32 represent another dependent binding that will be automatically created between the keypad driver and the `light_for_keypad` driver when they load.  
 
 Keypad Driver Dependencies XML
 
