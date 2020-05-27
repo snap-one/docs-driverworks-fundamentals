@@ -7,7 +7,7 @@ Actions are defined in the driver's XML and consist of the following types: STRI
 To the right is an example of XML containing Actions with Parameters.
 
 ```xml
-   <action>
+       <action>
                 <name>Test Action with Parameters</name>
                 <command>TestActionWithParameters</command>
                 <params>
