@@ -28,11 +28,11 @@ The first line of the proj file contains the following:
 
 Main "driver.lua"
 
-Module "module1"
-Module "module2"
-Module "common.command" "common/command.lua"
-Module "common.common"  "common/common.lua"
-Module "common.diagnostics" "common/diagnostics.lua"
+- Module "module1"
+- Module "module2"
+- Module "common.command" "common/command.lua"
+- Module "common.common"  "common/common.lua"
+- Module "common.diagnostics" "common/diagnostics.lua"
 
 Output "squished.lua"
 
