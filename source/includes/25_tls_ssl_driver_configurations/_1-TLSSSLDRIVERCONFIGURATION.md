@@ -3,37 +3,37 @@
 A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined below. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
  
 ```xml
-          <classname>SSL</classname>
-          <ports>
-            <port>
-              <name>Sysman</name>
-              <number>5810</number>
-              <auto_connect>True</auto_connect>
-              <monitor_connection>True</monitor_connection>
-              <keep_connection>True</keep_connection>
-              <keep_alive>True</keep_alive>
-              <delimiter>4f4b0a</delimiter>
-            </port>
-          </ports>
+<classname>SSL</classname>
+    <ports>
+       <port>
+          <name>Sysman</name>
+           <number>5810</number>
+           <auto_connect>True</auto_connect>
+           <monitor_connection>True</monitor_connection>
+           <keep_connection>True</keep_connection>
+           <keep_alive>True</keep_alive>
+           <delimiter>4f4b0a</delimiter>
+        </port>
+      </ports>
 ```
  
 This snipped declares an SSL connection bound to port 5810 (Sysman). This particular connection doesn't require the use of any special properties. To the right is another example that illustrates the five new properties that were added for SSL.
  
 ```xml
-            <port>
-              <name>CertTest</name>
-              <number>6666</number>
-              <auto_connect>True</auto_connect>
-              <monitor_connection>True</monitor_connection>
-              <keep_connection>True</keep_connection>
-              <keep_alive>True</keep_alive>
-              <delimiter>4f4b0a</delimiter>
-              <certificate>./protected.pem</certificate>
-              <private_key protected="True">./protected.pem</private_key>
-             <cacert>./cacert.pem</cacert>
-              <verify_mode>peer</verify_mode>
-              <method>sslv3</method>
-            </port>
+<port>
+  <name>CertTest</name>
+  <number>6666</number>
+  <auto_connect>True</auto_connect>
+  <monitor_connection>True</monitor_connection>
+  <keep_connection>True</keep_connection>
+  <keep_alive>True</keep_alive>
+  <delimiter>4f4b0a</delimiter>
+  <certificate>./protected.pem</certificate>
+  <private_key protected="True">./protected.pem</private_key>
+  <cacert>./cacert.pem</cacert>
+  <verify_mode>peer</verify_mode>
+  <method>sslv3</method>
+</port>
 ```
  
 
@@ -42,7 +42,7 @@ The properties are defined as:
 `certificate` - Path to the certificate to use for the connection. The path is relative to driver’s C4Z location.
 
 
-`private**_key`- Path to the private key to use for the connection. The path is relative to the driver’s C4Z location. If the “protected” attribute is “True”, then Director will invoke the following callback to retrieve the password from the driver:
+`private**_key`- Path to the private key to use for the connection. The path is relative to the driver’s C4Z location. If the “protected” attribute is “True”, then Director will invoke the callback shown to the right to retrieve the password from the driver:
 
 ```xml
 function GetPrivateKeyPssword(Binding, Port)
