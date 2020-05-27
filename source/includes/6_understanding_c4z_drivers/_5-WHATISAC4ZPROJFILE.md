@@ -43,16 +43,16 @@ The first line of the proj file contains the following:
 **squishLua** – Must be set to “true” or “false”. It defaults to a value of "false." There are two options when encrypting a driver: encrypt a single Lua file or Squish all Lua files into one file and encrypt it. Squish is a tool that packs many individual Lua scripts and their respective modules into a single Lua script. A file called “squishy” must be created for the squish tool. This file contains all of the Lua files to be included in the squished file. Here is an example of a basic squishy file:
 
 
-`Main "driver.lua"
-`
-`Module "module1"
-``Module "module2"
-``Module "common.command" "common/command.lua"
-``Module "common.common" "common/common.lua"
-``Module "common.diagnostics" "common/diagnostics.lua"
-`
-`Output "squished.lua"
-`
+Main "driver.lua"
+
+-  Module "module1"
+-  Module "module2"
+-  Module "common.command" "common/command.lua"
+-  Module "common.common" "common/common.lua"
+-  Module "common.diagnostics" "common/diagnostics.lua"
+
+Output "squished.lua"
+
 **Encryption** – Designates whether or not the driver will be encrypted or not.
 
 Next you'll notice the \<Items\>\</Items\> section:
