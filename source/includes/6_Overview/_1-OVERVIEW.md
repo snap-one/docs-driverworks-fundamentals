@@ -11,7 +11,7 @@ These objects include items such as graphics and icon directories to support cus
 The image below is a look into a .c4z file at its root level:
 
 
-todo img 1
+![image]()(6_understanding_c4z_drivers-OVERVIEW-01)
 
 
 You’ll notice several files at the root level of the .c4z which were described in the section above. The www folder must contain the documentation file to support the driver. 
@@ -90,4 +90,5 @@ Going forward, any .lua-based driver will be expected to be delivered in the .c4
 
 - XML Validation
 - Assembles the .c4z
+
 
