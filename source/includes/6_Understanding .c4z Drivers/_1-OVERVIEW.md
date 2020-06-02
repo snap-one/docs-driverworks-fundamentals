@@ -75,7 +75,7 @@ As mentioned above, a c4z file can contain graphical elements to support the dri
 
 ![alt-text]()(6\_understanding\_c4z\_drivers-Overview-06.png)
 
-The icons directory contains all of the images, organized by their resolutions, which are displayed during the use of the driver. The images in this particular driver are found under the root level of “www” placing them within the .c4z in this manner makes them accessible from via the controller’s webserver. For example, accessing an image can be accomplished by appending the .c4z icon path to a URL such as:
+The icons directory contains all of the images, organized by their resolutions, which are displayed during the use of the driver. The images in this particular driver are found under the root level of “www” placing them within the .c4z in this manner makes them accessible from via the controller’s web server. For example, accessing an image can be accomplished by appending the .c4z icon path to a URL such as:
 
 `http://urlstring/driver/drivername/icons/20x20/driverimage.png`
 

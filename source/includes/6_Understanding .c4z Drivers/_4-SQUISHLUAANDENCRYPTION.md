@@ -18,7 +18,7 @@ All .lua files included in a .c4z file must be squished prior to encryption. Thi
 ```
 
 
-The first line of the proj file contains the following:
+The first line of the .proj file contains the following:
 
 **Driver type** – This must be “c4z” for the manifest to be valid.
 

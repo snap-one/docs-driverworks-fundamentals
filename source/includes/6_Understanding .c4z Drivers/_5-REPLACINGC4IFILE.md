@@ -1,6 +1,6 @@
 ## Replacing a .c4i file with .c4z
 
-An XML element has been included to support the replacement of an existing driver.c4i file with a new driver.c4z. An example of the replaces element is to the right:
+An XML element has been included to support the replacement of an existing driver.c4i file with a new driver.c4z. An example of the \<replaces\> element is to the right:
 
 ```xml
 <replaces>
