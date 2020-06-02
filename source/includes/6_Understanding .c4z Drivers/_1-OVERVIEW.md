@@ -10,11 +10,7 @@ These objects include items such as graphics and icon directories to support cus
 
 The image below is a look into a .c4z file at its root level:
 
-
-![alt-text][1]
-
-
-
+<img src="images/6_understanding_c4z_drivers-Overview-01.png"/>
 
 You’ll notice several files at the root level of the .c4z which were described in the section above. The www folder must contain the documentation file to support the driver.
 
