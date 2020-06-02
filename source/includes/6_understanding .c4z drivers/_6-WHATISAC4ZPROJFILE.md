@@ -6,15 +6,15 @@ As described in the Understanding .c4z Files, a .c4z file is a zipped filed cons
 
 This the Control4 system default location for DriverWorks drivers. The example directory looks like this:
 
-todo img 7
+![alt-text]()(6\_understanding\_c4z\_drivers-What_is_a_.c4zproj_File-07.png)
 
 If we import the HelloWorld.c4z file into the Driver Editor environment, we can go back and see that a new directory has been created:
 
-todo img 8
+![alt-text]()(6\_understanding\_c4z\_drivers-What_is_a_.c4zproj_File-08.png)
 
 The HelloWorld File Folder was created by DriverEditor. All of the changes made to the .c4z file through DriverEditor will be made to this directory. If we open the new Hello World folder we'll find this:
 
-todo img 9
+![alt-text]()(6\_understanding\_c4z\_drivers-What_is_a_.c4zproj_File-09.png)
 
 
 Note the addition of the HelloWorld.c4zproj file. This file allows DriverEditor to assemble, encrypt, name the .c4z file along with defining several other file level functions. If we open the .c4zproj file we'd find the example to the right:
@@ -65,4 +65,5 @@ Next you'll notice the \<Items\>\</Items\> section:
 **c4zDir** - Optional. The name of the c4z folder where the 'dir' or 'file' item is added. 
 
 **exclude** - Optional. Must be "true" of "false", default is "false" if not specified. This specifies if an item is excluded from the c4z. 
+
 
