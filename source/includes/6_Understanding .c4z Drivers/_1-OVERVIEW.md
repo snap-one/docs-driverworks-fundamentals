@@ -14,7 +14,7 @@ The image below is a look into a .c4z file at its root level:
 
 You’ll notice several files at the root level of the .c4z which were described in the section above. The www folder must contain the documentation file to support the driver.
 
-![alt-text]()(6\_understanding\_c4z\_drivers-Overview-02.png)
+<img src="images/6_understanding_c4z_drivers-Overview-02.png"/>
 
 This is an architectural change implemented with the release of OS 2.8.1.
 
@@ -93,6 +93,4 @@ Going forward, any .lua-based driver will be expected to be delivered in the .c4
 
 
 
-
-[1]:	6_understanding_c4z_drivers-Overview-01.png
 
