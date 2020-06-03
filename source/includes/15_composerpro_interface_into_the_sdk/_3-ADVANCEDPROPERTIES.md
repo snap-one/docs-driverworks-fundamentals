@@ -17,7 +17,7 @@ Prior to OS Release 2.10.0, the only way to create a separator or section betwee
 
 An example of the new Header are on the Properties screen in ComposerPro:
 
-todo img 1
+<img src="images/15_3-01.png"/>
 
 
 Note that this PropertyType could also be used to make a blank space by omitting the \<default\>\</default\> element.
@@ -44,7 +44,7 @@ Prior to OS Release 2.10.0, the only way to set an integer value on a scale was 
 
 An example of the new Scroll Property Type on the Properties screen in ComposerPro:
 
-todo img 2
+<img src="images/15_3-02.png"/>
 
 
 **TRACK**
@@ -67,6 +67,6 @@ A second option is available for setting an integer value which is similar to Sc
 
 An example of the new Scroll Property Track on the Properties screen in ComposerPro:
 
+<img src="images/15_3-03.png"/>
 
-todo img 3
 
