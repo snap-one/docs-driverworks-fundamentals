@@ -15,7 +15,7 @@ The following sample property code uses the new property called `DYNAMIC_LIST`.
 
 In the example above, a name for the property is included as “Test Dynamic List”. This is the string value that will be displayed as the name for this list in ComposerPro. Next, you can see the property type of `DYNAMIC_LIST`.  Next we can see that the selected parameter has a value of “Item5”. This will result in Item 5 being displayed as the default value (displayed value) when the list is shown in ComposerPro. Finally, the optional tooltip parameter is populated with text that is displayed when the user hovers over the Test Dynamic List field in Composer Pro. The resulting List can be seen as:
 
-todo img 1
+<img src="images/15_2-01.png"/>
 
 In the above screen shot, we can see the Test Dynamic List displayed along with its selected value of Item 5. The selected value for the list can be changed from within ComposerPro by selecting the new default value and clicking on the Set button.
 
@@ -33,7 +33,7 @@ The `DYNAMIC_LIST` property can also be configured to use no default value. An e
 
 The ComposerPro Properties Page would look like this:
 
-todo img 2
+<img src="images/15_2-02.png"/>
 
 
 Note that there is no value displayed by default for the list called “Test Dynamic List No Default”. This is due to the omission of the \<default\> parameter. 
