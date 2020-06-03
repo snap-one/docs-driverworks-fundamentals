@@ -29,5 +29,5 @@ Selecting the Set button will assign the color to the property. A color can also
 <img src="images/15_5-04.png"/>
 
 The Test `COLOR_SELECTOR` under Actions works in a similar manner as it does under properties. To assign a color, click on the Test Color Selector block which displays the currently assigned color. Selecting the box will display the color selection palette and a color can be selected as in the previous example. 
-This creates an Action with a color assignment that can be used in system programming. For example: “When this button is pressed set led color to green.”
+This creates an Action with a color assignment that can be used in system programming. For example: “When this button is pressed, set led color to green.”
 
