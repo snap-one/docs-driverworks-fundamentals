@@ -9,23 +9,23 @@ Drivers are graphically represented within the ComposerPro environment using ico
 
 The System design view found on the left hand side of Composer Pro:
 
-todo img 1
+<img src="images/19_1-01.png"/>
 
 
 The List View area in the center of the ComposerPro window:
 
-todo img 2
+<img src="images/19_1-02.png"/>
 
 
 Under the My Drivers tab found in the Items area on the right hand side of the ComposerPro window:
 
-todo img 3
+<img src="images/19_1-03.png"/>
 
 
 Before discussing how these icons are included in drivers, it's important to note the differences in icon sizes in the images above. The System Design and Items areas accept an icon that is 16 X 16 pixels in size. This is referred in driver development terminology as the "small image" or `small_icon` in XML. The List View area uses a larger image at a size of 32 X 32 pixels. This image is referred to as the "large image" or `large_icon` in the driver's XML:
 
 Small Image					Large Image
-todo img 4
+<img src="images/19_1-04.png"/>
 
 16 X 16                                                  32 X 32
 
@@ -164,4 +164,4 @@ large_image="images/devices_lg/media_player_32.gif">dvd</proxy>
 
 It's worth noting several attributes in the XML example to the right. First, the \<proxies qty\> tag has a value equal to 3, the amount of proxies this driver uses: one Receiver and two DVD proxies. Note that each of the individual proxies uses their own proxy binding IDs: 5001, 5002 and 5003. Proxy Binding IDs are required each so the correct icons are displayed. Also, this example shows the usefulness of the name= attribute. Each of the proxies have a unique name. This is especially useful with the multiple instances of DVD sub-proxies. In addition to unique driver icons, the use of "Media Player" and "Streaming" for the name attributes will make it easier to distinguish between the two in ComposerPro and Navigators:
 
-todo img 6
+<img src="images/19_1-05.png"/>
