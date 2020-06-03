@@ -27,7 +27,7 @@ Using this structure, ComposerPro will load the RTF documentation file and ignor
 
 Below that is the .lua file that contains all of the .lua code for the driver. It is possible to have multiple .lua files included in the .c4z file. For example, here is an opened .c4z file for a pool controller:
 
-![alt-text]()(6\_understanding\_c4z\_drivers-Overview-03.png)
+<img src="images/6_understanding_c4z_drivers-Overview-03.png"/>
 
 As you can see, this .c4z contains numerous .lua files. In order for all of the .lua files to be recognized not just by DriverEditor but Director as well - the use of the Lua require function is needed. The required Function loads and runs libraries. All of the .lua files that need to be included in .c4z file are identified in the .c4z file's driver. lua file. If we open the pool controller's driver.lua file we see this:
 
@@ -88,6 +88,7 @@ Going forward, any .lua-based driver will be expected to be delivered in the .c4
 
 - XML Validation
 - Assembles the .c4z
+
 
 
 
