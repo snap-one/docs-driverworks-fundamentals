@@ -1,6 +1,6 @@
 ## What is a .c4zproj File
 
-As described in the Understanding .c4z Files, a .c4z file is a zipped filed consisting of several directories and numerous files that (when zipped together) represent a device driver. DriverEditor views these assembled files as a "Project." When a .c4z file is imported or opened through the DriverEditor environment, a corresponding .c4zproj file is created. For example, let's assume the driver you wish to import into DriverEditor resides at the following location:
+As described in the Understanding .c4z Files, a .c4z file is a zipped filed consisting of several directories and numerous files that (when zipped together) represent a device driver. DriverEditor views these assembled files as a "Project." When a .c4z file is imported or opened through the DriverEditor environment, a corresponding .c4zproj file is created. For example, let's assume the driver you wish to import into DriverEditor resides at:
 
 `C:\Users\username.CONTROL4\Documents\Control4\Drivers`
 
