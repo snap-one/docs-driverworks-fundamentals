@@ -31,7 +31,7 @@ Below that is the .lua file that contains all of the .lua code for the driver. I
 
 As you can see, this .c4z contains numerous .lua files. In order for all of the .lua files to be recognized not just by DriverEditor but Director as well - the use of the Lua require function is needed. The required Function loads and runs libraries. All of the .lua files that need to be included in .c4z file are identified in the .c4z file's driver. lua file. If we open the pool controller's driver.lua file we see this:
 
-![alt-text]()(6\_understanding\_c4z\_drivers-Overview-04.png)
+<img src="images/6_understanding_c4z_drivers-Overview-04.png"/>
 
 In the example above, the file names are surrounded by quotation marks. The required Function uses the global variable LUA\_PATH to find the file. This variable is defined as LUA\_PATH = C4System; Driver. Based on this, Director will look for the .lua file on the controller first, The LUA\_PATH environment on the controller is:
 /control4/drivers/lua/?.lua;
@@ -68,11 +68,11 @@ Next we can see another driver file. This contains all of the XML that was previ
 
 If we open the www directory we see the following:
 
-![alt-text]()(6\_understanding\_c4z\_drivers-Overview-05.png)
+<img src="images/6_understanding_c4z_drivers-Overview-05.png"/>
 
 As mentioned above, a c4z file can contain graphical elements to support the driver’s use in Navigator. When opened, the icons folder for this driver looks like this:
 
-![alt-text]()(6\_understanding\_c4z\_drivers-Overview-06.png)
+<img src="images/6_understanding_c4z_drivers-Overview-06.png"/>
 
 The icons directory contains all of the images, organized by their resolutions, which are displayed during the use of the driver. The images in this particular driver are found under the root level of “www” placing them within the .c4z in this manner makes them accessible from via the controller’s web server. For example, accessing an image can be accomplished by appending the .c4z icon path to a URL such as:
 
@@ -88,7 +88,6 @@ Going forward, any .lua-based driver will be expected to be delivered in the .c4
 
 - XML Validation
 - Assembles the .c4z
-
 
 
 
