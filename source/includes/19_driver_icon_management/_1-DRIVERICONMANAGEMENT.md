@@ -24,10 +24,9 @@ Under the My Drivers tab found in the Items area on the right hand side of the C
 
 Before discussing how these icons are included in drivers, it's important to note the differences in icon sizes in the images above. The System Design and Items areas accept an icon that is 16 X 16 pixels in size. This is referred in driver development terminology as the "small image" or `small_icon` in XML. The List View area uses a larger image at a size of 32 X 32 pixels. This image is referred to as the "large image" or `large_icon` in the driver's XML:
 
-Small Image					Large Image
+
 <img src="images/19_1-04.png"/>
 
-16 X 16                                                  32 X 32
 
 Driver icons are defined in the driver's XML. The remainder of this document will identify several types of drivers and, depending on where the driver's icons are located, outline the driver attributes required to display the icons in ComposerPro.
 
