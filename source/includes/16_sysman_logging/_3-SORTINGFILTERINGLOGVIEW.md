@@ -3,13 +3,12 @@
 **Sorting the Log View**
 The Log view can be sorted alphabetically by clicking within the column header area. Doing so will arrange the log information for that column (along with its associated data found in the other columns) alphabetically. The arrow displayed in the header indicates if the display is sorted alphabetically from top to bottom or bottom to top.
 
-todo img 1
-
+<img src="images/16_3-01.png"/>
 
 
 The Log view can be sorted alphabetically by clicking within the column header area. Doing so will arrange the log information for that column (along with its associated data found in the other columns) alphabetically. The arrow displayed in the header indicates if the display is sorted alphabetically from top to bottom or bottom to top.
 
-todo img 2
+<img src="images/16_3-02.png"/>
 
 
 **Filtering Log Information**
@@ -17,18 +16,17 @@ Filters are provided for all of columns displayed in the Log View except for the
 
 By default, the Type column has a filter associated with it when the logging view is first accessed. You can tell that a column is filtered by the display of the filter icon:
 
-todo img 3
-
+<img src="images/16_3-03.png"/>
 
 
 Using the Filter icon in the Type column can display all of the active loggers. This includes the Named loggers and the Syslog loggers. 
 
-todo img 4
+<img src="images/16_3-04.png"/>
 
 Right clicking within the Type column header will display the Filtering menu item. Clicking on it will display all of the available items found under the Log Type category. In our example above, we have selected all of the log types to show in our Logging display. Clicking on the Apply button will change our Logging UI to show all log types:
 
  
-todo img 5
+<img src="images/16_3-05.png"/>
 
 To add a filter to a column, simply right click on the column header and select the Filtering menu option:
 
