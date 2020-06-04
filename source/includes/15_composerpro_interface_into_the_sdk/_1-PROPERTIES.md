@@ -126,14 +126,14 @@ The \<tooltip\> parameter provides the means to display a brief description of t
 
 For example:
 
-todo img 1
+<img src="images/15_1-01.png"/>
 
 The `<description>` parameter contains text that can be displayed in the description field to provide additional information about the property.
 
 
 For example:
 
-todo img 2
+<img src="images/15_1-02.png"/>
 
 
 In the example below, the two parameters are passed to the string property named TEST READ ONLY.
@@ -150,5 +150,5 @@ In the example below, the two parameters are passed to the string property named
 ```
 
 
-todo img 3
+<img src="images/15_1-03.png"/>
 
