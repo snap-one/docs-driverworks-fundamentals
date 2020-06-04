@@ -5,6 +5,7 @@ DriverWorks Properties as defined in the .c4z file are exposed in the Composer S
 Property types include:
 
 **LIST**
+See example to the right.
 
 ```xml
 <property>
@@ -26,6 +27,9 @@ Property types include:
 
 **RANGED FLOAT**
 
+Note that the local setting of a Control4 Controller in a project, and the local setting assigned to devices found within that project can potentially have an impact of the way in which a RANGED FLOAT property is handled by a driver. For example, if the controller has a local setting which uses the English language, the RANGED FLOAT property will be defined as in the example to the right (using a decimal).  However, if the local setting is that which supports another language - such as French for example, the the minimum, maximum and default values will come in using a comma instead of a decimal point. For example, 50.0 will be received as 50,0. In the event that project controllers and project devices cannot be set to the same local, resulting in the same language, a driver will need to be able to handle the differing value definitions. 
+
+
 ```xml
 <property>
         <name>My Float</name>
@@ -37,7 +41,6 @@ Property types include:
 </property>
 ```
 
-Note that the local setting of a Control4 Controller in a project, and the local setting assigned to devices found within that project can potentially have an impact of the way in which a RANGED FLOAT property is handled by a driver. For example, if the controller has a local setting which uses the English language, the RANGED FLOAT property will be defined as the example above (using a decimal).  However, if the local setting is that which supports another language - such as French for example, the the minimum, maximum and default values will come in using a comma instead of a decimal point. For example, 50.0 will be received as 50,0. In the event that project controllers and project devices cannot be set to the same local, resulting in the same language, a driver will need to be able to handle the differing value definitions.
 
 
 **RANGED INTEGER**
