@@ -26,7 +26,7 @@ Note that this PropertyType could also be used to make a blank space by omitting
 
 **Scroll**
 
-Prior to OS Release 2.10.0, the only way to set an integer value on a scale was to have a `RANGED_INTEGER` type property. Now, with the inclusion of the XML to the right, a more graphical view can be provided:
+Prior to OS Release 2.10.0, the only way to set an integer value on a scale was to have a `RANGED_INTEGER` type property. Now, with the inclusion of the XML to the right, a more graphical view can be provided.
 
 ```xml
 <config>
@@ -42,9 +42,9 @@ Prior to OS Release 2.10.0, the only way to set an integer value on a scale was 
 </config>
 ```
 
-An example of the new Scroll Property Type on the Properties screen in ComposerPro:
+An example of the new Scroll Property Type on the Properties screen is shown above,
 
-<img src="images/15_3-02.png"/>
+
 
 
 **TRACK**
@@ -65,8 +65,8 @@ A second option is available for setting an integer value which is similar to Sc
 </config>
 ```
 
-An example of the new Scroll Property Track on the Properties screen in ComposerPro:
+An example of the new Scroll Property Track on the Properties screen is shown above
 
-<img src="images/15_3-03.png"/>
+
 
 
