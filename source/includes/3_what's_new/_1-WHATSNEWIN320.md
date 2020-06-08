@@ -1,8 +1,15 @@
 ## What’s New in 3.2.0
 
+### New Property: LINK
+
+The new LINK property type allows you to provide a link to a resource which can used to support your driver. Typically, this Property is used to link to a configuration page on a device. _See the section titled ComposerPro Interface into the SDK/ Properties for more information._
+
+
+
 ### Driver Conditionals
 
-In additionn to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: Room and Device. The ability to generate Dynamic Conditionals s also included in O.S. 3.2.0.
+In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: Room and Device. The ability to generate Dynamic Conditionals is also included in O.S. 3.2.0. _See the section titled Conditionals for more information._
+
 
 
 ### Zigbee
@@ -27,4 +34,4 @@ Note that there are two scenarios where zserver will pass a cluster un-handled d
 
 To avoid unintended functionality, a review of your Zigbee driver(s) is recommended prior to the release of OS 3.2.0. The ability to send Zigbee Clusters directly to your driver will need to be handled at the device firmware level.
 
-Operating System 3.2.0 will include an OTA Upgrade API which will provide a driver based 
+Operating System 3.2.0 will include an OTA Upgrade API which will provide a driver based upgrade option.
