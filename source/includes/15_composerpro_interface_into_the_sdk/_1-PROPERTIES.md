@@ -1,13 +1,21 @@
 ## Properties
 
-DriverWorks Properties as defined in the .c4z file are exposed in the Composer System Design interface on the Properties tab.
+DriverWorks Properties as defined in the .c4z file are exposed in the Composer System Design interface on the Properties tab. Below is list of currently supported properties. Code examples for each are to the right.
 
 Property types include:
 
 **LIST**
-See example to the right.
+**RANGED FLOAT**
+**RANGED INTEGER**
+**STRING**
+**STRING (Password Example)**
+**DEVICE SELECTOR**
+**COLOR SELECTOR** 
+**DYNAMIC LIST**
+
 
 ```xml
+List Property Example
 <property>
        <name>Log Level</name>
         <type>LIST</type>
@@ -25,12 +33,10 @@ See example to the right.
 ```
 
 
-**RANGED FLOAT**
-
-Note that the local setting of a Control4 Controller in a project, and the local setting assigned to devices found within that project can potentially have an impact of the way in which a RANGED FLOAT property is handled by a driver. For example, if the controller has a local setting which uses the English language, the RANGED FLOAT property will be defined as in the example to the right (using a decimal).  However, if the local setting is that which supports another language - such as French for example, the the minimum, maximum and default values will come in using a comma instead of a decimal point. For example, 50.0 will be received as 50,0. In the event that project controllers and project devices cannot be set to the same local, resulting in the same language, a driver will need to be able to handle the differing value definitions. 
 
 
 ```xml
+Ranged Float Property Example
 <property>
         <name>My Float</name>
         <type>RANGED_FLOAT</type>
@@ -43,9 +49,10 @@ Note that the local setting of a Control4 Controller in a project, and the local
 
 
 
-**RANGED INTEGER**
+
 
 ```xml
+Ranged Integer Property Example
 <property>
     <name>Zone</name>
      <type>RANGED_INTEGER</type>
@@ -58,9 +65,10 @@ Note that the local setting of a Control4 Controller in a project, and the local
 ```
 
 
-**STRING**
+
 
 ```xml
+String Property Example
 <property>
   	<name>Test Read Only</name>
   	<type>STRING</type>
@@ -72,20 +80,18 @@ Note that the local setting of a Control4 Controller in a project, and the local
 ```
 
 
-**STRING (Password Example)**
+
 
 ```xml
-`<property>`
- ` 	<name>Test STRING password</name>`
- ` 	<type>STRING</type>`
- ` 	<password>true</password>`
- `</property>`
+<property>
+  	<name>Test STRING password</name>
+  	<type>STRING</type>
+  	<password>true</password>
+</property>
 ```
 
-The Password property type prevents the text of a password from being displayed. It will show asterisks `*` in place of any text that is part of the property.  It is important to note that the data of the password field is NOT protected in any way. For example, if the properties table from the driver were to be printed, it will show the actual password. If the password field is used by a driver Control4 strongly recommends that the driver be encrypted.
 
 
-**DEVICE SELECTOR**
 
 ```xml
 <property>
@@ -99,7 +105,7 @@ The Password property type prevents the text of a password from being displayed.
 ```
 
 
-**COLOR SELECTOR** 
+
 
 ```xml
 <property>
@@ -110,7 +116,7 @@ The Password property type prevents the text of a password from being displayed.
 ```
 
 
-**DYNAMIC LIST**
+
 
 ```xml
 <property> 
@@ -121,9 +127,17 @@ The Password property type prevents the text of a password from being displayed.
 </property>
 ```
 
+
+### Usage Note Regarding the Ranged Float Property
+Note that the local setting of a Control4 Controller in a project, and the local setting assigned to devices found within that project can potentially have an impact of the way in which a RANGED FLOAT property is handled by a driver. For example, if the controller has a local setting which uses the English language, the RANGED FLOAT property will be defined as in the example to the right (using a decimal).  However, if the local setting is that which supports another language - such as French for example, the minimum, maximum and default values will come in using a comma instead of a decimal point. For example, 50.0 will be received as 50,0. In the event that project controllers and project devices cannot be set to the same local, resulting in the same language, a driver will need to be able to handle the differing value definitions. 
+
+### Usage Note Regarding the Password Property
+The Password property type prevents the text of a password from being displayed. It will show asterisks `*` in place of any text that is part of the property.  It is important to note that the data of the password field is NOT protected in any way. For example, if the properties table from the driver were to be printed, it will show the actual password. If the password field is used by a driver Control4 strongly recommends that the driver be encrypted.
+
+
 All properties can have initial/default values and may be changed by the installer or configured as read-only.
 
-Beginning with 2.7.0, Properties have the ability to have two parameters. These include \<tooltip\> and \<description\>.
+Properties have the ability to have two parameters. These include \<tooltip\> and \<description\>.
 
 The \<tooltip\> parameter provides the means to display a brief description of the parameter when the user hovers over it with their mouse. 
 
@@ -139,9 +153,11 @@ For example:
 <img src="images/15_1-02.png"/>
 
 
-In the example below, the two parameters are passed to the string property named TEST READ ONLY.
+In the example to the right, the two parameters are passed to the string property named TEST READ ONLY.
 
 ```xml
+Tooltip/Description Example
+
 <property>
     <name>Test Read Only</name>
      <type>STRING</type>
