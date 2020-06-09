@@ -2,7 +2,7 @@
 
 ### New Property: LINK
 
-The new LINK property type allows you to provide a link to a resource which can used to support your driver. Typically, this Property is used to link to a configuration page on a device. _See the section titled ComposerPro Interface into the SDK/ Properties for more information._
+The new LINK property type allows you to provide a link to a resource which can be used to support your driver. Typically, this Property is used to link to a configuration page on a device. _See the section titled ComposerPro Interface into the SDK/ Properties for more information._
 
 
 
