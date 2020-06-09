@@ -11,8 +11,8 @@ DriverWorks Properties are defined in the .c4z file and exposed in the Composer 
 | **String Password** | Provides a string which can be used as a password. |
 | **Device Selector** | Provides a list of selectable drivers. See the Device Selector topic for more information. |
 | **Color Selector** | Provides the ability to select a color. See the Color Selector topic for more information. |
-| **Dynamic List** |  Provide driver-based, dynamically updated lists. See the Dynamic List topic for more information. |
-| **Link** | Provide a link to a resource which can be used to support your driver. |
+| **Dynamic List** |  Provides driver-based, dynamically updated lists. See the Dynamic List topic for more information. |
+| **Link** | Provides a link to a resource which can be used to support your driver. |
 
 ```xml
 List Property Example
