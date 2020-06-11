@@ -1,5 +1,10 @@
 ## What was New in 3.1.3
 
+### Driver Agents
+
+Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough platform for developing Control4 Agents in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes. _Please see the Driver Agents section for more information._
+
+
 ### Future Change to Zigbee Server-Side Cluster Management in OS 3.2.0
 
 Starting with the upcoming release of Operating System 3.2.0, Control4 will change the way Zigbee Clusters are handled. Drivers that have previously relied on the ability of clusters to circumvent zserver and its processes will be impacted by this change and will not function as intended in OS 3.2.0 and going forward.
