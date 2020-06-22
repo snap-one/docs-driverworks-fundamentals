@@ -85,10 +85,10 @@ String Property Example
 ```xml
 String Paswword Property Example
 <property>
-  	<name>Test STRING password</name>
-  	<type>STRING</type>
-  	<password>true</password>
-	<default>password</default>
+  <name>Test STRING password</name>
+  <type>STRING</type>
+  <password>true</password>
+  <default>password</default>
 </property>
 ```
 
