@@ -88,6 +88,7 @@ String Paswword Property Example
   	<name>Test STRING password</name>
   	<type>STRING</type>
   	<password>true</password>
+	<default>password</default>
 </property>
 ```
 
