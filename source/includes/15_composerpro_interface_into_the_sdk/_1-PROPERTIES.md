@@ -1,6 +1,6 @@
 ## Properties
 
-DriverWorks Properties are defined in the .c4z file and exposed in the Composer System Design interface on the Properties tab. Below is table of currently supported properties. Code examples for each are to the right. 
+DriverWorks Properties are defined in the .c4z file and exposed in the Composer System Design interface on the Properties tab. Below is table of currently supported properties. The code examples for each are to the right. 
 
 | Property | Description |
 | --- | --- |
