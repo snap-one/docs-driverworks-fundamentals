@@ -23,7 +23,7 @@ Initially, a command needs to be created in the `<devicedata><config>` section o
 </devicedata>
 ```
 
-In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type `CUSTOM_SELECT` allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example above, it is the function SelectChannelParamSelect. 
+In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type `CUSTOM_SELECT` allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect. 
 
 The command description can also contain variables enclosed in {{ and }}, and the name refers to the param name.  
 Note, that this variable substitution currently only works with params of type `CUSTOM_SELECT.`
