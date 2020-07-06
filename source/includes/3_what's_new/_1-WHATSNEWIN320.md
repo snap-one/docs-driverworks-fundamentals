@@ -36,4 +36,4 @@ To avoid unintended functionality, a review of your Zigbee driver(s) is recommen
 
 Operating System 3.2.0 will include an OTA Upgrade API which will provide a driver based upgrade option.
 
-[1]:	#PROPERTIES
+[1]:	_1-PROPERTIES
