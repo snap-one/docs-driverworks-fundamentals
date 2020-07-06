@@ -6,9 +6,9 @@ Modifying a driver to use the LuaJIT compiler is worth consideration. LuaJIT is 
 
 A considerable amount of information is available regarding LuaJIT on the Lua homepage and the LuaJIT wiki:
 
-https://www.lua.org/
+[https://www.lua.org/][1]
 
-http://wiki.luajit.org/Home
+[http://wiki.luajit.org/Home][2]
 
 
 ### Modifying your Driver to use LuaJIT
@@ -173,3 +173,6 @@ In the example above, the -d is required followed by the path to the .c4z file t
 Selecting a logging level will include all log entries for it and any entries for logging levels lower than it. For example, selecting a log level of ERROR will log all Error entries as well as FAIL, FATAL and WARN. The NOT IMPLEMENTED log level is has been included for driver certification testing purposes. This log level is useful in identifying instances where a test routines have been created for driver code, but the driver being validated has not implemented that code.
 
 
+
+[1]:	[https://www.lua.org/]
+[2]:	[https://www.lua.org/]
