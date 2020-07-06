@@ -95,7 +95,7 @@ The following table shows two examples of 5.0 escape sequences and how to fix th
 | `string.gsub (s, '%&quot%;' , '"') string.gsub (s, '&quot;' , '"')` |
 | `string.match(C4:GetVersionInfo().version, '(%d+)%.(%d+)%.(%d+)%.(%d+)')` |
 
-_The Lua 5.1 Language Manual details its incompatibilities with previous versions. For more information see Section #7 of the manual here: http://www.lua.org/manual/5.1/manual.html_
+_The Lua 5.1 Language Manual details its incompatibilities with previous versions. For more information see Section #7 of the manual here: [http://www.lua.org/manual/5.1/manual.html][3]_
 
 
 ### Order Dependency in Lua Tables
@@ -176,3 +176,4 @@ Selecting a logging level will include all log entries for it and any entries fo
 
 [1]:	[https://www.lua.org/]
 [2]:	[https://www.lua.org/]
+[3]:	http://www.lua.org/manual/5.1/manual.html
