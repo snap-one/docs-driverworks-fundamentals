@@ -36,4 +36,4 @@ To avoid unintended functionality, a review of your Zigbee driver(s) is recommen
 
 Operating System 3.2.0 will include an OTA Upgrade API which will provide a driver based upgrade option.
 
-[1]:	15_composerpro_interface_into_the_sdk/%0A_1-PROPERTIES
+[1]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
