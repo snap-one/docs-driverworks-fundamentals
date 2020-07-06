@@ -2,14 +2,11 @@
 
 ### New Property: [LINK][1]
 
-The new LINK property type allows you to provide a link to a resource which can be used to support your driver. Typically, this Property is used to link to a configuration page on a device. _See the section titled ComposerPro Interface into the SDK/ Properties for more information._
-
-
+The new LINK property type allows you to provide a link to a resource which can be used to support your driver. Typically, this Property is used to link to a configuration page on a device. _ 
 
 ### Driver Conditionals
 
-In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: Room and Device. The ability to generate Dynamic Conditionals is also included in O.S. 3.2.0. _See the section titled Conditionals for more information._
-
+In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: [Room and Device][2]. The ability to generate [Dynamic Conditionals][3] is also included in O.S. 3.2.0. 
 
 
 ### Zigbee
@@ -37,3 +34,5 @@ To avoid unintended functionality, a review of your Zigbee driver(s) is recommen
 Operating System 3.2.0 will include an OTA Upgrade API which will provide a driver based upgrade option.
 
 [1]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
+[2]:	https://control4.github.io/docs-driverworks-fundamentals/#conditionals
+[3]:	https://control4.github.io/docs-driverworks-fundamentals/#creating-dynamic-driver-conditionals
