@@ -1,6 +1,6 @@
 ## What’s New in 3.2.0
 
-### Sorting Conditionals in ComposerPro
+### Sorting Conditionals in Programming
 
 Driver writers now have the ability to order the way driver conditionals are displayed in the Programming area of ComposerPro. A new sort order XML driver element has been delivered that provides the ability to display conditionals in any desired order. 
 
