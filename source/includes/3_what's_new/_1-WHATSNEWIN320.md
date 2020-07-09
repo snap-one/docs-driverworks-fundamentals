@@ -1,8 +1,13 @@
 ## What’s New in 3.2.0
 
+### Sorting Conditionals in ComposerPro
+
+Driver writers now have the ability to order the way driver conditionals are displayed in the Programming area of ComposerPro. A new sort order XML driver element has been delivered that provides the ability to display conditionals in any desired order. 
+
 ### New Property: [LINK][1]
 
-The new LINK property type allows you to provide a link to a resource which can be used to support your driver. Typically, this Property is used to link to a configuration page on a device. _ 
+The new LINK property type allows you to provide a link to a resource which can be used to support your driver. Typically, this Property is used to link to a configuration page on a device. \_ 
+
 
 ### Driver Conditionals
 
