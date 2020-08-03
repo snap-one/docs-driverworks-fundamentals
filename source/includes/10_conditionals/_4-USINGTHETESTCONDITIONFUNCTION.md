@@ -18,12 +18,12 @@ Conditional Types:
 - NUMBER: table of two name/value pairs:
 - tParams “VALUE” contains the INTEGER macro value of the code item in programming.
 - tParams “LOGIC” contains the LOGIC macro value of the code item in programming. Possible LOGIC values are:
-EQUAL 
-NOT\_EQUAL
-LESS\_THAN
-LESS\_THAN\_OR\_EQUAL
-GREATER\_THAN
-GREATER\_THAN\_OR\_EQUAL
+EQUAL, 
+NOT\_EQUAL, 
+LESS\_THAN, 
+LESS\_THAN\_OR\_EQUAL, 
+GREATER\_THAN, 
+GREATER\_THAN\_OR\_EQUAL.
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
