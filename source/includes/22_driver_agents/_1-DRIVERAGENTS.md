@@ -14,8 +14,7 @@ Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough 
 </devicedata>
 ```
 
-5. Save the driver.xml back into your favorite selected driver.
-6. Load the updated driver into a Control4 project.
+Next, save the driver.xml back into your favorite selected driver and load the updated driver into a Control4 project.
 
 
 ### Managing DriverWorks Agents
