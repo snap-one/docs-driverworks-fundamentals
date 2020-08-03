@@ -1,1 +1,1 @@
-# What’s New
+# What’s New in the Fundamentals Guide
