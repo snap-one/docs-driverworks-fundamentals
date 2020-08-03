@@ -91,11 +91,11 @@ This callback API supports password protection for SSL Certificates that are emb
  
 
 | Parameters | Description |
-| — | — |
+| --- | --- |
 | num | idBinding: Binding ID of the network connection with the password-protected certificate. |
 | num | nPort: Port number for the network connection with the password-protected certificate. |
 
 
 | Returns | Value |
-| — | — |
+| --- | --- |
 | str | strPassword: String value of the SSL Certificate password |
