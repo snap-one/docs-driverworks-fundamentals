@@ -6,11 +6,13 @@ Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough 
 1. Select the DriverWorks driver. Preferably a self-proxy or combo driver.
 2. Ensure that your favorite driver is actually a .c4z type driver.
 3. Open your driver and select the “driver.xml” for editing.
-4. Add the following child xml element to the `<devicedata>` element:  `<agent>true</agent>` For example:
+4. Add the following child xml element to the `<devicedata>` element:  `<agent>true</agent>` For example, see the code to the right:
 
-	 `<devicedata>`
-	   ` <agent>true</agent>`
-	 `<devicedata>`
+```xml
+<devicedata>
+   <agent>true</agent>
+</devicedata>
+```
 
 5. Save the driver.xml back into your favorite selected driver.
 6. Load the updated driver into a Control4 project.
