@@ -1,1 +1,1 @@
-# ComposerPro: Interface into the SDK
+# ComposerPro: The Interface into the SDK
