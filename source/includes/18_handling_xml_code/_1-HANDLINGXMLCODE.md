@@ -1,4 +1,3 @@
-## Handling XML Code
 
 The included Lua method will escape XML code to the Lua driver. Any time string data is put into XML this method must be called.
 

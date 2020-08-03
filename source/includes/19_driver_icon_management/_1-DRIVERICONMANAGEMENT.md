@@ -1,4 +1,3 @@
-## Driver Icon Management
 
 **Note: Detailed information regarding the creation of Device and Service Icons as well as useful Icon Templates can be found in the DriverWorks SDK at: DriverWorks SDK/Icon Templates.**
 
@@ -99,11 +98,12 @@ Additional icons and other useful attributes are defined under the \<proxies\> X
 
 If we look at the XML attributes for the proxy section we can see the proxy binding ID is defined first. This is required for the correct icon to be displayed. Next we see a name attribute. This attribute is useful as it defines the driver's name that will be displayed in ComposerPro and on devices running Navigator. This is especially useful when dealing with multi-proxy drivers and its use is further explained below. When left blank, the name of the proxy used by the driver will be displayed. Following the name attribute we can see the small and large image icon attributes. Note the format the XML follows:
 
+
 `small_image="devices_sm/keypad_16.gif"`
 
 `large_image="devices_lg/keypad_32.gif"`
-\`
-\`
+
+
 In the example above, we can see the `small_image` and `large_image` directories that are installed with ComposerPro as well as the small and large icon names within each`.`
 
 If our single proxy driver requires the use of icons through a URL, the proxy XML would look like code to the right.
