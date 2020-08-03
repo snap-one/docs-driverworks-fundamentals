@@ -87,8 +87,9 @@ Please note that the `<certificate>`, `<private_key>`, and `<cacert>` expected i
 
 
 ## GetPrivateKeyPassword
-This callback API supports password protection for SSL Certificates that are embedded within a device driver. Implementing GetPrivateKeyPassword within a .C4i file permits a password to be returned for a binding which requires an SSL Certificate. When implemented correctly, this API will return the string value of the SSL Certificate password. Use of this API is recommended in conjunction with encrypted drivers.
+This callback API supports password protection for SSL Certificates that are embedded within a device driver. Implementing GetPrivateKeyPassword within a .C4z file permits a password to be returned for a binding which requires an SSL Certificate. When implemented correctly, this API will return the string value of the SSL Certificate password. Use of this API is recommended in conjunction with encrypted drivers.
  
+
 | Parameters | Description |
 | — | — |
 | num | idBinding: Binding ID of the network connection with the password-protected certificate. |
