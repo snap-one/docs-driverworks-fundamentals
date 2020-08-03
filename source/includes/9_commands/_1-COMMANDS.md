@@ -1,4 +1,3 @@
-## Commands
 
 Commands come from the Device Proxy. For example, a AV Switch might have the following section in the XML of the .c4z file:
 

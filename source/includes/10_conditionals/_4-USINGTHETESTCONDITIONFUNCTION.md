@@ -9,22 +9,28 @@ In order to evaluate the expression, the driver must implement the TestCondition
 | Parameter | Description |
 | --- | --- |
 | str | name: The name of the condition being tested. This is the name found in the \<name\> defined in the conditional xml. |
-| | table tParam: Table of parameters. This varies depending on the Conditional Type  (`<type>` tag as defined in the conditional xml). |
+| table | tParam: Table of parameters. This varies depending on the Conditional Type  `<type>` tag as defined in the conditional xml. |
 
-tParams Conditional Types:
+Conditional Types:
 
-SIMPLE: empty table
-BOOL: empty table
-NUMBER: table of two name/value pairs:
-tParams[“VALUE”]() contains the INTEGER macro value of the code item in programming.
-tParams[“LOGIC”]() contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUAL, NOT_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN and GREATER_THAN_OR_EQUAL.
+- SIMPLE: empty table
+- BOOL: empty table
+- NUMBER: table of two name/value pairs:
+- tParams “VALUE” contains the INTEGER macro value of the code item in programming.
+- tParams “LOGIC” contains the LOGIC macro value of the code item in programming. Possible LOGIC values are:
+EQUAL 
+NOT\_EQUAL
+LESS\_THAN
+LESS\_THAN\_OR\_EQUAL
+GREATER\_THAN
+GREATER\_THAN\_OR\_EQUAL
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
 
 STRING: table of two name/value pairs:
 `tParams[“VALUE”]` contains the STRING macro value of the code item in programming.
-`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUAL and NOT_EQUAL.
+`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUAL and NOT\_EQUAL.
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
@@ -32,7 +38,7 @@ You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC fiel
 
 LIST: table of two name/value pairs:
 `tParams[“VALUE”]` contains the STRING macro value of the code item in programming.
-`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUALand NOT_EQUAL._
+`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUALand NOT\_EQUAL.\_
 
 You may use `C4:EvaluateExpression`n to simplify the evaluation of the LOGIC field.
 
@@ -40,7 +46,7 @@ You may use `C4:EvaluateExpression`n to simplify the evaluation of the LOGIC fie
 
 ROOM: table of two name/value pairs
 `tParams[“VALUE”]` contains the room id of the ROOM macro value of the code item in programming.
-`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUALand NOT_EQUAL.
+`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUALand NOT\_EQUAL.
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
@@ -48,7 +54,7 @@ You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC fiel
 
 DEVICE: table of two name/value pairs
 `tParams[“VALUE”]` contains the device id of the DEVICE macro value of the code item in programming.
-`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUALand NOT_EQUAL.
+`tParams[“LOGIC”]` contains the LOGIC macro value of the code item in programming. Possible LOGIC values are EQUALand NOT\_EQUAL.
 
 You may use `C4:EvaluateExpression` to simplify the evaluation of the LOGIC field.
 
