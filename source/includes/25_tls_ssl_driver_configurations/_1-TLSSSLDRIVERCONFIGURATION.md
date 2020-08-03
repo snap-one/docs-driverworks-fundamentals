@@ -2,6 +2,7 @@
 
 A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined below. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
  
+
 ```xml
 <classname>SSL</classname>
     <ports>
@@ -13,12 +14,14 @@ A “class” of connections that enable declaring secure (SSL) connections in a
            <keep_connection>True</keep_connection>
            <keep_alive>True</keep_alive>
            <delimiter>4f4b0a</delimiter>
-        </port>
-      </ports>
+       </port>
+    </ports>
 ```
  
+
 This snipped declares an SSL connection bound to port 5810 (Sysman). This particular connection doesn't require the use of any special properties. To the right is another example that illustrates the five new properties that were added for SSL.
  
+
 ```xml
 <port>
   <name>CertTest</name>
