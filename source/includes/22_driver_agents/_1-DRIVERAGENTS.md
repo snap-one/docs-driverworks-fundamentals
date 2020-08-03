@@ -1,4 +1,3 @@
-## DriverWorks Agents
 
 Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough platform for developing Control4 Agents in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes.
 
@@ -9,9 +8,9 @@ Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough 
 3. Open your driver and select the “driver.xml” for editing.
 4. Add the following child xml element to the `<devicedata>` element:  `<agent>true</agent>` For example:
 
-	`<devicedata>`
-	` <agent>true</agent>`
-	`<devicedata>`
+	 `<devicedata>`
+	   ` <agent>true</agent>`
+	 `<devicedata>`
 
 5. Save the driver.xml back into your favorite selected driver.
 6. Load the updated driver into a Control4 project.

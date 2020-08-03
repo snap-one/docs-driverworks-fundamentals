@@ -1,5 +1,7 @@
 ## Using QR Codes to Identify and Download Drivers
 
+**Note: Detailed information regarding the creation and use of QR Codes Device and Service Icons as well as useful image templates can be found in the DriverWorks SDK at: DriverWorks SDK/QR Branding.**
+
 Composer Express version 2.9.0 and later support the ability for a device driver to be downloaded by way of scanning a Quick Response code (QR code). QR codes are useful as they can be placed on a product, product packaging, within documentation or embedded on a product webpage.  When scanned within the Composer Express (CE) environment, they not only provide a way to download the correct driver, but also offer a convenient way to build a project at an offsite location.
 
 For example, when an installer using Composer Express scans a Control4 QR code, CE reads the code and provides the ability for a driver to connect to the code. Composer Express will then download the driver and also provide the ability to place that driver in a desired room within the project.
