@@ -20,6 +20,7 @@ Beginning with OS system 2.6.0, the System Manager (sysman) utility has been enh
 
 - The ComposerPro System Manager UI has been enhanced to support the logging interface. Logs can be viewed and filtered and log levels assigned through System Manager.
 
+
 The purpose of this section is to provide instruction on how to use the sysman logging platform to:
 
 - Connect to a controller from the System Manager Logging UI

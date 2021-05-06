@@ -4,8 +4,10 @@ By default, the Log Appender column is not displayed on the Sysman Logging UI. T
 
 <img src="images/16_8-01.png"/>
 
+
 The Appender column will be added to the view:
 
 <img src="images/16_8-02.png"/>
+
 
 For more information on using Log Appenders, please see the “Targeting Log Directories” section in the Advanced Logging Capabilities portion of this document.
