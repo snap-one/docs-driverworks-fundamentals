@@ -21,11 +21,11 @@ Assuming `<auto_update>` is set to true, this tag designated the minimum require
 
 The above example indicates that the driver found in the project must be version 4 (at a minimum) in order for the driver to be updated automatically.
 
-`<minimum_os_update_version></minimum_os_update_version>`
+`<minimum_os_version></minimum_os_version>`
 
 Assuming `<auto_update>` is set to true, this tag designates the minimum required Control4 Operating System before an update can be applied automatically.  For example: 
 
-`<minimum_os_update_version>2.8.0</minimum_os_update_version>`
+`<minimum_os_version>2.8.0</minimum_os_version>`
 
 The above example indicates that the Control4 operating system being used must be version 2.8.0 (at a minimum) in order for the driver to be updated automatically.
 
