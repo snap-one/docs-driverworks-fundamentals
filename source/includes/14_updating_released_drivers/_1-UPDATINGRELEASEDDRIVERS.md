@@ -29,6 +29,10 @@ Assuming `<auto_update>` is set to true, this tag designates the minimum require
 
 The above example indicates that the Control4 operating system being used must be version 2.8.0 (at a minimum) in order for the driver to be updated automatically.
 
+`<force_auto_update>false</force_auto_update>`
+
+The force auto update tag, when set to true, ignores the Enable Driver Update flag set by dealers in ComposerPro _see below_. It will update on the scheduled time regardless of the setting of the flag.
+
 As mentioned above, the other component to managing driver auto updates is found in ComposerPro's Manage Drivers/Auto Update screen. The screen is accessed through the ComposerPro toolbar by selecting Driver/ Manage Drivers:
 
 <img src="images/14_1-01.png"/>
