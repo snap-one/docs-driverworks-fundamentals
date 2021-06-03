@@ -30,3 +30,5 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 - When the door opens.
 - When it is 7:00 AM.
 - When it is sunrise.
+
+**Note that a limit of 1000 Events per driver exists within the Control4 Operating System. Exceeding this limit results in undesirable handling of Events.**
