@@ -101,11 +101,12 @@ Once the connection is established, then you simply utilize the standard network
 Your driver then will be responsible for parsing the JSON data structure and handling it as you deem necessary.
  
 If you want to use a web socket for your device communication, we have a sample web socket driver in our SDK library at:
-[https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket][7]
+[https://github.com/control4/docs-driverworks/tree/master/sample\_drivers/websocket][7]
  
 You can test using standard web socket and web socket secure (TLS). You can use the websocket.org demo server to test regular and secure WebSockets:
  
 [ws://echo.websocket.org][8]
+
 [wss://echo.websocket.org][9]
 
 [1]:	https://control4.github.io/docs-driverworks-api/#url-interface
@@ -114,6 +115,6 @@ You can test using standard web socket and web socket secure (TLS). You can use 
 [4]:	https://control4.github.io/docs-driverworks-api/#getprivatekeypassword "GetPrivatekeyPassword API"
 [5]:	https://control4.github.io/docs-driverworks-api/#netconnect
 [6]:	https://control4.github.io/docs-driverworks-api/#receivedfromnetwork
-[7]:	[https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket]
+[7]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket
 [8]:	ws://echo.websocket.org
 [9]:	wss://echo.websocket.org
