@@ -1,6 +1,14 @@
 ## TLS/SSL Driver Configuration
 
-A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined below. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
+Control4 drivers can connect securely with client devices using SSL/TLS. These connections are outgoing TCP client connections, using either the C4:url calls or the standard network connections (either static in XML or dynamic in Lua).
+
+If you use the DriverWorks SDK URL interface, you can implement basic or digest authentication support within your driver and construct the url properly to include those credentials in communication with the device. For more information, please see:
+
+[https://control4.github.io/docs-driverworks-api/#url-interface][1]
+[https://control4.github.io/docs-driverworks-api/#netportoptions][2]
+[https://github.com/control4/docs-driverworks/tree/master/sample\_drivers][3]
+
+A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined to the right. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
  
 
 ```xml
@@ -86,16 +94,26 @@ If this property is omitted, then Director defaults to using sslv23 (which is th
 Please note that the `<certificate>`, `<private_key>`, and `<cacert>` expected in those XML tags for certificates and key information may all be contained in the same file.  It's not required to split the various certificates and keys out into separate files to work properly.  In the case that they are all contained in a single file, put that file's filename value in each of the XML tags.
 
 
-## GetPrivateKeyPassword
-This callback API supports password protection for SSL Certificates that are embedded within a device driver. Implementing GetPrivateKeyPassword within a .C4z file permits a password to be returned for a binding which requires an SSL Certificate. When implemented correctly, this API will return the string value of the SSL Certificate password. Use of this API is recommended in conjunction with encrypted drivers.
- 
+If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the [https://control4.github.io/docs-driverworks-api/#getprivatekeypassword][4] in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.
+ 
+Once the connection is established, then you simply utilize the standard networking functions (e.g. [NetConnect][5] ) to communicate with the device. The returned information will come back on [ReceivedFromNetwork][6] 
 
-| Parameters | Description |
-| --- | --- |
-| num | idBinding: Binding ID of the network connection with the password-protected certificate. |
-| num | nPort: Port number for the network connection with the password-protected certificate. |
+Your driver then will be responsible for parsing the JSON data structure and handling it as you deem necessary.
+ 
+If you want to use a web socket for your device communication, we have a sample web socket driver in our SDK library at:
+[https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket][7]
+ 
+You can test using standard web socket and web socket secure (TLS). You can use the websocket.org demo server to test regular and secure WebSockets:
+ 
+[ws://echo.websocket.org][8]
+[wss://echo.websocket.org][9]
 
-
-| Returns | Value |
-| --- | --- |
-| str | strPassword: String value of the SSL Certificate password |
+[1]:	https://control4.github.io/docs-driverworks-api/#url-interface
+[2]:	https://control4.github.io/docs-driverworks-api/#netportoptions
+[3]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers
+[4]:	https://control4.github.io/docs-driverworks-api/#getprivatekeypassword "GetPrivatekeyPassword API"
+[5]:	https://control4.github.io/docs-driverworks-api/#netconnect
+[6]:	https://control4.github.io/docs-driverworks-api/#receivedfromnetwork
+[7]:	[https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket]
+[8]:	ws://echo.websocket.org
+[9]:	wss://echo.websocket.org
