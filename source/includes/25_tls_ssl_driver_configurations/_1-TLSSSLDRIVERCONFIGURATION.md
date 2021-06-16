@@ -1,6 +1,6 @@
 ## TLS/SSL Driver Configuration
 
-Control4 drivers can connect securely with client devices using SSL/TLS. These connections are outgoing TCP client connections, using either the C4:url calls or the standard network connections (either static in XML or dynamic in Lua).
+Control4 drivers can connect securely with devices using SSL/TLS. These connections are outgoing TCP client connections, using either the C4:url calls or the standard network connections (either static in XML or dynamic in Lua).
 
 If you use the DriverWorks SDK URL interface, you can implement basic or digest authentication support within your driver and construct the url properly to include those credentials in communication with the device. For more information, please see:
 
@@ -94,7 +94,7 @@ If this property is omitted, then Director defaults to using sslv23 (which is th
 Please note that the `<certificate>`, `<private_key>`, and `<cacert>` expected in those XML tags for certificates and key information may all be contained in the same file.  It's not required to split the various certificates and keys out into separate files to work properly.  In the case that they are all contained in a single file, put that file's filename value in each of the XML tags.
 
 
-If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the [https://control4.github.io/docs-driverworks-api/#getprivatekeypassword][4] in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.
+If a private key / key exchange is desired, you need to include your client\_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the [https://control4.github.io/docs-driverworks-api/#getprivatekeypassword][4] in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.
  
 Once the connection is established, then you simply utilize the standard networking functions (e.g. [NetConnect][5] ) to communicate with the device. The returned information will come back on [ReceivedFromNetwork][6] 
 
