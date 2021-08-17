@@ -1,6 +1,6 @@
 ## Identifying a .c4z Driver
 
-The ability to specify a unique driver identification image and instructional text can be defined in the `\<config\>` section of your .c4z driver. 
+The ability to specify a unique driver identification image and instructional text can be defined in the `<config>` XML section of your .c4z driver. 
 
 ```xml
 <devicedata>
@@ -15,6 +15,6 @@ The ability to specify a unique driver identification image and instructional te
  
 
 Both the text string and the .gif are pulled from the .c4z file at the relative path specified in the driver. In the example above they would just be in the root of the c4z.
- 
-For identify images, .gifs are recommended as they can be animated. Other formats should work fine, however.
+
+For identify images, .gifs are recommended as they can be animated. However, other image formats are supported.
   
