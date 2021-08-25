@@ -13,6 +13,11 @@ This tag designates if a driver supports automatically updating to newer version
 
 `<auto_update>true</auto_update>`
 
+The `auto_update` functionality is executed by an agent running on the Control4 controller. It checks with the online driver DB once in each 24 hour period to see if there’s a higher version of any of the drivers installed in the project. If there is, that driver is automatically updated.
+ 
+To utilize this functionality, the driver must be hosted in the online driver DB. It doesn’t matter whether it is certified or not.
+ 
+As long as the version in the online driver DB has the `auto_update` tag, the local version will be auto updated provided that the `minimum_auto_update_version` version matches.
 
 `<minimum_auto_update_version></minimum_auto_update_version>`
 Assuming `<auto_update>` is set to true, this tag designated the minimum required driver version before an update can be applied automatically.  For example: 
