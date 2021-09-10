@@ -91,7 +91,6 @@ function SelectChannelParamSelect(currentValue)
 
    return list, back
 end
-
 ```
 
 You can also defer returning the list. This may be useful if you are waiting for the completion of a web service call or waiting for data from a device to return. The function you’re implementing (SelectChannel) is receiving a function pointer as a second argument, which can be saved off and can be called to return the list at a later time. This function either takes the list and back value, or just a string if ComposerPro should display an error message. 
@@ -125,7 +124,7 @@ end
 function SelectChannelParamSelect(currentValue, done)
   local ticketId = C4:urlGet("http://www.example.com")
 
-g\_tickets\[ticketId] = { returnData = done }
+g_tickets[ticketId] = { returnData = done }
 
   -- Do not return anything here, we're calling the done function when we have data
 end
