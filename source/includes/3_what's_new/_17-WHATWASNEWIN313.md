@@ -2,8 +2,7 @@
 
 ### Driver Agents
 
-Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough platform for developing Control4 Agents in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes. _Please see the [DriverWorks Agents section][1] for more information._
-
+Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough platform for developing Control4 [Agents][1] in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes. 
 
 ### Future Change to Zigbee Server-Side Cluster Management in OS 3.2.0
 
