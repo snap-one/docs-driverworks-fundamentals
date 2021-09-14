@@ -5,9 +5,10 @@ Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough 
 ### Agents vs. Drivers
 
 An agent is essentially a driver.  Agents are best used for drivers that meet the following criteria:
+
 - An Agent is by definition a singleton driver. If more than one is needed, it should not be implemented as an agent.
 
-- An Agent could interact with a hardware device or service, but it would need to be a singleton implementation as mentioned above. 
+- An Agent can interact with a hardware device or service, but it would need to be a singleton implementation as mentioned above. 
 
 - An Agent is a self-proxy driver. If a proxy-based UI is needed, it should not be implemented as an agent.
 
