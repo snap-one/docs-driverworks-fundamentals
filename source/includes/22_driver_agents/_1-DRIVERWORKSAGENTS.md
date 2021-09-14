@@ -32,7 +32,7 @@ Next, save the driver.xml back into your favorite selected driver and load the u
 
 ### Managing DriverWorks Agents
 
-Also beginning with O.S. Release 3.1.3, Composer creates a new “Agents” directory in the “My Documents\Control4” directory structure. It is recommended that DriverWorks Agents are placed into this directory. Maintaining new Agents in this directory makes them easy to locate and avoids possible confusion for dealers who may try to load the agent as a driver. DriverWorks Drivers which have been modified to an agent will not load properly if treated as a driver.
+Also beginning with O.S. Release 3.1.3, Composer creates a new “Agents” directory in the “My Documents\Control4” directory structure. It is recommended that DriverWorks Agents be placed into this directory. Maintaining new Agents in this directory makes them easy to locate and avoids possible confusion for dealers who may try to load the agent as a driver. DriverWorks Drivers which have been modified to an agent will not load properly if treated as a driver.
 
 
 ### Loading a DriverWorks Agent
