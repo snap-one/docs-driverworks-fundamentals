@@ -1,5 +1,5 @@
 
-Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough platform for developing Control4 Agents in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes.
+Beginning with O.S. Release 3.1.3, the DriverWorks SDK provides a stable enough platform for developing [Control4 Agents][1] in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes.
 
 ### Creating an Agent from an Existing Driver
 
@@ -33,3 +33,5 @@ This screen has a very similar look and function as that of the Drivers Search t
 
 Note that DriverWorks Agents will be available for distribution through the Online Driver Database in a future release..
 
+
+[1]:	https://control4.github.io/docs-driverworks-fundamentals/#driver-agents
