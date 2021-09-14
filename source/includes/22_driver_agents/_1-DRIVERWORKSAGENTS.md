@@ -44,5 +44,5 @@ To load a new DriverWorks Agent, select Agents from below the Project Tree in Co
 
 This screen has a very similar look and function as that of the Drivers Search tab under System Design. All of the project’s legacy agents as well as newly created DriverWorks Agents are displayed in the results window. The search window at the top of the screen allows for text-based searches. Furthermore, searching for Agents can be refined by Category and Manufacturer. Search results can be sorted by the Control Method defined in the Agent as well the relevance which includes sorting by name or modified date. 
 
-Note that DriverWorks Agents will be available for distribution through the Online Driver Database in a future release..
+Note that DriverWorks Agents will be available for distribution through the Online Driver Database in a future release.
 
