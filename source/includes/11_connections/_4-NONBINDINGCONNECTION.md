@@ -19,7 +19,7 @@ A non-binding connection is created in the `<connection`\> section of the the dr
 
 ```xml
 <connection>
- <id>3333</id>
+ <id>4444</id>
  <connectionname>Net Output</connectionname>
  <type>6</type>
  <consumer>False</consumer>
@@ -39,7 +39,7 @@ Next is the Consumer-side example for the non-binding connection. Note the use o
 
 ```xml
 <connection>
- <id>4444</id>
+ <id>3333</id>
  <connectionname>Net Input</connectionname>
  <type>6</type>
  <consumer>True</consumer>
