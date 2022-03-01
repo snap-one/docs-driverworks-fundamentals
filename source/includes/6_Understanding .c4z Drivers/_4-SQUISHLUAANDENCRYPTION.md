@@ -50,6 +50,11 @@ Next you’ll notice the `<Items></Items>` section:
 
 **exclude** - Optional.  Must be "true" of "false", default is "false" if not specified. This specifies if an item is excluded from the c4z. 
 
+
 ### Usage Note
 
-When Driver Packager assembles a .c4z file and the Encryption parameter in the c4z project file is set to true (Encryption="True"), the file is encrypted using a new and improved encryption protocol based on an asymmetrical public key infrastructure. This level of encryption is applicable to .c4z files only.
+Driver Packager is a Python utility used to create individual .c4z files from source code. When Driver Packager assembles a .c4z file and the Encryption parameter in the .c4z project file is set to true (Encryption="True"), the file is encrypted using a new and improved encryption protocol based on an asymmetrical public key infrastructure. This level of encryption is applicable to .c4z files only.
+
+For more information please see: [https://github.com/control4/drivers-driverpackager][1]
+
+[1]:	https://github.com/control4/drivers-driverpackager
