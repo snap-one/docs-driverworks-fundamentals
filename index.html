@@ -1006,9 +1006,9 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <h2 id='squishlua-and-driver-encryption'>SquishLua and Driver Encryption</h2>
 
-<p>All .lua files included in a .c4z file must be squished prior to encryption. This is accomplished using Squish Lua. Squish is a tool that can pack many individual Lua scripts and their modules into a single Lua script. Whether or not Squish is run on the .lua files inside of a .c4z file is defined in the .c4z project file. in the example project file below you can see that the squishLua parameter has a value of &quot;true.&quot; With this setting, Driver Packager will squish all of the .lua files before encryption. This is a requirement for successful driver encryption. See the example to the right.</p>
+<p>All .lua files included in a .c4z file must be squished prior to encryption. This is accomplished using Squish Lua. Squish is a tool that can pack many individual Lua scripts and their modules into a single Lua script. Whether or not Squish is run on the .lua files inside of a .c4z file is defined in the .c4z project file. In the example project file to the right you can see that the squishLua parameter has a value of &quot;true.&quot; With this setting, Driver Packager will squish all of the .lua files before encryption. This is a requirement for successful driver encryption. </p>
 
-<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;Driver</span> <span class="na">type=</span><span class="s">"c4z"</span> <span class="na">name=</span><span class="s">"sample"</span> <span class="na">squishLua=</span><span class="s">"true"</span> <span class="na">Encryption=</span><span class="s">"True"</span> <span class="nt">&gt;</span>
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;Driver</span> <span class="na">type=</span><span class="s">"c4z"</span> <span class="na">name=</span><span class="s">"sample"</span> <span class="na">squishLua=</span><span class="s">"true"</span> <span class="nt">&gt;</span>
 <span class="nt">&lt;Items&gt;</span>
  <span class="nt">&lt;Item</span> <span class="na">type=</span><span class="s">"dir"</span> <span class="na">name=</span><span class="s">"www"</span> <span class="na">recurse=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
  <span class="nt">&lt;Item</span> <span class="na">type=</span><span class="s">"dir"</span> <span class="na">name=</span><span class="s">"common"</span> <span class="na">c4zDir=</span><span class="s">"Common"</span> <span class="nt">/&gt;</span>
@@ -1042,10 +1042,9 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <p>Output &quot;squished.lua&quot;</p>
 
-<p><strong>Encryption</strong> – Designates whether or not the driver will be encrypted or not.</p>
+<p>Next you’ll notice the <code>&lt;Items&gt;&lt;/Items&gt;</code> section:</p>
 
-<p>Next you’ll notice the <code>&lt;Items&gt;&lt;/Items&gt;</code> section:
-<strong>Item type</strong> - Must be “dir” or “file”. This specifies if the item is a file or a directory. “dir” creates a folder &#39;name&#39; and adds all immediate files beneath &#39;name&#39; to the c4z. “file” adds file &#39;name&#39; to the c4z.</p>
+<p><strong>Item type</strong> - Must be “dir” or “file”. This specifies if the item is a file or a directory. “dir” creates a folder &#39;name&#39; and adds all immediate files beneath &#39;name&#39; to the c4z. “file” adds file &#39;name&#39; to the c4z.</p>
 
 <p><strong>Item name</strong> - Name of folder or file to be added to c4z.</p>
 
@@ -1055,11 +1054,21 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <p><strong>exclude</strong> - Optional.  Must be &quot;true&quot; of &quot;false&quot;, default is &quot;false&quot; if not specified. This specifies if an item is excluded from the c4z. </p>
 
-<h3 id='usage-note'>Usage Note</h3>
+<h3 id='usage-notes'>Usage Notes</h3>
 
-<p>Driver Packager is a Python utility used to create individual .c4z files from source code. When Driver Packager assembles a .c4z file and the Encryption parameter in the .c4z project file is set to true (Encryption=&quot;True&quot;), the file is encrypted using a new and improved encryption protocol based on an asymmetrical public key infrastructure. This level of encryption is applicable to .c4z files only.</p>
+<p><strong>Driver Encryption</strong></p>
+
+<p>To encrypt a driver, the driver.xml script tag must include the encryption attribute set to “2”. Additionally, the file attribute needs to point to the main file that should be encrypted; in the example below it is the output of the squishy file:</p>
+
+<p><code>&lt;script jit=&quot;1&quot; encryption=&quot;2&quot; file=&quot;lua/squished.lua&quot;/&gt;</code></p>
+
+<p><strong>Driver Packager</strong></p>
+
+<p>Driver Packager is a Python utility used to create individual .c4z files from source code. When Driver Packager assembles a .c4z file and the the encryption attribute for the script tag in the driver.xml file is set to “2”, the file is encrypted using a new and improved encryption protocol based on an asymmetrical public key infrastructure. This level of encryption is applicable to .c4z files only.</p>
 
 <p>For more information please see: <a href="https://github.com/control4/drivers-driverpackager">https://github.com/control4/drivers-driverpackager</a></p>
+
+<p>For more information regarding luajit, please see: <a href="https://control4.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit">https://control4.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
 
 <h2 id='replacing-a-c4i-file-with-c4z'>Replacing a .c4i file with .c4z</h2>
 
