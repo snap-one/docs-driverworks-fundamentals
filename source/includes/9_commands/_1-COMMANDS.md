@@ -368,6 +368,42 @@ end
 ```
 
 
+## Dynamic List type for Commands
+
+Support for DYNAMIC\_LIST type parameters within a \<command\>. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter. 
+
+_This feature was introduced in O.S. Release 3.3.0_
+
+
+### Example
+
+```xml
+<command>
+    <name>Turn On</name>
+    <description>Turn on PARAM1 to PARAM2</description>
+    <params>
+        <param>
+            <name>Zone</name>
+            <type>DYNAMIC_LIST</type>
+        </param>
+        <param>
+            <name>Level</name>
+            <type>DYNAMIC_LIST</type>
+        </param>
+    </params>
+</command>
+<command>
+    <name>Toggle</name>
+    <description>Toggle PARAM1</description>
+    <params>
+        <param>
+            <name>Zone</name>
+            <type>DYNAMIC_LIST</type>
+        </param>
+    </params>
+</command>
+```
+
 [1]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
 [2]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
 [3]:	https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-properties
