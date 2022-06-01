@@ -3502,6 +3502,59 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 </ul>
 
 <p><strong>Note that a limit of 1000 Events per driver exists within the Control4 Operating System. Exceeding this limit results in undesirable handling of Events.</strong></p>
+
+<h3 id='sorting-events-in-composerpro'>Sorting Events in ComposerPro</h3>
+
+<p>Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Events were displayed in the Programming area of ComposerPro. A sort order driver provides the ability to display Events in any desired order. Sort order can be applied to Events in the driver.xml with the inclusion of the following xml tag: &lt;sort_order&gt;&lt;/sort_order&gt;. See the lighting code Example 1 from a driver.xml file to the right.</p>
+
+<p>The ability to order the way driver Events are displayed in the Properties area of ComposerPro is possible with the use of a sort order driver XML tag:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>            <span class="nt">&lt;event&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Event<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>New Description<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>0<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/event&gt;</span>
+            <span class="nt">&lt;event&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Event 1<span class="nt">&lt;/name&gt;</span>  
+                <span class="nt">&lt;description&gt;</span>Event Description 1<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/event&gt;</span>
+            <span class="nt">&lt;event&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Event 2<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Event Description 2<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>2<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/event&gt;</span>
+            <span class="nt">&lt;event&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Event 3<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Event Description 3<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/event&gt;</span>
+            <span class="nt">&lt;event&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Event 4<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Event Description 4<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>4<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/event&gt;</span>
+            <span class="nt">&lt;event&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Event 5<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Event Description 10<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/event&gt;</span>
+</code></pre></div>
+
+<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code> </p>
+
+<p>The tag accepts a zero based list and will display the Events in the order of the number included in each of the Events’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
+
+<p>For example, in the XML code to the right there are five device specific Events. They will display in ComposerPro Programming as:</p>
+
+<ul>
+<li>New Event</li>
+<li>New Event 1</li>
+<li>New Event 2</li>
+<li>New Event 3</li>
+<li>New Event 4</li>
+<li>New Event 5</li>
+</ul>
 <h1 id='system-manager-logging'>System Manager Logging</h1>
 
 <h2 id='introduction'>Introduction</h2>
