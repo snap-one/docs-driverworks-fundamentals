@@ -1,7 +1,5 @@
 ## What’s New in 3.3.0
 
-## What’s New in the 3.3.0 beta
-
 **Sorting Driver Elements**
 
 A new sort order driver element has been delivered that provides the ability to display [Actions][1], [Events][2] and [Commands][3] in any desired order within the Programming area of ComposerPro.
