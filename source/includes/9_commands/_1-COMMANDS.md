@@ -404,6 +404,58 @@ _This feature was introduced in O.S. Release 3.3.0_
 </command>
 ```
 
+
+## Sorting Commands in ComposerPro
+
+
+The ability to order the way driver commands are displayed in the Programming area of ComposerPro is possible with the use of a sort order driver XML tag:
+
+```xml
+            <command>
+                <name>New Command</name>
+                <description>New Description</description>
+                <sort_order>0</sort_order>
+            </command>
+            <command>
+                <name>New Command 1</name>  
+                <description>Command Description 1</description>
+                <sort_order>1</sort_order>
+            </command>
+            <command>
+                <name>New Command 2</name>
+                <description>Command Description 2</description>
+                <sort_order>2</sort_order>
+            </command>
+            <command>
+                <name>New Command 3</name>
+                <description>Command Description 3</description>
+                <sort_order>3</sort_order>
+            </command>
+            <command>
+                <name>New Command 4</name>
+                <description>Command Description 4</description>
+                <sort_order>4</sort_order>
+            </command>
+            <command>
+                <name>New Command 5</name>
+                <description>Command Description 10</description>
+                <sort_order>5</sort_order>
+            </command>
+```
+
+`<sort_order></sort_order>` 
+
+The tag accepts a zero based list and will display the commands in the order of the number included in each commands’ `<sort_order></sort_order>`tag.
+
+For example, in the XML code to the right there are five device specific commands. They will display in ComposerPro Programming as:
+
+- New Command
+- New Command 1
+- New Command 2
+- New Command 3
+- New Command 4
+- New Command 5
+
 [1]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
 [2]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
 [3]:	https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-properties
