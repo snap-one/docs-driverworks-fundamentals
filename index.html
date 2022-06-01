@@ -228,6 +228,12 @@
             <a href="#what-s-new-in-the-fundamentals-guide" class="toc-h1 toc-link" data-title="What’s New in the Fundamentals Guide">What’s New in the Fundamentals Guide</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#what-s-new-in-3-3-0" class="toc-h2 toc-link" data-title="What’s New in 3.3.0">What’s New in 3.3.0</a>
+                  </li>
+                  <li>
+                    <a href="#what-s-new-in-the-3-3-0-beta" class="toc-h2 toc-link" data-title="What’s New in the 3.3.0 beta">What’s New in the 3.3.0 beta</a>
+                  </li>
+                  <li>
                     <a href="#what-s-new-in-3-2-3" class="toc-h2 toc-link" data-title="What’s New in 3.2.3">What’s New in 3.2.3</a>
                   </li>
                   <li>
@@ -610,6 +616,9 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#markdown-driver-documentation" class="toc-h1 toc-link" data-title="Markdown Driver Documentation">Markdown Driver Documentation</a>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
@@ -657,6 +666,24 @@ Salt Lake City, UT 84020 USA</p>
 
 <p>The DriverWorks Fundamentals Guide is intended to provide an overview of the fundamental components that make up a device driver as well as the architectural layers that a device driver must interact with.  As a driver developer, you are tasked with implementing this “interaction”. Successful driver developers build drivers that not only handle numerous dependencies placed on their driver code – but also seek out ways to enhance a device’s capabilities in an automated environment. This level of interaction manifests itself as seamless device integration, a high level of device controllability and ultimately - a quality end user experience. This is something we refer to as the Control4 Interoperability Model.</p>
 <h1 id='what-s-new-in-the-fundamentals-guide'>What’s New in the Fundamentals Guide</h1>
+
+<h2 id='what-s-new-in-3-3-0'>What’s New in 3.3.0</h2><h2 id='what-s-new-in-the-3-3-0-beta'>What’s New in the 3.3.0 beta</h2>
+
+<p><strong>Sorting Driver Elements</strong></p>
+
+<p>A new sort order driver element has been delivered that provides the ability to display <a href="https://control4.github.io/docs-driverworks-fundamentals-3.3.0-beta/#sorting-actions-in-composerpro">Actions</a>, <a href="https://control4.github.io/docs-driverworks-fundamentals-3.3.0-beta/#sorting-events-in-composerpro">Events</a> and <a href="https://control4.github.io/docs-driverworks-fundamentals-3.3.0-beta/#sorting-commands-in-composerpro">Commands</a> in any desired order within the Programming area of ComposerPro.</p>
+
+<p><strong>Supported Command Parameter Types</strong></p>
+
+<p>A new section defining <a href="https://control4.github.io/docs-driverworks-fundamentals-3.3.0-beta/#supported-command-parameter-types">Command Parameter Types</a> has been added to the guide.</p>
+
+<p><strong> Dynamic_List type for Commands</strong></p>
+
+<p>Support for <a href="https://control4.github.io/docs-driverworks-fundamentals-3.3.0-beta/#dynamic_list-type-for-commands">DYNAMIC_LIST</a> type parameters within a &lt;command&gt; has been included.</p>
+
+<p><strong>Driver Documentation</strong></p>
+
+<p>A new section has been added to the Fundamentals Guide detailing driver documentation. Specifically, this section includes the steps required to produce HTML driver documentation from markdown.</p>
 
 <h2 id='what-s-new-in-3-2-3'>What’s New in 3.2.3</h2>
 
@@ -5152,6 +5179,54 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 <p><a href="ws://echo.websocket.org">ws://echo.websocket.org</a></p>
 
 <p><a href="wss://echo.websocket.org">wss://echo.websocket.org</a></p>
+<h1 id='markdown-driver-documentation'>Markdown Driver Documentation</h1>
+
+<p>Documentation can play an important role in ensuring the proper configuration and use of a driver. Driver documentation is created by the driver writer and delivered within the driver file. After the driver is added to a project, the content is displayed in ComposerPro under the driver’s Advanced Properties/Documentation tab.</p>
+
+<p>Several approaches to delivering driver documentation are currently supported. They differ mainly due to the documentation needs required by the driver. </p>
+
+<p><strong>driver.c4i</strong></p>
+
+<p>If the driver you’re writing uses the .c4i extension, the documentation content is delivered in the XML section of the driver. The content is included within the <code>&lt;documentation&gt;&lt;/documentation&gt;</code>tags. This is the only option to include driver documentation when using the .c4i extension. </p>
+
+<p><strong>driver.c4z</strong></p>
+
+<p>If the driver you’re writing uses the .c4z extension, the documentation content can be delivered in two ways. The first involves the inclusion of a documentation.rtf file within the www directory at the root level of driver. While .RTF files are somewhat limited in nature they can be appropriate for supporting drivers that don’t require the need for a robust documentation experience. Detailed information on the inclusion of a documentation.rtf file can found here:</p>
+
+<p><a href="https://control4.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers">https://control4.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers</a></p>
+
+<p>The second way to include driver documentation within a .c4z driver file is to first created the content in Markdown and then render the Markdown into HTML using React. This approach offers the simplicity of creating content with Markdown while benefitting from the features provided through HTML.</p>
+
+<p>The DriverWorks SDK includes all of the React assets needed to render Markdown driver documentation into HTML. The assets are included in the release.zip file found in the on the DriverWorks Landing page here:</p>
+
+<p><a href="https://github.com/control4/docs-driverworks">https://github.com/control4/docs-driverworks</a></p>
+
+<p>To include Markdown documentation in your driver.c4z file, first locate the markdown_driver_doc folder at the top of the DriverWorks landing page. Note that the folder contains a release.zip file. </p>
+
+<ol>
+<li>Unzip the release.zip file into the www/documentation folder in your driver .c4z file. The updated documentation directory structure should look like this:</li>
+</ol>
+
+<p><img src="images/2_01.jpg"/></p>
+
+<p>Note that the &#39;x&#39; characters seen above will be replaced with random letters or digits.</p>
+
+<ol>
+<li>Save the new driver documentation in Markdown as a file named “documentation.md” at the root of the www directory.</li>
+<li>Any images used within the documentation need to reside in a subfolder named img at the root of the www directory. An example of a www directory with assets, a driver documentation.md file and associated images would look like this:</li>
+</ol>
+
+<p><img src="images/2_02.jpg"/></p>
+
+<p>Note that the documentation.md file <strong>is not</strong> inside the documentation folder.</p>
+
+<ol>
+<li><p>Finally, it will be necessary to point to the index.html file in the documentation XML element of the driver.xml:</p>
+
+<p><code>&lt;documentation file=&quot;www/documentation/index.html&quot;/&gt;</code></p></li>
+</ol>
+
+<p>After the driver.c4z file is compiled, the assets included from the release.zip will generate driver documentation using the same formatting as can be seen in drivers delivered by Control4. </p>
 
       </div>
       <div class="dark-box">
