@@ -333,6 +333,9 @@
                   <li>
                     <a href="#supported-command-parameter-types" class="toc-h2 toc-link" data-title="Supported Command Parameter Types">Supported Command Parameter Types</a>
                   </li>
+                  <li>
+                    <a href="#getcommandparamlist" class="toc-h2 toc-link" data-title="GetCommandParamList">GetCommandParamList</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1449,7 +1452,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 
 <p>In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type CUSTOM_SELECT allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect.</p>
 
-<p><h3 id='device-selector'>Device Selector</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='device-selector'>Device Selector</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>DEVICE_SELECTOR Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME DEVICE_SELECTOR Value: PARAM1<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>6<span class="nt">&lt;/sort_order&gt;</span>
@@ -1477,11 +1480,10 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Device Selector command parameter type supports the <a href="https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">Device Selector property</a>. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer. </p></p>
+<p>The Device Selector command parameter type supports the <a href="https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">Device Selector property</a>. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer. </p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the DEVICE_SELECTOR_ parameter type.</p>
-
-<p><h3 id='dynamic-list'>Dynamic List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='dynamic-list'>Dynamic List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>DYNAMIC_LIST Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>DYNAMIC_LIST Value: PARAM1<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>4<span class="nt">&lt;/sort_order&gt;</span>
@@ -1493,13 +1495,12 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Dynamic List command parameter type supports the ability to use the <a href="https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-properties">Dynamic List Property</a>. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen. </p></p>
+<p>The Dynamic List command parameter type supports the ability to use the <a href="https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-properties">Dynamic List Property</a>. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen. </p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the DYNAMIC_LIST_ parameter type.</p>
 
 <p>Note: The driver must implement a function called <a href="https://control4.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands">GetCommandParamList</a> that returns a table with the list for the specified parameter.</p>
-
-<p><h3 id='list'>List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='list'>List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>LIST Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME LIST Value: PARAM1<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
@@ -1517,11 +1518,10 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p></p>
+<p>The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the LIST parameter type.</p>
-
-<p><h3 id='ranged-float'>Ranged Float</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='ranged-float'>Ranged Float</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>RANGED_FLOAT Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME RANGED_FLOAT Value: PARAM1<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
@@ -1535,11 +1535,10 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p></p>
+<p>The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the RANGED_FLOAT_ parameter type.</p>
-
-<p><h3 id='ranged-integer'>Ranged Integer</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='ranged-integer'>Ranged Integer</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>RANGED_INTEGER Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME RANGED_INTEGER Value: PARAM1<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>0<span class="nt">&lt;/sort_order&gt;</span>
@@ -1553,11 +1552,10 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p></p>
+<p>The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the RANGED_INTEGER_ parameter type</p>
-
-<p><h3 id='string'>String</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='string'>String</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>STRING Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME STRING Value: PARAM1<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>2<span class="nt">&lt;/sort_order&gt;</span>
@@ -1569,11 +1567,10 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The STRING command parameter type supports the ability to provide a read only string within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p></p>
+<p>The STRING command parameter type supports the ability to provide a read only string within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the STRING_ parameter type</p>
-
-<p><h3 id='variable-selector'>Variable Selector</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='variable-selector'>Variable Selector</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>VARIABLE_SELECTOR  Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>Param Values NAME (boolean: PARAM1, P2: PARAM2, P3: PARAM3, P4: PARAM4, P5: PARAM5, P6: PARAM6, P7: PARAM7, P8: PARAM8)<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>7<span class="nt">&lt;/sort_order&gt;</span>
@@ -1621,7 +1618,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Variable Selector command parameter type supports the ability to choose a variable type within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. Supported Variable Types include: </p></p>
+<p>The Variable Selector command parameter type supports the ability to choose a variable type within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. Supported Variable Types include: </p>
 
 <ul>
 <li>boolean</li>
@@ -1633,8 +1630,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 <li>user</li>
 <li>room</li>
 </ul>
-
-<p><h3 id='variable-selector-value'>Variable Selector Value</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='variable-selector-value'>Variable Selector Value</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>VARIABLE_SELECTOR_VALUE Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>Param Values NAME(P1: PARAM1, P2: PARAM2, P3: PARAM3, P4: PARAM4, P5: PARAM5, P6: PARAM6)<span class="nt">&lt;/description&gt;</span>
         <span class="nt">&lt;sort_order&gt;</span>8<span class="nt">&lt;/sort_order&gt;</span>
@@ -1671,6 +1667,47 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
             <span class="nt">&lt;/param&gt;</span>
         <span class="nt">&lt;/params&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
+</code></pre></div><h2 id='getcommandparamlist'>GetCommandParamList</h2>
+<p>This function is required in order for a driver to use the DYNAMIC_LIST type parameters within a &lt;command&gt;.  </p>
+<h3 id='signature'>Signature</h3>
+
+<p><code>GetCommandParamList ()</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>str</td>
+<td>commandName</td>
+</tr>
+<tr>
+<td>str</td>
+<td>paramName</td>
+</tr>
+</tbody></table>
+
+<h3 id='returns'>Returns</h3>
+
+<p>Returns a table with the list for the specified parameter.  </p>
+
+<p><h3 id='example'>Example</h3><div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetCommandParamList</span><span class="p">(</span><span class="n">commandName</span><span class="p">,</span> <span class="n">paramName</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">tList</span> <span class="o">=</span> <span class="p">{}</span></p>
+
+<p><span class="k">if</span> <span class="p">(</span><span class="n">commandName</span> <span class="o">==</span> <span class="s2">&quot;Turn On&quot;</span><span class="p">)</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="s2">&quot;Zone&quot;</span><span class="p">)</span> <span class="k">then</span>
+            <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Main&quot;</span><span class="p">,</span> <span class="s2">&quot;Master&quot;</span><span class="p">,</span> <span class="s2">&quot;Upstairs&quot;</span><span class="p">,</span> <span class="s2">&quot;Downstairs&quot;</span><span class="p">,</span> <span class="s2">&quot;Patio&quot;</span><span class="p">}</span>
+        <span class="k">elseif</span> <span class="p">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="s2">&quot;Level&quot;</span><span class="p">)</span> <span class="k">then</span>
+            <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Medium&quot;</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">}</span>
+        <span class="k">end</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">commandName</span> <span class="o">==</span> <span class="s2">&quot;Toggle&quot;</span> <span class="ow">and</span> <span class="n">paramName</span> <span class="o">==</span> <span class="s2">&quot;Zone&quot;</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Main&quot;</span><span class="p">,</span> <span class="s2">&quot;Patio&quot;</span><span class="p">}</span>
+    <span class="k">end</span></p>
+
+<p><span class="k">return</span> <span class="p">(</span><span class="n">tList</span><span class="p">)</span>
+<span class="k">end</span>
 </code></pre></div></p>
 <h1 id='conditionals'>Conditionals</h1>
 
