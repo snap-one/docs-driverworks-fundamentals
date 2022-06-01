@@ -339,6 +339,9 @@
                   <li>
                     <a href="#dynamic-list-type-for-commands" class="toc-h2 toc-link" data-title="Dynamic List type for Commands">Dynamic List type for Commands</a>
                   </li>
+                  <li>
+                    <a href="#sorting-commands-in-composerpro" class="toc-h2 toc-link" data-title="Sorting Commands in ComposerPro">Sorting Commands in ComposerPro</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1740,7 +1743,53 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/param&gt;</span>
     <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
-</code></pre></div></p>
+</code></pre></div><h2 id='sorting-commands-in-composerpro'>Sorting Commands in ComposerPro</h2>
+<p>The ability to order the way driver commands are displayed in the Programming area of ComposerPro is possible with the use of a sort order driver XML tag:</p>
+<div class="highlight"><pre class="highlight xml tab-xml"><code>            <span class="nt">&lt;command&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Command<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>New Description<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>0<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;command&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Command 1<span class="nt">&lt;/name&gt;</span><br>
+                <span class="nt">&lt;description&gt;</span>Command Description 1<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;command&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Command 2<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Command Description 2<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>2<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;command&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Command 3<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Command Description 3<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;command&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Command 4<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Command Description 4<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>4<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/command&gt;</span>
+            <span class="nt">&lt;command&gt;</span>
+                <span class="nt">&lt;name&gt;</span>New Command 5<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;description&gt;</span>Command Description 10<span class="nt">&lt;/description&gt;</span>
+                <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
+            <span class="nt">&lt;/command&gt;</span>
+</code></pre></div>
+<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code> </p></p>
+
+<p>The tag accepts a zero based list and will display the commands in the order of the number included in each commands’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
+
+<p>For example, in the XML code to the right there are five device specific commands. They will display in ComposerPro Programming as:</p>
+
+<ul>
+<li>New Command</li>
+<li>New Command 1</li>
+<li>New Command 2</li>
+<li>New Command 3</li>
+<li>New Command 4</li>
+<li>New Command 5</li>
+</ul>
 <h1 id='conditionals'>Conditionals</h1>
 
 <h2 id='overview'>Overview</h2>
