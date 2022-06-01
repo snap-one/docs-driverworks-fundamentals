@@ -317,14 +317,6 @@
               </ul>
           </li>
           <li>
-            <a href="#actions" class="toc-h1 toc-link" data-title="Actions">Actions</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#sorting-actions-in-composerpro" class="toc-h2 toc-link" data-title="Sorting Actions in ComposerPro">Sorting Actions in ComposerPro</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
             <a href="#proxies-and-proxy-types" class="toc-h1 toc-link" data-title="Proxies and Proxy Types">Proxies and Proxy Types</a>
               <ul class="toc-list-h2">
                   <li>
@@ -1341,58 +1333,6 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 <code>DEBUG = 8</code></p>
 
 <p>Selecting a logging level will include all log entries for it and any entries for logging levels lower than it. For example, selecting a log level of ERROR will log all Error entries as well as FAIL, FATAL and WARN. The NOT IMPLEMENTED log level is has been included for driver certification testing purposes. This log level is useful in identifying instances where a test routines have been created for driver code, but the driver being validated has not implemented that code.</p>
-<h1 id='actions'>Actions</h1>
-
-<h2 id='sorting-actions-in-composerpro'>Sorting Actions in ComposerPro</h2>
-
-<p>Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Actions were displayed in the Programming area of ComposerPro. A new sort order driver element has been delivered that provides the ability to display Actions in any desired order. Sort order can be applied to Actions in the driver.xml with the inclusion of the following xml tag: <code>\&lt;sort\_order\&gt;\&lt;/sort\_order\&gt;</code>. See the lighting code Example 1 from a driver.xml file to the right.</p>
-
-<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
-    <span class="nt">&lt;name&gt;</span>New_Action<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;command&gt;</span>New_Action<span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;sort_order&gt;</span>0<span class="nt">&lt;/sort_order&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action&gt;</span>
-    <span class="nt">&lt;name&gt;</span>New_Action_1<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;command&gt;</span>New_Action1<span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action&gt;</span>
-    <span class="nt">&lt;name&gt;</span>New_Action_2<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;command&gt;</span>New_Action2<span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;sort_order&gt;</span>2<span class="nt">&lt;/sort_order&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action&gt;</span>
-    <span class="nt">&lt;name&gt;</span>New_Action_3<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;command&gt;</span>New_Action3<span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action&gt;</span>
-    <span class="nt">&lt;name&gt;</span>New_Action_4/name&gt;
-    <span class="nt">&lt;command&gt;</span>New_Action4<span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;sort_order&gt;</span>4<span class="nt">&lt;/sort_order&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action&gt;</span>
-    <span class="nt">&lt;name&gt;</span>New_Action_5/name&gt;
-    <span class="nt">&lt;command&gt;</span>New_Action5<span class="nt">&lt;/command&gt;</span>
-    <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
-<span class="nt">&lt;/action&gt;</span>
-</code></pre></div>
-
-<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code> </p>
-
-<p>The tag accepts a zero based list and will display the Actions in the order of the number included in each Actions’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
-
-<p>For example, in the XML code to the right there are five device specific Actions. They will display under the Actions tab in ComposerPro’s Property screen as:</p>
-
-<ul>
-<li>New Action</li>
-<li>New Action 1</li>
-<li>New Action 2</li>
-<li>New Action 3</li>
-<li>New Action 4</li>
-<li>New Action 5</li>
-</ul>
 <h1 id='proxies-and-proxy-types'>Proxies and Proxy Types</h1>
 
 <h2 id='single-and-multi-proxies'>Single and Multi-Proxies</h2>
@@ -3458,6 +3398,57 @@ This creates an Action with a color assignment that can be used in system progra
 <p>Clicking this button displays all of the driver&#39;s Actions along their parameters. Note that only the default parameter is displayed in this window.</p>
 
 <p><img src="images/15_6-02-270a461f.png"/></p>
+
+<h3 id='sorting-actions-in-composerpro'>Sorting Actions in ComposerPro</h3>
+
+<p>Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Actions were displayed in the Programming area of ComposerPro. A new sort order driver element has been delivered that provides the ability to display Actions in any desired order. Sort order can be applied to Actions in the driver.xml with the inclusion of the following xml tag: <code>\&lt;sort\_order\&gt;\&lt;/sort\_order\&gt;</code>. See the lighting code Example 1 from a driver.xml file to the right.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New_Action<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>New_Action<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>0<span class="nt">&lt;/sort_order&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New_Action_1<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>New_Action1<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New_Action_2<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>New_Action2<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>2<span class="nt">&lt;/sort_order&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New_Action_3<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>New_Action3<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New_Action_4/name&gt;
+    <span class="nt">&lt;command&gt;</span>New_Action4<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>4<span class="nt">&lt;/sort_order&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>New_Action_5/name&gt;
+    <span class="nt">&lt;command&gt;</span>New_Action5<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code> </p>
+
+<p>The tag accepts a zero based list and will display the Actions in the order of the number included in each Actions’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
+
+<p>For example, in the XML code to the right there are five device specific Actions. They will display under the Actions tab in ComposerPro’s Property screen as:</p>
+
+<ul>
+<li>New Action</li>
+<li>New Action 1</li>
+<li>New Action 2</li>
+<li>New Action 3</li>
+<li>New Action 4</li>
+<li>New Action 5</li>
+</ul>
 
 <h2 id='lua'>LUA</h2>
 
