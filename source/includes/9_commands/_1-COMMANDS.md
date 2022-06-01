@@ -327,7 +327,45 @@ The Variable Selector command parameter type supports the ability to choose a va
 ```
 
 
+## GetCommandParamList
 
+This function is required in order for a driver to use the DYNAMIC\_LIST type parameters within a \<command\>.  
+
+### Signature
+
+`GetCommandParamList ()`
+
+
+| Parameter | Description |
+| --- | --- |
+| str | commandName | 
+| str | paramName |
+
+
+### Returns
+
+Returns a table with the list for the specified parameter.  
+
+
+### Example
+
+```lua
+function GetCommandParamList(commandName, paramName)
+    local tList = {}
+ 
+    if (commandName == "Turn On") then
+        if (paramName == "Zone") then
+            tList = {"Main", "Master", "Upstairs", "Downstairs", "Patio"}
+        elseif (paramName == "Level") then
+            tList = {"Low", "Medium", "High"}
+        end
+    elseif (commandName == "Toggle" and paramName == "Zone") then
+        tList = {"Main", "Patio"}
+    end
+     
+    return (tList)
+end
+```
 
 
 [1]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
