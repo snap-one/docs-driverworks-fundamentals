@@ -336,6 +336,9 @@
                   <li>
                     <a href="#getcommandparamlist" class="toc-h2 toc-link" data-title="GetCommandParamList">GetCommandParamList</a>
                   </li>
+                  <li>
+                    <a href="#dynamic-list-type-for-commands" class="toc-h2 toc-link" data-title="Dynamic List type for Commands">Dynamic List type for Commands</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -1708,6 +1711,35 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 
 <p><span class="k">return</span> <span class="p">(</span><span class="n">tList</span><span class="p">)</span>
 <span class="k">end</span>
+</code></pre></div><h2 id='dynamic-list-type-for-commands'>Dynamic List type for Commands</h2>
+<p>Support for DYNAMIC_LIST type parameters within a &lt;command&gt;. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter. </p></p>
+
+<p><em>This feature was introduced in O.S. Release 3.3.0</em></p>
+
+<p><h3 id='example-2'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Turn On<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Turn on PARAM1 to PARAM2<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Zone<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>DYNAMIC_LIST<span class="nt">&lt;/type&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Level<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>DYNAMIC_LIST<span class="nt">&lt;/type&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/command&gt;</span>
+<span class="nt">&lt;command&gt;</span>
+    <span class="nt">&lt;name&gt;</span>Toggle<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;description&gt;</span>Toggle PARAM1<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Zone<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>DYNAMIC_LIST<span class="nt">&lt;/type&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/command&gt;</span>
 </code></pre></div></p>
 <h1 id='conditionals'>Conditionals</h1>
 
