@@ -12,7 +12,7 @@ A new section defining [Command Parameter Types][4] has been added to the guide.
 
 ** Dynamic\_List type for Commands**
 
-Support for [DYNAMIC\_LIST][5] type parameters within a \<command\> has been included.
+Support for [DYNAMIC\_LIST][5] type parameters within a command has been included.
 
 
 **Driver Documentation**
