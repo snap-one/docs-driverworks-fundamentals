@@ -62,7 +62,7 @@ The ability of a Proxy driver to deliver a browse-able list of related elements 
 
 These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.
 
-In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the CUSTOM\_SELECT parameter type.\_For example, here is a command called SelectChannelParamSelect.
+In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the CUSTOM\_SELECT parameter type. For example, here is a command called SelectChannelParamSelect.
 
 In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type CUSTOM\_SELECT allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect.
 
