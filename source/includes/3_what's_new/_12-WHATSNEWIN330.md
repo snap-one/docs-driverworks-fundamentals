@@ -20,7 +20,7 @@ Support for [DYNAMIC\_LIST][5] type parameters within a command has been include
 A new section has been added to the Fundamentals Guide detailing driver documentation. Specifically, this section includes the steps required to produce [HTML driver documentation from markdown][6].
 
 [1]:	https://control4.github.io/docs-driverworks-fundamentals/#actions
-[2]:	https://control4.github.io/docs-driverworks-events/#sorting-commands-in-composerpro
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#events
 [3]:	https://control4.github.io/docs-driverworks-fundamentals/#sorting-commands-in-composerpro
 [4]:	https://control4.github.io/docs-driverworks-fundamentals/#supported-command-parameter-types
 [5]:	https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-type-for-commands
