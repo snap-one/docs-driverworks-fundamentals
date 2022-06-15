@@ -2,7 +2,7 @@
 
 ### Sorting Conditionals in Programming
 
-Driver writers now have the ability to order the way driver conditionals are displayed in the Programming area of ComposerPro. A new [sort order ][1]XML driver element has been delivered that provides the ability to display conditionals in any desired order. 
+Driver writers now have the ability to order the way driver conditionals are displayed in the Programming area of ComposerPro. A new [sort order ][1]XML driver element has been delivered that provides the ability to display conditionals in any desired order.
 
 ### New Property: [LINK][2]
 
@@ -11,12 +11,12 @@ The new LINK property type allows you to provide a link to a resource which can 
 
 ### Driver Conditionals
 
-In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: [Room and Device][3]. The ability to generate [Dynamic Conditionals][4] is also included in O.S. 3.2.0. 
+In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: [Room and Device][3]. The ability to generate [Dynamic Conditionals][4] is also included in O.S. 3.2.0.
 
 
 ### Zigbee
 
-Change to Zigbee Server-Side Cluster Management 
+Change to Zigbee Server-Side Cluster Management
 Starting with the release of Operating System 3.2.0, Control4 will change the way Zigbee Clusters are handled. Drivers that have previously relied on the ability of clusters to circumvent zserver and its processes will be impacted by this change and will not function as intended in OS 3.2.0 and going forward.
 
 For example, consider the following sample Profile:
@@ -37,7 +37,7 @@ Note that there are two scenarios where zserver will pass a cluster un-handled d
 To avoid unintended functionality, a review of your Zigbee driver(s) is recommended prior to the release of OS 3.2.0. The ability to send Zigbee Clusters directly to your driver will need to be handled at the device firmware level.
 
 
-[1]:	https://control4.github.io/docs-driverworks-fundamentals/#sorting-conditionals-in-composerpro
-[2]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
-[3]:	https://control4.github.io/docs-driverworks-fundamentals/#conditionals
-[4]:	https://control4.github.io/docs-driverworks-fundamentals/#creating-dynamic-driver-conditionals
+[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#sorting-conditionals-in-composerpro
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
+[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#conditionals
+[4]:	https://snap-one.github.io/docs-driverworks-fundamentals/#creating-dynamic-driver-conditionals

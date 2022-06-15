@@ -58,7 +58,7 @@ Commands come from the Device Proxy. For example, a AV Switch might have the fol
 </command>
 ```
 
-The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the [CUSTOM\_SELECT property][1]. 
+The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the [CUSTOM\_SELECT property][1].
 
 These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.
 
@@ -99,7 +99,7 @@ In the SelectChannel example above, SelectChannel is the command name that is se
 </command>
 ```
 
-The Device Selector command parameter type supports the [Device Selector property][2]. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer. 
+The Device Selector command parameter type supports the [Device Selector property][2]. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the DEVICE\_SELECTOR\_ parameter type.
 
@@ -120,7 +120,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Dynamic List command parameter type supports the ability to use the [Dynamic List Property][3]. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen. 
+The Dynamic List command parameter type supports the ability to use the [Dynamic List Property][3]. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the DYNAMIC\_LIST\_ parameter type.
 
@@ -149,7 +149,7 @@ Note: The driver must implement a function called [GetCommandParamList][4] that 
 ```
 
 
-The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the [Properties][5] tab in ComposerPro. 
+The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the [Properties][5] tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the LIST parameter type.
 
@@ -172,7 +172,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the [Properties][6] tab in ComposerPro. 
+The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the [Properties][6] tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the RANGED\_FLOAT\_ parameter type.
 
@@ -195,7 +195,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the [Properties][7] tab in ComposerPro. 
+The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the [Properties][7] tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the RANGED\_INTEGER\_ parameter type
 
@@ -216,7 +216,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The STRING command parameter type supports the ability to provide a read only string within the [Properties][8] tab in ComposerPro. 
+The STRING command parameter type supports the ability to provide a read only string within the [Properties][8] tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the STRING\_ parameter type
 
@@ -273,7 +273,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Variable Selector command parameter type supports the ability to choose a variable type within the [Properties][9] tab in ComposerPro. Supported Variable Types include: 
+The Variable Selector command parameter type supports the ability to choose a variable type within the [Properties][9] tab in ComposerPro. Supported Variable Types include:
 
 - boolean
 - string
@@ -329,7 +329,7 @@ The Variable Selector command parameter type supports the ability to choose a va
 
 ## GetCommandParamList
 
-This function is required in order for a driver to use the DYNAMIC\_LIST type parameters within a \<command\>.  
+This function is required in order for a driver to use the DYNAMIC\_LIST type parameters within a \<command\>.
 
 ### Signature
 
@@ -338,13 +338,13 @@ This function is required in order for a driver to use the DYNAMIC\_LIST type pa
 
 | Parameter | Description |
 | --- | --- |
-| str | commandName | 
+| str | commandName |
 | str | paramName |
 
 
 ### Returns
 
-Returns a table with the list for the specified parameter.  
+Returns a table with the list for the specified parameter.
 
 
 ### Example
@@ -352,7 +352,7 @@ Returns a table with the list for the specified parameter.
 ```lua
 function GetCommandParamList(commandName, paramName)
     local tList = {}
- 
+
     if (commandName == "Turn On") then
         if (paramName == "Zone") then
             tList = {"Main", "Master", "Upstairs", "Downstairs", "Patio"}
@@ -362,7 +362,7 @@ function GetCommandParamList(commandName, paramName)
     elseif (commandName == "Toggle" and paramName == "Zone") then
         tList = {"Main", "Patio"}
     end
-     
+
     return (tList)
 end
 ```
@@ -370,7 +370,7 @@ end
 
 ## Dynamic List type for Commands
 
-Support for DYNAMIC\_LIST type parameters within a \<command\>. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter. 
+Support for DYNAMIC\_LIST type parameters within a \<command\>. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter.
 
 _This feature was introduced in O.S. Release 3.3.0_
 
@@ -417,7 +417,7 @@ The ability to order the way driver commands are displayed in the Programming ar
                 <sort_order>0</sort_order>
             </command>
             <command>
-                <name>New Command 1</name>  
+                <name>New Command 1</name>
                 <description>Command Description 1</description>
                 <sort_order>1</sort_order>
             </command>
@@ -443,7 +443,7 @@ The ability to order the way driver commands are displayed in the Programming ar
             </command>
 ```
 
-`<sort_order></sort_order>` 
+`<sort_order></sort_order>`
 
 The tag accepts a zero based list and will display the commands in the order of the number included in each commands’ `<sort_order></sort_order>`tag.
 
@@ -456,12 +456,12 @@ For example, in the XML code to the right there are five device specific command
 - New Command 4
 - New Command 5
 
-[1]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
-[2]:	https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
-[3]:	https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-properties
-[4]:	https://control4.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands
-[5]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
-[6]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
-[7]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
-[8]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
-[9]:	https://control4.github.io/docs-driverworks-fundamentals/#properties
+[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
+[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#dynamic-list-properties
+[4]:	https://snap-one.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands
+[5]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
+[6]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
+[7]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
+[8]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
+[9]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties

@@ -2,7 +2,7 @@
 
 ### Driver Agents
 
-Beginning with O.S. Release 3.1.3, the SDK provides a stable enough platform for developing [DriverWorks Agents][1] in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes. 
+Beginning with O.S. Release 3.1.3, the SDK provides a stable enough platform for developing [DriverWorks Agents][1] in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes.
 
 ### Future Change to Zigbee Server-Side Cluster Management in OS 3.2.0
 
@@ -42,4 +42,4 @@ Several issues must be considered when using SQLite3. Please ensure that in your
 
 - The controller has limited disk space. It is important to be aware of the amount of data that driver developers collect/store and ensure that the DB doesn’t grow to a point where it will impact the controller’s disk space. This may mean that driver developers may need to have a mechanism for archiving data to off-controller storage and prune the local DB if they want to maintain historical data to the extent that the DB file size becomes too large.
 
-[1]:	https://control4.github.io/docs-driverworks-fundamentals/#driverworks-agents
+[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-agents
