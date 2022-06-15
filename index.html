@@ -703,13 +703,13 @@ Salt Lake City, UT 84020 USA</p>
 <p><em>There were no changes to this content for Operating System 3.2.1.</em></p>
 
 <p><h2 id='what-s-new-in-3-2-0'>What’s New in 3.2.0</h2><h3 id='sorting-conditionals-in-programming'>Sorting Conditionals in Programming</h3>
-<p>Driver writers now have the ability to order the way driver conditionals are displayed in the Programming area of ComposerPro. A new <a href="https://control4.github.io/docs-driverworks-fundamentals/#sorting-conditionals-in-composerpro">sort order </a>XML driver element has been delivered that provides the ability to display conditionals in any desired order. </p>
-<h3 id='new-property-link'>New Property: <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">LINK</a></h3>
+<p>Driver writers now have the ability to order the way driver conditionals are displayed in the Programming area of ComposerPro. A new <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#sorting-conditionals-in-composerpro">sort order </a>XML driver element has been delivered that provides the ability to display conditionals in any desired order.</p>
+<h3 id='new-property-link'>New Property: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">LINK</a></h3>
 <p>The new LINK property type allows you to provide a link to a resource which can be used to support your driver. Typically, this Property is used to link to a configuration page on a device. _ </p>
 <h3 id='driver-conditionals'>Driver Conditionals</h3>
-<p>In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: <a href="https://control4.github.io/docs-driverworks-fundamentals/#conditionals">Room and Device</a>. The ability to generate <a href="https://control4.github.io/docs-driverworks-fundamentals/#creating-dynamic-driver-conditionals">Dynamic Conditionals</a> is also included in O.S. 3.2.0. </p>
+<p>In addition to updated content examples and explanations, the Conditionals section includes information on two new Conditional Types: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#conditionals">Room and Device</a>. The ability to generate <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#creating-dynamic-driver-conditionals">Dynamic Conditionals</a> is also included in O.S. 3.2.0.</p>
 <h3 id='zigbee'>Zigbee</h3>
-<p>Change to Zigbee Server-Side Cluster Management 
+<p>Change to Zigbee Server-Side Cluster Management
 Starting with the release of Operating System 3.2.0, Control4 will change the way Zigbee Clusters are handled. Drivers that have previously relied on the ability of clusters to circumvent zserver and its processes will be impacted by this change and will not function as intended in OS 3.2.0 and going forward.</p></p>
 
 <p>For example, consider the following sample Profile:</p>
@@ -731,7 +731,7 @@ Starting with the release of Operating System 3.2.0, Control4 will change the wa
 <p>To avoid unintended functionality, a review of your Zigbee driver(s) is recommended prior to the release of OS 3.2.0. The ability to send Zigbee Clusters directly to your driver will need to be handled at the device firmware level.</p>
 
 <p><h2 id='what-was-new-in-3-1-3'>What was New in 3.1.3</h2><h3 id='driver-agents'>Driver Agents</h3>
-<p>Beginning with O.S. Release 3.1.3, the SDK provides a stable enough platform for developing <a href="https://control4.github.io/docs-driverworks-fundamentals/#driverworks-agents">DriverWorks Agents</a> in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes. </p>
+<p>Beginning with O.S. Release 3.1.3, the SDK provides a stable enough platform for developing <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-agents">DriverWorks Agents</a> in addition to device drivers. DriverWorks Agents provide third-party Driver Developers the ability to create agents which can be loaded into projects and used in customer homes.</p>
 <h3 id='future-change-to-zigbee-server-side-cluster-management-in-os-3-2-0'>Future Change to Zigbee Server-Side Cluster Management in OS 3.2.0</h3>
 <p>Starting with the upcoming release of Operating System 3.2.0, Control4 will change the way Zigbee Clusters are handled. Drivers that have previously relied on the ability of clusters to circumvent zserver and its processes will be impacted by this change and will not function as intended in OS 3.2.0 and going forward.</p></p>
 
@@ -1052,7 +1052,7 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <h2 id='squishlua-and-driver-encryption'>SquishLua and Driver Encryption</h2>
 
-<p>All .lua files included in a .c4z file must be squished prior to encryption. This is accomplished using Squish Lua. Squish is a tool that can pack many individual Lua scripts and their modules into a single Lua script. Whether or not Squish is run on the .lua files inside of a .c4z file is defined in the .c4z project file. In the example project file to the right you can see that the squishLua parameter has a value of &quot;true.&quot; With this setting, Driver Packager will squish all of the .lua files before encryption. This is a requirement for successful driver encryption. </p>
+<p>All .lua files included in a .c4z file must be squished prior to encryption. This is accomplished using Squish Lua. Squish is a tool that can pack many individual Lua scripts and their modules into a single Lua script. Whether or not Squish is run on the .lua files inside of a .c4z file is defined in the .c4z project file. In the example project file to the right you can see that the squishLua parameter has a value of &quot;true.&quot; With this setting, Driver Packager will squish all of the .lua files before encryption. This is a requirement for successful driver encryption.</p>
 
 <div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;Driver</span> <span class="na">type=</span><span class="s">"c4z"</span> <span class="na">name=</span><span class="s">"sample"</span> <span class="na">squishLua=</span><span class="s">"true"</span> <span class="nt">&gt;</span>
 <span class="nt">&lt;Items&gt;</span>
@@ -1094,11 +1094,11 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <p><strong>Item name</strong> - Name of folder or file to be added to c4z.</p>
 
-<p><strong>recurse </strong>- Optional. Only applicable to type &#39;dir&#39; items. Must be &quot;true&quot; or &quot;false&quot;, default is &quot;false&quot; if not specified. If &quot;true&quot;, recursively adds all files beneath &#39;name&#39; to c4z. </p>
+<p><strong>recurse </strong>- Optional. Only applicable to type &#39;dir&#39; items. Must be &quot;true&quot; or &quot;false&quot;, default is &quot;false&quot; if not specified. If &quot;true&quot;, recursively adds all files beneath &#39;name&#39; to c4z.</p>
 
-<p><strong>c4zDir</strong> - Optional. The name of the c4z folder where the &#39;dir&#39; or &#39;file&#39; item is added. </p>
+<p><strong>c4zDir</strong> - Optional. The name of the c4z folder where the &#39;dir&#39; or &#39;file&#39; item is added.</p>
 
-<p><strong>exclude</strong> - Optional.  Must be &quot;true&quot; of &quot;false&quot;, default is &quot;false&quot; if not specified. This specifies if an item is excluded from the c4z. </p>
+<p><strong>exclude</strong> - Optional.  Must be &quot;true&quot; of &quot;false&quot;, default is &quot;false&quot; if not specified. This specifies if an item is excluded from the c4z.</p>
 
 <h3 id='usage-notes'>Usage Notes</h3>
 
@@ -1114,7 +1114,7 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <p>For more information please see: <a href="https://github.com/control4/drivers-driverpackager">https://github.com/control4/drivers-driverpackager</a></p>
 
-<p>For more information regarding luajit, please see: <a href="https://control4.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit">https://control4.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
+<p>For more information regarding luajit, please see: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit">https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
 
 <h2 id='replacing-a-c4i-file-with-c4z'>Replacing a .c4i file with .c4z</h2>
 
@@ -1482,7 +1482,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
 
-<p>The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the <a href="https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">CUSTOM_SELECT property</a>. </p>
+<p>The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">CUSTOM_SELECT property</a>.</p>
 
 <p>These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.</p>
 
@@ -1518,7 +1518,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Device Selector command parameter type supports the <a href="https://control4.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">Device Selector property</a>. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer. </p>
+<p>The Device Selector command parameter type supports the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">Device Selector property</a>. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the DEVICE_SELECTOR_ parameter type.</p>
 <h3 id='dynamic-list'>Dynamic List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1533,11 +1533,11 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Dynamic List command parameter type supports the ability to use the <a href="https://control4.github.io/docs-driverworks-fundamentals/#dynamic-list-properties">Dynamic List Property</a>. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen. </p>
+<p>The Dynamic List command parameter type supports the ability to use the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#dynamic-list-properties">Dynamic List Property</a>. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the DYNAMIC_LIST_ parameter type.</p>
 
-<p>Note: The driver must implement a function called <a href="https://control4.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands">GetCommandParamList</a> that returns a table with the list for the specified parameter.</p>
+<p>Note: The driver must implement a function called <a href="https://snap-one.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands">GetCommandParamList</a> that returns a table with the list for the specified parameter.</p>
 <h3 id='list'>List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>LIST Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME LIST Value: PARAM1<span class="nt">&lt;/description&gt;</span>
@@ -1556,7 +1556,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
+<p>The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the LIST parameter type.</p>
 <h3 id='ranged-float'>Ranged Float</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1573,7 +1573,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
+<p>The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the RANGED_FLOAT_ parameter type.</p>
 <h3 id='ranged-integer'>Ranged Integer</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1590,7 +1590,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
+<p>The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the RANGED_INTEGER_ parameter type</p>
 <h3 id='string'>String</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1605,7 +1605,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The STRING command parameter type supports the ability to provide a read only string within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. </p>
+<p>The STRING command parameter type supports the ability to provide a read only string within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the STRING_ parameter type</p>
 <h3 id='variable-selector'>Variable Selector</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1656,7 +1656,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Variable Selector command parameter type supports the ability to choose a variable type within the <a href="https://control4.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. Supported Variable Types include: </p>
+<p>The Variable Selector command parameter type supports the ability to choose a variable type within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. Supported Variable Types include:</p>
 
 <ul>
 <li>boolean</li>
@@ -1706,7 +1706,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
     <span class="nt">&lt;/command&gt;</span>
 </code></pre></div><h2 id='getcommandparamlist'>GetCommandParamList</h2>
-<p>This function is required in order for a driver to use the DYNAMIC_LIST type parameters within a &lt;command&gt;.  </p>
+<p>This function is required in order for a driver to use the DYNAMIC_LIST type parameters within a &lt;command&gt;.</p>
 <h3 id='signature'>Signature</h3>
 
 <p><code>GetCommandParamList ()</code></p>
@@ -1729,7 +1729,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 
 <h3 id='returns'>Returns</h3>
 
-<p>Returns a table with the list for the specified parameter.  </p>
+<p>Returns a table with the list for the specified parameter.</p>
 
 <p><h3 id='example'>Example</h3><div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetCommandParamList</span><span class="p">(</span><span class="n">commandName</span><span class="p">,</span> <span class="n">paramName</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">tList</span> <span class="o">=</span> <span class="p">{}</span></p>
@@ -1747,7 +1747,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 <p><span class="k">return</span> <span class="p">(</span><span class="n">tList</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div><h2 id='dynamic-list-type-for-commands'>Dynamic List type for Commands</h2>
-<p>Support for DYNAMIC_LIST type parameters within a &lt;command&gt;. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter. </p></p>
+<p>Support for DYNAMIC_LIST type parameters within a &lt;command&gt;. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter.</p></p>
 
 <p><em>This feature was introduced in O.S. Release 3.3.0</em></p>
 
@@ -1783,7 +1783,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
                 <span class="nt">&lt;sort_order&gt;</span>0<span class="nt">&lt;/sort_order&gt;</span>
             <span class="nt">&lt;/command&gt;</span>
             <span class="nt">&lt;command&gt;</span>
-                <span class="nt">&lt;name&gt;</span>New Command 1<span class="nt">&lt;/name&gt;</span><br>
+                <span class="nt">&lt;name&gt;</span>New Command 1<span class="nt">&lt;/name&gt;</span>
                 <span class="nt">&lt;description&gt;</span>Command Description 1<span class="nt">&lt;/description&gt;</span>
                 <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
             <span class="nt">&lt;/command&gt;</span>
@@ -1808,7 +1808,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
                 <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
             <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code> </p></p>
+<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code></p></p>
 
 <p>The tag accepts a zero based list and will display the commands in the order of the number included in each commands’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
 
@@ -5136,8 +5136,8 @@ Note that functions cannot be members of a table that contain data that is inten
 
 <p>If you use the DriverWorks SDK URL interface, you can implement basic or digest authentication support within your driver and construct the url properly to include those credentials in communication with the device. For more information, please see:</p>
 
-<p><a href="https://control4.github.io/docs-driverworks-api/#url-interface">https://control4.github.io/docs-driverworks-api/#url-interface</a>
-<a href="https://control4.github.io/docs-driverworks-api/#netportoptions">https://control4.github.io/docs-driverworks-api/#netportoptions</a>
+<p><a href="https://snap-one.github.io/docs-driverworks-api/#url-interface">https://snap-one.github.io/docs-driverworks-api/#url-interface</a>
+<a href="https://snap-one.github.io/docs-driverworks-api/#netportoptions">https://snap-one.github.io/docs-driverworks-api/#netportoptions</a>
 <a href="https://github.com/control4/docs-driverworks/tree/master/sample_drivers">https://github.com/control4/docs-driverworks/tree/master/sample_drivers</a></p>
 
 <p>A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined to the right. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
@@ -5221,9 +5221,9 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 
 <p>Please note that the <code>&lt;certificate&gt;</code>, <code>&lt;private_key&gt;</code>, and <code>&lt;cacert&gt;</code> expected in those XML tags for certificates and key information may all be contained in the same file.  It&#39;s not required to split the various certificates and keys out into separate files to work properly.  In the case that they are all contained in a single file, put that file&#39;s filename value in each of the XML tags.</p>
 
-<p>If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the <a href="https://control4.github.io/docs-driverworks-api/#getprivatekeypassword" title="GetPrivatekeyPassword API">https://control4.github.io/docs-driverworks-api/#getprivatekeypassword</a> in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.</p>
+<p>If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the <a href="https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword" title="GetPrivatekeyPassword API">https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword</a> in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.</p>
 
-<p>Once the connection is established, then you simply utilize the standard networking functions (e.g. <a href="https://control4.github.io/docs-driverworks-api/#netconnect">NetConnect</a> ) to communicate with the device. The returned information will come back on <a href="https://control4.github.io/docs-driverworks-api/#receivedfromnetwork">ReceivedFromNetwork</a> </p>
+<p>Once the connection is established, then you simply utilize the standard networking functions (e.g. <a href="https://snap-one.github.io/docs-driverworks-api/#netconnect">NetConnect</a> ) to communicate with the device. The returned information will come back on <a href="https://snap-one.github.io/docs-driverworks-api/#receivedfromnetwork">ReceivedFromNetwork</a></p>
 
 <p>Your driver then will be responsible for parsing the JSON data structure and handling it as you deem necessary.</p>
 
@@ -5239,17 +5239,17 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 
 <p>Documentation can play an important role in ensuring the proper configuration and use of a driver. Driver documentation is created by the driver writer and delivered within the driver file. After the driver is added to a project, the content is displayed in ComposerPro under the driver’s Advanced Properties/Documentation tab.</p>
 
-<p>Several approaches to delivering driver documentation are currently supported. They differ mainly due to the documentation needs required by the driver. </p>
+<p>Several approaches to delivering driver documentation are currently supported. They differ mainly due to the documentation needs required by the driver.</p>
 
 <p><strong>driver.c4i</strong></p>
 
-<p>If the driver you’re writing uses the .c4i extension, the documentation content is delivered in the XML section of the driver. The content is included within the <code>&lt;documentation&gt;&lt;/documentation&gt;</code>tags. This is the only option to include driver documentation when using the .c4i extension. </p>
+<p>If the driver you’re writing uses the .c4i extension, the documentation content is delivered in the XML section of the driver. The content is included within the <code>&lt;documentation&gt;&lt;/documentation&gt;</code>tags. This is the only option to include driver documentation when using the .c4i extension.</p>
 
 <p><strong>driver.c4z</strong></p>
 
 <p>If the driver you’re writing uses the .c4z extension, the documentation content can be delivered in two ways. The first involves the inclusion of a documentation.rtf file within the www directory at the root level of driver. While .RTF files are somewhat limited in nature they can be appropriate for supporting drivers that don’t require the need for a robust documentation experience. Detailed information on the inclusion of a documentation.rtf file can found here:</p>
 
-<p><a href="https://control4.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers">https://control4.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers</a></p>
+<p><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers">https://snap-one.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers</a></p>
 
 <p>The second way to include driver documentation within a .c4z driver file is to first created the content in Markdown and then render the Markdown into HTML using React. This approach offers the simplicity of creating content with Markdown while benefitting from the features provided through HTML.</p>
 
@@ -5257,7 +5257,7 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 
 <p><a href="https://github.com/control4/docs-driverworks">https://github.com/control4/docs-driverworks</a></p>
 
-<p>To include Markdown documentation in your driver.c4z file, first locate the markdown_driver_doc folder at the top of the DriverWorks landing page. Note that the folder contains a release.zip file. </p>
+<p>To include Markdown documentation in your driver.c4z file, first locate the markdown_driver_doc folder at the top of the DriverWorks landing page. Note that the folder contains a release.zip file.</p>
 
 <ol>
 <li>Unzip the release.zip file into the www/documentation folder in your driver .c4z file. The updated documentation directory structure should look like this:</li>
@@ -5282,7 +5282,7 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 <p><code>&lt;documentation file=&quot;www/documentation/index.html&quot;/&gt;</code></p></li>
 </ol>
 
-<p>After the driver.c4z file is compiled, the assets included from the release.zip will generate driver documentation using the same formatting as can be seen in drivers delivered by Control4. </p>
+<p>After the driver.c4z file is compiled, the assets included from the release.zip will generate driver documentation using the same formatting as can be seen in drivers delivered by Control4.</p>
 
       </div>
       <div class="dark-box">
