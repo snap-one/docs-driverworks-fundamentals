@@ -421,6 +421,14 @@
               </ul>
           </li>
           <li>
+            <a href="#favored-and-blocked-av-connection-classes" class="toc-h1 toc-link" data-title="Favored and Blocked AV Connection Classes">Favored and Blocked AV Connection Classes</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#a-use-case-for-favored-connection-classes" class="toc-h2 toc-link" data-title="A Use Case for Favored Connection Classes">A Use Case for Favored Connection Classes</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#events" class="toc-h1 toc-link" data-title="Events">Events</a>
               <ul class="toc-list-h2">
                   <li>
@@ -3079,6 +3087,121 @@ and
      <span class="nt">&lt;/classes&gt;</span>
 <span class="nt">&lt;/connection&gt;</span>
 </code></pre></div>
+
+<h1 id='favored-and-blocked-av-connection-classes'>Favored and Blocked AV Connection Classes</h1>
+
+<p>Two AV connection class-level driver elements have been delivered in conjunction with O.S 3.2.0: Favored classes and Blocked classes:</p>
+
+<ul>
+<li><p><code>&lt;favoredclasses&gt;&lt;/favoredclasses&gt;</code></p></li>
+<li><p><code>&lt;blockedclasses&gt;&lt;/blockedclasses&gt;</code></p></li>
+</ul>
+
+<p>These properties provide the ability to designate an AV connection class or classes as “favored” or “blocked”. </p>
+
+<p>Favoriting or blocking connections in your connection XML code can be a helpful solution that is most often needed in AV Receiver drivers. Specifically, when handling audio signals distributed across multiple zones where signal conversion is not handled consistently by the device (i.e., receiver). Signal conversion (i.e., HDMI input to analog stereo output) is defined in Control4 drivers via the down-classing and up-classing capabilities.</p>
+
+<h3 id='a-use-case-for-favored-connection-classes'>A Use Case for Favored Connection Classes</h3>
+
+<p>To better understand the problem that favoriting connection classes can resolve, let’s consider the following AV Receiver which resides in a Control4 project: </p>
+
+<ul>
+<li><p>The ability to down-class digital audio (HDMI) for the receiver’s Zone 1 (STEREO / SPEAKER).</p></li>
+<li><p>The inability to down-class digital audio (HDMI) for the receiver’s Zone 2 (STEREO / SPEAKER).</p></li>
+<li><p>Media Player 1 bound via HDMI and STEREO</p></li>
+<li><p>Media Player 2 bound via HDMI</p></li>
+</ul>
+
+<p>The goals of successful pathing architecture is to minimize the switch of audio class within a path while not consuming higher quality components with a lower quality stream. This approach leaves those components available to use a higher quality stream.</p>
+
+<p>So, when audio is selected for Zone 1 through the Control4 UI, Director will select Media Player 1 via the STEREO audio path. The result is audio successfully being played in the receiver’s Zone 1 through the STEREO connection. Once HDMI has been downmixed to STEREO, it will attempt to stay on STEREO.</p>
+
+<p>Next, while Zone 1 is still playing audio, the user selects Media Player 2 in Zone 2 to play another audio signal (since Media Player 1 is already in use in Zone 1). Director’s pathing architecture has no way of knowing that the receiver lacks the ability to down-class HDMI to STEREO on Zone 2 so it presents Media Player 2 as an available source. This results in Media Player 2 being selected in Zone 2 UI but no audio being distributed due to it being an HDMI source signal.</p>
+
+<p>This example was selected for simplicity. A more typical example is when multiple outputs of a Control4 controller are bound to an AV Matrix and then the AV Matrix is bound to a Receiver for a few zones. In this example, the user(s) are selecting audio streams from sources such as Tidal and TuneIn so the user has no idea what output Director may be selecting. </p>
+
+<p>Blocking and favoring AV connection classes give the driver writer the ability to influence the choices Director’s pathing architecture makes to successfully connect inputs to outputs and avoid the scenarios described above in Zone 2.  This is accomplished by applying the favored classes XML elements within the output connections in the driver’s Connection XML code. An example of the XML needed to favor a class is to the right.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>-- Favored Example
+
+<span class="nt">&lt;favoredclasses&gt;</span>
+  <span class="nt">&lt;classname&gt;</span>HDMI<span class="nt">&lt;/classname&gt;</span>
+  <span class="nt">&lt;classname&gt;</span>STEREO<span class="nt">&lt;/classname&gt;</span>
+<span class="nt">&lt;/favoredclasses&gt;</span>
+</code></pre></div>
+
+<p>In the use case defined above, we can resolve the lack of audio availability in Zone 2 by using favored classes. But to do so, we need to start with Zone 1. We’re going to favor some of the other connection classes the receiver supports in Zone 1. By favoriting these classes, Director will select from those classes to play the audio. This frees up connection classes we know can be can successfully used for playing audio in Zone 2. In the example to the right you can see the connection XML for the Main Output of the receiver or Zone 1. </p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>-- Main Zone Example
+
+<span class="nt">&lt;connection</span> <span class="na">proxybindingid=</span><span class="s">"5001"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;id&gt;</span>4000<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;facing&gt;</span>1<span class="nt">&lt;/facing&gt;</span>
+            <span class="nt">&lt;connectionname&gt;</span>Main Output<span class="nt">&lt;/connectionname&gt;</span>
+            <span class="nt">&lt;type&gt;</span>6<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;consumer&gt;</span>False<span class="nt">&lt;/consumer&gt;</span>
+            <span class="nt">&lt;audiosource&gt;</span>True<span class="nt">&lt;/audiosource&gt;</span>
+            <span class="nt">&lt;videosource&gt;</span>False<span class="nt">&lt;/videosource&gt;</span>
+            <span class="nt">&lt;linelevel&gt;</span>True<span class="nt">&lt;/linelevel&gt;</span>
+            <span class="nt">&lt;classes&gt;</span>
+                <span class="nt">&lt;class&gt;</span>
+                    <span class="nt">&lt;classname&gt;</span>SPEAKER<span class="nt">&lt;/classname&gt;</span>
+                <span class="nt">&lt;/class&gt;</span>
+                <span class="nt">&lt;class&gt;</span>
+                    <span class="nt">&lt;classname&gt;</span>STEREO<span class="nt">&lt;/classname&gt;</span>
+                <span class="nt">&lt;/class&gt;</span>
+            <span class="nt">&lt;/classes&gt;</span>
+            <span class="nt">&lt;favoredclasses&gt;</span>
+                 <span class="nt">&lt;classname&gt;</span>HDMI<span class="nt">&lt;/classname&gt;</span>
+                 <span class="nt">&lt;classname&gt;</span>DIGITAL_COAX<span class="nt">&lt;/classname&gt;</span>
+                 <span class="nt">&lt;classname&gt;</span>DIGITAL_OPTICAL<span class="nt">&lt;/classname&gt;</span>
+            <span class="nt">&lt;/favoredclasses&gt;</span>
+<span class="nt">&lt;/connection&gt;</span>
+</code></pre></div>
+
+<p>Note that the following connection classes are favored using the new  <code>&lt;favoredclasses&gt;&lt;/favoredclasses&gt;</code> XML element: </p>
+
+<ul>
+<li>HDMI</li>
+<li>DIGITAL_COAX</li>
+<li>DIGITAL_OPTICAL</li>
+</ul>
+
+<p>Beginning with O.S release 3.2.0, Director will select a favored connection class first. In this example, by not favoring SPEAKER and STEREO there is a higher probability that they will be available to the other Zones, such as Zone 2 that require this type of signal. </p>
+
+<p>At this point in the use case, we’ve favored the signal classes in our main zone (Zone 1). In doing so we’ve increased the probability that they will be selected in Zone 1.  This leaves the lower classes (STEREO and SPEAKER) available for Zone 2. However, there are some scenarios where the STEREO signal may be in use and not available to the Zone 2. To prevent the selection of the source being a digital class in Zone 2, we must block those signals in the Zone 2 connection XML to be sure that they cannot be selected. We can see in the Zone 2 connection example to the right that we’ve blocked: </p>
+
+<ul>
+<li>HDMI</li>
+<li>DIGITAL_COAX</li>
+<li>DIGITAL_OPTICAL</li>
+</ul>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>-- Zone 2 Example
+
+<span class="nt">&lt;connection</span> <span class="na">proxybindingid=</span><span class="s">"5001"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;id&gt;</span>4002<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;facing&gt;</span>1<span class="nt">&lt;/facing&gt;</span>
+            <span class="nt">&lt;connectionname&gt;</span>Zone2 Output<span class="nt">&lt;/connectionname&gt;</span>
+            <span class="nt">&lt;type&gt;</span>6<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;consumer&gt;</span>False<span class="nt">&lt;/consumer&gt;</span>
+            <span class="nt">&lt;audiosource&gt;</span>True<span class="nt">&lt;/audiosource&gt;</span>
+            <span class="nt">&lt;videosource&gt;</span>False<span class="nt">&lt;/videosource&gt;</span>
+            <span class="nt">&lt;linelevel&gt;</span>True<span class="nt">&lt;/linelevel&gt;</span>
+            <span class="nt">&lt;classes&gt;</span>
+                <span class="nt">&lt;class&gt;</span>
+                    <span class="nt">&lt;classname&gt;</span>STEREO<span class="nt">&lt;/classname&gt;</span>
+                <span class="nt">&lt;/class&gt;</span>
+            <span class="nt">&lt;/classes&gt;</span>
+            <span class="nt">&lt;blockedclasses&gt;</span>
+                 <span class="nt">&lt;classname&gt;</span>HDMI<span class="nt">&lt;/classname&gt;</span>
+            <span class="nt">&lt;classname&gt;</span>DIGITAL_COAX<span class="nt">&lt;/classname&gt;</span>
+                 <span class="nt">&lt;classname&gt;</span>DIGITAL_OPTICAL<span class="nt">&lt;/classname&gt;</span>
+            <span class="nt">&lt;/blockedclasses&gt;</span>
+<span class="nt">&lt;/connection&gt;</span>
+</code></pre></div>
+
+<p>By using favored connection classes in Zone 1 and blocked connection classes in Zone 2 we’re putting the AV Receiver driver in a position to influence Director to successfully distribute audio signals to both Zones regardless of the Signal Conversion limitations of the device.</p>
 <p><h1 id='events'>Events</h1><h2 id='sorting-events-in-composerpro'>Sorting Events in ComposerPro</h2>
 <p>Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Events were displayed in the Programming area of ComposerPro. A sort order driver provides the ability to display Events in any desired order. Sort order can be applied to Events in the driver.xml with the inclusion of the following xml tag: &lt;sort_order&gt;&lt;/sort_order&gt;. See the lighting code Example 1 from a driver.xml file to the right.</p></p>
 
