@@ -497,6 +497,14 @@
               </ul>
           </li>
           <li>
+            <a href="#director" class="toc-h1 toc-link" data-title="Director">Director</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#director-and-geo-location-services" class="toc-h2 toc-link" data-title="Director and Geo Location Services">Director and Geo Location Services</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#system-manager-logging" class="toc-h1 toc-link" data-title="System Manager Logging">System Manager Logging</a>
               <ul class="toc-list-h2">
                   <li>
@@ -4129,6 +4137,35 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 <li>New Event 4</li>
 <li>New Event 5</li>
 </ul>
+<h1 id='director'>Director</h1>
+
+<h2 id='director-and-geo-location-services'>Director and Geo Location Services</h2>
+
+<p>Director maintains two different values for location. The first is the project location which is set by the dealer. This value is maintained by the project and is stored in the project database. </p>
+
+<p>The second is the geo location. This value is retrieved from web services. </p>
+
+<p>Why does Director now need to manage two different values for location? Historically, Director has always stored the project location. The project location value is used for such things as computing sunrise/sunset times and determining the radio power level for ZigBee devices. However, inadequacies arise when trying to use the project location value to determine radio power levels, particularly for WiFi levels. These inadequacies are largely due to new regulations. These regulations require that the location be determined with a high degree of certainty. As such, Director can no longer rely on the project location value because a dealer may inadvertently set the wrong location or purposefully enter inaccurate location information. </p>
+
+<p>In order to comply with regulations, Control4 has implemented a new service that returns the geo location. This location is retrieved from a webservice and is based on the IP address. This webservice returns the country code and name, and does so with a high degree of certainty.</p>
+
+<h3 id='director-geo-location-service'>Director Geo Location Service</h3>
+
+<p>After Director has loaded the project and finished initializing drivers, it schedules an initial call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-initial-interval-seconds</code></p>
+
+<p>This configuration setting specifies the number of seconds that Director should wait before making the initial call to the geo location webservice. The default value is 5 seconds.</p>
+
+<p>When the timer fires Director invokes the geo location webservice. The endpoint for this webservice is retrieved from the registry using the following key: <code>geolocation.service_url</code></p>
+
+<p>The default URL for the geo location webservice (stored in the registry) is as follows:</p>
+
+<p><code>https://apiz.control4.com/cs/geolocation/v1/location</code></p>
+
+<p>On success, Director retrieves the country code and name from the response and stores them. Regardless of success or failure, Director then schedules another call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-interval-minutes</code></p>
+
+<p>This configuration setting specifies the number of minutes until the next call to the geo location webservice. The default value is 60 minutes resulting in Director invoking the geo location webservice every hour, by default.</p>
+
+<p>See also: <a href="https://snap-one.github.io/docs-driverworks-api/#getgeosettings">GetGeoSettings API</a></p>
 <h1 id='system-manager-logging'>System Manager Logging</h1>
 
 <h2 id='introduction'>Introduction</h2>
