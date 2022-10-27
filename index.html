@@ -4149,8 +4149,6 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 
 <p>In order to comply with regulations, Control4 has implemented a new service that returns the geo location in conjunction with O.S. 3.2.0. This location is retrieved from a webservice and is based on the IP address. This webservice returns the country code and name, and does so with a high degree of certainty. Please see the <a href="https://snap-one.github.io/docs-driverworks-api/#getgeosettings">GetGeoSettings API</a> for more information.</p>
 
-<h3 id='director-geo-location-service'>Director Geo Location Service</h3>
-
 <p>After Director has loaded the project and finished initializing drivers, it schedules an initial call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-initial-interval-seconds</code></p>
 
 <p>This configuration setting specifies the number of seconds that Director should wait before making the initial call to the geo location webservice. The default value is 5 seconds.</p>
