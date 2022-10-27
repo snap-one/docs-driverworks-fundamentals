@@ -7,7 +7,7 @@ The second is the geo location. This value is retrieved from web services.
 Why does Director now need to manage two different values for location? Historically, Director has always stored the project location. The project location value is used for such things as computing sunrise/sunset times and determining the radio power level for ZigBee devices. However, inadequacies arise when trying to use the project location value to determine radio power levels, particularly for WiFi levels. These inadequacies are largely due to new regulations. These regulations require that the location be determined with a high degree of certainty. As such, Director can no longer rely on the project location value because a dealer may inadvertently set the wrong location or purposefully enter inaccurate location information. 
 
 
-In order to comply with regulations, Control4 has implemented a new service that returns the geo location. This location is retrieved from a webservice and is based on the IP address. This webservice returns the country code and name, and does so with a high degree of certainty.
+In order to comply with regulations, Control4 has implemented a new service that returns the geo location in conjunction with O.S. 3.2.0. This location is retrieved from a webservice and is based on the IP address. This webservice returns the country code and name, and does so with a high degree of certainty. Please see the [GetGeoSettings API][1] for more information.
 
 
 ### Director Geo Location Service
@@ -29,7 +29,5 @@ On success, Director retrieves the country code and name from the response and s
 
 
 This configuration setting specifies the number of minutes until the next call to the geo location webservice. The default value is 60 minutes resulting in Director invoking the geo location webservice every hour, by default.
-
-See also: [GetGeoSettings API][1]
 
 [1]:	https://snap-one.github.io/docs-driverworks-api/#getgeosettings
