@@ -18,7 +18,7 @@ The second way to include driver documentation within a .c4z driver file is to f
 
 The DriverWorks SDK includes all of the React assets needed to render Markdown driver documentation into HTML. The assets are included in the release.zip file found in the on the DriverWorks Landing page here:
 
-[https://github.com/control4/docs-driverworks][2]
+[https://github.com/snap-one/docs-driverworks][2]
 
 To include Markdown documentation in your driver.c4z file, first locate the markdown\_driver\_doc folder at the top of the DriverWorks landing page. Note that the folder contains a release.zip file.
 
@@ -46,4 +46,4 @@ Note that the documentation.md file **is not** inside the documentation folder.
 After the driver.c4z file is compiled, the assets included from the release.zip will generate driver documentation using the same formatting as can be seen in drivers delivered by Control4.
 
 [1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#understanding-c4z-drivers
-[2]:	https://github.com/control4/docs-driverworks
+[2]:	https://github.com/snap-one/docs-driverworks

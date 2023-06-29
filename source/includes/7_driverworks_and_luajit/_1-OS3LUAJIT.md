@@ -174,6 +174,6 @@ Selecting a logging level will include all log entries for it and any entries fo
 
 
 
-[1]:	[https://www.lua.org/]
-[2]:	[https://www.lua.org/]
+[1]:	https://www.lua.org/
+[2]:	https://luajit.org/
 [3]:	http://www.lua.org/manual/5.1/manual.html

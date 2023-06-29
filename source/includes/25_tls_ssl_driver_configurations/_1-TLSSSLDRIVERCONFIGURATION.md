@@ -5,7 +5,9 @@ Control4 drivers can connect securely with devices using SSL/TLS. These connecti
 If you use the DriverWorks SDK URL interface, you can implement basic or digest authentication support within your driver and construct the url properly to include those credentials in communication with the device. For more information, please see:
 
 [https://snap-one.github.io/docs-driverworks-api/#url-interface][1]
+
 [https://snap-one.github.io/docs-driverworks-api/#netportoptions][2]
+
 [https://github.com/control4/docs-driverworks/tree/master/sample\_drivers][3]
 
 A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined to the right. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
@@ -103,11 +105,6 @@ Your driver then will be responsible for parsing the JSON data structure and han
 If you want to use a web socket for your device communication, we have a sample web socket driver in our SDK library at:
 [https://github.com/control4/docs-driverworks/tree/master/sample\_drivers/websocket][7]
 
-You can test using standard web socket and web socket secure (TLS). You can use the websocket.org demo server to test regular and secure WebSockets:
-
-[ws://echo.websocket.org][8]
-
-[wss://echo.websocket.org][9]
 
 [1]:	https://snap-one.github.io/docs-driverworks-api/#url-interface
 [2]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions
@@ -116,5 +113,3 @@ You can test using standard web socket and web socket secure (TLS). You can use 
 [5]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netconnect
 [6]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-receivedfromnetwork
 [7]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket
-[8]:	ws://echo.websocket.org
-[9]:	wss://echo.websocket.org

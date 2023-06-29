@@ -58,7 +58,7 @@ Commands come from the Device Proxy. For example, a AV Switch might have the fol
 </command>
 ```
 
-The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the [CUSTOM\_SELECT property][1].
+The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the CUSTOM\_SELECT property.
 
 These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.
 
@@ -99,7 +99,7 @@ In the SelectChannel example above, SelectChannel is the command name that is se
 </command>
 ```
 
-The Device Selector command parameter type supports the [Device Selector property][2]. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer.
+The Device Selector command parameter type supports the Device Selector property. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the DEVICE\_SELECTOR\_ parameter type.
 
@@ -120,11 +120,11 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Dynamic List command parameter type supports the ability to use the [Dynamic List Property][3]. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen.
+The Dynamic List command parameter type supports the ability to use the Dynamic List Property. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the DYNAMIC\_LIST\_ parameter type.
 
-Note: The driver must implement a function called [GetCommandParamList][4] that returns a table with the list for the specified parameter.
+Note: The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter.
 
 ### List
 
@@ -455,8 +455,3 @@ For example, in the XML code to the right there are five device specific command
 - New Command 3
 - New Command 4
 - New Command 5
-
-[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
-[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
-[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
-[4]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-getcommandparamlist
