@@ -24,4 +24,4 @@ A new section has been added to the Fundamentals Guide detailing driver document
 [3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-sorting-commands-in-composerpro
 [4]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
 [5]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-dynamic-list-type-for-commands
-[6]:	hhttps://snap-one.github.io/docs-driverworks-fundamentals/#markdown-driver-documentation
+[6]:	https://snap-one.github.io/docs-driverworks-fundamentals/#markdown-driver-documentation
