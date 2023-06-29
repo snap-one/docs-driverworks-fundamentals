@@ -1226,7 +1226,7 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <p>For more information please see: <a href="https://github.com/control4/drivers-driverpackager">https://github.com/control4/drivers-driverpackager</a></p>
 
-<p>For more information regarding luajit, please see: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit">https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
+<p>For more information regarding luajit, please see: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit">https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
 
 <h2 id='understanding-c4z-drivers-replacing-a-c4i-file-with-c4z'>Replacing a .c4i file with .c4z</h2>
 
@@ -1594,7 +1594,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
 
-<p>The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">CUSTOM_SELECT property</a>.</p>
+<p>The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types">CUSTOM_SELECT property</a>.</p>
 
 <p>These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.</p>
 
@@ -1630,7 +1630,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Device Selector command parameter type supports the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property">Device Selector property</a>. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer.</p>
+<p>The Device Selector command parameter type supports the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types">Device Selector property</a>. This is  a property that can be added to a DriverWorks driver. Device Selector allows you (as the driver developer) to display a list of devices that may be associated with the driver you have developed. These devices can then be selected from within composer.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the DEVICE_SELECTOR_ parameter type.</p>
 <h3 id='commands-supported-command-parameter-types-dynamic-list'>Dynamic List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1645,11 +1645,11 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Dynamic List command parameter type supports the ability to use the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#dynamic-list-properties">Dynamic List Property</a>. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen.</p>
+<p>The Dynamic List command parameter type supports the ability to use the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types">Dynamic List Property</a>. This property provides ability to include driver-based, dynamically updated lists in ComposerPro’s Advanced Properties screen.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the DYNAMIC_LIST_ parameter type.</p>
 
-<p>Note: The driver must implement a function called <a href="https://snap-one.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands">GetCommandParamList</a> that returns a table with the list for the specified parameter.</p>
+<p>Note: The driver must implement a function called <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#commands-getcommandparamlist">GetCommandParamList</a> that returns a table with the list for the specified parameter.</p>
 <h3 id='commands-supported-command-parameter-types-list'>List</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
         <span class="nt">&lt;name&gt;</span>LIST Parameter Example<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;description&gt;</span>NAME LIST Value: PARAM1<span class="nt">&lt;/description&gt;</span>
@@ -1668,7 +1668,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
+<p>The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the Properties tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the LIST parameter type.</p>
 <h3 id='commands-supported-command-parameter-types-ranged-float'>Ranged Float</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1685,7 +1685,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
+<p>The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the Properties tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the RANGED_FLOAT_ parameter type.</p>
 <h3 id='commands-supported-command-parameter-types-ranged-integer'>Ranged Integer</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1702,7 +1702,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
+<p>The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the Properties tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the RANGED_INTEGER_ parameter type</p>
 <h3 id='commands-supported-command-parameter-types-string'>String</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1717,7 +1717,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The STRING command parameter type supports the ability to provide a read only string within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro.</p>
+<p>The STRING command parameter type supports the ability to provide a read only string within the Properties tab in ComposerPro.</p>
 
 <p>In order for this property to work, a command needs to be created in the &lt;devicedata&gt;&lt;config&gt; section of the c4z driver.xml file. This command must include the STRING_ parameter type</p>
 <h3 id='commands-supported-command-parameter-types-variable-selector'>Variable Selector</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
@@ -1768,7 +1768,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
         <span class="nt">&lt;/params&gt;</span>
 <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p>The Variable Selector command parameter type supports the ability to choose a variable type within the <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#properties">Properties</a> tab in ComposerPro. Supported Variable Types include:</p>
+<p>The Variable Selector command parameter type supports the ability to choose a variable type within the Properties tab in ComposerPro. Supported Variable Types include:</p>
 
 <ul>
 <li>boolean</li>
@@ -4244,7 +4244,7 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 
 <p>Why does Director now need to manage two different values for location? Historically, Director has always stored the project location. The project location value is used for such things as computing sunrise/sunset times and determining the radio power level for ZigBee devices. However, inadequacies arise when trying to use the project location value to determine radio power levels, particularly for WiFi levels. These inadequacies are largely due to new regulations. These regulations require that the location be determined with a high degree of certainty. As such, Director can no longer rely on the project location value because a dealer may inadvertently set the wrong location or purposefully enter inaccurate location information. </p>
 
-<p>In order to comply with regulations, Control4 has implemented a new service that returns the geo location in conjunction with O.S. 3.2.0. This location is retrieved from a webservice and is based on the IP address. This webservice returns the country code and name, and does so with a high degree of certainty. Please see the <a href="https://snap-one.github.io/docs-driverworks-api/#getgeosettings">GetGeoSettings API</a> for more information.</p>
+<p>In order to comply with regulations, Control4 has implemented a new service that returns the geo location in conjunction with O.S. 3.2.0. This location is retrieved from a webservice and is based on the IP address. This webservice returns the country code and name, and does so with a high degree of certainty. Please see the <a href="https://snap-one.github.io/docs-driverworks-api/#geolocation-interface">GetGeoSettings API</a> for more information.</p>
 
 <p>After Director has loaded the project and finished initializing drivers, it schedules an initial call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-initial-interval-seconds</code></p>
 
@@ -5392,7 +5392,7 @@ Note that functions cannot be members of a table that contain data that is inten
 <p>If you use the DriverWorks SDK URL interface, you can implement basic or digest authentication support within your driver and construct the url properly to include those credentials in communication with the device. For more information, please see:</p>
 
 <p><a href="https://snap-one.github.io/docs-driverworks-api/#url-interface">https://snap-one.github.io/docs-driverworks-api/#url-interface</a>
-<a href="https://snap-one.github.io/docs-driverworks-api/#netportoptions">https://snap-one.github.io/docs-driverworks-api/#netportoptions</a>
+<a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions">https://snap-one.github.io/docs-driverworks-api/#netportoptions</a>
 <a href="https://github.com/control4/docs-driverworks/tree/master/sample_drivers">https://github.com/control4/docs-driverworks/tree/master/sample_drivers</a></p>
 
 <p>A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined to the right. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
@@ -5476,9 +5476,9 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 
 <p>Please note that the <code>&lt;certificate&gt;</code>, <code>&lt;private_key&gt;</code>, and <code>&lt;cacert&gt;</code> expected in those XML tags for certificates and key information may all be contained in the same file.  It&#39;s not required to split the various certificates and keys out into separate files to work properly.  In the case that they are all contained in a single file, put that file&#39;s filename value in each of the XML tags.</p>
 
-<p>If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the <a href="https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword" title="GetPrivatekeyPassword API">https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword</a> in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.</p>
+<p>If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword" title="GetPrivatekeyPassword API">https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword</a> in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.</p>
 
-<p>Once the connection is established, then you simply utilize the standard networking functions (e.g. <a href="https://snap-one.github.io/docs-driverworks-api/#netconnect">NetConnect</a> ) to communicate with the device. The returned information will come back on <a href="https://snap-one.github.io/docs-driverworks-api/#receivedfromnetwork">ReceivedFromNetwork</a></p>
+<p>Once the connection is established, then you simply utilize the standard networking functions (e.g. <a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netconnect">NetConnect</a> ) to communicate with the device. The returned information will come back on <a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-receivedfromnetwork">ReceivedFromNetwork</a></p>
 
 <p>Your driver then will be responsible for parsing the JSON data structure and handling it as you deem necessary.</p>
 
