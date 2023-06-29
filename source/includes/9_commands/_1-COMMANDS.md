@@ -149,7 +149,7 @@ Note: The driver must implement a function called [GetCommandParamList][4] that 
 ```
 
 
-The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the [Properties][5] tab in ComposerPro.
+The List command parameter type supports the ability to provide a non-dynamic list of selectable objects within the Properties tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the LIST parameter type.
 
@@ -172,7 +172,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the [Properties][6] tab in ComposerPro.
+The Ranged Float command parameter type supports the ability to provide a range of selectable floating-point or non-integer numbers within the Properties tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the RANGED\_FLOAT\_ parameter type.
 
@@ -195,7 +195,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the [Properties][7] tab in ComposerPro.
+The Ranged Integer command parameter type supports the ability to provide a range of selectable integers within the Properties tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the RANGED\_INTEGER\_ parameter type
 
@@ -216,7 +216,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The STRING command parameter type supports the ability to provide a read only string within the [Properties][8] tab in ComposerPro.
+The STRING command parameter type supports the ability to provide a read only string within the Properties tab in ComposerPro.
 
 In order for this property to work, a command needs to be created in the \<devicedata\>\<config\> section of the c4z driver.xml file. This command must include the STRING\_ parameter type
 
@@ -273,7 +273,7 @@ In order for this property to work, a command needs to be created in the \<devic
 </command>
 ```
 
-The Variable Selector command parameter type supports the ability to choose a variable type within the [Properties][9] tab in ComposerPro. Supported Variable Types include:
+The Variable Selector command parameter type supports the ability to choose a variable type within the Properties tab in ComposerPro. Supported Variable Types include:
 
 - boolean
 - string
@@ -456,12 +456,7 @@ For example, in the XML code to the right there are five device specific command
 - New Command 4
 - New Command 5
 
-[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
-[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#using-the-device-selector-property
-[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#dynamic-list-properties
-[4]:	https://snap-one.github.io/docs-driverworks-draft/#3-3-0-new-proxy-commands
-[5]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
-[6]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
-[7]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
-[8]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
-[9]:	https://snap-one.github.io/docs-driverworks-fundamentals/#properties
+[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
+[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-supported-command-parameter-types
+[4]:	https://snap-one.github.io/docs-driverworks-fundamentals/#commands-getcommandparamlist

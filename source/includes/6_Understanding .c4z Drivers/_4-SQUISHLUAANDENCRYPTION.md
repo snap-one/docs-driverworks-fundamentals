@@ -68,4 +68,4 @@ For more information please see: [https://github.com/control4/drivers-driverpack
 For more information regarding luajit, please see: [https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit][2]
 
 [1]:	https://github.com/control4/drivers-driverpackager
-[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit

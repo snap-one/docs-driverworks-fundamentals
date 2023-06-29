@@ -110,11 +110,11 @@ You can test using standard web socket and web socket secure (TLS). You can use 
 [wss://echo.websocket.org][9]
 
 [1]:	https://snap-one.github.io/docs-driverworks-api/#url-interface
-[2]:	https://snap-one.github.io/docs-driverworks-api/#netportoptions
+[2]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions
 [3]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers
-[4]:	https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword "GetPrivatekeyPassword API"
-[5]:	https://snap-one.github.io/docs-driverworks-api/#netconnect
-[6]:	https://snap-one.github.io/docs-driverworks-api/#receivedfromnetwork
+[4]:	https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword "GetPrivatekeyPassword API"
+[5]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netconnect
+[6]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-receivedfromnetwork
 [7]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket
 [8]:	ws://echo.websocket.org
 [9]:	wss://echo.websocket.org

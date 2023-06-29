@@ -29,4 +29,4 @@ On success, Director retrieves the country code and name from the response and s
 
 This configuration setting specifies the number of minutes until the next call to the geo location webservice. The default value is 60 minutes resulting in Director invoking the geo location webservice every hour, by default.
 
-[1]:	https://snap-one.github.io/docs-driverworks-api/#getgeosettings
+[1]:	https://snap-one.github.io/docs-driverworks-api/#geolocation-interface
