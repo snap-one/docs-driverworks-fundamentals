@@ -27,7 +27,7 @@ Before discussing how these icons are included in drivers, it's important to not
 <img src="images/19_1-04.png"/>
 
 
-Note that both the `small_icon_`and `large_icon_`**require the use of 96 DPI.** Using a DPI value other than 96 will result in icons appearing stretched or shrunk. Additionally, these icons will not work correctly in ComposerPro.
+Note that both the `small_icon_` and `large_icon_`**require the use of 96 DPI.** Using a DPI value other than 96 will result in icons appearing stretched or shrunk. Additionally, these icons will not work correctly in ComposerPro.
 
 Driver icons are defined in the driver's XML. The remainder of this document will identify several types of drivers and, depending on where the driver's icons are located, outline the driver attributes required to display the icons in ComposerPro.
 
