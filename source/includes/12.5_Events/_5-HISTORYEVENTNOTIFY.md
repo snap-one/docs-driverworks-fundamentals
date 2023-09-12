@@ -7,7 +7,7 @@ Beginning with O.S. 3.4.0, drivers can provide a better experience for users rec
 
 For example, consider an IP Camera sending a push notification from a Motion event type. The notification displayed on the UI can be selected and the user is taken into the camera area of the app and the video that triggered the event. If the event was triggered in the past, the notification link will take the user to a record of the video. _Do we want to include this last sentence?_
 
-Prior to O.S. 3.4.0, driver developers had to use the [SendUIRequest][1] API to directly send the RECORD\_HISTORICAL\_EVENT command to the agent in order to get back the UUID of the event. This functionality has also been enhanced through an updated Record History API. 
+Prior to O.S. 3.4.0, driver developers had to use the SendUIRequest API to directly send the RECORD\_HISTORICAL\_EVENT command to the agent in order to get back the UUID of the event. This functionality has also been enhanced through an updated Record History API. 
 
 
 **Role of the Navigation Agent**
@@ -28,5 +28,3 @@ Once the Navigation Agent is successfully installed, the director.log will be si
 ```
 
 
-
-[1]:	https://snap-one.github.io/docs-driverworks-api-3.4.0-beta/#miscellaneous-interface-senduirequest
