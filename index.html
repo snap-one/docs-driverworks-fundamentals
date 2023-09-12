@@ -315,6 +315,9 @@
             <a href="#what-s-new-in-the-fundamentals-guide" class="toc-h1 toc-link" data-title="What’s New in the Fundamentals Guide">What’s New in the Fundamentals Guide</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#what-s-new-in-the-fundamentals-guide-what-s-new-in-3-4-0" class="toc-h2 toc-link" data-title="What’s New in 3.4.0">What’s New in 3.4.0</a>
+                  </li>
+                  <li>
                     <a href="#what-s-new-in-the-fundamentals-guide-what-s-new-in-3-3-2" class="toc-h2 toc-link" data-title="What’s New in 3.3.2">What’s New in 3.3.2</a>
                   </li>
                   <li>
@@ -516,6 +519,9 @@
           <li>
             <a href="#events" class="toc-h1 toc-link" data-title="Events">Events</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#events-history-event-notifications" class="toc-h2 toc-link" data-title="History Event Notifications">History Event Notifications</a>
+                  </li>
                   <li>
                     <a href="#events-sorting-events-in-composerpro" class="toc-h2 toc-link" data-title="Sorting Events in ComposerPro">Sorting Events in ComposerPro</a>
                   </li>
@@ -775,6 +781,9 @@ Salt Lake City, UT 84020 USA</p>
 
 <p>The DriverWorks Fundamentals Guide is intended to provide an overview of the fundamental components that make up a device driver as well as the architectural layers that a device driver must interact with.  As a driver developer, you are tasked with implementing this “interaction”. Successful driver developers build drivers that not only handle numerous dependencies placed on their driver code – but also seek out ways to enhance a device’s capabilities in an automated environment. This level of interaction manifests itself as seamless device integration, a high level of device controllability and ultimately - a quality end user experience. This is something we refer to as the Control4 Interoperability Model.</p>
 <h1 id='what-s-new-in-the-fundamentals-guide'>What’s New in the Fundamentals Guide</h1>
+
+<h2 id='what-s-new-in-the-fundamentals-guide-what-s-new-in-3-4-0'>What’s New in 3.4.0</h2><h3 id='what-s-new-in-the-fundamentals-guide-what-s-new-in-3-4-0-history-event-notifications'>History Event Notifications</h3>
+<p>Beginning with O.S. 3.4.0, drivers can provide a better experience for users receiving Event push notifications on smartphones or tablets. Users can now view these notifications and, if desired, select the notification and be taken directly to the relevant content within the Control4 app. This removes the previous need to navigate through the app to find the relevant information. Push notification content includes videos, images, text and dynamic buttons related to the event triggering the notification.</p>
 
 <h2 id='what-s-new-in-the-fundamentals-guide-what-s-new-in-3-3-2'>What’s New in 3.3.2</h2>
 
@@ -3300,6 +3309,31 @@ and
 
 <p>By using favored connection classes in Zone 1 and blocked connection classes in Zone 2 we’re putting the AV Receiver driver in a position to influence Director to successfully distribute audio signals to both Zones regardless of the Signal Conversion limitations of the device.</p>
 <h1 id='events'>Events</h1>
+
+<h2 id='events-history-event-notifications'>History Event Notifications</h2>
+
+<p><strong>Overview</strong></p>
+
+<p>Beginning with O.S. 3.4.0, drivers can provide a better experience for users receiving Event push notifications on smartphones or tablets. Users can now view these notifications and, if desired, select the notification and be taken directly to the relevant content within the Control4 app. This removes the previous need to navigate through the app to find the relevant information. Push notification content includes videos, images, text and dynamic buttons related to the event triggering the notification.</p>
+
+<p>For example, consider an IP Camera sending a push notification from a Motion event type. The notification displayed on the UI can be selected and the user is taken into the camera area of the app and the video that triggered the event. If the event was triggered in the past, the notification link will take the user to a record of the video. <em>Do we want to include this last sentence?</em></p>
+
+<p>Prior to O.S. 3.4.0, driver developers had to use the <a href="https://snap-one.github.io/docs-driverworks-api-3.4.0-beta/#miscellaneous-interface-senduirequest">SendUIRequest</a> API to directly send the RECORD_HISTORICAL_EVENT command to the agent in order to get back the UUID of the event. This functionality has also been enhanced through an updated Record History API. </p>
+
+<p><strong>Role of the Navigation Agent</strong>
+In order for the deep linking to work, the Navigation agent must be installed. This is where the URI is generated. Without the navigation agent installed, the director.log will look similar to the example to the right.</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">05</span><span class="p">.</span><span class="mi">964</span> <span class="o">-</span><span class="mi">0600</span> <span class="n">core3</span><span class="o">-</span><span class="mi">000</span><span class="n">FFF0C34A4</span> <span class="p">[</span><span class="mi">2330</span><span class="p">]</span> <span class="p">(</span><span class="mi">2244</span><span class="p">)</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">HistoryAgent</span><span class="p">::</span><span class="n">getBuildHistoryURI</span><span class="p">:</span> <span class="n">Started</span> <span class="o">-</span> <span class="n">Action</span><span class="p">:</span> <span class="n">Aquiring</span> <span class="n">Navigation</span> <span class="n">Agent</span> <span class="n">Device</span> <span class="n">Id</span><span class="p">.</span>
+
+<span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">05</span><span class="p">.</span><span class="mi">964</span> <span class="o">-</span><span class="mi">0600</span> <span class="n">core3</span><span class="o">-</span><span class="mi">000</span><span class="n">FFF0C34A4</span> <span class="p">[</span><span class="mi">2330</span><span class="p">]</span> <span class="p">(</span><span class="mi">2244</span><span class="p">)</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">HistoryAgent</span><span class="p">::</span><span class="n">getBuildHistoryURI</span><span class="p">:</span> <span class="n">Failed</span> <span class="o">-</span> <span class="n">No</span> <span class="n">Navigation</span> <span class="n">Agent</span> <span class="n">found</span> <span class="n">using</span> <span class="n">control4_agent_navigation</span><span class="p">.</span><span class="n">c4i</span><span class="p">.</span>
+</code></pre></div>
+
+<p>Once the Navigation Agent is successfully installed, the director.log will be similar to the example to the right.note the inclusion of the URI.</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mi">39</span><span class="p">.</span><span class="mi">479</span> <span class="o">-</span><span class="mi">0600</span> <span class="n">core3</span><span class="o">-</span><span class="mi">000</span><span class="n">FFF0C34A4</span> <span class="p">[</span><span class="mi">2330</span><span class="p">]</span> <span class="p">(</span><span class="mi">2244</span><span class="p">)</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">HistoryAgent</span><span class="p">::</span><span class="n">getBuildHistoryURI</span><span class="p">:</span> <span class="n">Started</span> <span class="o">-</span> <span class="n">Action</span><span class="p">:</span> <span class="n">Aquiring</span> <span class="n">Navigation</span> <span class="n">Agent</span> <span class="n">Device</span> <span class="n">Id</span><span class="p">.</span>
+<span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mi">39</span><span class="p">.</span><span class="mi">480</span> <span class="o">-</span><span class="mi">0600</span> <span class="n">core3</span><span class="o">-</span><span class="mi">000</span><span class="n">FFF0C34A4</span> <span class="p">[</span><span class="mi">2330</span><span class="p">]</span> <span class="p">(</span><span class="mi">2244</span><span class="p">)</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">HistoryAgent</span><span class="p">::</span><span class="n">getBuildHistoryURI</span><span class="p">:</span> <span class="n">Response</span> <span class="o">-</span> <span class="n">XML</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">uri</span><span class="o">&gt;/</span><span class="n">v1</span><span class="o">/</span><span class="n">rooms</span><span class="o">/</span><span class="mi">268</span><span class="o">/</span><span class="n">cameras</span><span class="o">/</span><span class="mi">827</span><span class="o">&lt;/</span><span class="n">uri</span><span class="o">&gt;</span>
+<span class="mi">2023</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span> <span class="mi">13</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mi">39</span><span class="p">.</span><span class="mi">480</span> <span class="o">-</span><span class="mi">0600</span> <span class="n">core3</span><span class="o">-</span><span class="mi">000</span><span class="n">FFF0C34A4</span> <span class="p">[</span><span class="mi">2330</span><span class="p">]</span> <span class="p">(</span><span class="mi">2244</span><span class="p">)</span> <span class="n">DEBUG</span><span class="p">:</span> <span class="n">HistoryAgent</span><span class="p">::</span><span class="n">getBuildHistoryURI</span><span class="p">:</span> <span class="n">Response</span> <span class="o">-</span> <span class="n">URI</span><span class="p">:</span> <span class="s1">'/v1/rooms/268/cameras/827'</span>
+</code></pre></div>
 
 <h2 id='events-sorting-events-in-composerpro'>Sorting Events in ComposerPro</h2>
 
