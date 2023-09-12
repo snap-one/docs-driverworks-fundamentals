@@ -19,7 +19,7 @@ In order for the deep linking to work, the Navigation agent must be installed. T
 2023-06-01 13:34:05.964 -0600 core3-000FFF0C34A4 [2330] (2244) ERROR: HistoryAgent::getBuildHistoryURI: Failed - No Navigation Agent found using control4_agent_navigation.c4i.
 ```
 
-Once the Navigation Agent is successfully installed, the director.log will be similar to the example to the right.note the inclusion of the URI.
+Once the Navigation Agent is successfully installed, the director.log will be similar to the example to the right. Note the inclusion of the URI.
 
 ```lua
 2023-06-01 13:39:39.479 -0600 core3-000FFF0C34A4 [2330] (2244) DEBUG: HistoryAgent::getBuildHistoryURI: Started - Action: Aquiring Navigation Agent Device Id.
