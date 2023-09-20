@@ -3,9 +3,9 @@
 
 **Overview**
 
-Beginning with O.S. 3.4.0, drivers can provide a better experience for users receiving Event push notifications on smartphones or tablets. Users can now view these notifications and, if desired, select the notification and be taken directly to the relevant content within the Control4 app. This removes the previous need to navigate through the app to find the relevant information. Push notification content includes videos, images, text and dynamic buttons related to the event triggering the notification.
+Beginning with O.S. 3.4.0, drivers can provide a better experience for users receiving Event push notifications on smartphones or tablets. Users can now view these notifications and, if desired, select the notification and be taken directly to the relevant content within the Control4 app. This removes the previous need to navigate through the app to find the relevant information. 
 
-For example, consider an IP Camera sending a push notification from a Motion event type. The notification displayed on the UI can be selected and the user is taken into the camera area of the app and the video that triggered the event. If the event was triggered in the past, the notification link will take the user to a record of the video. _Do we want to include this last sentence?_
+For example, consider an IP Camera sending a push notification from a Motion event type. The notification displayed on the UI can be selected and the user is taken into the camera area of the app and the video that triggered the event. If the event was triggered in the past, the notification link will take the user to the History UI.
 
 Prior to O.S. 3.4.0, driver developers had to use the SendUIRequest API to directly send the RECORD\_HISTORICAL\_EVENT command to the agent in order to get back the UUID of the event. This functionality has also been enhanced through an updated Record History API. 
 
