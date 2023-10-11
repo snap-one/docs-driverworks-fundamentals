@@ -3322,7 +3322,7 @@ and
 
 <p>For example, consider an IP Camera sending a push notification from a Motion event type. The notification displayed on the UI can be selected and the user is taken into the camera area of the app and the video that triggered the event. If the event was triggered in the past, the notification link will take the user to the History UI.</p>
 
-<p>Prior to O.S. 3.4.0, driver developers had to use the SendUIRequest API to directly send the RECORD_HISTORICAL_EVENT command to the agent in order to get back the UUID of the event. This functionality has also been enhanced through an updated Record History API. </p>
+<p>Prior to O.S. 3.4.0, driver developers had to use the SendUIRequest API to directly send the RECORD_HISTORICAL_EVENT command to the agent in order to get back the UUID of the event. This functionality has also been enhanced through an updated <a href="https://snap-one.github.io/docs-driverworks-api/#helper-interface-recordhistory">RecordHistory</a> API. </p>
 
 <p><strong>Role of the Navigation Agent</strong>
 In order for the deep linking to work, the Navigation agent must be installed. This is where the URI is generated. Without the navigation agent installed, the director.log will look similar to the example to the right.</p>
