@@ -570,13 +570,13 @@
             <a href="#composerpro-the-interface-into-the-sdk" class="toc-h1 toc-link" data-title="ComposerPro: The Interface into the SDK">ComposerPro: The Interface into the SDK</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#composerpro-the-interface-into-the-sdk-properties" class="toc-h2 toc-link" data-title="Properties">Properties</a>
+                    <a href="#composerpro-the-interface-into-the-sdk-property-types" class="toc-h2 toc-link" data-title="Property Types">Property Types</a>
                   </li>
                   <li>
                     <a href="#composerpro-the-interface-into-the-sdk-dynamic-list-properties" class="toc-h2 toc-link" data-title="Dynamic List Properties">Dynamic List Properties</a>
                   </li>
                   <li>
-                    <a href="#composerpro-the-interface-into-the-sdk-advanced-properties" class="toc-h2 toc-link" data-title="Advanced Properties">Advanced Properties</a>
+                    <a href="#composerpro-the-interface-into-the-sdk-advanced-property-types" class="toc-h2 toc-link" data-title="Advanced Property Types">Advanced Property Types</a>
                   </li>
                   <li>
                     <a href="#composerpro-the-interface-into-the-sdk-using-the-device-selector-property" class="toc-h2 toc-link" data-title="Using the DEVICE SELECTOR Property">Using the DEVICE SELECTOR Property</a>
@@ -742,6 +742,10 @@
           </li>
       </ul>
         <ul class="toc-footer">
+            <li><a href='https://snap-one.github.io/docs-driverworks-introduction/'>An Introduction to DriverWorks</a></li>
+            <li><a href='https://snap-one.github.io/docs-driverworks-fundamentals/'>DriverWorks Fundamentals Guide</a></li>
+            <li><a href='https://snap-one.github.io/docs-driverworks-api/'>DriverWorks API Reference Guide</a></li>
+            <li><a href='https://github.com/snap-one/docs-driverworks'>DriverWorks GitHub Home</a></li>
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
@@ -3595,7 +3599,7 @@ If the driver loads successfully, then this will function as it did prior to OS 
 If the driver fails to load, the LuaJIT instance is abandoned and reloaded with PUC. When this happens, all of the properties that are set for the driver are temporarily lost. The properties &amp; state data is restored after the driver loads. Debug Lua messaging is impacted.</p>
 <h1 id='composerpro-the-interface-into-the-sdk'>ComposerPro: The Interface into the SDK</h1>
 
-<h2 id='composerpro-the-interface-into-the-sdk-properties'>Properties</h2>
+<h2 id='composerpro-the-interface-into-the-sdk-property-types'>Property Types</h2>
 
 <p>DriverWorks Properties are defined in the .c4z file and exposed in the Composer System Design interface on the Properties tab. Below is table of currently supported properties. The code examples for each are to the right. </p>
 
@@ -3722,11 +3726,11 @@ If the driver fails to load, the LuaJIT instance is abandoned and reloaded with 
    <span class="nt">&lt;tooltip&gt;</span>Property to test Link Property Tooltip<span class="nt">&lt;/tooltip&gt;</span>
    <span class="nt">&lt;default&gt;</span>http://www.control4.com<span class="nt">&lt;/default&gt;</span>
 <span class="nt">&lt;/property&gt;</span>
-</code></pre></div><h3 id='composerpro-the-interface-into-the-sdk-properties-usage-note-regarding-the-ranged-float-property'>Usage Note Regarding the Ranged Float Property</h3>
+</code></pre></div><h3 id='composerpro-the-interface-into-the-sdk-property-types-usage-note-regarding-the-ranged-float-property'>Usage Note Regarding the Ranged Float Property</h3>
 <p>Note that the local setting of a Control4 Controller in a project, and the local setting assigned to devices found within that project can potentially have an impact of the way in which a RANGED FLOAT property is handled by a driver. For example, if the controller has a local setting which uses the English language, the RANGED FLOAT property will be defined as in the example to the right (using a decimal).  However, if the local setting is that which supports another language - such as French for example, the minimum, maximum and default values will come in using a comma instead of a decimal point. For example, 50.0 will be received as 50,0. In the event that project controllers and project devices cannot be set to the same local, resulting in the same language, a driver will need to be able to handle the differing value definitions. </p>
-<h3 id='composerpro-the-interface-into-the-sdk-properties-usage-note-regarding-the-password-property'>Usage Note Regarding the Password Property</h3>
+<h3 id='composerpro-the-interface-into-the-sdk-property-types-usage-note-regarding-the-password-property'>Usage Note Regarding the Password Property</h3>
 <p>The Password property type prevents the text of a password from being displayed. It will show asterisks <code>*</code> in place of any text that is part of the property.  It is important to note that the data of the password field is NOT protected in any way. For example, if the properties table from the driver were to be printed, it will show the actual password. If the password field is used by a driver Control4 strongly recommends that the driver be encrypted.</p>
-<h3 id='composerpro-the-interface-into-the-sdk-properties-using-tooltips-and-descriptions-in-properties'>Using tooltips and Descriptions in Properties</h3>
+<h3 id='composerpro-the-interface-into-the-sdk-property-types-using-tooltips-and-descriptions-in-properties'>Using tooltips and Descriptions in Properties</h3>
 <p>All properties can have initial/default values and may be changed by the installer or configured as read-only.</p>
 
 <p>Properties have the ability to have two parameters. These include &lt;tooltip&gt; and &lt;description&gt;.</p>
@@ -3794,7 +3798,7 @@ If the driver fails to load, the LuaJIT instance is abandoned and reloaded with 
 
 <p>Note that there is no value displayed by default for the list called “Test Dynamic List No Default”. This is due to the omission of the &lt;default&gt; parameter. </p>
 
-<p>List content is delivered from the driver to ComposerPro by using the new UpdatePropertyList API. The API may be called within OnDriverInit. For example:</p>
+<p>List content is delivered from the driver to ComposerPro by using the new <a href="https://snap-one.github.io/docs-driverworks-api/#properties-interface-updatepropertylist">UpdatePropertyList </a>API. The API may be called within OnDriverInit. For example:</p>
 
 <div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">OnDriverInit</span><span class="p">()</span>
   <span class="n">C4</span><span class="p">:</span><span class="n">UpdatePropertyList</span><span class="p">(</span><span class="s2">"Test Dynamic List"</span><span class="p">,</span><span class="s2">"Item 4,Item 5,Item 6"</span><span class="p">)</span>
@@ -3818,7 +3822,7 @@ If the driver fails to load, the LuaJIT instance is abandoned and reloaded with 
 
 <p>The driver: <code>dynamic_list_widget.c4z</code> can be found in the Samples directory of the SDK in the Dynamic List Properties folder.</p>
 
-<h2 id='composerpro-the-interface-into-the-sdk-advanced-properties'>Advanced Properties</h2>
+<h2 id='composerpro-the-interface-into-the-sdk-advanced-property-types'>Advanced Property Types</h2>
 
 <p><strong>LABEL</strong>
 Prior to OS Release 2.10.0, the only way to create a separator or section between properties in the driver was to use a STRING type property and mark it read only. Now, with the inclusion of the XML example to the right, a much cleaner header can be created:</p>
