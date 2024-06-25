@@ -38,7 +38,7 @@ The ComposerPro Properties Page would look like this:
 
 Note that there is no value displayed by default for the list called “Test Dynamic List No Default”. This is due to the omission of the \<default\> parameter. 
 
-List content is delivered from the driver to ComposerPro by using the new UpdatePropertyList API. The API may be called within OnDriverInit. For example:
+List content is delivered from the driver to ComposerPro by using the new [UpdatePropertyList ][1]API. The API may be called within OnDriverInit. For example:
 
 ```lua
 function OnDriverInit()
@@ -66,3 +66,5 @@ A sample driver that utilizes Dynamic List Properties is included in the SDK. Th
 The driver: `dynamic_list_widget.c4z` can be found in the Samples directory of the SDK in the Dynamic List Properties folder.
 
 
+
+[1]:	https://snap-one.github.io/docs-driverworks-api/#properties-interface-updatepropertylist

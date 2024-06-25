@@ -1,4 +1,4 @@
-## Advanced Properties
+## Advanced Property Types
 
 **LABEL**
 Prior to OS Release 2.10.0, the only way to create a separator or section between properties in the driver was to use a STRING type property and mark it read only. Now, with the inclusion of the XML example to the right, a much cleaner header can be created:
