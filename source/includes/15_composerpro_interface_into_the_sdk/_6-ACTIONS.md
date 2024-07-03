@@ -59,7 +59,7 @@ Clicking this button displays all of the driver's Actions along their parameters
 
 ### Sorting Actions in ComposerPro
 
-Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Actions were displayed in the Programming area of ComposerPro. A new sort order driver element has been delivered that provides the ability to display Actions in any desired order. Sort order can be applied to Actions in the driver.xml with the inclusion of the following xml tag: `\<sort\_order\>\</sort\_order\>`. See the lighting code Example 1 from a driver.xml file to the right.
+Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Actions were displayed in the Programming area of ComposerPro. A new sort order driver element has been delivered that provides the ability to display Actions in any desired order. Sort order can be applied to Actions in the driver.xml with the inclusion of the following xml tag: `<sort_order></sort_order>`. See the lighting code Example 1 from a driver.xml file to the right.
 
 
 ```xml
