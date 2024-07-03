@@ -107,3 +107,10 @@ For example, in the XML code to the right there are five device specific Actions
 - New Action 3
 - New Action 4
 - New Action 5
+
+
+### Considerations when Sorting Actions
+
+- Sort Order numbering must be a positive number (including 0). The list is sorted in numerical order.
+-  If a sort order number value is used twice, the second Action using the same value will not be displayed.
+- When defining Actions that will use the Sort Order element, all of the Actions must include a numeric value. Failing to provide a sort order number for one Action will result in none of the Actions being sorted. For example, if you have ten Actions defined in your driver and one of them is missing the sort order element - none of the Actions will be sorted.

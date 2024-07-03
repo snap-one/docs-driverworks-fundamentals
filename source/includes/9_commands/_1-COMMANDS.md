@@ -337,9 +337,9 @@ This function is required in order for a driver to use the DYNAMIC\_LIST type pa
 
 
 | Parameter | Description |
-| --- | --- |
-| str | commandName |
-| str | paramName |
+| --------- | ----------- |
+| str       | commandName |
+| str       | paramName   |
 
 
 ### Returns
@@ -455,3 +455,9 @@ For example, in the XML code to the right there are five device specific command
 - New Command 3
 - New Command 4
 - New Command 5
+
+### Considerations when Sorting Commands
+
+- Sort Order numbering must be a positive number (including 0). The list is sorted in numerical order.
+-  If a sort order number value is used twice, the second Command using the same value will not be displayed.
+- When defining Commands that will use the Sort Order element, all of the Commands must include a numeric value. Failing to provide a sort order number for one Command will result in none of the Commands being sorted. For example, if you have ten Commands defined in your driver and one of them is missing the sort order element - none of the Commands will be sorted.
