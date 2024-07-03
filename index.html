@@ -1874,27 +1874,26 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 
 <p>Returns a table with the list for the specified parameter.</p>
 
-<p><h3 id='commands-getcommandparamlist-example'>Example</h3><div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetCommandParamList</span><span class="p">(</span><span class="n">commandName</span><span class="p">,</span> <span class="n">paramName</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">tList</span> <span class="o">=</span> <span class="p">{}</span></p>
+<h3 id='commands-getcommandparamlist-example'>Example</h3><div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetCommandParamList</span><span class="p">(</span><span class="n">commandName</span><span class="p">,</span> <span class="n">paramName</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">tList</span> <span class="o">=</span> <span class="p">{}</span>
 
-<p><span class="k">if</span> <span class="p">(</span><span class="n">commandName</span> <span class="o">==</span> <span class="s2">&quot;Turn On&quot;</span><span class="p">)</span> <span class="k">then</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="s2">&quot;Zone&quot;</span><span class="p">)</span> <span class="k">then</span>
-            <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Main&quot;</span><span class="p">,</span> <span class="s2">&quot;Master&quot;</span><span class="p">,</span> <span class="s2">&quot;Upstairs&quot;</span><span class="p">,</span> <span class="s2">&quot;Downstairs&quot;</span><span class="p">,</span> <span class="s2">&quot;Patio&quot;</span><span class="p">}</span>
-        <span class="k">elseif</span> <span class="p">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="s2">&quot;Level&quot;</span><span class="p">)</span> <span class="k">then</span>
-            <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Low&quot;</span><span class="p">,</span> <span class="s2">&quot;Medium&quot;</span><span class="p">,</span> <span class="s2">&quot;High&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">commandName</span> <span class="o">==</span> <span class="s2">"Turn On"</span><span class="p">)</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="s2">"Zone"</span><span class="p">)</span> <span class="k">then</span>
+            <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Main"</span><span class="p">,</span> <span class="s2">"Master"</span><span class="p">,</span> <span class="s2">"Upstairs"</span><span class="p">,</span> <span class="s2">"Downstairs"</span><span class="p">,</span> <span class="s2">"Patio"</span><span class="p">}</span>
+        <span class="k">elseif</span> <span class="p">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="s2">"Level"</span><span class="p">)</span> <span class="k">then</span>
+            <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Low"</span><span class="p">,</span> <span class="s2">"Medium"</span><span class="p">,</span> <span class="s2">"High"</span><span class="p">}</span>
         <span class="k">end</span>
-    <span class="k">elseif</span> <span class="p">(</span><span class="n">commandName</span> <span class="o">==</span> <span class="s2">&quot;Toggle&quot;</span> <span class="ow">and</span> <span class="n">paramName</span> <span class="o">==</span> <span class="s2">&quot;Zone&quot;</span><span class="p">)</span> <span class="k">then</span>
-        <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Main&quot;</span><span class="p">,</span> <span class="s2">&quot;Patio&quot;</span><span class="p">}</span>
-    <span class="k">end</span></p>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">commandName</span> <span class="o">==</span> <span class="s2">"Toggle"</span> <span class="ow">and</span> <span class="n">paramName</span> <span class="o">==</span> <span class="s2">"Zone"</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">tList</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Main"</span><span class="p">,</span> <span class="s2">"Patio"</span><span class="p">}</span>
+    <span class="k">end</span>
 
-<p><span class="k">return</span> <span class="p">(</span><span class="n">tList</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">tList</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div><h2 id='commands-dynamic-list-type-for-commands'>Dynamic List type for Commands</h2>
-<p>Support for DYNAMIC_LIST type parameters within a &lt;command&gt;. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter.</p></p>
+<p>Support for DYNAMIC_LIST type parameters within a &lt;command&gt;. The driver must implement a function called GetCommandParamList that returns a table with the list for the specified parameter.</p>
 
 <p><em>This feature was introduced in O.S. Release 3.3.0</em></p>
-
-<p><h3 id='commands-dynamic-list-type-for-commands-example'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
+<h3 id='commands-dynamic-list-type-for-commands-example'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;command&gt;</span>
     <span class="nt">&lt;name&gt;</span>Turn On<span class="nt">&lt;/name&gt;</span>
     <span class="nt">&lt;description&gt;</span>Turn on PARAM1 to PARAM2<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;params&gt;</span>
@@ -1951,7 +1950,7 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
                 <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
             <span class="nt">&lt;/command&gt;</span>
 </code></pre></div>
-<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code></p></p>
+<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code></p>
 
 <p>The tag accepts a zero based list and will display the commands in the order of the number included in each commands’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
 
@@ -1964,6 +1963,13 @@ Sample Entry : <code>2018-10-10 12:34:56.789 -0600 ea5-000DEADBEEF [1234] ERROR:
 <li>New Command 3</li>
 <li>New Command 4</li>
 <li>New Command 5</li>
+</ul>
+<h3 id='commands-sorting-commands-in-composerpro-considerations-when-sorting-commands'>Considerations when Sorting Commands</h3>
+
+<ul>
+<li>Sort Order numbering must be a positive number (including 0). The list is sorted in numerical order.</li>
+<li> If a sort order number value is used twice, the second Command using the same value will not be displayed.</li>
+<li>When defining Commands that will use the Sort Order element, all of the Commands must include a numeric value. Failing to provide a sort order number for one Command will result in none of the Commands being sorted. For example, if you have ten Commands defined in your driver and one of them is missing the sort order element - none of the Commands will be sorted.</li>
 </ul>
 <h1 id='conditionals'>Conditionals</h1>
 
@@ -4183,6 +4189,14 @@ This creates an Action with a color assignment that can be used in system progra
 <li>New Action 3</li>
 <li>New Action 4</li>
 <li>New Action 5</li>
+</ul>
+
+<h3 id='composerpro-the-interface-into-the-sdk-actions-considerations-when-sorting-actions'>Considerations when Sorting Actions</h3>
+
+<ul>
+<li>Sort Order numbering must be a positive number (including 0). The list is sorted in numerical order.</li>
+<li> If a sort order number value is used twice, the second Action using the same value will not be displayed.</li>
+<li>When defining Actions that will use the Sort Order element, all of the Actions must include a numeric value. Failing to provide a sort order number for one Action will result in none of the Actions being sorted. For example, if you have ten Actions defined in your driver and one of them is missing the sort order element - none of the Actions will be sorted.</li>
 </ul>
 
 <h2 id='composerpro-the-interface-into-the-sdk-lua'>LUA</h2>
