@@ -1,6 +1,6 @@
 ## Using the CUSTOM SELECT Property
 
-The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the `CUSTOM_SELECT` property. These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command. 
+The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the `CUSTOM_SELECT` parameter type. These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command. 
 
 Initially, a command needs to be created in the `<devicedata><config>` section of the c4z driver.xml file. For example, here is a command called SelectChannel: 
 
