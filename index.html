@@ -570,13 +570,13 @@
             <a href="#composerpro-the-interface-into-the-sdk" class="toc-h1 toc-link" data-title="ComposerPro: The Interface into the SDK">ComposerPro: The Interface into the SDK</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#composerpro-the-interface-into-the-sdk-property-types" class="toc-h2 toc-link" data-title="Property Types">Property Types</a>
+                    <a href="#composerpro-the-interface-into-the-sdk-properties" class="toc-h2 toc-link" data-title="Properties">Properties</a>
                   </li>
                   <li>
                     <a href="#composerpro-the-interface-into-the-sdk-dynamic-list-properties" class="toc-h2 toc-link" data-title="Dynamic List Properties">Dynamic List Properties</a>
                   </li>
                   <li>
-                    <a href="#composerpro-the-interface-into-the-sdk-advanced-property-types" class="toc-h2 toc-link" data-title="Advanced Property Types">Advanced Property Types</a>
+                    <a href="#composerpro-the-interface-into-the-sdk-advanced-properties" class="toc-h2 toc-link" data-title="Advanced Properties">Advanced Properties</a>
                   </li>
                   <li>
                     <a href="#composerpro-the-interface-into-the-sdk-using-the-device-selector-property" class="toc-h2 toc-link" data-title="Using the DEVICE SELECTOR Property">Using the DEVICE SELECTOR Property</a>
@@ -739,6 +739,41 @@
           </li>
           <li>
             <a href="#markdown-driver-documentation" class="toc-h1 toc-link" data-title="Markdown Driver Documentation">Markdown Driver Documentation</a>
+          </li>
+          <li>
+            <a href="#proxy-specific-information" class="toc-h1 toc-link" data-title="Proxy Specific Information">Proxy Specific Information</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#proxy-specific-information-amplifier-proxy-and-navigator-eq-controls" class="toc-h2 toc-link" data-title="Amplifier Proxy and Navigator EQ Controls">Amplifier Proxy and Navigator EQ Controls</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-av-switch-proxy-and-navigator-eq-controls" class="toc-h2 toc-link" data-title="AV Switch Proxy and Navigator EQ Controls">AV Switch Proxy and Navigator EQ Controls</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-av-switch-proxy-and-display-adjustable-bindings" class="toc-h2 toc-link" data-title="AV Switch Proxy and Display Adjustable Bindings">AV Switch Proxy and Display Adjustable Bindings</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-camera-proxy-audio-distribution" class="toc-h2 toc-link" data-title="Camera Proxy Audio Distribution">Camera Proxy Audio Distribution</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-camera-proxy-and-dynamic-streams" class="toc-h2 toc-link" data-title="Camera Proxy and Dynamic Streams">Camera Proxy and Dynamic Streams</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-intercom-proxy-best-practices" class="toc-h2 toc-link" data-title="Intercom Proxy Best Practices">Intercom Proxy Best Practices</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-intercom-proxy-terminology" class="toc-h2 toc-link" data-title="Intercom Proxy Terminology">Intercom Proxy Terminology</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-light-proxy-driver-development-best-practices" class="toc-h2 toc-link" data-title="Light Proxy Driver Development Best Practices">Light Proxy Driver Development Best Practices</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-light-proxy-extras-interface-library" class="toc-h2 toc-link" data-title="Light Proxy Extras Interface Library">Light Proxy Extras Interface Library</a>
+                  </li>
+                  <li>
+                    <a href="#proxy-specific-information-security-sensor-types" class="toc-h2 toc-link" data-title="Security Sensor Types">Security Sensor Types</a>
+                  </li>
+              </ul>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -3605,7 +3640,7 @@ If the driver loads successfully, then this will function as it did prior to OS 
 If the driver fails to load, the LuaJIT instance is abandoned and reloaded with PUC. When this happens, all of the properties that are set for the driver are temporarily lost. The properties &amp; state data is restored after the driver loads. Debug Lua messaging is impacted.</p>
 <h1 id='composerpro-the-interface-into-the-sdk'>ComposerPro: The Interface into the SDK</h1>
 
-<h2 id='composerpro-the-interface-into-the-sdk-property-types'>Property Types</h2>
+<h2 id='composerpro-the-interface-into-the-sdk-properties'>Properties</h2>
 
 <p>DriverWorks Properties are defined in the .c4z file and exposed in the Composer System Design interface on the Properties tab. Below is table of currently supported properties. The code examples for each are to the right. </p>
 
@@ -3732,11 +3767,11 @@ If the driver fails to load, the LuaJIT instance is abandoned and reloaded with 
    <span class="nt">&lt;tooltip&gt;</span>Property to test Link Property Tooltip<span class="nt">&lt;/tooltip&gt;</span>
    <span class="nt">&lt;default&gt;</span>http://www.control4.com<span class="nt">&lt;/default&gt;</span>
 <span class="nt">&lt;/property&gt;</span>
-</code></pre></div><h3 id='composerpro-the-interface-into-the-sdk-property-types-usage-note-regarding-the-ranged-float-property'>Usage Note Regarding the Ranged Float Property</h3>
+</code></pre></div><h3 id='composerpro-the-interface-into-the-sdk-properties-usage-note-regarding-the-ranged-float-property'>Usage Note Regarding the Ranged Float Property</h3>
 <p>Note that the local setting of a Control4 Controller in a project, and the local setting assigned to devices found within that project can potentially have an impact of the way in which a RANGED FLOAT property is handled by a driver. For example, if the controller has a local setting which uses the English language, the RANGED FLOAT property will be defined as in the example to the right (using a decimal).  However, if the local setting is that which supports another language - such as French for example, the minimum, maximum and default values will come in using a comma instead of a decimal point. For example, 50.0 will be received as 50,0. In the event that project controllers and project devices cannot be set to the same local, resulting in the same language, a driver will need to be able to handle the differing value definitions. </p>
-<h3 id='composerpro-the-interface-into-the-sdk-property-types-usage-note-regarding-the-password-property'>Usage Note Regarding the Password Property</h3>
+<h3 id='composerpro-the-interface-into-the-sdk-properties-usage-note-regarding-the-password-property'>Usage Note Regarding the Password Property</h3>
 <p>The Password property type prevents the text of a password from being displayed. It will show asterisks <code>*</code> in place of any text that is part of the property.  It is important to note that the data of the password field is NOT protected in any way. For example, if the properties table from the driver were to be printed, it will show the actual password. If the password field is used by a driver Control4 strongly recommends that the driver be encrypted.</p>
-<h3 id='composerpro-the-interface-into-the-sdk-property-types-using-tooltips-and-descriptions-in-properties'>Using tooltips and Descriptions in Properties</h3>
+<h3 id='composerpro-the-interface-into-the-sdk-properties-using-tooltips-and-descriptions-in-properties'>Using tooltips and Descriptions in Properties</h3>
 <p>All properties can have initial/default values and may be changed by the installer or configured as read-only.</p>
 
 <p>Properties have the ability to have two parameters. These include &lt;tooltip&gt; and &lt;description&gt;.</p>
@@ -3804,7 +3839,7 @@ If the driver fails to load, the LuaJIT instance is abandoned and reloaded with 
 
 <p>Note that there is no value displayed by default for the list called “Test Dynamic List No Default”. This is due to the omission of the &lt;default&gt; parameter. </p>
 
-<p>List content is delivered from the driver to ComposerPro by using the new <a href="https://snap-one.github.io/docs-driverworks-api/#properties-interface-updatepropertylist">UpdatePropertyList </a>API. The API may be called within OnDriverInit. For example:</p>
+<p>List content is delivered from the driver to ComposerPro by using the new UpdatePropertyList API. The API may be called within OnDriverInit. For example:</p>
 
 <div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">OnDriverInit</span><span class="p">()</span>
   <span class="n">C4</span><span class="p">:</span><span class="n">UpdatePropertyList</span><span class="p">(</span><span class="s2">"Test Dynamic List"</span><span class="p">,</span><span class="s2">"Item 4,Item 5,Item 6"</span><span class="p">)</span>
@@ -3828,7 +3863,7 @@ If the driver fails to load, the LuaJIT instance is abandoned and reloaded with 
 
 <p>The driver: <code>dynamic_list_widget.c4z</code> can be found in the Samples directory of the SDK in the Dynamic List Properties folder.</p>
 
-<h2 id='composerpro-the-interface-into-the-sdk-advanced-property-types'>Advanced Property Types</h2>
+<h2 id='composerpro-the-interface-into-the-sdk-advanced-properties'>Advanced Properties</h2>
 
 <p><strong>LABEL</strong>
 Prior to OS Release 2.10.0, the only way to create a separator or section between properties in the driver was to use a STRING type property and mark it read only. Now, with the inclusion of the XML example to the right, a much cleaner header can be created:</p>
@@ -3927,9 +3962,9 @@ As stated above, Device Selector is added to the properties section of your driv
 
 <h2 id='composerpro-the-interface-into-the-sdk-using-the-custom-select-property'>Using the CUSTOM SELECT Property</h2>
 
-<p>The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the <code>CUSTOM_SELECT</code> parameter type. These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command. </p>
+<p>The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the <code>CUSTOM_SELECT</code> property. These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.</p>
 
-<p>Initially, a command needs to be created in the <code>&lt;devicedata&gt;&lt;config&gt;</code> section of the c4z driver.xml file. For example, here is a command called SelectChannel: </p>
+<p>Initially, a command needs to be created in the <code>&lt;devicedata&gt;&lt;config&gt;</code> section of the c4z driver.xml file. For example, here is a command called SelectChannel:</p>
 
 <div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;devicedata&gt;</span>
  <span class="nt">&lt;config&gt;</span>
@@ -3949,12 +3984,12 @@ As stated above, Device Selector is added to the properties section of your driv
 <span class="nt">&lt;/devicedata&gt;</span>
 </code></pre></div>
 
-<p>In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type <code>CUSTOM_SELECT</code> allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect. </p>
+<p>In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type <code>CUSTOM_SELECT</code> allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect.</p>
 
-<p>The command description can also contain variables enclosed in {{ and }}, and the name refers to the param name.<br>
+<p>The command description can also contain variables enclosed in {{ and }}, and the name refers to the param name.
 Note, that this variable substitution currently only works with params of type <code>CUSTOM_SELECT.</code></p>
 
-<p>Next, the newly created .lua function needs to be implemented. The simplest implementation just returns a list of strings: </p>
+<p>Next, the newly created .lua function needs to be implemented. The simplest implementation just returns a list of strings:</p>
 
 <div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">SelectChannelParamSelect</span><span class="p">(</span><span class="n">currentValue</span><span class="p">)</span>
    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span>
@@ -3965,7 +4000,7 @@ Note, that this variable substitution currently only works with params of type <
 <span class="k">end</span>
 </code></pre></div>
 
-<p>It is possible to return human-readable text, while keeping internal values hidden (e.g. to display a station’s name rather than its station id). Keep in mind that these values must be of type string: </p>
+<p>It is possible to return human-readable text, while keeping internal values hidden (e.g. to display a station’s name rather than its station id). Keep in mind that these values must be of type string:</p>
 
 <div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">SelectChannelParamSelect</span><span class="p">(</span><span class="n">currentValue</span><span class="p">)</span>
    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span>
@@ -4016,7 +4051,7 @@ Note, that this variable substitution currently only works with params of type <
 <span class="k">end</span>
 </code></pre></div>
 
-<p>You can also defer returning the list. This may be useful if you are waiting for the completion of a web service call or waiting for data from a device to return. The function you’re implementing (SelectChannel) is receiving a function pointer as a second argument, which can be saved off and can be called to return the list at a later time. This function either takes the list and back value, or just a string if ComposerPro should display an error message. </p>
+<p>You can also defer returning the list. This may be useful if you are waiting for the completion of a web service call or waiting for data from a device to return. The function you’re implementing (SelectChannel) is receiving a function pointer as a second argument, which can be saved off and can be called to return the list at a later time. This function either takes the list and back value, or just a string if ComposerPro should display an error message.</p>
 
 <p>In order to defer returning data, you would not return anything from the function, but then when you have the data, call the provided function. Note that if you fail to call this provided function, and also don’t return anything from your function, then Composer will display an error message. Also, you may only call this function once. See the second example to the right.</p>
 
@@ -4142,7 +4177,7 @@ This creates an Action with a color assignment that can be used in system progra
 
 <h3 id='composerpro-the-interface-into-the-sdk-actions-sorting-actions-in-composerpro'>Sorting Actions in ComposerPro</h3>
 
-<p>Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Actions were displayed in the Programming area of ComposerPro. A new sort order driver element has been delivered that provides the ability to display Actions in any desired order. Sort order can be applied to Actions in the driver.xml with the inclusion of the following xml tag: <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>. See the lighting code Example 1 from a driver.xml file to the right.</p>
+<p>Prior to the release of O.S. 3.3.0, driver writers did not have the ability to order the way driver Actions were displayed in the Programming area of ComposerPro. A new sort order driver element has been delivered that provides the ability to display Actions in any desired order. Sort order can be applied to Actions in the driver.xml with the inclusion of the following xml tag: <code>\&lt;sort\_order\&gt;\&lt;/sort\_order\&gt;</code>. See the lighting code Example 1 from a driver.xml file to the right.</p>
 
 <div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
     <span class="nt">&lt;name&gt;</span>New_Action<span class="nt">&lt;/name&gt;</span>
@@ -4176,7 +4211,7 @@ This creates an Action with a color assignment that can be used in system progra
 <span class="nt">&lt;/action&gt;</span>
 </code></pre></div>
 
-<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code> </p>
+<p><code>&lt;sort_order&gt;&lt;/sort_order&gt;</code></p>
 
 <p>The tag accepts a zero based list and will display the Actions in the order of the number included in each Actions’ <code>&lt;sort_order&gt;&lt;/sort_order&gt;</code>tag.</p>
 
@@ -5606,6 +5641,732 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 </ol>
 
 <p>After the driver.c4z file is compiled, the assets included from the release.zip will generate driver documentation using the same formatting as can be seen in drivers delivered by Control4.</p>
+<h1 id='proxy-specific-information'>Proxy Specific Information</h1>
+
+<p>The following section is intended to supplement the existing Proxy information found on the DriverWorks homepage. It contains information that falls outside of the scope of the Reference Guide which includes, Proxy Commands, Protocol Notifications, Events, Capabilities, etc. </p>
+
+<h2 id='proxy-specific-information-amplifier-proxy-and-navigator-eq-controls'>Amplifier Proxy and Navigator EQ Controls</h2>
+
+<p>The ability to display audio equalization controls on devices running Navigator was added in conjunction with Operating System 3.2.3. Currently, the only Proxies that support Navigator EQ controls are the Amplifier and AV Switch Proxies.</p>
+
+<p>The majority of the of the commands, notifications and capabilities defined here must be implemented in your driver to display EQ controls. Several commands are optional including SET_AUDIOMODE_BYPASS, SET_AUDIOMODE_EQ and SET_AUDIOMODE_TONECONTROL as these have been included to suspect legacy Audio Matrix Switches.</p>
+
+<p>Note that this functionality is disabled by default. The HIDE EQ FROM NAVS CHANGED notification must be sent with a value of False to enable the EQ functionality in Navigator.</p>
+
+<p>For additional Information, please see:</p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-proxy-commands">Navigator EQ Amplifier Proxy Commands</a></p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-protocol-notifications">Navigator EQ Amplifier Protocol Notifications </a></p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-capabilities">Navigator EQ Amplifier Capabilities</a></p>
+
+<h2 id='proxy-specific-information-av-switch-proxy-and-navigator-eq-controls'>AV Switch Proxy and Navigator EQ Controls</h2>
+
+<p>The ability to display audio equalization controls on devices running Navigator was added in conjunction with Operating System 3.2.3. Currently, the only Proxies that support Navigator EQ controls are the Amplifier and AV Switch Proxies.</p>
+
+<p>The majority of the of the commands, notifications and capabilities defined here must be implemented in your driver to display EQ controls. Several commands are optional including SET_AUDIOMODE_BYPASS, SET_AUDIOMODE_EQ and SET_AUDIOMODE_TONECONTROL as these have been included to suspect legacy Audio Matrix Switches.</p>
+
+<p>Note that this functionality is disabled by default. The HIDE EQ FROM NAVS CHANGED notification must be sent with a value of False to enable the EQ functionality in Navigator.</p>
+
+<p>For additional Information, please see the DriverWorks Proxy and Protocol Guide regarding:</p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-proxy-commands">Navigator EQ AV Switch Proxy Commands</a></p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-protocol-notifications">Navigator EQ AV Switch Protocol Notifications </a></p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-capabilities">Navigator EQ AV Switch Capabilities</a></p>
+
+<h2 id='proxy-specific-information-av-switch-proxy-and-display-adjustable-bindings'>AV Switch Proxy and Display Adjustable Bindings</h2>
+
+<p>O.S. releases 3.3.0 and later provides the ability to hide AV Switch Bindings that are not in use. This feature has been provided to better manage the UI display in ComposerPro. This is especially useful for AV Switch devices that have a large number of bindings. Displaying all of the bindings for these devices can make the use of UI cumbersome.</p>
+
+<p><strong>Assumptions:</strong></p>
+
+<ul>
+<li>All applicable bindings are correctly defined in the driver’s XML.</li>
+<li>Driver developers already have the ability to create control bindings using <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-adddynamicbinding">C4:AddDynamicBinding()</a></li>
+<li>The driver file specifies bindings to be hidden by the proxy through the use of a new XML element delivered in O.S. 3.3.0:  <code>&lt;ExtraInfo&gt;D2&lt;/ExtraInfo&gt;</code> <em>See below for more information.</em></li>
+<li>Resizing of the bindings list is possible only if a new capability delivered in O.S. 3.3.0 is set to true: <code>&lt;allow_dynamic_resize&gt;</code>  <em>See below for more information.</em></li>
+</ul>
+
+<p><strong>AV Switch Proxy Functionality Using Display Adjustable Bindings</strong></p>
+
+<ul>
+<li>Bindings that are bound and then unbound in ComposerPro will only be hidden after a Director restart.</li>
+<li>The Proxy will increase the amount of displayed bindings based on the last unhidden, bound binding. For example,  bindings 1 through 10 are all bound and unhidden. ComposerPro will display all of those bindings and in addition, binding 11 through 13 assuming they are also unhidden.</li>
+<li>The largest Binding amount will be shown ACROSS ALL SECTIONS at the same time.  For example, RX, TX, Audio, Video will all be expanded to the largest bound set of any of the section. If RX has 10 bound connections that means Audio will also display 10, regardless of binding status.</li>
+<li>The driver developer is responsible for handling the configuration use case of virtual director or when the device is not available and ensuring that the solution is documented and appropriate for these scenarios.</li>
+</ul>
+
+<p><strong>Driver XML to Support Hidden Bindings</strong></p>
+
+<p>To allow the AV Switch Proxy to auto hide/unhide a binding, the driver needs to have a new XML tag included in the each connection in the driver’s XML: <code>&lt;ExtraInfo&gt;D2&lt;/ExtraInfo&gt;</code>.</p>
+
+<p>The ExtraInfo tag must include the value of <code>D2</code> as the parameter for each connection. For example, see the XML for connection 3096 to the right.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;connection&gt;</span>
+     <span class="nt">&lt;id&gt;</span>3096<span class="nt">&lt;/id&gt;</span>
+     <span class="nt">&lt;type&gt;</span>6<span class="nt">&lt;/type&gt;</span>
+     <span class="nt">&lt;ExtraInfo&gt;</span>D2<span class="nt">&lt;/ExtraInfo&gt;</span>
+     <span class="nt">&lt;connectionname&gt;</span>TX 96<span class="nt">&lt;/connectionname&gt;</span>
+     <span class="nt">&lt;consumer&gt;</span>True<span class="nt">&lt;/consumer&gt;</span>
+<span class="nt">&lt;/connection&gt;</span>
+</code></pre></div>
+
+<p><strong> Capability to Support Hidden Bindings</strong></p>
+
+<p><strong>allow_dynamic_resize</strong></p>
+
+<p>Capability that allows for AV Switch bindings to be hidden in ComposerPro. Defaults to false.</p>
+
+<p><strong> Signature</strong></p>
+
+<p><code>&lt;allow_dynamic_resize&gt;false&lt;/allow_dynamic_resize&gt;</code></p>
+
+<p><strong>Additional Information and Expected Limitations</strong></p>
+
+<ul>
+<li>The driver developer is responsible for persisting and recreating any non-binding connections when director starts up.</li>
+<li>The driver developer must recreate the bindings in the proper order before director loads and creates the connection. This is done by the driver developer by persisting the binding information and creating the bindings on execution of the main driver code.</li>
+<li>The driver must handle the &quot;virtual&quot; or device not available case appropriately based on the expected use case for configuring the device. If the connections aren&#39;t defined in xml, and the device isn&#39;t available, the installer may have a limited experience. The driver developer needs to take this into consideration.</li>
+</ul>
+
+<p>For additional Information, please see the DriverWorks Proxy and Protocol Guide regarding:</p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-proxy-commands">Navigator EQ AV Switch Proxy Commands</a></p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-protocol-notifications">Navigator EQ AV Switch Protocol Notifications </a></p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#amplifier-navigator-eq-navigator-eq-capabilities">Navigator EQ AV Switch Capabilities</a></p>
+
+<h2 id='proxy-specific-information-camera-proxy-audio-distribution'>Camera Proxy Audio Distribution</h2>
+
+<p>Beginning with O.S. 3.4.0, camera drivers have the ability to distribute audio to devices running Navigator.</p>
+
+<p>If a camera supports the proper CODEC and the camera microphone has been enabled in the appropriate interface a new audio button will appear at the bottom of the single-camera view. This will allow the user to hear live audio with the live video. </p>
+
+<p>Note that if the camera does not support the proper codec, or the camera microphone has been disabled in the camera interface, no button will appear in the single-camera view.</p>
+
+<p><strong>Requirements</strong></p>
+
+<ul>
+<li><p>Camera has a microphone and it&#39;s enabled. Note that most most are disabled by default. Depending on the camera/camera driver, the camera microphone can be enabled/disabled within the driver or in OvrC.</p></li>
+<li><p>Ensure the configuration for the camera stream is video &amp; audio, not just video.</p></li>
+<li><p>The camera supports codec G.711 u-law (G.711μ).</p></li>
+<li><p>The driver for the camera shows the Audio Property is present.</p></li>
+</ul>
+
+<p>For additional Information, please see the DriverWorks Proxy and Protocol Guide regarding:</p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-commands">Camera Proxy Commands</a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-protocol-notifications">Camera Proxy Protocol Notifications </a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-properties">Camera Proxy Properties</a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-extras-interface-library">Camera Extras Interface Library</a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-capabilities">Camera Proxy Capabilities</a></p>
+
+<h2 id='proxy-specific-information-camera-proxy-and-dynamic-streams'>Camera Proxy and Dynamic Streams</h2>
+
+<p>The Camera Proxy has been enhanced with regard to what types of streams it provides. This is a result of the release of Control4’s next generation T4 touchscreens, new controllers and support for H.265 streaming. Camera drivers now have the ability to provide more stream options and can support a larger set of mixed hardware environments.</p>
+
+<p>Also, Navigators now support streaming tiles which results in the need to stream many cameras in parallel. To provide this functionality over a remote connection, it is desirable to offer the option to pick a lower bandwidth stream.</p>
+
+<p>For the best experience, cameras should be minimally configured with the following streams by default:</p>
+
+<table><thead>
+<tr>
+<th>Next Gen C4 OSD</th>
+<th>T4 Touch Screens</th>
+<th>Mobile</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>High Resolution H.265</td>
+<td>1080p H.265</td>
+<td>High Resolution H.265</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Legacy C4 OSD</th>
+<th>T3 Touch Screens</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>720p H.264</td>
+<td>720p H.264</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Small Streaming Tiles</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Low Resolution H.265</td>
+</tr>
+</tbody></table>
+
+<h4 id='proxy-specific-information-camera-proxy-and-dynamic-streams-persisting-data-post-o-s-2-10-0-driver-support-for-dynamic-streams'>Driver Support for Dynamic Streams</h4>
+
+<p><em>See the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#dynamic-camera-streams-related-apis">Related APIs</a> section below for detailed information regarding the functions discussed in this section.</em></p>
+
+<p>New camera drivers should implement the dynamic streams API to provide a list of streams that the Navigators can pick from. In order to support dynamic streams the driver should:</p>
+
+<ol>
+<li><p>Set the requires_dynamic_stream_urls dynamic capability to “true”.</p></li>
+<li><p>Implement the GET_STREAM_URLS UI request command. This can be either implemented synchronously, by returning the list of cameras directly or it can also be implemented asynchronously. For example, if the driver needs to query a web service to get the current streams.</p></li>
+</ol>
+
+<p>If implemented asynchronously, when the stream list is available it will be necessary to send the Proxy the STREAM_URLS_READY Notify with the results. </p>
+
+<p>Drivers that do not have static URLs for streams will need to respond to the GET_STREAM_URLS call with an XML object that indicates the URL(s) is/are being generated and include a key with the response.  Once the driver has been able to obtain a URL for the stream, the driver should send a STREAM_URLS_READY Notify with the same key that is provided with this Synchronous call response.  An example of the response is:</p>
+
+<p><code>&lt;streams generating_key=&quot;1234&quot;/&gt;</code></p>
+
+<p>The key should be a unique 32 bit integer value.  We recommend starting at 1 and incrementing by 1 for each request that comes in.</p>
+
+<p>Also, if the driver does have a valid temporary URL that is still valid when it gets the call, no further Notify is needed and the driver should respond to this call with the XML of streams information.</p>
+
+<p>To indicate to a client that the driver supports this API call, a driver needs to set the requires_dynamic_stream_urls capability to true in the driver c4i or via DYNAMIC_CAPABILITIES_CHANGED Notify.</p>
+
+<p>If no Port is provided with a URL, the following ports are used by all clients as the default for the transport:</p>
+
+<ul>
+<li>http - 80</li>
+<li>https - 443</li>
+<li>rtsp - 554</li>
+<li>rtsps - 443</li>
+</ul>
+
+<h4 id='proxy-specific-information-camera-proxy-and-dynamic-streams-persisting-data-post-o-s-2-10-0-support-for-caching-urls'>Support for Caching  URLs</h4>
+
+<p>The ability to cache the stream URL list is also supported. This removes the need to have to execute the GET_STREAM_URLS request every time a camera stream is loaded. This is supported with the capability: dynamic_urls_use_type. </p>
+
+<p>The driver also needs to send a DYNAMIC_URLS_CHANGED notification to the proxy when the configured URLs have been changed. The proxy would then send a &quot;DYNAMIC_URLS_CHANGED&quot; DataToUI in response to this that the Navigators would key off of to refresh any cached URLs. This is useful for driver&#39;s with MULTIPLE use type URLs.</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-related-apis'>Related APIs</h3><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-requires_dynamic_stream_urls'>requires_dynamic_stream_urls</h3>
+
+<p>Capability determining whether the camera should be asked for stream URLs through the more advanced API call.</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-signature'>Signature</h3>
+
+<p><code>&lt;requires_dynamic_stream_urls&gt;&lt;/requires_dynamic_stream_urls&gt;</code></p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-type'>Type</h3>
+
+<p>Boolean: Defaults to false.</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-dynamic-capability'>Dynamic Capability</h3>
+
+<p>Yes</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-example'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;capabilities&gt;</span>
+    <span class="nt">&lt;requires_dynamic_stream_urls&gt;</span>true<span class="nt">&lt;/requires_dynamic_stream_urls&gt;</span>
+<span class="nt">&lt;/capabilities&gt;</span>
+</code></pre></div><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-requires_dynamic_snapshot_urls'>requires_dynamic_snapshot_urls</h3>
+
+<p>Capability determining whether the camera should be asked for snapshot URLs through the more advanced API call.</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-signature'>Signature</h3>
+
+<p><code>&lt;requires_dynamic_snapshot_urls&gt;&lt;/requires_dynamic_snapshot_urls&gt;</code></p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-type'>Type</h3>
+
+<p>Boolean: Defaults to false.</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-dynamic-capability'>Dynamic Capability</h3>
+
+<p>Yes</p>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-example'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;capabilities&gt;</span>
+    <span class="nt">&lt;requires_dynamic_snapshot_urls&gt;</span>true<span class="nt">&lt;/requires_dynamic_snapshot_urls&gt;</span>
+<span class="nt">&lt;/capabilities&gt;</span>
+</code></pre></div><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-get_stream_urls'>GET_STREAM_URLS</h3>
+
+<p>This command is used to obtain URLs for a camera that does not have a constant URL like a Cloud based camera or for cameras that have a wider range of features and configurable options that can produce better customer experiences using various clients. </p>
+
+<p>A Client will make this request to a driver and provide information about how the client will be using the stream.  The driver optionally can adjust the URL(s) returned based on this information.  Driver developers are encouraged to test their driver on various devices to ensure good customer experiences when viewing collages, high resolution or high frame rate streams.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>CODEC</td>
+<td>Optional. Comma separated list of codecs that the client can support with the most preferred first.  A driver is not required to handle this but some drivers may want to if they support multiple codecs. (mjpeg, h264, h264i, h265)</td>
+</tr>
+<tr>
+<td>RESOLUTION</td>
+<td>Optional. Resolution that the client will be using to display the stream.  A driver is not required to support this but this can be helpful for clients that may need a lower resolution stream for collages of multiple cameras and a 4MP or higher stream would tax the client hardware.</td>
+</tr>
+<tr>
+<td>FPS</td>
+<td>Optional. Frames Per Second that the client would prefer.  A driver is not required to support this but if it does it may result in better customer experience when dealing with collages on Navigators.</td>
+</tr>
+</tbody></table>
+
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-examples'>Examples</h3>
+
+<p>An example of the simplest XML returned by a driver is shown to the right:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>--- simple
+
+<span class="nt">&lt;streams&gt;</span>
+   <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://192.168.1.150/view_camera.cgi"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/streams&gt;</span>
+
+or
+
+<span class="nt">&lt;streams&gt;</span>
+   <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/view_camera.cgi"</span> <span class="na">codec=</span><span class="s">"h264"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://192.168.1.150:80/view_camera_h265.cgi"</span> <span class="na">codec=</span><span class="s">"h265"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/streams&gt;</span>
+</code></pre></div>
+
+<p>This is followed by a more complex example from a camera with more features and can provide more options to allow clients to pick a better stream:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>--- complex
+
+<span class="nt">&lt;streams&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsps://server.company.com:554/rtsp.cgi"</span> <span class="na">codec=</span><span class="s">"h265"</span> <span class="na">resolution=</span><span class="s">"1920x1080"</span> <span class="na">fps=</span><span class="s">"60"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsps://server.company.com:554/cloudapi.cgi?fh2f5hw2"</span> <span class="na">codec=</span><span class="s">"h265"</span> <span class="na">resolution=</span><span class="s">"640x480"</span> <span class="na">fps=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsp://server.company.com:554/cloudapi.cgi?fh2f4hw1"</span> <span class="na">codec=</span><span class="s">"h264"</span> <span class="na">resolution=</span><span class="s">"1920x1080"</span> <span class="na">fps=</span><span class="s">"60"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsp://server.company.com:554/cloudapi.cgi?fh2f4hw2"</span> <span class="na">codec=</span><span class="s">"h264"</span> <span class="na">resolution=</span><span class="s">"640x480"</span> <span class="na">fps=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"https://server.company.com:443/cloudapi.cgi?fh2fhsw3"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span> <span class="na">resolution=</span><span class="s">"1920x1080"</span> <span class="na">fps=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"https://server.company.com:443/cloudapi.cgi?fh2fhsw5"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://server.company.com:80/cloudapi.cgi?fh2fhw3"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span> <span class="na">resolution=</span><span class="s">"1920x1080"</span> <span class="na">fps=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://server.company.com:80/cloudapi.cgi?fh2fhw5"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/streams&gt;</span>
+</code></pre></div><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-get_snapshot_urls'>GET_SNAPSHOT_URLS</h3>
+<p>This command is used to obtain URLs for a camera that does not have a constant URL like a Cloud based camera or for cameras that have a wider range of features and configurable options that can produce better customer experiences using various clients. </p>
+
+<p>A Client will make this request to a driver and provide information about how the client will be using the snapshot.  The driver optionally can adjust the URL(s) returned based on this information.</p>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-examples'>Examples</h3>
+<p>An example of the simplest XML returned by a driver is shown to the right:</p>
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;snapshots&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"http://192.168.1.150/view_camera.cgi"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/snapshots&gt;</span>
+
+or
+
+<span class="nt">&lt;snapshots&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"http://192.168.1.150:80/custom_resolution_as_requested_by_client.cgi"</span> <span class="na">resolution=</span><span class="s">"644x481"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/view_snapshot.cgi"</span> <span class="na">resolution=</span><span class="s">"3840x2160"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/view_snapshot.cgi"</span> <span class="na">resolution=</span><span class="s">"1920x1080"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:80/view_snapshot.cgi"</span> <span class="na">resolution=</span><span class="s">"640x480"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/snapshots&gt;</span>
+</code></pre></div><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-usage-note'>Usage Note</h3>
+<p><strong>Cloud Based Cameras </strong></p>
+
+<p>Drivers that do not have static URLs for snapshots will need to respond to this call with an XML object that indicates the URL(s) is/are being generated and include a key with the response.  Once the driver has been able to obtain a URL for the stream, the driver should send a SNAPSHOT_URLS_READY Notify with the same key that is provided with this Synchronous call response.  An example of the response is:</p>
+
+<p><code>&lt;streams generating_key=&quot;1234&quot;/&gt;</code></p>
+
+<p>The driver would then follow up with the SNAPSHOT_URLS_READY Notify and specify KEY=1234 in that notify along with the URL.  The key should be a unique 32 bit integer value.  We recommend starting at 1 and incrementing by 1 for each request that comes in.</p>
+
+<p>Also, if the driver does have a valid temporary that is still valid when it gets the call, no further Notify is needed and the driver should respond to this call with the XML of snapshots information.</p>
+
+<p>To indicate to a client that the driver supports this API call, a driver needs to set the requires_dynamic_stream_urls capability to true in the driver or via the DYNAMIC_CAPABILITIES_CHANGED Notify.</p>
+
+<p>If no Port is provided with a URL, the following ports are used by all clients as the default for the transport:</p>
+
+<p>http - 80
+https - 443</p>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-stream_urls_ready'>STREAM_URLS_READY</h3>
+<p>Protocol Notification used for following up to a GET_STREAM_URLS Synchronous call.  This Notify will let a UI know that the URL information they requested is ready.  The driver must use the same key parameter value that was returned to the UI as the key parameter in this notify.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>KEY</td>
+<td>Key of the originating call for the snapshot to be created.</td>
+</tr>
+<tr>
+<td>URLS</td>
+<td>String of XML object as described in the description of this call.</td>
+</tr>
+</tbody></table>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-examples'>Examples</h3>
+<p>An example of the simplest XML used by a driver is shown to the right:</p>
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;streams</span> <span class="na">key=</span><span class="s">"1234"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://192.168.1.150/view_camera.cgi"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/streams&gt;</span>
+
+or
+
+<span class="nt">&lt;streams</span> <span class="na">key=</span><span class="s">"1234"</span> <span class="na">camera_address=</span><span class="s">"192.168.1.150"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/view_camera.cgi"</span> <span class="na">codec=</span><span class="s">"h264"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://192.168.1.150:80/view_camera_h265.cgi"</span> <span class="na">codec=</span><span class="s">"h265"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/streams&gt;</span>
+</code></pre></div>
+
+<p>This is followed by an example from a camera with more features and can provide more options to allow clients to pick a better stream:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;streams</span> <span class="na">key=</span><span class="s">"1234"</span> <span class="na">camera_address=</span><span class="s">"server.company.com"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsps://192.168.1.150:554/rtsp.cgi"</span> <span class="na">codec=</span><span class="s">"h265"</span> <span class="err">resolution"1920x1080"</span> <span class="na">fps=</span><span class="s">"60"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsps://192.168.1.150:554/cloudapi.cgi?fh2f5hw2"</span> <span class="na">codec=</span><span class="s">"h265"</span> <span class="err">resolution"640x480"</span> <span class="na">fps=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsp://192.168.1.150:554/cloudapi.cgi?fh2f4hw1"</span> <span class="na">codec=</span><span class="s">"h264"</span> <span class="err">resolution"1920x1080"</span> <span class="na">fps=</span><span class="s">"60"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"rtsp://192.168.1.150:554/cloudapi.cgi?fh2f4hw2"</span> <span class="na">codec=</span><span class="s">"h264"</span> <span class="err">resolution"640x480"</span> <span class="na">fps=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/cloudapi.cgi?fh2fhsw3"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span> <span class="err">resolution"1920x1080"</span> <span class="na">fps=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/cloudapi.cgi?fh2fhsw5"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://192.168.1.150:80/cloudapi.cgi?fh2fhw3"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span> <span class="err">resolution"1920x1080"</span> <span class="na">fps=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;stream</span> <span class="na">url=</span><span class="s">"http://192.168.1.150:80/cloudapi.cgi?fh2fhw5"</span> <span class="na">codec=</span><span class="s">"mjpeg"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/streams&gt;</span>
+
+</code></pre></div><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-snapshot_urls_ready'>SNAPSHOT_URLS_READY</h3>
+<p>Notify used for following up to a GET_SNAPSHOT_URLS Synchronous call.  This Notify will let a UI know that the URL information they requested is ready.  The driver must use the same key parameter value that was returned to the UI as the key parameter in this notify.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>KEY</td>
+<td>Key of the originating call for the snapshot to be created.</td>
+</tr>
+<tr>
+<td>URLS</td>
+<td>String of XML object as described in the description of this call.</td>
+</tr>
+</tbody></table>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-example'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;snapshots</span> <span class="na">key=</span><span class="s">"1234"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"http://192.168.1.150/view_camera.cgi"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/snapshots&gt;</span>
+
+or
+
+<span class="nt">&lt;snapshots</span> <span class="na">key=</span><span class="s">"1234"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"http://192.168.1.150:80/custom_resolution_as_requested_by_client.cgi"</span> <span class="na">resolution=</span><span class="s">"644x481"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/view_snapshot.cgi"</span> <span class="na">resolution=</span><span class="s">"3840x2160"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:443/view_snapshot.cgi"</span> <span class="na">resolution=</span><span class="s">"1920x1080"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;snapshot</span> <span class="na">url=</span><span class="s">"https://192.168.1.150:80/view_snapshot.cgi"</span> <span class="na">resolution=</span><span class="s">"640x480"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/snapshots&gt;</span>
+</code></pre></div><h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-dynamic_urls_use_type'>dynamic_urls_use_type</h3>
+<p>Supports the following use types:</p>
+
+<p>MULTIPLE - Default if the capability is not specified. URLs can be used repeatedly. If URLs change, the driver should send DYNAMIC_URLS_CHANGED notification to the proxy.</p>
+
+<p>SINGLE - URLs can only be used once. Driver must be asked each time for a new set of URLs.</p>
+
+<p>EXPIRING (Do not include in 3.3.1) - URLs can be used more than once, but expire after some time period.</p>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-signature'>Signature</h3>
+<p><code>&lt;dynamic_urls_use_type&gt;&lt;/dynamic_urls_use_type&gt;</code></p>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-dynamic-capability'>Dynamic Capability</h3>
+<p>Yes</p>
+<h3 id='proxy-specific-information-camera-proxy-and-dynamic-streams-example'>Example</h3><div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;capabilities&gt;</span>
+    <span class="nt">&lt;dynamic_urls_use_type&gt;</span>SINGLE<span class="nt">&lt;/dynamic_urls_use_type&gt;</span>
+<span class="nt">&lt;/capabilities&gt;</span>
+</code></pre></div>
+
+<p>For additional Information, please see the DriverWorks Proxy and Protocol Guide regarding:</p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-commands">Camera Proxy Commands</a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-protocol-notifications">Camera Proxy Protocol Notifications </a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-properties">Camera Proxy Properties</a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-extras-interface-library">Camera Extras Interface Library</a></p>
+
+<p><a href="https://jubilant-barnacle-73gylvg.pages.github.io/#camera-capabilities">Camera Proxy Capabilities</a></p>
+
+<h2 id='proxy-specific-information-intercom-proxy-best-practices'>Intercom Proxy Best Practices</h2><h3 id='proxy-specific-information-intercom-proxy-best-practices-overview'>Overview</h3>
+<p>The Intercom Proxy interface is defined in terms of Commands, Requests and Notifications, each of which are described in this section of the proxy and Protocol Guide.</p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-commands">Intercom Proxy Commands</a> are issued by a proxy consumer and may or may not result in an asynchronous notification in response.  Commands typically change state of the Intercom Proxy, or other components of the intercom architecture.</p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-requests">Intercom Proxy Requests</a> are issued from a proxy consumer with the expectation of getting a response from the protocol.  Requests do not change state of the intercom proxy or any other component of the architecture.  </p>
+
+<p><a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-notifications">Intercom Proxy Notifications</a> are sent from the intercom proxy to the intercom consumer asynchronously, and indicate a state change in the intercom proxy or one of its related architecture components.</p>
+
+<p>All communication through the proxy interface is asynchronous.  Even request responses, such as getting a list of known intercom devices, are returned asynchronously with respect to the request for that data.</p>
+<h3 id='proxy-specific-information-intercom-proxy-best-practices-storing-session-ids'>Storing Session IDs</h3>
+<p>Many intercom API commands and requests require the sessionId as an input parameter. The value for this parameter is provided by the SIP Client on the device in response to issuing a <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-commands-start-_call"><code>START_CALL</code></a> command or a physical button press event. </p>
+
+<p>This sessionId value is included in the resulting <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-notifications-outgoing_call"><code>OUTGOING_CALL</code></a> or <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-notifications-incoming_call"><code>INCOMING_CALL</code></a> notifications. The intercom proxy consumer is responsible for storing the sessionId returned with these notifications for use in subsequent commands and requests.</p>
+<h3 id='proxy-specific-information-intercom-proxy-best-practices-using-the-remoteaor-property'>Using the RemoteAor Property</h3>
+<p>When the “remoteAor” parameter is used in a notification or command, the value is always the address of record of the other intercom device participating in an intercom call. </p>
+
+<p>For example, consider that intercom device A has address of record of “sip-user-A@192.168.1.123” and intercom device B has an address of record of “sip-user-B@192.168.1.123”. </p>
+
+<p>Intercom device A initiates a call with intercom device B, which results in an <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-notifications-incoming_call"><code>INCOMING_CALL</code></a> notification on intercom device B. When intercom device B issues the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-commands-accept_call"><code>ACCEPT_CALL</code></a> command, which takes remoteAor as a parameter, intercom device B should use “sip-user-A@192.168.1.123” (the address of record of intercom device A, or the initiator) as the value of this parameter. </p>
+
+<p>Likewise, when intercom device A sends the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-notifications-call_accepted"><code>CALL_ACCEPTED</code></a> notification, it will contain a remoteAor property that has the value of the address of record of intercom device B, or “sip-user-B@192.168.1.123”.</p>
+
+<p>For additional Information, please see the <a href="https://literate-tribble-gq5lk61.pages.github.io/#introduction">DriverWorks Proxy and Protocol Guide</a> regarding all of the functions supported by the Intercom Proxy.</p>
+
+<h2 id='proxy-specific-information-intercom-proxy-terminology'>Intercom Proxy Terminology</h2>
+
+<p>The following terms are specific to the Control4 Intercom Proxy and their use in developing a door station or door station like driver. Note that this content does not include the scope of developing a touch panel to support intercom use.</p>
+
+<p><strong>Intercom Call Commands</strong> –  Includes a set of commands that are sent from the Intercom Proxy to the door station device that is supported by your driver. An example of an Intercom Proxy Command is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-commands-start-_call">START_CALL</a>. When your driver receives the START_CALL command, it must handle the command in a manner that enables your device to begin a call.</p>
+
+<p><strong>Intercom Call Notifications</strong> -  Includes a set  of notifications  that are sent from the device you are supporting, via your driver, to the Intercom Proxy. For example, when your driver receives a <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-commands-start-_call">START_CALL</a> command, it will send a <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-notifications-call_accepted">CALL_ACCEPTED</a> notification to the Intercom Proxy.</p>
+
+<p><strong>Intercom Call Requests</strong> - These functions represent requests that are sent from your device driver to the Intercom Proxy to obtain various sets of call data. For example, when needed your driver may send the Intercom Call Request of <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-requests-get_device_list">GET_DEVICE_LIST</a>. The GET_DEVICE_LIST request is a function for gathering information about other devices on the network that  might communicate with your device. Information returned includes data such as whether another device has a camera, does it include a display, etc.</p>
+
+<p><strong>Intercom State Commands</strong> - These functions consist of commands that impact the state of the device you are writing a driver for. For example, your driver may receive a State Command of <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-state-commands-set_ringer_volume">SET_RINGER_VOLUME</a> from the Intercom Proxy. SET_RINGER_VOLUME will be sent with a numerical value indicating the new ringer volume level. Your driver will need to receive this state command and adjust the ringer volume on your device accordingly.</p>
+
+<p><strong>Intercom State Notifications</strong> - These functions consist of notifications    that are sent from the device you are supporting, via your driver, to the Intercom Proxy. For example, when your driver receives the State Command of <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-state-commands-set_ringer_volume">SET_RINGER_VOLUME</a>, it needs to send a State Notification of <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-state-notifications-ringer_volume_changed">RINGER_VOLUME_CHANGED</a> that includes the new ringer volume value.</p>
+
+<p><strong>Intercom State Requests</strong> - These functions  represent requests that are sent from your device driver to the Intercom Proxy for various sets of device state data. For example, when needed your driver may send the Intercom Call Request of <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-state-requests-get_state_list">GET_STATE_LIST</a>. This request returns the device states for all of the intercom endpoints in the project.</p>
+
+<p><strong>Intercom Call Group Requests</strong> - Currently, this consists of one function: <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-call-group-requests-get_group_list">GET_GROUP_LIST</a> which can be used by your driver to obtain the group list of all of intercom call groups in the project.</p>
+
+<p><strong>Intercom Capabilities</strong> -  These <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-capabilities">functions </a> consist of Boolean XML elements that need to be defined in your driver. They represent functionality supported by your device such as do not disturb support, camera inclusion or its ability to play a door chime.</p>
+
+<p><strong>Intercom Events</strong> - <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-events">Events</a> are useful to define in your driver as they provide an opportunity for ComposerPro programming to occur based on them being fired. For example, if the speaker_volume_changed Event is defined in your driver and that Event fires when the speaker volume of your device changes, it would be possible (through programming in ComposerPro) to modify the speaker volume of other intercom devices in the project.</p>
+
+<p><strong>Intercom Conditionals</strong> - <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#intercom-conditionals">Conditionals</a> are useful to define in your driver as they also provide an opportunity for ComposerPro programming to occur based on their state. For example, if the In a Call conditional is set to true, the device that reported this conditional could be displayed as busy on Navigators. </p>
+
+<p><strong>Intercom Variables</strong> – The Intercom Proxy supports three Variables which can also be used in ComposerPro programming when defined in your driver. For example, the CALL_DURATION Variable can be assigned a time limit for a call, If that limit is exceeded, the call can be terminated.</p>
+
+<p>For additional Information, please see the <a href="https://literate-tribble-gq5lk61.pages.github.io/#introduction">DriverWorks Proxy and Protocol Guide</a> regarding all of the functions supported by the Intercom Proxy.</p>
+
+<h2 id='proxy-specific-information-light-proxy-driver-development-best-practices'>Light Proxy Driver Development Best Practices</h2>
+
+<p>The purpose of this section is to provide best practice advice for driver developers developing lighting drivers using the Light V2 Proxy. By following these recommendations, developers will ensure consistent behavior from their driver and other lighting drivers. Additionally, implementing these guidelines will greatly improve driver interaction with other components in the Control4 OS such as Agents, Customer Interfaces, Programming, etc.</p>
+
+<p>For documentation that details the functions that make up the Light V2 Proxy, please see the <a href="https://expert-adventure-1w2nllv.pages.github.io/#introduction">Light Proxy and Protocol Guide</a>.</p>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-brightness-target-api'>Brightness Target API</h4>
+
+<p>A Brightness Target API has been released in conjunction with O.S. 3.3.0. The API is disabled by default for non-color capable drivers and can be enabled with the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#light-v2-capabilities-supports_target">supports_target</a> capability. The API includes the <a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-commands-set_brightness_target">SET_BRIGHTNESS_TARGET</a> proxy command and <a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-protocol-notifications-light_brightness_changed">LIGHT_BRIGHTNESS_CHANGED</a> and <a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-protocol-notifications-light_brightness_changing">LIGHT_BRIGHTNESS_CHANGING</a> proxy notifies.</p>
+
+<p>Brightness target API should be used by all new driver written against the Light V2 Proxy and existing drivers should be updated if possible. The API is required for driver certification in 3.3.0.  Dimmer drivers should now only use LIGHT_BRIGHTNESS_CHANGING and LIGHT_BRIGHTNESS_CHANGED notifies. Switch drivers only need to use the BRIGHTNESS_CHANGED notify. Note that the LEVEL_CHANGED notify should not be used.</p>
+
+<p>Using the LIGHT_BRIGHTNESS_CHANGING notify command allows drivers to inform the proxy of brightness transitions. Customer Interfaces monitor LIGHT_BRIGHTNESS_CHANGING events and will display a brightness changing animation depending on the provided current brightness, target brightness and rate. This can be useful for devices that do not send intermediate status notifications when transitioning between brightness levels. It is also recommended to send brightness changing notify command in cases where the final level is unknown, such as holding a button to ramp a light, scene or group up or down. For example, if a customer holds a button to slow-ramp a light on, the driver should notify the proxy that the brightness is changing to 100%. This will in turn show a brightness changing animation on Customer Interfaces. Once the customer releases the button (e.g. at 30%), the driver should send a LIGHT_BRIGHTNESS_CHANGED notify to indicate where the light ramping stopped.</p>
+
+<p>Previously, drivers had to &#39;emulate&#39; slider movements on Customer Interfaces by sending periodic, incremental light level notifies during brightness transitions (e.g. every 20ms). These updates cause performance issues including:</p>
+
+<ul>
+<li>Slow performance in proxies, director, customer interfaces and Advanced Lighting Scene agent.</li>
+<li>Potentially inaccurate states for Advanced Lighting Scene tracking.</li>
+<li>Excessive zigbee traffic and often incorrect keypad button LED status.</li>
+<li>Inconsistent slider movement in Customer Interfaces.</li>
+<li>Excessive triggering and potentially incorrect Composer Programming being fired.</li>
+</ul>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-brightness-and-color-changing-api'>Brightness and Color Changing API</h4>
+
+<p>OS 3.3.0 also introduced a new Light V2 Proxy API that allows protocol drivers to notify the proxy that a light&#39;s color (<a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-protocol-notifications-light_color_changing">LIGHT_COLOR_CHANGING</a>) or brightness (<a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-protocol-notifications-light_brightness_changing">LIGHT_BRIGHTNESS_CHANGING</a>) is changing. The use of these notify commands are optional. However, it is recommended to notify the proxy of color or brightness transitions whenever possible. Using these notify commands allows other drivers or agents in the system to monitor the state of the light.</p>
+
+<p>Using these notifies also allows additional Programming:</p>
+
+<ul>
+<li>Events: Brightness Begins to ramp and Color begins to ramp.</li>
+<li>Conditionals and Loops: Is Brightness Target and Is Color Target.</li>
+</ul>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-enforcing-min-max-capabilities'>Enforcing min/max Capabilities</h4>
+
+<p>Beginning with OS 3.3.0, Advanced Lighting Scenes Agent, Customer Interfaces, Programming and other system components strictly enforce min/max and other capability settings in LightV2 Proxy drivers. It is recommended to verify if these capabilities are correct in your drivers.  Existing out-of-range settings (e.g. in <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol/#advanced-lighting-scene-agent">Advanced Lighting Scenes agent</a>, Programming, etc.) will not be forcibly changed on upgrades but any new settings will enforce min/max capabilities.</p>
+
+<p>For example, in pre-OS 3.3.0, Composer and the proxy only enforced <a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-capabilities-click_rate_min">click_rate_min/max capabilities</a> in a driver&#39;s Properties. In the Advanced Lighting Scene Agent and Programming, it was possible to set a rate that was out of the click_rate_min/max range. In OS 3.3.0 and later, it will not be possible to set a rate out of this range. If these capabilities are not correct, partners and customers will not be able to use correct range when specifying ramp rates.</p>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-handling-consecutive-brightness-and-color-commands'>Handling Consecutive Brightness and Color commands</h4>
+
+<p>The Light V2 Proxy has independent commands to set color (chromaticity) (<a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-commands-set_color_target">SET_COLOR_TARGET</a>) and brightness (<a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-commands-set_brightness_target">SET_BRIGHTNESS_TARGET</a>). It is possible to send these commands to the protocol driver one immediately after the other (e.g, Programming, Customer Interfaces, Agents or other drivers). When these commands come in succession, a desired outcome is that the light transitions to the specified color and brightness, i.e., consecutive commands should not interfere or override each other.</p>
+
+<p>Driver developers must make sure that consecutive color and brightness commands are handled correctly. If the device does not support consecutive commands, a best practice is to have a debouncing (and/or queuing) mechanism in the driver so that commands can be combined.</p>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-default-on-and-dim-colors'>Default On and Dim Colors</h4>
+
+<p>All colored lights have a mandatory Default On Color and Default Dim Color presets. These provide a consistent behavior when turning the light on or off. Furthermore, these presets can also be used as &#39;hooks&#39; for other agents/drivers in the system that might want to change color that the light should turn on to or transition to while turning off.</p>
+
+<p>Default On Color should be set whenever the devices turns on through <a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-commands-set_brightness_target">SET_BRIGHTNESS_TARGET</a> command, Button Click and Hold actions, etc.</p>
+
+<p>Default Dim color should be used while the light is turning off, except in cases when the final level is unknown. For example, color should not be changed while dimming down using button hold since it is not known when the dimming will be stopped. For example, it is not known if the customer is dimming to turn off the light or to only lower the brightness.</p>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-setting-color-while-the-light-is-off'>Setting Color while the Light is Off</h4>
+
+<p>The Light V2 proxy allows sending <a href="https://expert-adventure-1w2nllv.pages.github.io/#light-v2-commands-set_color_target">SET_COLOR_TARGET</a> commands to the protocol driver while the light is off. In Control4 OS. color chromaticity and brightness are independent. Because of this, the protocol driver should not turn on the light when a command to set the color is received while the light is off. Instead, drivers should save the last color that was sent while the light is off and set that color when the light subsequently turns on from the Control4 system.</p>
+
+<h4 id='proxy-specific-information-light-proxy-driver-development-best-practices-using-the-remoteaor-property-warm-dim'>Warm Dim</h4>
+
+<p>Warm Dim technology allows LED lights to dim down to a warmer color temperature. This replicates the effect of incandescent and halogen light bulbs. With color and color temperature support in OS 3.3.0, driver developers can &#39;emulate&#39; Warm Dim behavior in their drivers. The following section explains how Warm Dimming is implemented for a Philips Hue driver. However, this approach is recommended for other drivers that support this behavior.</p>
+
+<p><strong>Principle of Operation for Philips Hue</strong>
+This feature is only available for lights that support color correlated temperature (CCT) control. Warm Dimming can be enabled or disabled on the Lighting Extras view on the Customer Interfaces or on the driver&#39;s Advanced Properties page in Composer. When enabled, a change to the light&#39;s brightness level will automatically change the color temperature of the light so that lower brightness results in warmer colors and vise versa.</p>
+
+<p>When Warm Dimming is active, color correlated temperature of the light will follow a linear function of brightness, between the &#39;Warm Dimming CCT At Min Brightness&#39; and &#39;Warm Dimming CCT At Max Brightness&#39; Advanced Properties. &#39;Warm Dimming CCT At Min Brightness&#39; and &#39;Warm Dimming CCT At Max Brightness&#39; are color correlated temperatures of the light at 1% and 100% brightness, respectively:</p>
+
+<p><code>cct = WarmDimmingCCTatMinBrightness + (targetBrightness - 1) * (WarmDimmingCCTatMaxBrightness - WarmDimmingCCTatMinBrightness) / 99</code></p>
+
+<p>Enabling Warm Dimming does not change Default On Color and Default Dim Color settings. The light will turn on at the Default On Brightness and CCT will be the value for Default On Brightness on the warm dimming function.</p>
+
+<p>The Following graph displays a Warm Dimming CCT change as function of brightness for the following settings:</p>
+
+<ul>
+<li>Warm Dimming CCT At Min Brightness = 2000K</li>
+<li>Warm Dimming CCT At Max Brightness = 6000K</li>
+<li>Default On Brightness = 50%</li>
+<li>With brightness change to 1%, CCT will also be set by the driver to 2000K. At full brightness (100%), CCT will be 6000K. When the light is turned on, CCT will be 3980K (at Default On Brightness of 50%).</li>
+</ul>
+
+<p>Warm Dimming will be active only while changing brightness of the light. Changing the CCT does not affect brightness. Furthermore, if any color is selected (including CCT,  e.g. via Customer Interfaces, Advanced Lighting Scenes, Programming) the light will transition to the specified color and will exit the &#39;emulated warm dimming&#39; mode. To return a light to the emulated warm dimming mode, it must be turned off and then turned back on.</p>
+
+<p>For additional Information, please see the <a href="https://expert-adventure-1w2nllv.pages.github.io/#introduction">DriverWorks Proxy and Protocol Guide</a> regarding all of the functions supported by the Light Proxy.</p>
+
+<h2 id='proxy-specific-information-light-proxy-extras-interface-library'>Light Proxy Extras Interface Library</h2><h3 id='proxy-specific-information-light-proxy-extras-interface-library-overview'>Overview</h3>
+<p>Extras are a way for driver developers to expose unique hardware functionality that users can interact with on a UI/Navigator.  This functionality bypasses the need for a proxy to know about the unique features and how to handle them.  A protocol driver notify is used to pass the Extras XML information from the protocol driver to the proxy, where the proxy caches the xml strings for current setup and state information. The UI  uses a UI_REQUEST as needed to get the information if the UI has just rebooted/started/loaded and then the UI will get updates of these xml strings if it is listening for dataToUI&#39;s from the device.  Extras objects are accessible through the &quot;Extras Tab&quot; located on the main Navigator screen for the Proxy.</p>
+<h3 id='proxy-specific-information-light-proxy-extras-interface-library-capabilities'>Capabilities</h3>
+<p>The has_extras capability must be set to true to support the use of Extras. The library will automatically (via dynamic capability) set the has_extras capability when a first Section is created. Also, when the last section is removed, the has_extras capability will be disabled. The Extras class does not implement class destructor as it is not supported in Lua 5.1 and Lua JIT. In the case of setting the Extras class instance to nil, the Extras:cleanCapability() method should be called previously.</p>
+<h3 id='proxy-specific-information-light-proxy-extras-interface-library-protocol-notify-and-proxy-messages'>Protocol Notify and Proxy Messages</h3>
+<p>There are two notifies a driver must make to the proxy where this information is forwarded immediately to any UI&#39;s listening for dataToUI on the proxy and the information is also cached for future UI&#39;s to request: EXTRAS_SETUP_CHANGED and EXTRAS_STATE_CHANGED.  </p>
+
+<p>Whenever a driver changes values that are reflected in either the setup or state xml, it must make the notify to the proxy with the updated information.  This includes if hardware or a feature is added or removed, a value for one of the objects was updated, and so on.  </p>
+
+<p>It is also advisable for protocol drivers to send this data either on initialization of the driver if the values are not likely to change when hardware comes online, or perhaps when the hardware comes online and the extras commands will be able to succeed.  </p>
+
+<p>In addition, it could be advisable that the state of objects is changed to hidden when hardware and/or disabled features are not available rather than sending new extras_setup notifies as this may cause a UI to redraw the extras page and reset defaults while a user is interacting with the Extras page on a UI.</p>
+<h3 id='proxy-specific-information-light-proxy-extras-interface-library-how-ui-39-s-handle-extras-objects'>How UI&#39;s handle Extras objects</h3>
+<p>UI&#39;s will display objects in the order they are read in the EXTRAS_SETUP xml.  If an object needs to have a default selection, number or string, the UI looks at the value attribute for the default.  If no value is specified in the EXTRAS_SETUP the UI will default to a behavior listed below for each object type.</p>
+
+<p>When a user changes a value on a UI, the UI will immediately send the command associated with that object down to a protocol driver as a command.  The UI waits for a response that the protocol driver has handled the command and the protocol driver must send an updated EXTRAS_STATE notify for the object.  </p>
+
+<p>The EXTRAS_STATE does not need to include all states of all objects, only the states of the objects it wants to update (or acknowledged) it has received but it could contain more than just one objects updated state.  A driver could also respond back with just the <code>&lt;extras_state&gt;&lt;extra&gt;&lt;object id=&quot;1&quot;&gt;&lt;/extra&gt;&lt;/extras_state&gt;</code> if it wanted to acknowledge the command succeeded but not update the value.  If a UI that sent the command does not get a response in 10 seconds, it will change the value of the object back to what it was prior to what the user had changed it from.</p>
+<h3 id='proxy-specific-information-light-proxy-extras-interface-library-extras-library-use-case-examples'>Extras Library Use Case Examples</h3><h4 id='proxy-specific-information-light-proxy-extras-interface-library-extras-library-use-case-examples-importing-the-library'>Importing the library</h4>
+<p>To use this library, please move all <code>*.lua</code> files to the source directory of your driver, then import <code>Extras.lua</code> file in your <code>driver.lua</code> file. The <code>Extras.lua</code> file includes all other library files needed.</p>
+
+<p>This library depends on a driver template. Please, make sure that the driver template files are included in the path.
+<strong>NOTE</strong> Make sure paths are setup correctly</p>
+<h4 id='proxy-specific-information-light-proxy-extras-interface-library-extras-library-use-case-examples-how-to-use-the-library'>How to use the library</h4>
+<p><strong>Set Up</strong></p>
+
+<p>The code to the right is an example how to setup the extras library:</p>
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="nb">require</span> <span class="s2">"Extas"</span>
+
+<span class="k">function</span> <span class="nc">ON_DRIVER_INIT</span><span class="p">.</span><span class="nf">SetupExtras</span><span class="p">()</span>
+    <span class="n">extras</span> <span class="o">=</span> <span class="n">Extras</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="n">DEFAULT_PROXY_BINDINGID</span><span class="p">)</span>
+    <span class="n">extras</span><span class="p">:</span><span class="n">addSection</span><span class="p">(</span><span class="s2">"ButtonLabel"</span><span class="p">)</span>
+    <span class="n">extras</span><span class="p">:</span><span class="n">addSection</span><span class="p">(</span><span class="s2">"CheckboxLabel"</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">bt1Table</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">id</span> <span class="o">=</span> <span class="s2">"Button1ID"</span><span class="p">,</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">"Button 1 Label"</span><span class="p">,</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="s2">"Button1Command"</span><span class="p">,</span>
+        <span class="n">extraparams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">Checkbox4ID</span> <span class="o">=</span> <span class="s2">"Extr1"</span><span class="p">,</span>
+            <span class="n">Checkbox3ID</span> <span class="o">=</span> <span class="s2">"Extr2"</span><span class="p">,</span>
+            <span class="n">Button2ID</span> <span class="o">=</span> <span class="s2">"Extr3"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="n">extras</span><span class="p">:</span><span class="n">addObjects</span><span class="p">({</span><span class="n">ExtrasButton</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="n">bt1Table</span><span class="p">,</span> <span class="s2">"ButtonText1"</span><span class="p">),</span>
+           <span class="n">ExtrasButton</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Button3ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Button 3 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Button1Command"</span><span class="p">},</span> <span class="s2">"ButtonText3"</span><span class="p">),</span>
+           <span class="n">ExtrasButton</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Button2ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Button 2 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Button1Command"</span><span class="p">},</span> <span class="s2">"ButtonText2"</span><span class="p">),</span>
+           <span class="n">ExtrasButton</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Button4ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Button 4 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Button1Command"</span><span class="p">},</span> <span class="s2">"ButtonText4"</span><span class="p">)},</span>
+           <span class="s2">"ButtonLabel"</span><span class="p">)</span>
+    <span class="n">extras</span><span class="p">:</span><span class="n">addObjects</span><span class="p">({</span><span class="n">ExtrasCheckbox</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Checkbox1ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Checkbox 1 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Checkbox1Command"</span><span class="p">},</span> <span class="s2">"true"</span><span class="p">),</span>
+           <span class="n">ExtrasCheckbox</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Checkbox2ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Checkbox 2 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Checkbox1Command"</span><span class="p">},</span> <span class="s2">"true"</span><span class="p">),</span>
+           <span class="n">ExtrasCheckbox</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Checkbox3ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Checkbox 3 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Checkbox1Command"</span><span class="p">},</span> <span class="s2">"true"</span><span class="p">),</span>
+           <span class="n">ExtrasCheckbox</span><span class="p">:</span><span class="n">new</span><span class="p">({</span><span class="n">id</span> <span class="o">=</span> <span class="s2">"Checkbox4ID"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">"Checkbox 4 Label"</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">"Checkbox1Command"</span><span class="p">},</span> <span class="s2">"true"</span><span class="p">)},</span>
+           <span class="s2">"CheckboxLabel"</span><span class="p">)</span>
+    <span class="n">extras</span><span class="p">:</span><span class="n">sendSetup</span><span class="p">(</span><span class="n">DEFAULT_PROXY_BINDINGID</span><span class="p">)</span>
+<span class="k">end</span>
+
+</code></pre></div>
+<ul>
+<li>Section order in the CI will be in the same order section were added in the container class instance.</li>
+<li>Object order in the CI will be in the same order objects were added in the section.</li>
+<li>Remember that object could be added as separated elements or as an array of objects.</li>
+<li>This setup can be called in <code>DriverLateInit()</code>. Setting extras in the <code>DriverInit()</code> callback is possible but not recommended.</li>
+</ul>
+<h4 id='proxy-specific-information-light-proxy-extras-interface-library-extras-library-use-case-examples-handling-proxy-commands'>Handling Proxy Commands</h4>
+<p>The next code example shows how to write handlers for proxy commands received when extras change:</p>
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="c1">-- Proxy Command Handlers</span>
+
+<span class="n">PRX_CMD</span><span class="p">.</span><span class="n">Button1Command</span><span class="p">(</span><span class="n">proxyId</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="n">C4</span><span class="p">:</span><span class="n">SetVariable</span><span class="p">(</span><span class="s2">"Extras_Button1"</span><span class="p">,</span> <span class="nb">os.date</span><span class="p">())</span>
+    <span class="n">LogDebug</span><span class="p">(</span><span class="nb">os.date</span><span class="p">()</span> <span class="o">..</span> <span class="s2">" "</span> <span class="o">..</span> <span class="n">extras</span><span class="p">:</span><span class="n">getObject</span><span class="p">(</span><span class="n">tParams</span><span class="p">.</span><span class="n">id</span><span class="p">).</span><span class="n">label</span> <span class="o">..</span> <span class="s2">" - Extras Button pressed"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">function</span> <span class="nc">PRX_CMD</span><span class="p">.</span><span class="nf">Checkbox1Command</span><span class="p">(</span><span class="n">proxyId</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="n">C4</span><span class="p">:</span><span class="n">SetVariable</span><span class="p">(</span><span class="s2">"Extras_Checkbox1"</span><span class="p">,</span> <span class="n">tParams</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">LogDebug</span><span class="p">(</span><span class="nb">os.date</span><span class="p">()</span> <span class="o">..</span> <span class="s2">" "</span> <span class="o">..</span> <span class="n">extras</span><span class="p">:</span><span class="n">getObject</span><span class="p">(</span><span class="n">tParams</span><span class="p">.</span><span class="n">id</span><span class="p">).</span><span class="n">label</span> <span class="o">..</span> <span class="s2">" - Extras Checkbox switched"</span><span class="p">)</span>
+    <span class="n">extras</span><span class="p">:</span><span class="n">updateObject</span><span class="p">(</span><span class="n">proxyId</span><span class="p">,</span> <span class="n">tParams</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">tParams</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>To handle changes in extras parameters coming from the device side, the  <code>updateObject</code> method can be used. This method updates extras object instance and sends proxy notification that extras status has been changed. Also, each <code>ExtrasObjectBasedClass</code> class supports the  <code>ExtrasObjectBasedClass:update(value, hidden)</code> method that enables extras update from the class instance directly.</p>
+
+<p>It is nice to create a variable for each extras object, to give the partner opportunity to monitor and take action based on extras states. Sample variable definitions are to the right.</p>
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="c1">--Variable Examples</span>
+
+<span class="n">C4</span><span class="p">:</span><span class="n">AddVariable</span><span class="p">(</span><span class="s2">"Extras_Button1"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"STRING"</span><span class="p">)</span>
+<span class="n">C4</span><span class="p">:</span><span class="n">AddVariable</span><span class="p">(</span><span class="s2">"Extras_Checkbox1"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"BOOL"</span><span class="p">)</span>
+</code></pre></div><h4 id='proxy-specific-information-light-proxy-extras-interface-library-extras-library-use-case-examples-sqishy'>Sqishy</h4>
+<p>If the Lua Squish is used, the Module code snippet below should be included in the squishy file:</p>
+<div class="highlight"><pre class="highlight xml tab-xml"><code>-- Lua Squish Sample
+
+Module "Extras" "extras/Extras.lua"
+Module "ExtrasObject" "extras/ExtrasObject.lua"
+Module "ExtrasButton" "extras/ExtrasButton.lua"
+Module "ExtrasCheckbox" "extras/ExtrasCheckbox.lua"
+Module "ExtrasIcon" "extras/ExtrasIcon.lua"
+Module "ExtrasList" "extras/ExtrasList.lua"
+Module "ExtrasSwitch" "extras/ExtrasSwitch.lua"
+Module "ExtrasNumber" "extras/ExtrasNumber.lua"
+Module "ExtrasSlider" "extras/ExtrasSlider.lua"
+Module "ExtrasText" "extras/ExtrasText.lua"
+Module "ExtrasTextField" "extras/ExtrasTextField.lua"
+</code></pre></div>
+<p>In this case, the library can be used as git submodule.</p>
+<h4 id='proxy-specific-information-light-proxy-extras-interface-library-extras-library-use-case-examples-removing'>Removing</h4>
+<p>To remove the object or the section please use following methods:</p>
+
+<ul>
+<li><code>Extras:removeObject(id)</code></li>
+<li><code>Extras:removeSection(sectionLabel)</code></li>
+</ul>
+
+<p>This way, you will avoid lost objects (objects that are in section array but will not be displayed because empty index before).
+It is strongly recommended to hide rather than remove objects that will be temporary removed form the CI.</p>
+
+<p>Before destroying an Extras class instance, please use the <code>Extras:cleanCapability()</code> method. Also, please pay attention to the Capability section of the documentation.</p>
+
+<p>For additional Information, please see the <a href="https://expert-adventure-1w2nllv.pages.github.io/#introduction">DriverWorks Proxy and Protocol Guide</a> regarding all of the functions supported by the Light Proxy.</p>
+
+<h2 id='proxy-specific-information-security-sensor-types'>Security Sensor Types</h2>
+
+<p>The following sensor types and their respective ID values are listed below:</p>
+
+<ul>
+<li>UNKNOWN = 0</li>
+<li>CONTACT_SENSOR = 1</li>
+<li>EXTERIOR_DOOR = 2</li>
+<li>EXTERIOR_WINDOW = 3</li>
+<li>INTERIOR_DOOR = 4</li>
+<li>MOTION_SENSOR = 5</li>
+<li>FIRE = 6</li>
+<li>GAS = 7</li>
+<li>CARBON_MONOXIDE = 8</li>
+<li>HEAT = 9</li>
+<li>WATER = 10</li>
+<li>SMOKE = 11</li>
+<li>PRESSURE = 12</li>
+<li>GLASS_BREAK = 13</li>
+<li>GATE = 14</li>
+<li>GARAGE_DOOR = 15</li>
+</ul>
+
+<p>There are no restrictions imposed regarding sensor types when zone information is sent to the security proxy and functionality is not impacted based on the sensor type defined. The sensor type value only dictates which icons are displayed on Navigators and within ComposerPro.</p>
+
+<p>For additional Information, please see the <a href="https://super-bassoon-22j7m8r.pages.github.io/#introduction">DriverWorks Proxy and Protocol Guide</a> regarding all of the functions supported by the Security Proxy.</p>
 
       </div>
       <div class="dark-box">
