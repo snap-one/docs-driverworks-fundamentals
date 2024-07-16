@@ -1,18 +1,18 @@
-## Property Types
+## Properties
 
 DriverWorks Properties are defined in the .c4z file and exposed in the Composer System Design interface on the Properties tab. Below is table of currently supported properties. The code examples for each are to the right. 
 
-| Property            | Description                                                                                        |
-| ------------------- | -------------------------------------------------------------------------------------------------- |
-| **List**            | Provides a list of selectable objects.                                                             |
-| **Ranged Float**    | Provides a range of selectable floating-point or non-integer numbers.                              |
-| **Ranged Integer**  | Provides a range of selectable integers.                                                           |
-| **String**          | Provides a read only string.                                                                       |
-| **String Password** | Provides a string which can be used as a password.                                                 |
-| **Device Selector** | Provides a list of selectable drivers. See the Device Selector topic for more information.         |
-| **Color Selector**  | Provides the ability to select a color. See the Color Selector topic for more information.         |
-| **Dynamic List**    | Provides driver-based, dynamically updated lists. See the Dynamic List topic for more information. |
-| **Link**            | Provides a link to a resource which can be used to support your driver.                            |
+| Property | Description |
+| --- | --- |
+| **List** | Provides a list of selectable objects. |
+| **Ranged Float** | Provides a range of selectable floating-point or non-integer numbers. |
+| **Ranged Integer** | Provides a range of selectable integers. |
+| **String** | Provides a read only string. |
+| **String Password** | Provides a string which can be used as a password. |
+| **Device Selector** | Provides a list of selectable drivers. See the Device Selector topic for more information. |
+| **Color Selector** | Provides the ability to select a color. See the Color Selector topic for more information. |
+| **Dynamic List** |  Provides driver-based, dynamically updated lists. See the Dynamic List topic for more information. |
+| **Link** | Provides a link to a resource which can be used to support your driver. |
 
 ```xml
 List Property Example

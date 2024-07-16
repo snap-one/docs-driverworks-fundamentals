@@ -337,9 +337,9 @@ This function is required in order for a driver to use the DYNAMIC\_LIST type pa
 
 
 | Parameter | Description |
-| --------- | ----------- |
-| str       | commandName |
-| str       | paramName   |
+| --- | --- |
+| str | commandName |
+| str | paramName |
 
 
 ### Returns

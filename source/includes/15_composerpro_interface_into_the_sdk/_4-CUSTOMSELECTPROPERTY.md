@@ -1,8 +1,8 @@
 ## Using the CUSTOM SELECT Property
 
-The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the `CUSTOM_SELECT` parameter type. These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command. 
+The ability of a Proxy driver to deliver a browse-able list of related elements can be supported through the use of the `CUSTOM_SELECT` property. These lists could represent stations, channels or actual media. The elements delivered in the list can then be used as parameter in a command.
 
-Initially, a command needs to be created in the `<devicedata><config>` section of the c4z driver.xml file. For example, here is a command called SelectChannel: 
+Initially, a command needs to be created in the `<devicedata><config>` section of the c4z driver.xml file. For example, here is a command called SelectChannel:
 
 ```xml
 <devicedata>
@@ -23,12 +23,12 @@ Initially, a command needs to be created in the `<devicedata><config>` section o
 </devicedata>
 ```
 
-In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type `CUSTOM_SELECT` allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect. 
+In the SelectChannel example above, SelectChannel is the command name that is sent to the ExecuteCommand function in the driver. The param type `CUSTOM_SELECT` allows for the specification of a global .lua function that will be invoked whenever ComposerPro wants to get data. In the example to the right, it is the function SelectChannelParamSelect.
 
-The command description can also contain variables enclosed in {{ and }}, and the name refers to the param name.  
+The command description can also contain variables enclosed in {{ and }}, and the name refers to the param name.
 Note, that this variable substitution currently only works with params of type `CUSTOM_SELECT.`
 
-Next, the newly created .lua function needs to be implemented. The simplest implementation just returns a list of strings: 
+Next, the newly created .lua function needs to be implemented. The simplest implementation just returns a list of strings:
 
 ```lua
 function SelectChannelParamSelect(currentValue)
@@ -40,7 +40,7 @@ function SelectChannelParamSelect(currentValue)
 end
 ```
 
-It is possible to return human-readable text, while keeping internal values hidden (e.g. to display a station’s name rather than its station id). Keep in mind that these values must be of type string: 
+It is possible to return human-readable text, while keeping internal values hidden (e.g. to display a station’s name rather than its station id). Keep in mind that these values must be of type string:
 
 ```lua
 function SelectChannelParamSelect(currentValue)
@@ -93,10 +93,9 @@ function SelectChannelParamSelect(currentValue)
 end
 ```
 
-You can also defer returning the list. This may be useful if you are waiting for the completion of a web service call or waiting for data from a device to return. The function you’re implementing (SelectChannel) is receiving a function pointer as a second argument, which can be saved off and can be called to return the list at a later time. This function either takes the list and back value, or just a string if ComposerPro should display an error message. 
+You can also defer returning the list. This may be useful if you are waiting for the completion of a web service call or waiting for data from a device to return. The function you’re implementing (SelectChannel) is receiving a function pointer as a second argument, which can be saved off and can be called to return the list at a later time. This function either takes the list and back value, or just a string if ComposerPro should display an error message.
 
 In order to defer returning data, you would not return anything from the function, but then when you have the data, call the provided function. Note that if you fail to call this provided function, and also don’t return anything from your function, then Composer will display an error message. Also, you may only call this function once. See the second example to the right.
-
 
 ```lua
 g_tickets = {}
@@ -129,4 +128,3 @@ g_tickets[ticketId] = { returnData = done }
   -- Do not return anything here, we're calling the done function when we have data
 end
 ```
-

@@ -1,4 +1,4 @@
-## Advanced Property Types
+## Advanced Properties
 
 **LABEL**
 Prior to OS Release 2.10.0, the only way to create a separator or section between properties in the driver was to use a STRING type property and mark it read only. Now, with the inclusion of the XML example to the right, a much cleaner header can be created:
@@ -19,10 +19,7 @@ An example of the new Header are on the Properties screen in ComposerPro:
 
 <img src="images/15_3-01.png"/>
 
-
 Note that this PropertyType could also be used to make a blank space by omitting the \<default\>\</default\> element.
-
-
 
 **Scroll**
 
@@ -44,9 +41,6 @@ Prior to OS Release 2.10.0, the only way to set an integer value on a scale was 
 
 An example of the new Scroll Property Type on the Properties screen is shown above,
 
-
-
-
 **TRACK**
 
 A second option is available for setting an integer value which is similar to Scroll. Track is more of a discrete slider control. The XML for Track is also to the right:
@@ -66,7 +60,3 @@ A second option is available for setting an integer value which is similar to Sc
 ```
 
 An example of the new Scroll Property Track on the Properties screen is shown above
-
-
-
-
