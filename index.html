@@ -523,6 +523,44 @@
               </ul>
           </li>
           <li>
+            <a href="#custom-select-implementation" class="toc-h1 toc-link" data-title="CUSTOM SELECT Implementation">CUSTOM SELECT Implementation</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#custom-select-implementation-favored-and-blocked-av-connection-classes-how-actions-work-in-your-driver" class="toc-h2 toc-link" data-title="How Actions work in Your Driver">How Actions work in Your Driver</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options" class="toc-h2 toc-link" data-title="Action Configuration Options">Action Configuration Options</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-favored-and-blocked-av-connection-classes-implementation-steps" class="toc-h2 toc-link" data-title="Implementation Steps">Implementation Steps</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function" class="toc-h2 toc-link" data-title="Custom Select Function">Custom Select Function</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-favored-and-blocked-av-connection-classes-understanding-action-workflow" class="toc-h2 toc-link" data-title="Understanding Action Workflow">Understanding Action Workflow</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-custom_select-list" class="toc-h2 toc-link" data-title="CUSTOM_SELECT List">CUSTOM_SELECT List</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-custom_select-search" class="toc-h2 toc-link" data-title="CUSTOM_SELECT Search">CUSTOM_SELECT Search</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-custom_select-filter" class="toc-h2 toc-link" data-title="CUSTOM_SELECT Filter">CUSTOM_SELECT Filter</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-custom_select-folder" class="toc-h2 toc-link" data-title="CUSTOM_SELECT Folder">CUSTOM_SELECT Folder</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-custom_select-async-all" class="toc-h2 toc-link" data-title="CUSTOM_SELECT Async All">CUSTOM_SELECT Async All</a>
+                  </li>
+                  <li>
+                    <a href="#custom-select-implementation-custom_select-all" class="toc-h2 toc-link" data-title="CUSTOM_SELECT All">CUSTOM_SELECT All</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#events" class="toc-h1 toc-link" data-title="Events">Events</a>
               <ul class="toc-list-h2">
                   <li>
@@ -3371,6 +3409,1049 @@ and
 </code></pre></div>
 
 <p>By using favored connection classes in Zone 1 and blocked connection classes in Zone 2 we’re putting the AV Receiver driver in a position to influence Director to successfully distribute audio signals to both Zones regardless of the Signal Conversion limitations of the device.</p>
+<h1 id='custom-select-implementation'>CUSTOM SELECT Implementation</h1>
+
+<p>Note: A sample driver has been delivered to assist with understanding and implementing custom select functionality in LUA drivers. The driver is named sample_custom_select.c4z. It can be found in the DriverWorks Github repository in the Sample Drivers folder: </p>
+
+<p><a href="https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers">https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers</a></p>
+
+<p>The examples used in this documentation come from this driver. The driver can be loaded into a project and all of the supported CUSTOM_SELECT features can be exercised. Use of the sample driver is intended for O.S. 4.0.0 or later. However, it can be used in prior operating systems with the understanding that an earlier O.S. will result in inconsistent performance specifically surrounding the CUSTOM_SELECT Search and Filter types.</p>
+
+<p>To make full use of the documentation, it is recommended that the driver be opened in your preferred development environment as several of the driver’s files will be reviewed and discussed in the examples included here.</p>
+
+<p>The CUSTOM_SELECT type is available for both actions and commands for a driver. You’ll note identical Actions and Commands are defined in the sample XML and LUA code found in the sample_custom_select.c4z driver. While this documentation focuses on Action to demonstrate the CUSTOM_SELECT functionality, implementation of commands is identical. </p>
+
+<p>The driver provides a list of selectable items in Composer Pro. Once an item is selected, it is returned to the driver. For Programming in Composer Pro, the driver provides a list of items to select that are used in a command for the driver. This enables actions and programming to have dynamic lists. </p>
+
+<p>The ability of a Driver to deliver a list of related data-elements is supported through the use of the CUSTOM_SELECT XML property. The delivery of these lists can be very useful for your driver as they could represent radio stations, TV channels, light levels or URLs. It is also possible to create a “browsing experience” in Composer Pro with folders that contain the list data.  Once these data-elements are delivered, they can then be used as a parameter in ComposerPro programming. </p>
+
+<p>For example, consider that a driver supports the ability to play audio from a database. The CUSTOM_SELECT type can be implemented to provide several user experiences in ComposerPro with regard to selecting audio. It can return simple list of audio choices and searching the list is also supported. The audio can also be organized in folders to create a browsable experience. The CUSTOM_SELECT type also supports the use of asynchronous calls in the case where it is used with an online audio service provider. All of these use cases and their respective implementations are detailed in the documentation that follows.</p>
+
+<p>Currently, the following CUSTOM_SELECT features are supported:</p>
+
+<ul>
+<li><strong>List</strong>: Returns a simple list with no filtering options using minimal required parameters.</li>
+<li><strong>Search</strong>: Adds a search box to the dialog.</li>
+<li><strong>Filter</strong>: Adds a filter drop down to the dialog with the list provided by the xml. This is a static filter list.</li>
+<li><strong>Folder</strong>: Adds a tree view type control. Note that folder and folder traversal is determined by the driver.</li>
+<li><strong>Async</strong>: Supports an Asynchronous call for the list.</li>
+</ul>
+
+<p>Throughout this documentation we’ll refer to several Composer Pro UI constructs. These are found within the Actions dialog box. They include:</p>
+
+<ol>
+<li>List of returned data.</li>
+<li>Folders which can be use to organize data.</li>
+<li>Search box that supports string entry for searching data.</li>
+<li>Filter drop down box that displays the static filters defined in the driver’s XML.</li>
+<li>OK button which executes the ExecuteCommand Lua function.</li>
+</ol>
+
+<p><img src="images/csimage100.png"/></p>
+
+<h3 id='custom-select-implementation-favored-and-blocked-av-connection-classes-how-actions-work-in-your-driver'>How Actions work in Your Driver</h3>
+
+<p>Before implementing CUSTOM_SELECT action functionality in a .lua driver, it is necessary to understand how driver Actions work. Actions are defined in your driver’s &lt;actions&gt; section of the drivers.xml file. They are displayed under the Actions tab in the Properties area of Composer Pro. </p>
+
+<p>When an action is selected and executed in Composer Pro, a <code>LUA_ACTION</code> command is sent to the driver with any parameters the action may have. These commands are handled in the driver&#39;s ExecuteCommand function. You can see this code in the sample driver&#39;s driver.lua file.</p>
+
+<p>The sample driver’s implementation of this is all handled within the ExecuteCommand function. The <code>LUA_ACTION</code> command is where all actions are handled. With programming, each command is handled individually.</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+            <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">else</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT List"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT Search"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT Filter"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT Folder"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT Async All"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT Async Country"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">elseif</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT All"</span> <span class="k">then</span>
+        <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+        <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Command All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+    <span class="k">else</span>
+        <span class="nb">print</span> <span class="p">(</span><span class="s2">"Error: unsuppoted command: "</span><span class="o">..</span> <span class="n">sCommand</span><span class="p">)</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>The ExecuteCommand takes two parameters. The first parameter contains the command name being sent to the driver. The second parameter is a table of all of the parameters for the command. In the case of the sample driver, if the command is not handled an error message is printed and no action is taken.</p>
+
+<h3 id='custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options'>Action Configuration Options</h3>
+
+<p><em>sample driver action example:</em></p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT Filter<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_Filter<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Select Channel<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetFilterList<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;search&gt;</span>
+                <span class="nt">&lt;filters&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"all"</span><span class="nt">&gt;</span>All<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"country"</span><span class="nt">&gt;</span>Country<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"jazz"</span><span class="nt">&gt;</span>Jazz<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"oldies"</span><span class="nt">&gt;</span>Oldies<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"pop"</span><span class="nt">&gt;</span>Pop<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"rock"</span><span class="nt">&gt;</span>Rock<span class="nt">&lt;/filter&gt;</span>
+                <span class="nt">&lt;/filters&gt;</span>
+            <span class="nt">&lt;/search&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p><code>&lt;name&gt;</code></p>
+
+<ul>
+<li>Required</li>
+<li>The &lt;name&gt; element contains the name of the Action. This name appears in Composer Pro’s list of actions.</li>
+<li>In this documentation this is referred to as the <strong>&quot;Action Name&quot;</strong>.</li>
+</ul>
+
+<p><code>&lt;command&gt;</code></p>
+
+<ul>
+<li>Required</li>
+<li>When an action is executed, a key/value pair entry is added to the tParams <em>(the second parameter to the ExecuteCommand function)</em> table with the key equal to <code>ACTION</code> and the value equal to the value of the &lt;command&gt; element. In the following example below, we can see the Action is the key and command CUSTOM_SELECT_filter is the value: <code>{&quot;ACTION&quot;:&quot;CUSTOM_SELECT_Filter&quot;}</code>.</li>
+<li>In this documentation, this is referred to as the <strong>“Action Command”</strong></li>
+</ul>
+
+<p><code>&lt;sort_order&gt;</code></p>
+
+<ul>
+<li>Optional</li>
+<li>Numeric value that specifies the order the action appears in the list of Actions in Composer Pro.</li>
+</ul>
+
+<p><code>&lt;param&gt;&lt;name&gt;</code></p>
+
+<ul>
+<li>Required</li>
+<li>Name of the parameter that will be displayed in the parameter list in Composer Pro.</li>
+<li>In this documentation, this is referred to as the <strong>&quot;Parameter Name&quot;</strong></li>
+</ul>
+
+<p><code>&lt;param&gt;&lt;type&gt;</code></p>
+
+<ul>
+<li>Required</li>
+<li>The type of the parameter. The type for custom select action parameter is: <code>CUSTOM_SELECT:function_name</code>. The function_name is the name of the function that must be implemented in the driver and will return the desired list and shown in Composer Pro. In the example above, the function name is <code>GetFilterList</code>. The sample driver&#39;s custom select functions are found in the custom_select.lua file.</li>
+<li>In this documentation, this is referred to as the <strong>“Custom Select Function”</strong>.</li>
+</ul>
+
+<p><code>&lt;param&gt;&lt;search&gt;</code></p>
+
+<ul>
+<li>Optional</li>
+<li>Provides a search text box for filtering the list items. Use an empty tag to show the text box without the filter combo box control.</li>
+</ul>
+
+<p><code>&lt;search&gt;&lt;filters&gt;</code></p>
+
+<ul>
+<li>Optional</li>
+<li>A filter combo box will be added to the Select dialog. The combo box contains the list of strings defined by the filter elements in the xml. How the filters are used is determined by the driver.</li>
+</ul>
+
+<p><code>&lt;filter&gt;</code></p>
+
+<ul>
+<li>Requires at least two &lt;filter&gt; elements for filtering.</li>
+<li>There needs to be one filter element for each item in the list. The name attribute value is used when selecting the item from the list. The element value is the text that is displayed in the combo box.</li>
+</ul>
+
+<h3 id='custom-select-implementation-favored-and-blocked-av-connection-classes-implementation-steps'>Implementation Steps</h3>
+
+<p>The list below represent the three fundamental steps required to implement CUSTOM_SELECT type. The fourth step is only required when supporting Asynchronous type actions. These steps will be referred to throughout the documentation.</p>
+
+<ol>
+<li>Define the Action in the drivers.xml file.</li>
+<li>Implement the action&#39;s <strong>Custom Select Function</strong> defined in the &lt;param&gt;&lt;type&gt; element. This function implementation in the sample driver is found in the custom_select.lua file.</li>
+<li>Handle the <strong>“Action Command”</strong> within the ExecuteCommand function.</li>
+<li>If there are any Asynchronous type actions, handle the results in the ReceivedAsync function. This is found in the driver.lua in the sample driver.</li>
+</ol>
+
+<h3 id='custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function'>Custom Select Function</h3>
+
+<p>The Custom Select Function&#39;s purpose is to provide the data for the <em>Select</em> dialog in Composer Pro. This dialog has numerous capabilities that will be described below.</p>
+
+<p><strong><em>Parameters</em></strong></p>
+
+<p>The function parameters are optional depending on the desired functionality of the <em>Select</em> dialog. There are a maximum of four parameters. These are defined below. In the sample driver used with this documentation, when no parameters are passed, the function returns a list of all the items. </p>
+
+<p><em>Parameter 1 - string</em> (folder)<br>
+This parameter is used for the tree view (folder) functionality and will contain the name of a selected folder. If the parameter is empty then that indicates Composer wants the list at the root level. Otherwise, it will contain a folder name and the function will return the list of items within that folder.</p>
+
+<p><em>Parameter 2 - function</em> (callback)<br>
+This parameter is typically used in asynchronous actions. However, it can be used in place of using return values. This function will be described below.</p>
+
+<p><em>Parameter 3 - string</em> (search)<br>
+This parameter contains the text entered in the search box of the Select dialog. This is handled more like a filter rather than a search. The Custom Select Function should return just those items that contain the text from this parameter.</p>
+
+<p><em>Parameter 4 - string</em> (filter)<br>
+This parameter contains the text value of the selected item in the filter combo box in the search control. It is up to the driver developer to determine how to use this parameter. For example, it may contain a list of music genres, in which case the Custom Select Function should return a list of albums or songs that match that genre.</p>
+
+<p><em><strong>Callback Function (parameter 2)</strong></em><br>
+A callback function is provided in those cases where the list data is not available when the function is called as will be the case with asynchronous actions. The driver must save this function for use when the driver is ready to return the data.</p>
+
+<p><em><strong>Return Values/Parameters for the Callback Function</strong></em><br>
+There are two ways to return the results of the Custom Select Function: function return values or execute the callback function provided by parameter 2. In both cases there are two parameters or return items: the list of items and the name of the folder for use when the back button is selected. Executing the callback function is required for asynchronous actions since the data is not available at the time the Custom Select Function is called.</p>
+
+<p><em>Return/Parameter 1 - table</em> (list of items)<br>
+Table of list items. The format is described below.</p>
+
+<p><em>Return/Parameter 2 - string</em> (back)<br>
+The name of the folder to open when the back button is pressed. If empty, then it will return back to the root folder level.</p>
+
+<p><em><strong>Return List Format</strong></em></p>
+
+<p>Each entry in the table has three key, value pair items. Two are required and one is optional.
+text
+- string type
+- Required
+- Contains the text that is displayed.</p>
+
+<p>value
+- string type
+    - Required
+    - Value returned when the item is selected.</p>
+
+<p>folder
+- type boolean
+    - Optional
+    - default = false
+    - Specifies if the item is a folder item. If = true, the item will be displayed as a folder. When a folder is selected, The Custom Select Function is called with the first parameter equal to the value in the table entry.</p>
+
+<p><em>sample list creation</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="c1">-- create table of list items</span>
+<span class="n">list</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1">-- add some folders</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"Country"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">"country"</span><span class="p">,</span> <span class="n">folder</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"Jazz"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">"jazz"</span><span class="p">,</span> <span class="n">folder</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"Oldies"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">"oldies"</span><span class="p">,</span> <span class="n">folder</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"Pop"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">folder</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s2">"Rock"</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">folder</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span>
+<span class="c1">-- add some list items</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'50s Rock and Roll'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'rock_50'</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'60s Oldies'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'oldies_60'</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'60s Pop'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_60'</span> <span class="p">})</span>
+<span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'70s Pop'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_70'</span> <span class="p">})</span>
+</code></pre></div><h3 id='custom-select-implementation-favored-and-blocked-av-connection-classes-understanding-action-workflow'>Understanding Action Workflow</h3>
+<p>If a driver has any Actions defined, there will be an Actions tab On the driver&#39;s System Design page. After selecting the Action tab, a list of actions will be displayed. This list comes from the list of actions in the drivers.xml file. </p>
+
+<p>Upon selecting an action, the <code>Action Parameter List</code> dialog will appear. Any actions that are CUSTOM_SELECT type actions will have a lookup button to the left of the parameter. Upon selecting this button,  the function declared in the CUSTOM_SELECT type field is called. This function handles the creation of the list that is displayed in the <code>Select</code> dialog.
+ <em>Note: How this function interacts with Composer Pro Actions will be described in each of the CUSTOM_SELECT feature documentation sections below.</em> </p>
+
+<p>After selecting an item in the list and clicking Ok, you will be returned back to the <code>Action Parameter List</code> with the selected value in the action value field. </p>
+
+<p>Clicking Ok on the <code>Action Parameter List</code> dialog will call the action command defined in the actions xml. This command will receive a table of results from the action where the driver handles those results.</p>
+
+<p>The following represents a LUA Driver/Composer Pro workflow which begins with the user selecting the Actions tab in Composer Pro and ends with the execution of the ExecuteCommand function where the action is handled:</p>
+
+<ul>
+<li>User selects Actions Tab on the Driver&#39;s System Design page.
+
+<ul>
+<li>The Action List is Displayed.</li>
+<li>User selects the action from the list.
+
+<ul>
+<li>The Action Parameter List dialog is displayed with the list of parameter(s).</li>
+<li>User selects the Lookup Button for the action.
+-The action&#39;s Custom Select Function is called, which returns a list or saves off the callback function for asynchronous type actions.
+
+<ul>
+<li>The list is displayed in the Select dialog either from the return values or when the asynchronous process completes and returns the list.</li>
+<li>User finds the desired list item and selects the item.</li>
+<li>User Clicks the Ok button.</li>
+</ul></li>
+<li>Back to Action Parameter List where the action parameter is set to the selected item&#39;s value</li>
+<li>User Clicks the Ok button.</li>
+<li>The Action’s Command is sent to the driver&#39;s ExecuteCommand function where the result of the action is handled.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p><strong>Data used for sample_custom_select.c4z driver</strong></p>
+
+<p>The example driver’s driver.lua file has a global table that contains all of the data that is used when exercising the driver and found in this documentation. The table uses music genres and types for example purposes:</p>
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="n">g_tMusicGenre</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1">-- Initialize functions</span>
+<span class="k">function</span> <span class="nf">OnDriverInit</span><span class="p">(</span><span class="n">initType</span><span class="p">)</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'50s Rock and Roll'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'rock_50'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"50s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'60s Oldies'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'oldies_60'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"oldies"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"60s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'60s Pop'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_60'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"60s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'70s Pop'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_70'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"70s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'80s Pop'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_80'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"80s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Classic Country'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'country_classic'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"country"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Classic Rock'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'rock_classic'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Contermporary Jazz'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'jazz_contermporary'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"jazz"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Cool Jazz'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'jazz_cool'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"jazz"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Country 2K'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'country_2k'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"country"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"2k"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Country Rock'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'country_rock'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Golden Oldies'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'oldies_golden'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"oldies"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Hard Rock'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'rock_hard'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Jazz Piano'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'jazz_piano'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"jazz"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Motown'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'oldies_motown'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"oldies"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Pop Love Songs'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_lovesongs'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Pop Rock'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_rock'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Rock Hits'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'rock_hits'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Smooth Jazz'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'jazz_smooth'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"jazz"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Soft Rock'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'rock_soft'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"rock"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'The 80s'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'country_80'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"country"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"80s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'The 90s'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'country_90'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"country"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">"90s"</span> <span class="p">})</span>
+    <span class="nb">table.insert</span><span class="p">(</span><span class="n">g_tMusicGenre</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="s1">'Today\'</span><span class="n">s</span> <span class="n">Country</span><span class="s1">', value = '</span><span class="n">country_today</span><span class="s1">', genre = "country", period = "" })
+    table.insert(g_tMusicGenre, { text = '</span><span class="n">Today</span><span class="err">\</span><span class="s1">'s Hits'</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s1">'pop_todays_hits'</span><span class="p">,</span> <span class="n">genre</span> <span class="o">=</span> <span class="s2">"pop"</span><span class="p">,</span> <span class="n">period</span> <span class="o">=</span> <span class="s2">""</span> <span class="p">})</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>The documentation that follows contains information on implementing CUSTOM\SELECT features including:</p>
+
+<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-list">List</a></strong></p>
+
+<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-search">Search</a></strong></p>
+
+<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-filter">Filter</a></strong></p>
+
+<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-folder">Folder</a></strong></p>
+
+<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-async">Asynch</a></strong></p>
+
+<p>All of the supporting code for these features are provided in the sample_custom_select.c4z driver.</p>
+
+<h2 id='custom-select-implementation-custom_select-list'>CUSTOM_SELECT List</h2>
+
+<p>This example provides a simple, flat list with no search or filtering functionality.</p>
+
+<p><strong>1. Define the Action</strong></p>
+
+<p>The following xml defines the action for CUSTOM_SELECT List.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>~<span class="nt">&lt;actions&gt;</span>~
+    <span class="nt">&lt;action&gt;</span>
+        <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT List<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_List<span class="nt">&lt;/command&gt;</span>
+        <span class="nt">&lt;sort_order&gt;</span>1<span class="nt">&lt;/sort_order&gt;</span>
+        <span class="nt">&lt;params&gt;</span>
+            <span class="nt">&lt;param&gt;</span>
+                <span class="nt">&lt;name&gt;</span>Select List Item<span class="nt">&lt;/name&gt;</span>
+                <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetList<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;/param&gt;</span>
+        <span class="nt">&lt;/params&gt;</span>
+    <span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p>In the example above:</p>
+
+<p>The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_List.<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetList.</p>
+
+<p><strong>2. Implement the Custom Select Function</strong></p>
+
+<p><em>Implementation of GetList()</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetList</span><span class="p">()</span>
+    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">-- table of list items to return</span>
+
+    <span class="n">InsertAll</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>In this example we want to return the full list of data from the <code>g_tMusicGenre</code> table . Since there is no search, filtering or folder functionality, the GetList function needs no parameters and simply returns the full list in the table. In our sample driver, this function is implemented in the drivers’ sample_custom_select.lua file.</p>
+
+<p><strong>3. Handle the Action Command</strong>
+All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">action command</a>, we can update the &quot;CUSTOM_SELECT Action List Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+
+<p><em>Handling of <strong>CUSTOM_SELECT_List</strong> action in Execute Command</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+<span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+        <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Timer"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Timer Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">else</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+</code></pre></div>
+
+<p><strong> ExecuteCommand Parameters</strong><br>
+sCommand: Command sent to the driver. For actions, this will always be &quot;LUA_ACTION&quot;.<br>
+tParams: Table of parameter key/value pairs for the command.</p>
+
+<p><strong>Action Parameters</strong><br>
+ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_List.<br>
+&quot;Select List Item&quot;: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+
+<h2 id='custom-select-implementation-custom_select-search'>CUSTOM_SELECT Search</h2>
+
+<p>This example provides a search field in the Composer Pro’s CUSTOM_SELECT UI. In our example, the box accepts string based searches and returns matching data from the <code>g_tMusicGenre</code> table.</p>
+
+<p><strong>1. Define the Action</strong></p>
+
+<p>The following xml defines the action for CUSTOM_SELECT Search.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT Search<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_Search<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>2<span class="nt">&lt;/sort_order&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Select List Item<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetSearchList<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;search</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p>In the example above:</p>
+
+<p>The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Search.<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetSearchList.<br>
+The &lt;search /&gt; tag enables the search box in the <code>Select</code> diablog.</p>
+
+<p><strong>2. Implement the Custom Select Function</strong></p>
+
+<p><em>Implementation of GetSearchList()</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetSearchList</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">-- table of list items to return</span>
+
+    <span class="k">if</span> <span class="n">IsEmpty</span><span class="p">(</span><span class="n">searchText</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">InsertAll</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="n">FilterText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>The GetSearchList function is provided for the &quot;CUSTOM_SELECT Search&quot; action to call when it needs the list of items available to select. The &quot;CUSTOM_SELECT Search&quot; action example is a flat list with filtering by a string. If searchText is empty, the full list is returned, Otherwise, only items that contain the search text will be returned</p>
+
+<p><strong>3. Handle the Action Command</strong></p>
+
+<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">action command</a>, we update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+
+<p><em>Handling of <strong>CUSTOM_SELECT_Search</strong> action in Execute Command</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+<span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+        <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Timer"</span> <span class="k">then</span>
+            <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+            <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Timer Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+        <span class="k">else</span>
+            <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p><strong> ExecuteCommand Parameters</strong><br>
+sCommand: Command sent to the driver. For actions, this will always be &quot;LUA_ACTION&quot;.<br>
+tParams: Table of parameter key/value pairs for the command.</p>
+
+<p><strong>Action Parameters</strong><br>
+ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Search.<br>
+&quot;Select List Item&quot;: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+
+<h2 id='custom-select-implementation-custom_select-filter'>CUSTOM_SELECT Filter</h2>
+
+<p>This example adds a filter drop down to the dialog with the filter list provided by the xml. Note that this is a static filter list. Filter list content is defined within the <code>&lt;search&gt;&lt;/search&gt;</code> tags of the action’s XML.</p>
+
+<p><strong>1. Define the Action</strong></p>
+
+<p>The following xml defines the action for CUSTOM_SELECT Filter.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT Filter<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_Filter<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>3<span class="nt">&lt;/sort_order&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Select Channel<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetFilterList<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;search&gt;</span>
+                <span class="nt">&lt;filters&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"all"</span><span class="nt">&gt;</span>All<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"country"</span><span class="nt">&gt;</span>Country<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"jazz"</span><span class="nt">&gt;</span>Jazz<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"oldies"</span><span class="nt">&gt;</span>Oldies<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"pop"</span><span class="nt">&gt;</span>Pop<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"rock"</span><span class="nt">&gt;</span>Rock<span class="nt">&lt;/filter&gt;</span>
+                <span class="nt">&lt;/filters&gt;</span>
+            <span class="nt">&lt;/search&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p>In the example above:
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Filter.<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetFilterList.</p>
+
+<p><strong>2. Implement the Custom Select Function</strong></p>
+
+<p><em>Implementation of GetFilterList()</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetFilterList</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">searchText</span><span class="p">,</span> <span class="n">filter</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">-- table of list items to return</span>
+    <span class="kd">local</span> <span class="n">hasSearch</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">IsEmpty</span><span class="p">(</span><span class="n">searchText</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">hasFilter</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">filter</span><span class="p">)</span> <span class="ow">or</span> <span class="n">filter</span> <span class="o">==</span> <span class="s2">"all"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasFilter</span> <span class="k">then</span>
+        <span class="n">InsertAll</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasFilter</span> <span class="k">then</span>
+        <span class="n">FilterText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="ow">not</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="n">hasFilter</span> <span class="k">then</span>
+        <span class="n">FilterByGenre</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">filter</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="c1">-- has both searchText and filter</span>
+        <span class="n">FilterGenreText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">filter</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>The GetFilterList function is provided for the &quot;CUSTOM_SELECT Filter&quot; action to call when it needs the list of items available to select. The &quot;CUSTOM_SELECT Filter&quot; action example is a flat list with both text filtering and/or matches the music genre contained in the filter parameter. The filter parameter will be one of the &lt;filter&gt; items driver.xml file. If both the searchText and filter parameters are empty, the full list is returned, Otherwise, only items that contain the search text and match the genre will be returned.</p>
+
+<p><strong>3. Handle the Action Command</strong></p>
+
+<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this action, we update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+
+<p><em>Handling of <strong>CUSTOM_SELECT_Filter</strong> action in Execute Command</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+            <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Timer"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Timer Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">else</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p><strong> ExecuteCommand Parameters</strong><br>
+sCommand: Command sent to the driver. For actions, this will always be &quot;LUA_ACTION&quot;.<br>
+tParams: Table of parameter key/value pairs for the command.</p>
+
+<p><strong>Action Parameters</strong><br>
+ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Filter.<br>
+&quot;Select Channel”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+
+<h2 id='custom-select-implementation-custom_select-folder'>CUSTOM_SELECT Folder</h2>
+
+<p>This example adds a tree view type control. Note that the folders and folder traversal are determined by the driver. There is nothing extra required in the action xml definition.</p>
+
+<p><strong>1. Define the Action</strong></p>
+
+<p>The following xml defines the action for CUSTOM_SELECT Folder.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>~<span class="nt">&lt;action&gt;</span>~
+    <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT Folder<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_Folder<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>4<span class="nt">&lt;/sort_order&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Select List Item<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetFolderList<span class="nt">&lt;/type&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p>In the example above:
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Folder.<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetFolderList.</p>
+
+<p><strong>2. Implement the Custom Select Function</strong></p>
+
+<p><em>Implementation of GetFolderList()</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetFolderList</span><span class="p">(</span><span class="n">folderName</span><span class="p">)</span>
+    <span class="c1">-- folderName = Genre</span>
+
+    <span class="kd">local</span> <span class="n">back</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">-- used to specify the list to return to when back button is selected.</span>
+    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">-- table of list items to return</span>
+    <span class="kd">local</span> <span class="n">isInFolder</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">IsEmpty</span><span class="p">(</span><span class="n">folderName</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">isInFolder</span><span class="p">)</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="n">folderName</span> <span class="o">==</span> <span class="s1">'rock'</span> <span class="ow">or</span> <span class="n">folderName</span> <span class="o">==</span> <span class="s1">'oldies'</span> <span class="ow">or</span> <span class="n">folderName</span> <span class="o">==</span> <span class="s1">'pop'</span> <span class="ow">or</span> <span class="n">folderName</span> <span class="o">==</span> <span class="s1">'country'</span> <span class="ow">or</span> <span class="n">folderName</span> <span class="o">==</span> <span class="s1">'jazz'</span> <span class="k">then</span>
+            <span class="n">FilterByGenre</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">folderName</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+            <span class="n">back</span> <span class="o">=</span> <span class="s2">""</span> <span class="c1">-- Back to the root folder</span>
+        <span class="k">else</span>
+            <span class="c1">-- if there is a sub folder</span>
+            <span class="kd">local</span> <span class="n">subFolderIndex</span> <span class="o">=</span> <span class="nb">string.find</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">subFolderIndex</span> <span class="o">~=</span> <span class="kc">nil</span> <span class="k">then</span>
+                <span class="n">back</span> <span class="o">=</span> <span class="nb">string.match</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="s2">"(.*)_"</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span> <span class="k">do</span>
+                    <span class="nb">table.insert</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">{</span> <span class="n">text</span> <span class="o">=</span> <span class="n">folderName</span> <span class="o">..</span> <span class="s2">" song "</span> <span class="o">..</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">value</span> <span class="o">=</span> <span class="s2">"song_"</span> <span class="o">..</span> <span class="n">folderName</span> <span class="o">..</span> <span class="s2">"_"</span> <span class="o">..</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">})</span>
+                <span class="k">end</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">else</span>
+        <span class="c1">-- at the root level</span>
+        <span class="n">InsertRootFolders</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">list</span><span class="p">,</span> <span class="n">back</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>The GetFolderList function is provided for the &quot;CUSTOM_SELECT Folder&quot; action to call when it needs the list of items available to select. The &quot;CUSTOM_SELECT Folder&quot; action example is a tree view control of folders that contain the different list of genres. There are no filtering capabilities with this action. Items will be listed based on the folderName. If empty the root list will be provided.  </p>
+
+<p><strong>Parameters</strong><br>
+folderName: The name of the folder you are in. This will be empty the first time. In this example folderName equals a genre.  </p>
+
+<p><strong>Return Values</strong><br>
+list: A list of items based on the folderName, if empty the root level is returned.<br>
+back: Name of the folder to return to when the back button is selected. If empty returns to the root level.</p>
+
+<p><strong>3. Handle the Action Command</strong></p>
+
+<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this action, we can update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+
+<p><em>Handling of <strong>CUSTOM_SELECT_Folder</strong> action in Execute Command</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+            <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Timer"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Timer Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">else</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p><strong> ExecuteCommand Parameters</strong><br>
+sCommand: Command sent to the driver. For actions, this will always be &quot;LUA_ACTION&quot;.<br>
+tParams: Table of parameter key/value pairs for the command.</p>
+
+<p><strong>Action Parameters</strong><br>
+ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Folder.<br>
+&quot;Select List Item”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+
+<h2 id='custom-select-implementation-custom_select-async-all'>CUSTOM_SELECT Async All</h2>
+
+<p>This example supports an Asynchronous call for the list of data found in the <code>g_tMusicGenre</code>. While our example uses static data, CUSTOM_SELECT Async All is useful for querying data from an online resource such as a music service.</p>
+
+<p><strong>1. Define the Action</strong></p>
+
+<p>The following xml defines the action for CUSTOM_SELECT Async All.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>~<span class="nt">&lt;action&gt;</span>~
+    <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT Async All<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_Async<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>5<span class="nt">&lt;/sort_order&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Select List Item<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetAsyncListAll<span class="nt">&lt;/type&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p>In the example above:
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command </a>= CUSTOM_SELECT_Async.<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetAsyncListAll.</p>
+
+<p><strong>2. Implement the Custom Select Function</strong></p>
+
+<p><em>Implementation of GetAsyncListAll()</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetAsyncListAll</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">ticketId</span> <span class="o">=</span> <span class="n">C4</span><span class="p">:</span><span class="n">urlGet</span><span class="p">(</span><span class="s2">"http://www.example.com"</span><span class="p">)</span>
+
+    <span class="c1">-- Add an entry to g_tickets to store the callback function and a variable myAction</span>
+    <span class="c1">-- so that the ReceivedAsync call will know what function issued the C4:urlGet command.</span>
+    <span class="n">g_tickets</span><span class="p">[</span><span class="n">ticketId</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">callbackFunction</span> <span class="o">=</span> <span class="n">callback</span><span class="p">,</span> <span class="n">myAction</span> <span class="o">=</span> <span class="s2">"GetAsyncListAll"</span> <span class="p">}</span>
+
+    <span class="c1">-- Do not return anything here, the ReceivedAsync callback function will be called</span>
+    <span class="c1">-- after the C4:urlGet function completes</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>GetAsyncListAll function is provided for the &quot;CUSTOM_SELECT Async All&quot; action to call when it needs the list of items available to select. The &quot;CUSTOM_SELECT Async All&quot; action example shows how to handle the list data if an asynchronous call is needed to return the list such as a C4:urlGet command. In this example we will be returning the full list. There are no filtering capabilities in this example.</p>
+
+<p><strong>3. Handle the Action Command</strong></p>
+
+<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this action, we can update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+
+<p><em>Handling of <strong>CUSTOM_SELECT_Async</strong> action in Execute Command</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+            <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Timer"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Timer Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">else</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p><strong> ExecuteCommand Parameters</strong><br>
+sCommand: Command sent to the driver. For actions, this will always be &quot;LUA_ACTION&quot;.<br>
+tParams: Table of parameter key/value pairs for the command.</p>
+
+<p><strong>Action Parameters</strong><br>
+ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Async.<br>
+&quot;Select List Item”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+
+<h3 id='custom-select-implementation-custom_select-async-all-additional-async-examples'>Additional Async Examples</h3>
+
+<p>The sample driver includes two additional examples that can be used to demonstrate support for asynchronous data requests:</p>
+
+<p><strong>GetAsyncListCountry</strong></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetAsyncListCountry</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">ticketId</span> <span class="o">=</span> <span class="n">C4</span><span class="p">:</span><span class="n">urlGet</span><span class="p">(</span><span class="s2">"http://www.example.com"</span><span class="p">)</span>
+
+    <span class="c1">-- Add an entry to g_tickets to store the callback function and a variable myAction</span>
+    <span class="c1">-- so that the ReceivedAsync call will know what function issued the C4:urlGet command.</span>
+    <span class="n">g_tickets</span><span class="p">[</span><span class="n">ticketId</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">callbackFunction</span> <span class="o">=</span> <span class="n">callback</span><span class="p">,</span> <span class="n">myAction</span> <span class="o">=</span> <span class="s2">"GetAsyncListCountry"</span> <span class="p">}</span>
+
+    <span class="c1">-- Do not return anything here, the ReceivedAsync callback function will be called</span>
+    <span class="c1">-- after the C4:urlGet function completes</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>GetAsyncListCountry function is provided for the &quot;CUSTOM_SELECT Async Country&quot; action to call when it needs the list of items available to select. The &quot;CUSTOM_SELECT Async Country&quot; action example shows how to handle the list data if an asynchronous call is needed to return the list such as a C4:urlGet command. This example returns only country songs. There are no filtering capabilities with this action.</p>
+
+<p><strong>GetAsyncTimer</strong></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetAsyncListTimer</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">timerId</span> <span class="o">=</span> <span class="n">C4</span><span class="p">:</span><span class="n">AddTimer</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"SECONDS"</span><span class="p">)</span>
+
+    <span class="c1">-- Add an entry to g_timers to store the callback function.</span>
+    <span class="n">g_timers</span><span class="p">[</span><span class="n">timerId</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">callbackFunction</span> <span class="o">=</span> <span class="n">callback</span> <span class="p">}</span>
+
+    <span class="c1">-- Do not return anything here, the OnTimerExpired function will be called</span>
+    <span class="c1">-- after the timer expires.</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>GetAsyncListTimer function is provided for the &quot;CUSTOM_SELECT Async Timer action to call. The &quot;CUSTOM_SELECT Async Timer action example uses a five second timer to demonstrate an asynchronous call. After five seconds expire, it returns a list of all of the entries in the <code>g_tMusicGenre</code> table.</p>
+
+<h2 id='custom-select-implementation-custom_select-all'>CUSTOM_SELECT All</h2>
+
+<p>This example demonstrates the implementation of several CUSTOM_SELECT features within one Action. It includes List, Search, Filter, Folder.</p>
+
+<p><strong>1. Define the Action</strong></p>
+
+<p>The following xml defines the action for CUSTOM_SELECT All.</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;action&gt;</span>
+    <span class="nt">&lt;name&gt;</span>CUSTOM_SELECT All<span class="nt">&lt;/name&gt;</span>
+    <span class="nt">&lt;command&gt;</span>CUSTOM_SELECT_All<span class="nt">&lt;/command&gt;</span>
+    <span class="nt">&lt;sort_order&gt;</span>8<span class="nt">&lt;/sort_order&gt;</span>
+    <span class="nt">&lt;params&gt;</span>
+        <span class="nt">&lt;param&gt;</span>
+            <span class="nt">&lt;name&gt;</span>Select List Item<span class="nt">&lt;/name&gt;</span>
+            <span class="nt">&lt;type&gt;</span>CUSTOM_SELECT:GetListAll<span class="nt">&lt;/type&gt;</span>
+            <span class="nt">&lt;search&gt;</span>
+                <span class="nt">&lt;filters&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"all"</span><span class="nt">&gt;</span>All<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"50s"</span><span class="nt">&gt;</span>50s<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"60s"</span><span class="nt">&gt;</span>60s<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"70s"</span><span class="nt">&gt;</span>70s<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"80s"</span><span class="nt">&gt;</span>80s<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"90s"</span><span class="nt">&gt;</span>90s<span class="nt">&lt;/filter&gt;</span>
+                    <span class="nt">&lt;filter</span> <span class="na">name=</span><span class="s">"2k"</span><span class="nt">&gt;</span>90s<span class="nt">&lt;/filter&gt;</span>
+                <span class="nt">&lt;/filters&gt;</span>
+            <span class="nt">&lt;/search&gt;</span>
+        <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/params&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre></div>
+
+<p>In the example above:<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command </a>= CUSTOM_SELECT_All.<br>
+The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetListAll.</p>
+
+<p><strong>2. Implement the Custom Select Function</strong></p>
+
+<p><em>Implementation of GetListAll()</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetListAll</span><span class="p">(</span><span class="n">folderName</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">searchText</span><span class="p">,</span> <span class="n">filter</span><span class="p">)</span>
+    <span class="c1">-- folderName = Genre</span>
+    <span class="c1">-- filter = period</span>
+
+    <span class="kd">local</span> <span class="n">back</span> <span class="o">=</span> <span class="kc">nil</span> <span class="c1">-- used to specify the list to return to when back button is selected.</span>
+    <span class="kd">local</span> <span class="n">list</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1">-- table of list items to return</span>
+
+    <span class="kd">local</span> <span class="n">isInFolder</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">IsEmpty</span><span class="p">(</span><span class="n">folderName</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">hasSearch</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">IsEmpty</span><span class="p">(</span><span class="n">searchText</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">hasFilter</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span><span class="n">IsEmpty</span><span class="p">(</span><span class="n">filter</span><span class="p">)</span> <span class="ow">or</span> <span class="n">filter</span> <span class="o">==</span> <span class="s2">"all"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">isInFolder</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- at the root level and no filtering, show all folders and items</span>
+        <span class="n">InsertRootFolders</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+        <span class="n">InsertAll</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">isInFolder</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- filter by Genre</span>
+        <span class="n">back</span> <span class="o">=</span> <span class="s2">""</span> <span class="c1">-- Back to the root folder</span>
+        <span class="n">FilterByGenre</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">folderName</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">isInFolder</span> <span class="ow">and</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- search text only</span>
+        <span class="n">FilterText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">isInFolder</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- filter only</span>
+        <span class="n">FilterByPeriod</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">filter</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">isInFolder</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">back</span> <span class="o">=</span> <span class="s2">""</span> <span class="c1">-- Back to the root folder</span>
+        <span class="n">FilterGenrePeriod</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">folderName</span><span class="p">,</span> <span class="n">filter</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">isInFolder</span> <span class="ow">and</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">back</span> <span class="o">=</span> <span class="s2">""</span> <span class="c1">-- Back to the root folder</span>
+        <span class="n">FilterGenreText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">folderName</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">isInFolder</span> <span class="ow">and</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">FilterPeriodText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">filter</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">isInFolder</span> <span class="ow">and</span> <span class="n">hasSearch</span> <span class="ow">and</span> <span class="n">hasFilter</span><span class="p">)</span> <span class="k">then</span>
+        <span class="n">back</span> <span class="o">=</span> <span class="s2">""</span> <span class="c1">-- Back to the root folder</span>
+        <span class="n">FilterGenrePeriodText</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">folderName</span><span class="p">,</span> <span class="n">filter</span><span class="p">,</span> <span class="n">searchText</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">return</span> <span class="n">list</span><span class="p">,</span> <span class="n">back</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>The GetListAll function is provided for the &quot;CUSTOM_SELECT All&quot; action to call when it needs the list of items available to select. The &quot;CUSTOM_SELECT All&quot; action example combines all the features except the asynchronous examples into a single action.</p>
+
+<p><strong>3. Handle the Action Command</strong></p>
+
+<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this action, we can update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+
+<p><em>Handling of <strong>CUSTOM_SELECT_All</strong> action in Execute Command</em></p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">ExecuteCommand</span><span class="p">(</span><span class="n">sCommand</span><span class="p">,</span> <span class="n">tParams</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">selectedItem</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">if</span> <span class="n">sCommand</span> <span class="o">==</span> <span class="s2">"LUA_ACTION"</span> <span class="k">then</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tParams</span> <span class="o">~=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">then</span>
+            <span class="kd">local</span> <span class="n">action</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"ACTION"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_List"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action List Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Search"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Search Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Filter"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select Channel"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Filter Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Folder"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Folder Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Async_Country"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async2 Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_All"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action All Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">elseif</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">"CUSTOM_SELECT_Timer"</span> <span class="k">then</span>
+                <span class="n">selectedItem</span> <span class="o">=</span> <span class="n">tParams</span><span class="p">[</span><span class="s2">"Select List Item"</span><span class="p">]</span>
+                <span class="n">C4</span><span class="p">:</span><span class="n">UpdateProperty</span><span class="p">(</span><span class="s2">"CUSTOM_SELECT Action Async Timer Result"</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">selectedItem</span><span class="p">))</span>
+            <span class="k">else</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">"Action not found: "</span> <span class="o">..</span> <span class="n">action</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p><strong> ExecuteCommand Parameters</strong><br>
+sCommand: Command sent to the driver. For actions, this will always be &quot;LUA_ACTION&quot;.<br>
+tParams: Table of parameter key/value pairs for the command.</p>
+
+<p><strong>Action Parameters</strong><br>
+ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_All.<br>
+&quot;Select List Item”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
 <h1 id='events'>Events</h1>
 
 <h2 id='events-history-event-notifications'>History Event Notifications</h2>
