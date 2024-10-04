@@ -3447,7 +3447,7 @@ and
 <li>OK button which executes the ExecuteCommand Lua function.</li>
 </ol>
 
-<p><img src="images/csimage100.png"/></p>
+<p><img src="images/csimage100-bd62bafb.png"/></p>
 
 <h3 id='custom-select-implementation-favored-and-blocked-av-connection-classes-how-actions-work-in-your-driver'>How Actions work in Your Driver</h3>
 
@@ -3753,15 +3753,15 @@ text
 
 <p>The documentation that follows contains information on implementing CUSTOM\SELECT features including:</p>
 
-<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-list">List</a></strong></p>
+<p><strong><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-list">List</a></strong></p>
 
-<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-search">Search</a></strong></p>
+<p><strong><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-search">Search</a></strong></p>
 
-<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-filter">Filter</a></strong></p>
+<p><strong><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-filter">Filter</a></strong></p>
 
-<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-folder">Folder</a></strong></p>
+<p><strong><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-folder">Folder</a></strong></p>
 
-<p><strong><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-async">Asynch</a></strong></p>
+<p><strong><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-async-all">Asynch</a></strong></p>
 
 <p>All of the supporting code for these features are provided in the sample_custom_select.c4z driver.</p>
 
@@ -3880,8 +3880,8 @@ ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce
 
 <p>In the example above:</p>
 
-<p>The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Search.<br>
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetSearchList.<br>
+<p>The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Search.<br>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function">Custom Select Function</a> = GetSearchList.<br>
 The &lt;search /&gt; tag enables the search box in the <code>Select</code> diablog.</p>
 
 <p><strong>2. Implement the Custom Select Function</strong></p>
@@ -3905,7 +3905,7 @@ The &lt;search /&gt; tag enables the search box in the <code>Select</code> diabl
 
 <p><strong>3. Handle the Action Command</strong></p>
 
-<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">action command</a>, we update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
+<p>All driver commands are handled in the ExecuteCommand function. To illustrate the handling of this <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">action command</a>, we update the &quot;CUSTOM_SELECT Action Search Result&quot; property in the driver with the result of the action. Simply replace that code with whatever action is required for your driver’s needs.</p>
 
 <p><em>Handling of <strong>CUSTOM_SELECT_Search</strong> action in Execute Command</em></p>
 
@@ -3951,8 +3951,8 @@ sCommand: Command sent to the driver. For actions, this will always be &quot;LUA
 tParams: Table of parameter key/value pairs for the command.</p>
 
 <p><strong>Action Parameters</strong><br>
-ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Search.<br>
-&quot;Select List Item&quot;: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+ACTION: The value of this item is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Search.<br>
+&quot;Select List Item&quot;: This parameter is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
 
 <h2 id='custom-select-implementation-custom_select-filter'>CUSTOM_SELECT Filter</h2>
 
@@ -3986,8 +3986,8 @@ ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce
 </code></pre></div>
 
 <p>In the example above:
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Filter.<br>
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetFilterList.</p>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Filter.<br>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function">Custom Select Function</a> = GetFilterList.</p>
 
 <p><strong>2. Implement the Custom Select Function</strong></p>
 
@@ -4064,8 +4064,8 @@ sCommand: Command sent to the driver. For actions, this will always be &quot;LUA
 tParams: Table of parameter key/value pairs for the command.</p>
 
 <p><strong>Action Parameters</strong><br>
-ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Filter.<br>
-&quot;Select Channel”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+ACTION: The value of this item is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Filter.<br>
+&quot;Select Channel”: This parameter is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
 
 <h2 id='custom-select-implementation-custom_select-folder'>CUSTOM_SELECT Folder</h2>
 
@@ -4089,8 +4089,8 @@ ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce
 </code></pre></div>
 
 <p>In the example above:
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Folder.<br>
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetFolderList.</p>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a> = CUSTOM_SELECT_Folder.<br>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function">Custom Select Function</a> = GetFolderList.</p>
 
 <p><strong>2. Implement the Custom Select Function</strong></p>
 
@@ -4184,8 +4184,8 @@ sCommand: Command sent to the driver. For actions, this will always be &quot;LUA
 tParams: Table of parameter key/value pairs for the command.</p>
 
 <p><strong>Action Parameters</strong><br>
-ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Folder.<br>
-&quot;Select List Item”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+ACTION: The value of this item is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Folder.<br>
+&quot;Select List Item”: This parameter is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
 
 <h2 id='custom-select-implementation-custom_select-async-all'>CUSTOM_SELECT Async All</h2>
 
@@ -4209,8 +4209,8 @@ ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce
 </code></pre></div>
 
 <p>In the example above:
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command </a>= CUSTOM_SELECT_Async.<br>
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetAsyncListAll.</p>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command </a>= CUSTOM_SELECT_Async.<br>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function">Custom Select Function</a> = GetAsyncListAll.</p>
 
 <p><strong>2. Implement the Custom Select Function</strong></p>
 
@@ -4279,8 +4279,8 @@ sCommand: Command sent to the driver. For actions, this will always be &quot;LUA
 tParams: Table of parameter key/value pairs for the command.</p>
 
 <p><strong>Action Parameters</strong><br>
-ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Async.<br>
-&quot;Select List Item”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+ACTION: The value of this item is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_Async.<br>
+&quot;Select List Item”: This parameter is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
 
 <h3 id='custom-select-implementation-custom_select-async-all-additional-async-examples'>Additional Async Examples</h3>
 
@@ -4350,8 +4350,8 @@ ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce
 </code></pre></div>
 
 <p>In the example above:<br>
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command </a>= CUSTOM_SELECT_All.<br>
-The <a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function">Custom Select Function</a> = GetListAll.</p>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command </a>= CUSTOM_SELECT_All.<br>
+The <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function">Custom Select Function</a> = GetListAll.</p>
 
 <p><strong>2. Implement the Custom Select Function</strong></p>
 
@@ -4450,8 +4450,8 @@ sCommand: Command sent to the driver. For actions, this will always be &quot;LUA
 tParams: Table of parameter key/value pairs for the command.</p>
 
 <p><strong>Action Parameters</strong><br>
-ACTION: The value of this item is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_All.<br>
-&quot;Select List Item”: This parameter is the <em><a href="https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
+ACTION: The value of this item is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Action Command</a></em> of the action executed. In this case it will be CUSTOM_SELECT_All.<br>
+&quot;Select List Item”: This parameter is the <em><a href="https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options">Parameter Name</a></em> as defined in the xml. Its value is the value returned from the action.</p>
 <h1 id='events'>Events</h1>
 
 <h2 id='events-history-event-notifications'>History Event Notifications</h2>
