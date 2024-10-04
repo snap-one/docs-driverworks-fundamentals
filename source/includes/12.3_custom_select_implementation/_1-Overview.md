@@ -344,8 +344,8 @@ The documentation that follows contains information on implementing CUSTOM\SELEC
 All of the supporting code for these features are provided in the sample\_custom\_select.c4z driver.
 
 [1]:	https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers
-[2]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-list
-[3]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-search
-[4]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-filter
-[5]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-folder
-[6]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-property-implementation-common-directories-custom_select-async
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-list
+[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-search
+[4]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-filter
+[5]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-folder
+[6]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-custom_select-async-all

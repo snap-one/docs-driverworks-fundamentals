@@ -136,7 +136,7 @@ end
 
 GetAsyncListTimer function is provided for the "CUSTOM\_SELECT Async Timer action to call. The "CUSTOM\_SELECT Async Timer action example uses a five second timer to demonstrate an asynchronous call. After five seconds expire, it returns a list of all of the entries in the `g_tMusicGenre` table.
 
-[1]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options
-[2]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-custom-select-function
-[3]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options
-[4]:	https://legendary-disco-58bce7a4.pages.github.io/#custom-select-implementation-common-directories-action-configuration-options
+[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options
+[2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-custom-select-function
+[3]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options
+[4]:	https://snap-one.github.io/docs-driverworks-fundamentals/#custom-select-implementation-favored-and-blocked-av-connection-classes-action-configuration-options
