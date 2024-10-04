@@ -33,6 +33,7 @@ Throughout this documentation we’ll refer to several Composer Pro UI construct
 4. Filter drop down box that displays the static filters defined in the driver’s XML.
 5. OK button which executes the ExecuteCommand Lua function.
 
+
 <img src="images/csimage100.png"/>
 
 
