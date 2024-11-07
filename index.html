@@ -406,9 +406,6 @@
                     <a href="#understanding-c4z-drivers-squishlua-and-driver-encryption" class="toc-h2 toc-link" data-title="SquishLua and Driver Encryption">SquishLua and Driver Encryption</a>
                   </li>
                   <li>
-                    <a href="#understanding-c4z-drivers-replacing-a-c4i-file-with-c4z" class="toc-h2 toc-link" data-title="Replacing a .c4i file with .c4z">Replacing a .c4i file with .c4z</a>
-                  </li>
-                  <li>
                     <a href="#understanding-c4z-drivers-what-is-a-c4zproj-file" class="toc-h2 toc-link" data-title="What is a .c4zproj File">What is a .c4zproj File</a>
                   </li>
               </ul>
@@ -1331,17 +1328,6 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 <p>For more information please see: <a href="https://github.com/control4/drivers-driverpackager">https://github.com/control4/drivers-driverpackager</a></p>
 
 <p>For more information regarding luajit, please see: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit">https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
-
-<h2 id='understanding-c4z-drivers-replacing-a-c4i-file-with-c4z'>Replacing a .c4i file with .c4z</h2>
-
-<p>An XML element has been included to support the replacement of an existing driver.c4i file with a new driver.c4z. An example of the &lt;replaces&gt; element is to the right:</p>
-
-<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;replaces&gt;</span>
-   <span class="nt">&lt;replace&gt;</span>driver.c4i<span class="nt">&lt;/replace&gt;</span>
-<span class="nt">&lt;/replaces&gt;</span>
-</code></pre></div>
-
-<p>This element is included in the .c4z driver.xml file. It is optional and if used, requires at least one instance of replace containing the .c4i file name. Once the .c4z is loaded, Director will remove the .c4i file from the project. Note that the .c4i file is also removed from the local driver database of Composer Pro. This occurs without warning. The .c4i file is then marked as &quot;Obsolete&quot; upon driver searches. Obsolete drivers cannot be loaded into a project.</p>
 
 <h2 id='understanding-c4z-drivers-what-is-a-c4zproj-file'>What is a .c4zproj File</h2>
 
