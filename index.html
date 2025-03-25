@@ -7463,7 +7463,7 @@ It is strongly recommended to hide rather than remove objects that will be tempo
 <p>Why does Director now need to manage two different values for location? Historically, Director has always stored the project location. The project location value is used for such things as computing sunrise/sunset times and determining the radio power level for ZigBee devices. However, inadequacies arise when trying to use the project location value to determine radio power levels, particularly for WiFi levels. These inadequacies are largely due to new regulations. These regulations require that the location be determined with a high degree of certainty. As such, Director can no longer rely on the project location value because a dealer may inadvertently set the wrong location or purposefully enter inaccurate location information. </p>
 
 <p>In order to comply with regulations, Control4 has implemented a new service that returns the geo location. This location is retrieved from a web service and is based on the IP address. This web service returns the country code and name, and does so with a high degree of certainty. For more information, please see the <a href="https://snap-one.github.io/docs-driverworks-api/#geolocation-interface-getgeosettings">GetGeoSettings</a> API.</p>
-<h4 id='api-specific-information-director-s-geolocation-service-configuring-wi-fi-with-director-s-geolocation-services-director-geo-location-service'>Director Geo Location Service</h4>
+<h3 id='api-specific-information-director-s-geolocation-service-director-geo-location-service'>Director Geo Location Service</h3>
 <p>After Director has loaded the project and finished initializing drivers, it schedules an initial call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-initial-interval-seconds</code></p>
 
 <p>This configuration setting specifies the number of seconds that Director should wait before making the initial call to the geo location webservice. The default value is 5 seconds.</p>
@@ -8646,17 +8646,17 @@ It is strongly recommended to hide rather than remove objects that will be tempo
 
 <p>There are multiple instances of when a driver is loaded. Driver initialization occurs under the following conditions:</p>
 
-<h4 id='api-specific-information-driver-initialization-and-destruction-configuring-wi-fi-with-director-s-geolocation-services-when-adriver-is-added-to-project'>When aDriver is Added to Project</h4>
+<h4 id='api-specific-information-driver-initialization-and-destruction-director-geo-location-service-when-adriver-is-added-to-project'>When aDriver is Added to Project</h4>
 
 <p>When a driver is added to a project, OnDriverInit will be called followed by a call to OnDriverLateInit.</p>
 
-<h4 id='api-specific-information-driver-initialization-and-destruction-configuring-wi-fi-with-director-s-geolocation-services-upon-project-load'>Upon Project Load </h4>
+<h4 id='api-specific-information-driver-initialization-and-destruction-director-geo-location-service-upon-project-load'>Upon Project Load </h4>
 
 <p>When a project is loaded, either when director starts up or a new project is loaded, the following occurs:
 1. As each driver is loaded, the OnDriverInit function is called.
 2. After all the drivers in the project have been loaded, then OnDriverLateInit is called for all the drivers in the project. This ensures that all the driver’s bindings and initialization is complete. Any initialization that requires that all the bindings be bound, or other driver initialization is complete should be done in OnDriverLateInit.</p>
 
-<h4 id='api-specific-information-driver-initialization-and-destruction-configuring-wi-fi-with-director-s-geolocation-services-upon-driver-update'>Upon Driver Update</h4>
+<h4 id='api-specific-information-driver-initialization-and-destruction-director-geo-location-service-upon-driver-update'>Upon Driver Update</h4>
 
 <p>When a driver is being updated, prior to the driver being reloaded, OnDriverDestroyed will be called. This will allow the driver to do any necessary cleanup prior to the driver being reloaded. When the driver is reloaded, OnDriverInit will be called followed by a call to OnDriverLateInit.</p>
 
