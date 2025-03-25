@@ -1,7 +1,6 @@
 
 ## What’s New in 4.0.0
 
-**Beta Documentation:** The content included in this documentation associated with the release of Operating System 4.0.0 is in a beta state. This content may be incomplete, modified or removed prior to the production release of O.S. 4.0.0.
 
 ### Proxy Specific Updates
 
