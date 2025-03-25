@@ -28,5 +28,5 @@ Original support for camera drivers that do not support dynamic presets involves
 
 In the example above, the number\_presets capability has a value of 8.
 
-[1]:	https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-capabilities-has_dynamic_presets
-[2]:	https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-capabilities-number_presets
+[1]:	https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-capabilities-has_dynamic_presets
+[2]:	https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-capabilities-number_presets
