@@ -810,6 +810,23 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#api-specific-information" class="toc-h1 toc-link" data-title="API Specific Information">API Specific Information</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#api-specific-information-director-s-geolocation-service" class="toc-h2 toc-link" data-title="Director’s Geolocation Service">Director’s Geolocation Service</a>
+                  </li>
+                  <li>
+                    <a href="#api-specific-information-safe-usage-of-ondriverinit-and-ondriverlateinit" class="toc-h2 toc-link" data-title="Safe Usage of OnDriverInit and OnDriverLateInit">Safe Usage of OnDriverInit and OnDriverLateInit</a>
+                  </li>
+                  <li>
+                    <a href="#api-specific-information-driver-initialization-and-destruction" class="toc-h2 toc-link" data-title="Driver Initialization and Destruction">Driver Initialization and Destruction</a>
+                  </li>
+                  <li>
+                    <a href="#api-specific-information-driverworks-and-zigbee-functionality" class="toc-h2 toc-link" data-title="DriverWorks and Zigbee Functionality">DriverWorks and Zigbee Functionality</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://snap-one.github.io/docs-driverworks-introduction/'>An Introduction to DriverWorks</a></li>
@@ -7434,6 +7451,1299 @@ It is strongly recommended to hide rather than remove objects that will be tempo
 <p>There are no restrictions imposed regarding sensor types when zone information is sent to the security proxy and functionality is not impacted based on the sensor type defined. The sensor type value only dictates which icons are displayed on Navigators and within ComposerPro.</p>
 
 <p>For additional Information, please see the <a href="https://super-bassoon-22j7m8r.pages.github.io/#introduction">DriverWorks Proxy and Protocol Guide</a> regarding all of the functions supported by the Security Proxy.</p>
+<h1 id='api-specific-information'>API Specific Information</h1>
+
+<p>The following section is intended to supplement the existing API information found on the DriverWorks homepage. It contains information that falls outside of the scope of the <a href="https://snap-one.github.io/docs-driverworks-api/#introduction">API Reference Guide</a> which includes supported API functions and their parameters. </p>
+
+<h2 id='api-specific-information-director-s-geolocation-service'>Director’s Geolocation Service</h2><h3 id='api-specific-information-director-s-geolocation-service-configuring-wi-fi-with-director-s-geolocation-services'>Configuring Wi-Fi with Director’s Geolocation  Services</h3>
+<p>Director maintains two different values for location. The first is the project location which is set by the dealer. This value is maintained by the project and is stored in the project database. </p>
+
+<p>The second is the geo location. This value is retrieved from web services. </p>
+
+<p>Why does Director now need to manage two different values for location? Historically, Director has always stored the project location. The project location value is used for such things as computing sunrise/sunset times and determining the radio power level for ZigBee devices. However, inadequacies arise when trying to use the project location value to determine radio power levels, particularly for WiFi levels. These inadequacies are largely due to new regulations. These regulations require that the location be determined with a high degree of certainty. As such, Director can no longer rely on the project location value because a dealer may inadvertently set the wrong location or purposefully enter inaccurate location information. </p>
+
+<p>In order to comply with regulations, Control4 has implemented a new service that returns the geo location. This location is retrieved from a web service and is based on the IP address. This web service returns the country code and name, and does so with a high degree of certainty. For more information, please see the <a href="https://snap-one.github.io/docs-driverworks-api/#geolocation-interface-getgeosettings">GetGeoSettings</a> API.</p>
+<h4 id='api-specific-information-director-s-geolocation-service-configuring-wi-fi-with-director-s-geolocation-services-director-geo-location-service'>Director Geo Location Service</h4>
+<p>After Director has loaded the project and finished initializing drivers, it schedules an initial call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-initial-interval-seconds</code></p>
+
+<p>This configuration setting specifies the number of seconds that Director should wait before making the initial call to the geo location webservice. The default value is 5 seconds.</p>
+
+<p>When the timer fires Director invokes the geo location webservice. The endpoint for this webservice is retrieved from the registry using the following key: <code>geolocation.service_url</code></p>
+
+<p>The default URL for the geo location webservice (stored in the registry) is as follows:</p>
+
+<p><code>https://apiz.control4.com/cs/geolocation/v1/location</code></p>
+
+<p>On success, Director retrieves the country code and name from the response and stores them. Regardless of success or failure, Director then schedules another call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-interval-minutes</code></p>
+
+<p>This configuration setting specifies the number of minutes until the next call to the geo location webservice. The default value is 60 minutes resulting in Director invoking the geo location webservice every hour, by default.</p>
+
+<h2 id='api-specific-information-safe-usage-of-ondriverinit-and-ondriverlateinit'>Safe Usage of OnDriverInit and OnDriverLateInit</h2>
+
+<p>As best practice, Control4 recommends invoking certain API functions prior to <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-ondriverlateinit">OnDriverLateInit</a>. The table below identifies functions that can safely be invoked during driver initialization through <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-ondriverinit">OnDriverInit</a> with a designation of &quot;YES&quot;. Some API functions have significant performance impacts to Director during startup or have been proven to produce non-deterministic results when invoked in <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-ondriverinit">OnDriverInit</a>. The APIs are identified in the table below with a designation of &quot;NO&quot;.</p>
+
+<table><thead>
+<tr>
+<th><strong>API</strong></th>
+<th><strong>Invoke Before OnDriverLateInit </strong></th>
+<th><strong>Notes</strong></th>
+<th style="text-align: left"></th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AddDynamicBinding</td>
+<td>Warning</td>
+<td>No Events will be sent prior to OnDriverlateInit. If an Event is required, this must be invoked in OnDriverLateInit</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>AddEvent</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>AddTimer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>AddVariable</td>
+<td>YES</td>
+<td>Note that Variables need to be added in OnDriverInit. Programming attached to variables added after OnDriverInit may not work properly on Director restart.</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>AllowExecute</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Attach</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Base64Decode</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Base64Encode</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>blowfishEcbdecrypt</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>blowfishECbEncrypt</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>CallAsync</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>CheckLicense</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Close</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Connect</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>CreateNetworkConnection</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>CreateServer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>CreateTCPClient</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>CreateTCPServer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>DebugLog</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Decode</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Decrypt</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>DeleteEvent</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>DeleteVariable</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>DestroyServer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>DisbableRemoteDebugging</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>EnableRemoteDebugging</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Encode</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Encrypt</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ErrorLog</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ExecuteCommand</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileClose</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileDelete</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileExists</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileFreeSpace</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileGetName</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileGetOpenedHandles</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileGetPos</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileGetSize</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileIsValid</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileList</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileOpen</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileRead</td>
+<td>Yes</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileSetPos</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileWrite</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FileWriteString</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FireEvent</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>FireEventByID</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetBindingAddress</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetBlobByName</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetBoundConsumerDevices</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetBoundProviderDevice</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetCapability</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetControllerNetworkAddress</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDeviceDisplayName</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDeviceID</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDevicesByC4iName</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDevicesByName</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDeviceVariable</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDeviceVariables</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetDriverConfigInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetLocalAddress</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetLocale</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetMyNetworkAddress</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetPrivateKeyPassword</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetProjectItems</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetProxyDevices</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetProxyDevicesbyID</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetProxyDevicesByName</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetPushSettings</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetRemoteAddress</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetSerialSettings</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetSupportedCiphers</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetSupportedDigests</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetText</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetUniqueMAC</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetVariable</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetVersionInfo</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>GetZigbeeEUID</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>hexdump(strdump)</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>HMAC</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>hton\_1</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>InvalidateState</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>JSON:decode</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>JSON:encode</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>KeepReflashLock</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>KillTimer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Listen</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListEvent</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListGetDeviceContainer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListGetDeviceName</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListGetItems</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListGetRoomID NO</td>
+<td></td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListGetSelectedDevice</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListGoToRoot</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListIsInNavigation</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListIsStarted</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListMIBReceived NO</td>
+<td></td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListNewControl</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListNewList</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListSendCommand</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListSetCapabilities</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListStart</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ListStop</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaAddAlbumInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaAddBroadcastAudioInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaAddMovieInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetAlbumInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetAlbumLocation</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetAllAlbums</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetAllBroadcastAudio</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetAllMovies</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetAllBroadcastAudioInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetDeviceContext</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetMovieInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetMovieLocation</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetSongInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetSongLocation</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaGetSongsforAlbum</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaLinkSongToAlbum</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaModifyAlbumInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaModifyMovieInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaModifySongInfo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveAlbum</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveAllAlbums</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveAllMedia</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveBroadcastAudio</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveMovie</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveSong</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaRemoveAllMovies</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>MediaSetDeviceContent</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>NetConnect</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>NetDisconnect</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>NetPortOptions</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Option</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ParseIso8601DateTime</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ParseXml</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>PBKDF2</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>Print</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReadAtLeast</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReadUntil</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReadUntilOneOf</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReadUpTo</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReceivedAsync</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReceivedFromNetwork</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReceivedFromProxy</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReceivedFromSerial</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>RegisterVariableListewner</td>
+<td>WARNING</td>
+<td>Does not work if variable does not exist.</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReleaseReflashLock</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>RemoveDynamicBinding</td>
+<td>WARNING</td>
+<td>No Events will be sent prior to OnDriverlateInit. If an Event is required, this must be invoked in OnDriverLateInit.</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>RenameDevice</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>RequestReflashLock</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>RoomGetId</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>RoomSelectNav</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ReadUntilOneNotOf</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendDataToUI</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendIR</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendIRStart</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendIRStop</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendToDevice</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendToNetwork</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendToProxy</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendToSerial</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SendZigbeePacket</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ServerCloseClient</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>ServerSend</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SetBindingAddress</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SetDeviceVariable</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SetPropertyAttribs</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SetTimer</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>SetVariable</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>TEADecrypt</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>TEAEncrypt</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>tohex</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>tonumber\_loc</td>
+<td>YES</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>UnRegisterVariableListener</td>
+<td>WARNING</td>
+<td>Does not work if variable has not been registered, added or does not exist.</td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>UpdateProperty</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>UpdatePropertyList</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlCancel</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlCancelAll</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlCustom</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlDelete</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlGet</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlGetOption</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlGetTickets</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlPost</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlPut</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlSetOption</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlSetProxy</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>urlSetTimeout</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+<tr>
+<td>XmlEscapeString</td>
+<td>NO</td>
+<td></td>
+<td style="text-align: left"></td>
+</tr>
+</tbody></table>
+
+<h2 id='api-specific-information-driver-initialization-and-destruction'>Driver Initialization and Destruction</h2>
+
+<p>When a driver is loaded, there are two initialization functions that are called if those functions exist in the driver. They are OnDriverInit and OnDriverLateInit. When a driver is being removed, updated or otherwise removed from memory, OnDriverDestroyed will be called if that function has been implemented within the driver.</p>
+
+<p>Your driver will need to implement these functions in order to complete its initialization process successfully. It’s important to know when these functions are called in order to know how to properly initialize a driver.</p>
+
+<p>There are multiple instances of when a driver is loaded. Driver initialization occurs under the following conditions:</p>
+
+<h4 id='api-specific-information-driver-initialization-and-destruction-configuring-wi-fi-with-director-s-geolocation-services-when-adriver-is-added-to-project'>When aDriver is Added to Project</h4>
+
+<p>When a driver is added to a project, OnDriverInit will be called followed by a call to OnDriverLateInit.</p>
+
+<h4 id='api-specific-information-driver-initialization-and-destruction-configuring-wi-fi-with-director-s-geolocation-services-upon-project-load'>Upon Project Load </h4>
+
+<p>When a project is loaded, either when director starts up or a new project is loaded, the following occurs:
+1. As each driver is loaded, the OnDriverInit function is called.
+2. After all the drivers in the project have been loaded, then OnDriverLateInit is called for all the drivers in the project. This ensures that all the driver’s bindings and initialization is complete. Any initialization that requires that all the bindings be bound, or other driver initialization is complete should be done in OnDriverLateInit.</p>
+
+<h4 id='api-specific-information-driver-initialization-and-destruction-configuring-wi-fi-with-director-s-geolocation-services-upon-driver-update'>Upon Driver Update</h4>
+
+<p>When a driver is being updated, prior to the driver being reloaded, OnDriverDestroyed will be called. This will allow the driver to do any necessary cleanup prior to the driver being reloaded. When the driver is reloaded, OnDriverInit will be called followed by a call to OnDriverLateInit.</p>
+
+<p>There may be instances when a driver needs to know under what condition or event caused the Initialization or Destroyed functions to be called. OS Release 3.2.0 introduced a new string parameter to these functions to identify the reason for the call. This parameter, driverInitType (DIT) provides this information.</p>
+
+<p>OnDriverInit and OnDriverLateInit valid values for this parameter are as follows:</p>
+
+<ul>
+<li><code>DIT_ADDING</code>: When a driver is being added.</li>
+<li><code>DIT_STARTUP</code>: When a project is being loaded.</li>
+<li><code>DIT_UPDATING</code>: When a driver is being updated.</li>
+</ul>
+
+<p>OnDriverDestroyed valid values are as follows:</p>
+
+<ul>
+<li><code>DIT_LOADED</code>: When the driver is being removed or director is being shut down.</li>
+<li><code>DIT_UPDATING</code>: When a driver is being updated.</li>
+</ul>
+
+<h3 id='api-specific-information-driver-initialization-and-destruction-example'>Example</h3><div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">OnDriverInit</span><span class="p">(</span><span class="n">driverInitType</span><span class="p">)</span>
+
+    <span class="c1">-- Fire On Property Changed to set the initial Headers and other</span>
+    <span class="c1">-- Property global sets, they'll change if Property is changed.</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">Properties</span><span class="p">)</span> <span class="k">do</span>
+       <span class="n">OnPropertyChanged</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">C4</span><span class="p">:</span><span class="n">AddVariable</span><span class="p">(</span><span class="s2">"LIGHT_LEVEL"</span><span class="p">,</span> <span class="s2">"0"</span><span class="p">,</span> <span class="s2">"INT"</span><span class="p">)</span>
+    <span class="n">C4</span><span class="p">:</span><span class="n">AddVariable</span><span class="p">(</span><span class="s2">"FIRMWARE_VERSION"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"STRING"</span><span class="p">)</span>
+    <span class="n">C4</span><span class="p">:</span><span class="n">AddVariable</span><span class="p">(</span><span class="s2">"EMERGENCY_MODE"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"BOOL"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">driverInitType</span> <span class="o">==</span> <span class="s2">"DIT_ADDING"</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- Initialization needed only when the driver is added</span>
+        <span class="c1">-- to a project</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">driverInitType</span> <span class="o">==</span> <span class="s2">"DIT_STARTUP"</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- Initialization needed only during initial startup</span>
+    <span class="k">elseif</span> <span class="p">(</span><span class="n">driverInitType</span> <span class="o">==</span> <span class="s2">"DIT_UPDATING"</span><span class="p">)</span> <span class="k">then</span>
+        <span class="c1">-- Initialization needed only after a driver update</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<h2 id='api-specific-information-driverworks-and-zigbee-functionality'>DriverWorks and Zigbee Functionality</h2>
+<p>DriverWorks support for Zigbee functionality was originally delivered in release 1.6.1. This section has been included to provide information to Control 4 partners already using the Zigbee SDK. This information will support the development of DriverWorks Zigbee functionality so that partners using the Zigbee SDK can integrate into the Control 4 system.</p>
+
+<p>Functionality provided in support of Zigbee functionality currently includes:</p>
+
+<ul>
+<li><p>Allowing DriverWorks driver developers to send data to and receive data from ZigBee devices using either EmberNet or ZigBee Pro</p></li>
+<li><p>Allow ZigBee SDK developers the ability to update their ZigBee devices using DriverWorks.</p></li>
+<li><p>Allow ZigBee SDK developers the ability to utilize the Control4 identification mechanism, but define their own ID strings.</p></li>
+</ul>
+
+<p>For detailed information regarding supported Zigbee specific APIs, please see the <a href="https://snap-one.github.io/docs-driverworks-api/#zigbee-interface">Zigbee Interface</a> documentation.</p>
+<h3 id='api-specific-information-driverworks-and-zigbee-functionality-updating-zigbee-device-firmware-using-driverworks'>Updating Zigbee Device firmware Using DriverWorks</h3>
+
+<p><em>Note: The following is applicable to operating systems 3.3.1 and earlier. 3.3.2 and later support the use of <a href="https://snap-one.github.io/docs-driverworks-api/#zigbee-interface-zigbee-ota-device-updates">over the air device updates</a>.</em></p>
+
+<p>The ability to use DriverWorks drivers to update firmware on ZigBee devices has been implemented using two features:</p>
+
+<ol>
+<li>Support of encoded BLOB data (firmware) within the driver file</li>
+<li>Functions to handle device requests and delivery of the firmware data.</li>
+</ol>
+
+<p><strong>Encoded BLOB Data in the Driver File </strong></p>
+
+<p>DriverWorks supports the ability to store binary firmware data within the driver file. This data must be Base64 encoded. The encoded firmware data string information should reside at the beginning of the driver file as seen in the example to the right:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;devicedata&gt;</span>
+ <span class="nt">&lt;copyright&gt;</span>Copyright 2019 Control4 Corporation. All rights reserved.<span class="nt">&lt;/copyright&gt;</span>
+   <span class="nt">&lt;largeblobs&gt;</span>
+    <span class="nt">&lt;largeblob</span> <span class="na">name=</span><span class="s">"Blob1"</span><span class="nt">&gt;</span>VGhpcyBpcyBOaGUgRmlyc3QgQkxPQiENCg==<span class="nt">&lt;/largeblob&gt;</span>
+   <span class="nt">&lt;largeblobname</span><span class="err">="Blob2"</span><span class="nt">&gt;</span>AAECAwQFBgclCQoLDA0ODwABAgMEBQYHCAkKCwwNDg8=<span class="nt">&lt;/largeblob&gt;</span>
+  <span class="nt">&lt;/largeblobs&gt;</span>
+ <span class="nt">&lt;config&gt;</span>
+</code></pre></div>
+
+<p>When ZigBee devices come on-line they can validate firmware versions with Director. If an update is available, the data is sent accordingly to the device. Drivers that wish to update their device’s firmware should do it in a sequential manner. The functions delivered in this SDK support this. It is possible to place the BLOB data in the Lua section of the driver. However, this requires a copy of the firmware data within every loaded driver used by the device. For example, if 15 devices use the driver, it will be necessary to maintain 15 copies of the firmware update data loaded in memory.</p>
+
+<p><strong>Firmware Request Functions</strong></p>
+
+<p>When a device requests a firmware update (the version of the firmware on the device is older than the firmware the driver has), the driver should request a &#39;reflash lock&#39; via <a href="https://snap-one.github.io/docs-driverworks-api/#zigbee-interface-requestreflashlock">RequestRefreshLock</a>. This allows the driver to ensure that it is the only driver updating a device at any time. This is required so that Director can manage multiple Zigbee drivers so that only one driver will be allowed to update at a time.  This ensures that device firmware updates don&#39;t overload the zigbee network.</p>
+
+<p>The <a href="https://snap-one.github.io/docs-driverworks-api/#zigbee-interface-onreflashlockgranted">OnReflashLockGranted</a> function is called by Director when the driver has permission to update the firmware on the device.  This function ensures that the driver is the only device using the zigbee network to flash a device. This ensures that the delivery of the firmware update won’t be slowed down due to other firmware updates from other devices.</p>
+
+<p>All reflash traffic is sent to the device using standard <a href="https://snap-one.github.io/docs-driverworks-api/#zigbee-interface-sendzigbeepacket">SendZigbeePacket</a> and <a href="https://snap-one.github.io/docs-driverworks-api/#zigbee-interface-onzigbeepacketin">OnZigbeePacketIn</a> commands/functions as described above.</p>
 
       </div>
       <div class="dark-box">
