@@ -12,7 +12,7 @@ Why does Director now need to manage two different values for location? Historic
 In order to comply with regulations, Control4 has implemented a new service that returns the geo location. This location is retrieved from a web service and is based on the IP address. This web service returns the country code and name, and does so with a high degree of certainty. For more information, please see the [GetGeoSettings][1] API.
 
 
-#### Director Geo Location Service
+### Director Geo Location Service
 After Director has loaded the project and finished initializing drivers, it schedules an initial call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: `geo-initial-interval-seconds`
 
 
