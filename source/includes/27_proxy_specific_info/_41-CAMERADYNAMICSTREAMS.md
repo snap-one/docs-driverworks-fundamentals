@@ -22,8 +22,6 @@ For the best experience, cameras should be minimally configured with the followi
 
 #### Driver Support for Dynamic Streams
 
-_See the [Related APIs][1] section below for detailed information regarding the functions discussed in this section._
-
 New camera drivers should implement the dynamic streams API to provide a list of streams that the Navigators can pick from. In order to support dynamic streams the driver should:
 
 1. Set the requires\_dynamic\_stream\_urls dynamic capability to “true”.
@@ -317,19 +315,18 @@ Yes
 
 For additional Information, please see the DriverWorks Proxy and Protocol Guide regarding:
 
-[Camera Proxy Commands][2]
+[Camera Proxy Commands][1]
 
-[Camera Proxy Protocol Notifications ][3]
+[Camera Proxy Protocol Notifications ][2]
 
-[Camera Proxy Properties][4]
+[Camera Proxy Properties][3]
 
-[Camera Extras Interface Library][5]
+[Camera Extras Interface Library][4]
 
-[Camera Proxy Capabilities][6]
+[Camera Proxy Capabilities][5]
 
-[1]:	https://snap-one.github.io/docs-driverworks-proxyprotocol/#dynamic-camera-streams-related-apis
-[2]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-commands
-[3]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-protocol-notifications
-[4]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-properties
-[5]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-extras-interface-library
-[6]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-capabilities
+[1]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-commands
+[2]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-protocol-notifications
+[3]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-properties
+[4]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-proxy-extras-interface-library
+[5]:	https://jubilant-barnacle-73gylvg.pages.github.io/#camera-capabilities
