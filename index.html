@@ -7203,7 +7203,7 @@ or
 
 <p><em>Note: the following content is only applicable to Composer Pro 4.0.0 and later. This functionality has been available in Navigators prior to Composer Pro 4.0.0</em></p>
 
-<p>Support has been included for camera drivers that have the ability to deliver dynamically created presets. When the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-capabilities-has_dynamic_presets">has_dynamic_presets</a> capability is set to True, the following screen appears in Composer pro:</p>
+<p>Support has been included for camera drivers that have the ability to deliver dynamically created presets. When the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-capabilities-has_dynamic_presets">has_dynamic_presets</a> capability is set to True, the following screen appears in Composer pro:</p>
 
 <p><img src="images/camimage1.png"/></p>
 
@@ -7221,7 +7221,7 @@ or
 
 <p><em>Note: the following content is only applicable to Composer Pro versions prior to 4.0.0.</em></p>
 
-<p>Original support for camera drivers that do not support dynamic presets involves a numbered set of presets being displayed in the Composer Pro UI. The following screen is displayed in Composer Pro when the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-capabilities-number_presets">number_presets </a>capability is set to the amount of desired presets:</p>
+<p>Original support for camera drivers that do not support dynamic presets involves a numbered set of presets being displayed in the Composer Pro UI. The following screen is displayed in Composer Pro when the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-capabilities-number_presets">number_presets </a>capability is set to the amount of desired presets:</p>
 
 <p><img src="images/camimage2.png"/></p>
 
@@ -7242,7 +7242,7 @@ or
 
 <p>In order for a camera driver to take advantage of the test screen, the driver needs to supply all of the test URLs that the camera offers for testing purposes. </p>
 
-<p>Using the Camera Test screen is the same for all four test scenarios. For example, when a dealer clicks on the Get Steaming URLs button, the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-proxy-commands-get_stream_urls">GET_STREAMs_URLS</a> Proxy Command is sent to the camera driver. The driver  needs to handle this command and return the desired URLs to populate the test list on the Camera Test screen. When reviewing the Get_STREAMS_URLS command you’ll see that codec, resolution and frames per second data can be also be sent with the URLs. Currently, testing of any h265 codec is not supported in Composer Pro.</p>
+<p>Using the Camera Test screen is the same for all four test scenarios. For example, when a dealer clicks on the Get Steaming URLs button, the <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-proxy-commands-get_stream_urls">GET_STREAMs_URLS</a> Proxy Command is sent to the camera driver. The driver  needs to handle this command and return the desired URLs to populate the test list on the Camera Test screen. When reviewing the Get_STREAMS_URLS command you’ll see that codec, resolution and frames per second data can be also be sent with the URLs. Currently, testing of any h265 codec is not supported in Composer Pro.</p>
 
 <p>After the driver delivers the desired URL data, the dealer can select a stream  click on the Test button. </p>
 
@@ -7250,11 +7250,11 @@ or
 
 <p>The test result is displayed at the bottom, They include both success and fail.</p>
 
-<p>The Proxy Command sent for the Snapshot URLs test is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-proxy-commands-get_snapshot_query_string">GET_SNAPSHOT_QUERY_STRING</a></p>
+<p>The Proxy Command sent for the Snapshot URLs test is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-proxy-commands-get_snapshot_query_string">GET_SNAPSHOT_QUERY_STRING</a></p>
 
-<p>The Proxy Command sent for the Motion JPEG URLs test is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-proxy-commands-get_mjpeg_query">GET_MJPEG_QUERY</a>.</p>
+<p>The Proxy Command sent for the Motion JPEG URLs test is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-proxy-commands-get_mjpeg_query">GET_MJPEG_QUERY</a>.</p>
 
-<p>The Proxy Command sent for the Video URLs test is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#camera-proxy-commands-get_-rtsp_h264_query_-string">GET_RTSP_H264_QUERY_STRING</a></p>
+<p>The Proxy Command sent for the Video URLs test is <a href="https://snap-one.github.io/docs-driverworks-proxyprotocol-camera/#camera-proxy-commands-get_-rtsp_h264_query_-string">GET_RTSP_H264_QUERY_STRING</a></p>
 
 <h2 id='proxy-specific-information-intercom-proxy-best-practices'>Intercom Proxy Best Practices</h2><h3 id='proxy-specific-information-intercom-proxy-best-practices-overview'>Overview</h3>
 <p>The Intercom Proxy interface is defined in terms of Commands, Requests and Notifications, each of which are described in this section of the proxy and Protocol Guide.</p>
