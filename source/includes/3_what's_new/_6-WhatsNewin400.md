@@ -19,7 +19,7 @@ The Fundamentals Guide had been enhanced to now include content that previously 
 
 [Driver Initialization and Destruction Best Practices][6]
 
-[1]:	https://snap-one.github.io/docs-driverworks-fundamentals-4.0.0-beta/#proxy-specific-information-camera-proxy-and-presets
+[1]:	https://snap-one.github.io/docs-driverworks-fundamentals/#proxy-specific-information-camera-proxy-and-presets
 [2]:	https://snap-one.github.io/docs-driverworks-proxyprotocol-camera-4.0.0-beta/#what-s-new
 [3]:	https://snap-one.github.io/docs-driverworks-fundamentals-4.0.0-beta/#proxy-specific-information-camera-test-in-composer-pro
 [4]:	https://snap-one.github.io/docs-driverworks-fundamentals-4.0.0-beta/#api-specific-information-director-s-geolocation-service
