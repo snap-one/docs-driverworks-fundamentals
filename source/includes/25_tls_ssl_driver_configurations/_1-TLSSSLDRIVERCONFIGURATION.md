@@ -8,7 +8,7 @@ If you use the DriverWorks SDK URL interface, you can implement basic or digest 
 
 [https://snap-one.github.io/docs-driverworks-api/#netportoptions][2]
 
-[https://github.com/control4/docs-driverworks/tree/master/sample\_drivers][3]
+[https://github.com/snap-one/docs-driverworks/tree/master/sample\_drivers][3]
 
 A “class” of connections that enable declaring secure (SSL) connections in a driver file (.c4z) is defined to the right. As part of this, the “port” section supports some additional properties that enable various features of SSL. To the right is an example taken from the HC-800 driver file.
  
@@ -103,13 +103,13 @@ Once the connection is established, then you simply utilize the standard network
 Your driver then will be responsible for parsing the JSON data structure and handling it as you deem necessary.
 
 If you want to use a web socket for your device communication, we have a sample web socket driver in our SDK library at:
-[https://github.com/control4/docs-driverworks/tree/master/sample\_drivers/websocket][7]
+[https://github.com/snap-one/docs-driverworks/tree/master/sample\_drivers/websocket][7]
 
 
 [1]:	https://snap-one.github.io/docs-driverworks-api/#url-interface
 [2]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions
-[3]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers
+[3]:	https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers
 [4]:	https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword "GetPrivatekeyPassword API"
 [5]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netconnect
 [6]:	https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-receivedfromnetwork
-[7]:	https://github.com/control4/docs-driverworks/tree/master/sample_drivers/websocket
+[7]:	https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers/websocket

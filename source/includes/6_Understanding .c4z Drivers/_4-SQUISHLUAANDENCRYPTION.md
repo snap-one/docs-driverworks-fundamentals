@@ -63,9 +63,9 @@ To encrypt a driver, the driver.xml script tag must include the encryption attri
 
 Driver Packager is a Python utility used to create individual .c4z files from source code. When Driver Packager assembles a .c4z file and the the encryption attribute for the script tag in the driver.xml file is set to “2”, the file is encrypted using a new and improved encryption protocol based on an asymmetrical public key infrastructure. This level of encryption is applicable to .c4z files only.
 
-For more information please see: [https://github.com/control4/drivers-driverpackager][1]
+For more information please see: [https://github.com/snap-one/drivers-driverpackager][1]
 
 For more information regarding luajit, please see: [https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit][2]
 
-[1]:	https://github.com/control4/drivers-driverpackager
+[1]:	https://github.com/snap-one/drivers-driverpackager
 [2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit
