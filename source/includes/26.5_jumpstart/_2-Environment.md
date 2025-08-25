@@ -38,7 +38,7 @@ _IncludeLuaCheck_
 
 This is a Boolean string that specifies whether or not JumpStart will generate files to support Luacheck. LuaCheck is a command-line tool for linting and static analysis of Lua Code. It can be found at:
 
-[ https://luarocks.org/modules/mpeterv/luacheck ]()
+[ https://luarocks.org/modules/mpeterv/luacheck ][1]
 
 Some developers have found it useful to use this tool. If this value is “True”,  JumpStart will generate a .luacheckrc file that Luacheck can use to check the source code. It will also generate a validate.bat file that can be used to call Luacheck on all the source files. If this value is not included, its default value will be: `False`. 
 
@@ -82,3 +82,5 @@ This element specifies any additional files that the developer may want to have 
 
 
 
+
+[1]:	https://luarocks.org/modules/jigordev/lua-checkargs
