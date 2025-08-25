@@ -782,6 +782,26 @@
               </ul>
           </li>
           <li>
+            <a href="#jumpstart-implementation" class="toc-h1 toc-link" data-title="JumpStart Implementation">JumpStart Implementation</a>
+          </li>
+          <li>
+            <a href="#getting-started-with-jumpstart" class="toc-h1 toc-link" data-title="Getting Started with JumpStart">Getting Started with JumpStart</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getting-started-with-jumpstart-jumpstartenvironment-json" class="toc-h2 toc-link" data-title="JumpStartEnvironment.json">JumpStartEnvironment.json</a>
+                  </li>
+                  <li>
+                    <a href="#getting-started-with-jumpstart-driver-designation-file" class="toc-h2 toc-link" data-title="Driver Designation File">Driver Designation File</a>
+                  </li>
+                  <li>
+                    <a href="#getting-started-with-jumpstart-jumpstartconfig-json" class="toc-h2 toc-link" data-title="JumpStartConfig.json">JumpStartConfig.json</a>
+                  </li>
+                  <li>
+                    <a href="#getting-started-with-jumpstart-jumprefresh-utility" class="toc-h2 toc-link" data-title="JumpRefresh Utility">JumpRefresh Utility</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#markdown-driver-documentation" class="toc-h1 toc-link" data-title="Markdown Driver Documentation">Markdown Driver Documentation</a>
           </li>
           <li>
@@ -6784,6 +6804,1082 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 
 <p>If you want to use a web socket for your device communication, we have a sample web socket driver in our SDK library at:
 <a href="https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers/websocket">https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers/websocket</a></p>
+<h1 id='jumpstart-implementation'>JumpStart Implementation</h1>
+
+<h1 id='getting-started-with-jumpstart'>Getting Started with JumpStart</h1>
+
+<p><strong>Pre-configuration Requirements</strong></p>
+
+<p>JumpStart can be installed and configured into development environment of choice using the JumpStart.exe file. This is a Windows executable that requires two .json files in order to run:</p>
+
+<ol>
+<li>JumpStartEnvironment.json - This file contains the settings used by JumpStart to configure the environment for the initial generation of a new driver.  An example of a simple JumpStartEnvironment.json file would be:</li>
+</ol>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+</span><span class="err">  </span><span class="nl">"General"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="err">    </span><span class="nl">"TemplateDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..drivers-template-code"</span><span class="p">,</span><span class="w">
+</span><span class="err">    </span><span class="nl">"WorkDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NewDrivers"</span><span class="p">,</span><span class="w">
+</span><span class="err">    </span><span class="nl">"IncludeLuacheck"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="err">  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p>This file needs to reside in the same directory as the JumpStart.exe file.</p>
+
+<p>Detailed documentation for complete configuration of this file can be found in the JumpStartEnvironment.json section of this documentation.</p>
+
+<ol>
+<li>&lt;drivername&gt;.json - This file is a driver designation file is a required Json file used as input to JumpStart. This file will provide the basic information to JumpStart for it to generate a basic .C4Z driver file. An example driver designation file would be AcmeTV.json. That file can be found at:</li>
+</ol>
+
+<p><a href="https://github.com/snap-one/drivers-jumpstart/blob/master/SampleDriverFiles/AcmeTv.json">https://github.com/snap-one/drivers-jumpstart/blob/master/SampleDriverFiles/AcmeTv.json</a></p>
+
+<p>Detailed documentation for complete configuration of this file can be found in the Driver Designation section of this documentation.</p>
+
+<p><strong>Running the Executable</strong></p>
+
+<p>Execute the JumpStart.exe file from a command line. For example, using the AcmeTv.json file:</p>
+
+<p><code>JumpStart.exe SampleDriverFiles/AcmeTV.json</code></p>
+
+<p>Upon execution, the file will generate a set of file is Working Directory (<code>Work Dir</code>  in the  JumpStartEnvironment.json file above) that make up a driver.c4z file. These files can now be compiled with DriverPackager to build a viable driver that can be loaded into a project in ComposerPro.</p>
+
+<h2 id='getting-started-with-jumpstart-jumpstartenvironment-json'>JumpStartEnvironment.json</h2>
+
+<p>The JumpStartEnvironment.json file contains the settings used by JumpStart
+to configure the environment for the initial generation of a new
+driver. Once configured, the settings in this file will remain consistent for a
+given developer’s environment and not need to change with each new
+driver generated. If the settings are changed, they will not affect the final driver product, just the processes the developer uses.</p>
+
+<p>A different Json file with the same format can optionally be passed as a
+second parameter to JumpStart. If a second Json file is not specified,
+JumpStart will attempt to open JumpStartEnvironment.json. If that file
+doesn’t exist, then each field will use its default value. For example:</p>
+
+<p><code>C:JumpStart.exe DriverFiles/AcmeTV.json AltEnv.json</code></p>
+
+<p>The Json elements in the file are:</p>
+
+<p><strong>General</strong></p>
+
+<p>The sub-elements in General tell JumpStart where to find information, where to store files, and also include settings for the initial generation of the driver source code.</p>
+
+<p>Possible sub-elements of General are:</p>
+
+<p><em>TemplateDir</em></p>
+
+<p>This is a string that tells JumpStart where to find the Control 4 template code. JumpStart assumes that drivers will be generated from this code. These files can be located anywhere that can be reached by a valid path string. Copies are  made of the needed template code files and stored in the generated source code directories for the new C4Z driver file. If this element is not included, its default value will be: <code>“”</code>.</p>
+
+<p><em>WorkDir</em></p>
+
+<p>This is a string that specifies the name of the parent directory where JumpStart creates the source code for the new driver. JumpStart creates a directory with the same name as the new driver and then creates driver-specific files in that directory. It then copies the required template directories in as subdirectories. If this value is not included, its default value will be <code>“”</code>.</p>
+
+<p><em>IncludeLuaCheck</em></p>
+
+<p>This is a Boolean string that specifies whether or not JumpStart will generate files to support Luacheck. LuaCheck is a command-line tool for linting and static analysis of Lua Code. It can be found at:</p>
+
+<p><a href="#"> https://luarocks.org/modules/mpeterv/luacheck </a></p>
+
+<p>Some developers have found it useful to use this tool. If this value is “True”,  JumpStart will generate a .luacheckrc file that Luacheck can use to check the source code. It will also generate a validate.bat file that can be used to call Luacheck on all the source files. If this value is not included, its default value will be: <code>False</code>. </p>
+
+<p>For example: </p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"General"</span><span class="p">:{</span><span class="w">
+      </span><span class="nl">"TemplateDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..drivers-template-code"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"WorkDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NewDrivers"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"IncludeLuacheck"</span><span class="p">:</span><span class="w"> </span><span class="s2">"True”,},
+    }
+  }
+</span></code></pre></div>
+
+<p><strong>Build</strong></p>
+
+<p>This is an optional entry that can be used to generate files for the developer’s preferred build method. Possible sub-elements of Build are:</p>
+
+<p><em>BuildMethod</em></p>
+
+<p>This specifies the preferred build program. Supported methods are DriverPackager and CreateC4Z. If this entry is not included, the build method will default to “custom” and no special build files will be generated.</p>
+
+<p>If DriverPackager is specified, a .c4zproj file and a squishy file are generated.</p>
+
+<p>If CreateC4Z is specified, a .c4zmanifest file is generated.</p>
+
+<p><strong>AdditionalFiles</strong></p>
+
+<p>This element specifies any additional files that the developer may want to have included in the driver’s source directory. The files are specified by path names that JumpStart can access and are copied into the source directory. Any text strings in the source files of <code>^@JSPROJ^</code> will be replaced by the target name of the driver. For example:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"Build"</span><span class="p">:</span><span class="w"> 
+</span><span class="p">{</span><span class="nl">"BuildMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreateC4Z"</span><span class="p">,</span><span class="w"> </span><span class="nl">"AdditionalFiles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\d</span><span class="s2">ev.bat"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\r</span><span class="s2">el.bat"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\r</span><span class="s2">el.sh"</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div>
+
+<h2 id='getting-started-with-jumpstart-driver-designation-file'>Driver Designation File</h2>
+
+<p>A driver designation file is a required Json file used as input to JumpStart. This file will provide the basic information to JumpStart for it to generate a basic .C4Z driver file. For example:</p>
+
+<p><code>C:\python JumpStart.py SampleDriverFiles/AcmeTV.json</code></p>
+
+<p>The information is provided by Json elements beginning at the root level.</p>
+
+<p><strong>DriverName</strong>
+This is a string value and will be the name of the generated C4Z driver file. If it is not included, the value will default to “Unknown”. For example:</p>
+
+<p><code>&quot;DriverName&quot;: &quot;tv-ACME&quot;,</code></p>
+
+<p><strong>Copyright</strong>
+This is a string value that will be included in the copyright notice in the header of each of the generated source files and in the driver.xml file. If it is not included, the value will default to: <code>“”</code>. For example:</p>
+
+<p><code>&quot;Copyright&quot;: &quot;ACME Electronics LLC.&quot;,</code></p>
+
+<p><strong>Manufacturer</strong>
+This is a string value that will be included in the <manufacturer> tag in the driver.xml file. If it is not included, the value will default to: <code>“”</code>. For example:</p>
+
+<p><code>&quot;Manufacturer&quot;: &quot;ACME&quot;,</code></p>
+
+<p><strong>Creator</strong>
+This is a string value that will be included in the <creator> tag in the driver.xml file. If it is not included, the value will default to:  <code>“”</code>. For example:</p>
+
+<p><code>&quot;Creator&quot;: &quot;Control4&quot;,</code></p>
+
+<p><strong>Name</strong>
+This is a string value that will be included in the <name> tag in the driver.xml file. If it is not included, the value will default to: <code>“Unknown”</code>. This in turn, is the value that Composer will use to name a device when an instance of the driver is added to the project. For example:</p>
+
+<p><code>&quot;Name&quot;: &quot;ACME Pretend TV&quot;,</code></p>
+
+<p><strong>Model</strong>
+This is a string value that will be included in the <model> tag in the driver.xml file. If it is not included, the value will default to: <code>“”</code>. For example:</p>
+
+<p><code>&quot;Model&quot;: &quot;VAST-WASTELAND 64&quot;,</code></p>
+
+<p><strong>Encrypt</strong>
+This is a string Boolean value that will indicate whether the driver should be encrypted. If this is True, <code>encryption=”2”</code>will be added to the script attributes in driver.xml.  If not included, the value will default to: <code>“False”</code>.
+For Example:</p>
+
+<p><code>&quot;Encrypt&quot;: &quot;True&quot;,</code></p>
+
+<p>Note that if you use CreateC4Z to build the driver, it will set or clear the encryption flag at build time. </p>
+
+<p><strong>UseCommandQueue</strong>
+This is an optional Boolean tag that specifies if the developer wishes to include a standard command queue in the driver. If it is set to: <code>“True”</code> the file command_queue.lua will be included in the list of generated files. If not included, the value will default to: <code>“True”</code>. For example:</p>
+
+<p><code>&quot;UseCommandQueue&quot;: &quot;True&quot;,</code></p>
+
+<p><strong>MiniApps</strong>
+If the driver includes some type of AV, MiniApp connections may be desired. This is an array of strings that will specify the desired MiniApp names. For example:</p>
+
+<p><code>&quot;MiniApps&quot;: [&quot;MiniApp 1&quot;, &quot;MiniApp 2&quot;, &quot;MiniApp 3&quot;],</code></p>
+
+<p><strong>Properties</strong>
+This is an array of Json elements that specify additional properties that should appear on the properties page. All properties are required to have a “Name” and “Type” field. All properties may optionally designate “Default”, “ReadOnly” and “Tooltip” fields, even though “Default” and/or “ReadOnly” make little sense for certain property types. LABEL properties will always be “ReadOnly”. All other property types will default to “Not ReadOnly” if the field is not specified.</p>
+
+<p>If a property is “Not ReadOnly” JumpStart it will also insert stub routines into the source code to handle the property change. Currently the supported property types are:</p>
+
+<ul>
+<li>STRING</li>
+<li>RANGED_INTEGER</li>
+<li>RANGED_FLOAT</li>
+<li>LIST</li>
+<li>DYNAMIC_LIST</li>
+<li>COLOR_SELECTOR</li>
+<li>VARIABLE_SELECTOR</li>
+<li>DEVICE_SELECTOR</li>
+<li>LABEL</li>
+</ul>
+
+<p>RANGED_INTEGER and RANGED_FLOAT properties will require “Min” and “Max” fields.</p>
+
+<p>LIST properties will require a “ListMembers” field that is an array of string values to include in the list.</p>
+
+<p>VARIABLE_SELECTOR properties will require a “VariableType” field to specify which type of variables it is using. Valid values are: string, boolean, number, float, device, media, user, and all.</p>
+
+<p>DEVICE_SELECTOR properties will require an “Items” field that is an array of strings that are driver name files. The property will filter for devices that are instances of the drivers listed.</p>
+
+<p>Examples:</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="s2">"Properties"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Book Title"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span>
+
+<span class="s2">"ReadOnly"</span><span class="p">:</span> <span class="s2">"False"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"-"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Snow Depth"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"RANGED\_INTEGER"</span><span class="p">,</span>
+
+<span class="s2">"ReadOnly"</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"3"</span><span class="p">,</span>
+
+<span class="s2">"Min"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span>
+
+<span class="s2">"Max"</span><span class="p">:</span><span class="s2">"15"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Choose State"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"LIST"</span><span class="p">,</span>
+
+<span class="s2">"ReadOnly"</span><span class="p">:</span> <span class="s2">"False"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"Idaho"</span><span class="p">,</span>
+
+<span class="s2">"ListMembers"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span>
+
+<span class="s2">"Idaho"</span><span class="p">,</span>
+
+<span class="s2">"Illinois"</span><span class="p">,</span>
+
+<span class="s2">"Indiana"</span><span class="p">,</span>
+
+<span class="s2">"Iowa"</span><span class="p">,</span>
+
+<span class="p">],</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"States that begin with an I."</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Separate Label 1"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"LABEL"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"--- Other Properties ---"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Properties type separator"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Str1"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span>
+
+<span class="s2">"ReadOnly"</span><span class="p">:</span> <span class="s2">"False"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"First Try"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"First String"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Str2"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"STRING"</span><span class="p">,</span>
+
+<span class="s2">"ReadOnly"</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"Second Chance"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Second String"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"ColorSel1"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"COLOR_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"Default"</span><span class="p">:</span><span class="s2">"255, 0, 0"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Color Select"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DynList1"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"DYNAMIC_LIST"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Dynamic List"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel1"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"boolean"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select b"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel2"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select s"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel3"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"number"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select n"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel4"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"float"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select f"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel5"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"device"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select d"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel6"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"media"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select m"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel7"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select u"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"VarSel8"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"VARIABLE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"VariableType"</span><span class="p">:</span> <span class="s2">"all"</span><span class="p">,</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Var Select a"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DevSel1"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"DEVICE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"MultiSelect"</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span>
+
+<span class="s2">"Items"</span><span class="p">:</span><span class="err">\</span><span class="p">[</span><span class="s2">"light.c4i"</span><span class="p">,</span> <span class="s2">"lock.c4i"</span><span class="p">],</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Dev Select 1"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DevSel2"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"DEVICE_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"MultiSelect"</span><span class="p">:</span> <span class="s2">"False"</span><span class="p">,</span>
+
+<span class="s2">"Items"</span><span class="p">:</span><span class="err">\</span><span class="p">[</span><span class="s2">"tv.c4i"</span><span class="p">,</span> <span class="s2">"appletv.c4i"</span><span class="p">],</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Dev Select 2"</span>
+
+<span class="p">},</span>
+
+<span class="p">{</span> <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DevSel3"</span><span class="p">,</span>
+
+<span class="s2">"Type"</span><span class="p">:</span><span class="s2">"DEVICE\_SELECTOR"</span><span class="p">,</span>
+
+<span class="s2">"Items"</span><span class="p">:</span><span class="err">\</span><span class="p">[</span><span class="s2">"tv.c4i"</span><span class="p">,</span> <span class="s2">"appletv.c4i"</span><span class="p">],</span>
+
+<span class="s2">"Tooltip"</span><span class="p">:</span> <span class="s2">"Test Dev Select 3"</span>
+
+<span class="p">}</span>
+
+<span class="p">],</span>
+</code></pre></div>
+
+<p><strong>Actions</strong></p>
+
+<p>This is an array of strings that will specify any items that you wish to appear on the Actions tab. It will also insert stub routines into the source code to handle them</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="s2">"Actions"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Action 1"</span><span class="p">,</span><span class="s2">"Action 2"</span><span class="p">]</span>
+</code></pre></div>
+
+<p><strong>Events</strong></p>
+
+<p>This is an array of Json elements that will specify possible system events that your driver can trigger. Each Json element will have a string for the event name and a string for the event description. These will show up in the programming tab in Composer so that system programming sequences can be triggered. It will also insert stub routines into the source code to trigger them</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="s2">"Events"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Event 1"</span><span class="p">,</span> <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is the first event"</span><span class="p">},</span> <span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Event 2"</span><span class="p">,</span><span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is the second event"</span><span class="p">}]</span>
+</code></pre></div>
+
+<p><strong>Commands</strong></p>
+
+<p>This is an array of Json elements that will specify possible commands that can be sent to this driver via programming. Each Json element will have a string for the command name and a string for the command description.</p>
+
+<p>Optionally, there can also be a list of parameters for the command. Each element in the parameters list will be a Json dictionary with the information for one parameter. Each parameter will have an element for the parameter name and an element for its type. Currently supported parameter types are:</p>
+
+<ul>
+<li>STRING: Requires no additional information.</li>
+<li>RANGED_INTEGER: Requires a “Minimum” element and a “Maximum” element.</li>
+<li>LIST: Requires an “Items” element which is a list of all the possible values that this parameter can take on.</li>
+<li>DEVICE_SELECTOR: Requires an “Items” element which is a list of all the possible device types (designated by their c4i or c4z file name) that this parameter can target. Optionally, it can have a “Multiselect” Boolean element which specifies whether multiple instances of a given device type can be selected.</li>
+<li>COLOR_SELECTOR: Requires no additional information.</li>
+</ul>
+
+<p>These will show up in the programming tab in Composer under “Device Specific Commands” which is part of the Commands tab. It will also insert stub routines into the source code to handle the commands when they are called.</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="s2">"Commands"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Command 1"</span><span class="p">,</span><span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is the first command"</span><span class="p">},{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Command 2"</span><span class="p">,</span><span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is the second command"</span><span class="p">,</span><span class="s2">"Params"</span><span class="p">:</span> 
+
+<span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"HitPoints"</span><span class="p">,</span><span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"RANGED_INTEGER"</span><span class="p">,</span><span class="s2">"Default"</span><span class="p">:</span> <span class="s2">"12"</span><span class="p">,</span><span class="s2">"Minimum"</span><span class="p">:</span> <span class="s2">"3"</span><span class="p">,</span><span class="s2">"Maximum"</span><span class="p">:</span> <span class="s2">"27"</span><span class="p">},{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Dwarves"</span><span class="p">,</span><span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"LIST"</span><span class="p">,</span><span class="s2">"Default"</span><span class="p">:</span> <span class="s2">"Sneezy"</span><span class="p">,</span>
+
+<span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Happy"</span><span class="p">,</span><span class="s2">"Sleepy"</span><span class="p">,</span><span class="s2">"Grumpy"</span><span class="p">,</span><span class="s2">"Sneezy"</span><span class="p">,</span><span class="s2">"Bashful"</span><span class="p">,</span><span class="s2">"Dopey"</span><span class="p">,</span>
+<span class="s2">"Doc"</span><span class="p">]},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Email"</span><span class="p">,</span><span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"STRING"</span><span class="p">},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Rooms"</span><span class="p">,</span><span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"DEVICE_SELECTOR"</span><span class="p">,</span><span class="s2">"Multiselect"</span><span class="p">:</span> <span class="s2">"True"</span><span class="p">,</span><span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"roomdevice.c4i"</span><span class="p">]},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Color"</span><span class="p">,</span><span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"COLOR_SELECTOR"</span><span class="p">}]</span>
+
+<span class="p">}]</span>
+</code></pre></div>
+
+<p><strong>Communications</strong></p>
+
+<p>This is an array of Json elements that specify the desired means of communication for the driver. If the driver will have multiple ways of communicating, there should be one element per method. Each method will have two sub-elements</p>
+
+<p>_ComType:_This is a string value that specifies the name of the communication method. Supported values are: Serial, Network, IP, URL, Zigbee, IR, and Custom.</p>
+
+<p>_ComSettings:_This is an element that can contain sub-elements of settings for the specific communication method. The key/value pairs in ComSettings will be different for each communication type. If no values are entered, then the values will default to the values specified in JumpStartConfig.json.</p>
+
+<p>For example: </p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="s2">"Communications"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"Network"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"Serial"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"IR"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{}}]</span>
+
+<span class="o">==============================================================</span>
+
+<span class="s2">"Communications"</span><span class="p">:</span> <span class="err">\</span><span class="p">[{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"Zigbee"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{}}]</span>
+
+<span class="o">===============================================================</span>
+
+<span class="s2">"Communications"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"Network"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"Address"</span><span class="p">:</span> <span class="s2">"192.168.1.1"</span><span class="p">,</span><span class="s2">"Port"</span><span class="p">:</span> <span class="mi">82</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"Serial"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"BaudRate"</span><span class="p">:</span> <span class="mi">19200</span><span class="p">,</span><span class="s2">"DataBits"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+<span class="s2">"StopBits"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}},</span>
+<span class="p">{</span><span class="s2">"ComType"</span><span class="p">:</span> <span class="s2">"IR"</span><span class="p">,</span><span class="s2">"ComSettings"</span><span class="p">:</span> <span class="p">{}}],</span>
+
+
+</code></pre></div>
+
+<p><strong>Proxies</strong></p>
+
+<p>This is an array of Json elements. Each element contains the information for a proxy that will be included in the driver. If the driver only has one proxy, this array will only have one element.</p>
+
+<p>Sub-elements in the proxy information element are:</p>
+
+<p>_Proxy:_This lists the proxy type. This will cause the template code for this type of proxy to be pulled into the C4Z file. Supported proxy types are Amplifier, Audio Switch, AV Switch, Light, Lock, Media Player, Pool, Receiver, Security Panel, Security Partition, Tuner, and TV. You may also specify Combo so that no template proxy code will be pulled in. If multiple instances of a proxy are included, the code and capabilities will only be included in the file once.</p>
+
+<p>_Name:_This is the name of this instance of the proxy as it will show up in Composer and in Navigators.</p>
+
+<p>_AVConnections:_This is only relevant if the proxy type is one of the AV type of proxies. This will be a collection of information blocks for different groups of AV binding types. The connection groups are:</p>
+
+<ul>
+<li>AudioVideoInputs</li>
+<li>VideoOnlyInputs</li>
+<li>AudioOnlyInputs</li>
+<li>AudioVideoOutputs</li>
+<li>VideoOnlyOutputs</li>
+<li>AudioOnlyOutputs</li>
+</ul>
+
+<p>Each one of these groups will contain an array of elements that will specify the information for each desired connection. Each connection element will contain a sub-element for:</p>
+
+<p>_Name:_This will be the name of the connection as it appears in the driver.xml file and then in Composer.</p>
+
+<p>_Attributes: _This will be an array of information elements for the connection.</p>
+
+<p>The most common elements are:</p>
+
+<ul>
+<li>VideoClasses</li>
+<li>AudioClasses</li>
+</ul>
+
+<p>Each of these element types are arrays of string that specifies the types of connection classes for the particular connection. If these are not listed, the connections class lists will be taken from the default lists specified in JumpStartConfig.json.</p>
+
+<p>For example:</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="s2">"Proxies"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"TV"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"AcmeTV"</span><span class="p">,</span><span class="s2">"AVConnections"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"AudioVideoInputs"</span><span class="p">:</span> <span class="p">[</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"AV"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"COMPOSITE"</span><span class="p">],</span>
+
+<span class="s2">"AudioClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"STEREO"</span><span class="p">]}},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT CBL/SAT"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT PC"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT STRM BOX"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}}],</span><span class="s2">"AudioOnlyInputs"</span><span class="p">:</span> <span class="err">\</span><span class="p">[],</span>
+<span class="s2">"VideoOnlyInputs"</span><span class="p">:</span> <span class="err">\</span><span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Antenna TV (ATV)"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"RF_UHF_VHF"</span><span class="p">]}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"CABLE TV (CATV)"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"RF_CABLE"</span><span class="p">]}},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"HDMI 1"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"HDMI"</span><span class="p">]}},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"HDMI 2"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"HDMI"</span><span class="p">]}}],</span>
+
+<span class="s2">"AudioVideoOutputs"</span><span class="p">:</span> <span class="err">\</span><span class="p">[],</span><span class="s2">"AudioOnlyOutputs"</span><span class="p">:</span> <span class="err">\</span><span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Output"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"AudioClasses"</span><span class="p">:</span> <span class="err">\</span><span class="p">[</span><span class="s2">"DIGITAL_OPTICAL"</span><span class="p">]}},</span>
+
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Audio Out 2"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}}],</span>
+<span class="s2">"VideoOnlyOutputs"</span><span class="p">:</span> <span class="err">\</span><span class="p">[]}}],</span>
+
+<span class="o">===============================================================</span>
+
+<span class="s2">"Proxies"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"Receiver"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"ACME Receiver"</span><span class="p">,</span><span class="s2">"AVConnections"</span><span class="p">:</span> <span class="p">{</span>
+<span class="s2">"AudioVideoInputs"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT CBL/SAT"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT GAME"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT PC"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT EXTRA1"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT EXTRA2"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT EXTRA3"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT BD/DVD"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT PHONO"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT CD"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT STRM BOX"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT TV"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}}],</span>
+<span class="s2">"AudioOnlyInputs"</span><span class="p">:</span> <span class="err">\</span><span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Audio In 1"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Audio In 2"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Audio In 3"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}}],</span>
+
+<span class="s2">"VideoOnlyInputs"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"INPUT AUX"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"HDMI"</span><span class="p">]}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Video In 2"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}}],</span>
+<span class="s2">"AudioVideoOutputs"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Main Output"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}},</span>
+<span class="p">{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Zone2 Output"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"VideoClasses"</span><span class="p">:[</span><span class="s2">"HDMI"</span><span class="p">]}}],</span>
+<span class="s2">"AudioOnlyOutputs"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Zone3 Output"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"AudioClasses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"STEREO"</span><span class="p">]}}],</span>
+
+<span class="s2">"VideoOnlyOutputs"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Video Out 3"</span><span class="p">,</span><span class="s2">"Attributes"</span><span class="p">:</span> <span class="p">{}}]}},</span>
+
+<span class="p">{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"Tuner"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"AM/FM Tuner"</span><span class="p">},{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"Media Player"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"ACME Net"</span><span class="p">}],</span>
+
+<span class="o">==============================================================</span>
+
+<span class="s2">"Proxies"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"Light"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"AcmeLight"</span><span class="p">}],</span>
+
+<span class="o">==============================================================</span>
+
+<span class="s2">"Proxies"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"Lock"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"AcmeLock"</span><span class="p">}],</span>
+
+<span class="o">==============================================================</span>
+
+<span class="s2">"Proxies"</span><span class="p">:[{</span><span class="s2">"Proxy"</span><span class="p">:</span> <span class="s2">"Pool"</span><span class="p">,</span><span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"AcmePool"</span><span class="p">}],</span>
+
+
+</code></pre></div>
+
+<h2 id='getting-started-with-jumpstart-jumpstartconfig-json'>JumpStartConfig.json</h2>
+
+<p>The JumpStartConfig.json file contains settings used by JumpStart to configure the initial generation of the new driver.  Generally, the settings in this file would be consistent for a given environment and not need to change with each new driver generated.</p>
+
+<p>The Json elements in the file are: </p>
+
+<p><strong>Update</strong></p>
+
+<p>This is an optional entry that can be used to specify the auto-update fields in the driver.xml file.</p>
+
+<p>Possible sub-elements of Update are:</p>
+
+<p>AutoUpdate: This is a Boolean string that specifies the value that should be included in the <code>&lt;auto_update&gt;</code>  tag included in the driver.xml file. If this is not included, the value will default to <code>True</code>.</p>
+
+<p>ForceAutoUpdate: This is a Boolean string that specifies the value that should be included in the <code>&lt;force_auto_update&gt;</code> tag included in the driver.xml file. If this is not included, the value will default to <code>True</code>.</p>
+
+<p>MinimumAutoUpdateVersion: This is an integer string that specifies the minimum version of the driver that will require an automatic update. It will be the value included in the <code>&lt;minimum_auto_update_version&gt;</code> tag. If this is not included, the value will default to <code>1</code>.</p>
+
+<p>MinimumOSVersion: This is a string that specifies the minimum version of the operating system needed for the forced auto update. It is the value included in the <code>&lt;minimum_os_version&gt;</code> XML tag. If this is not included, the value will default to: <code>3.0.0</code>.</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"Update"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="nl">"AutoUpdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"True"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"ForceAutoUpdate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"True"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"MinimumAutoUpdateVersion"</span><span class="p">:</span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"MinimumOSVersion"</span><span class="p">:</span><span class="w"> </span><span class="mf">3.0</span><span class="err">.</span><span class="mi">0</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div>
+
+<p><strong>Serial</strong></p>
+
+<p>This is an optional entry that can be used to specify the default binding id and settings for any serial connections included in the driver. Possible sub-elements for Serial are:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first serial connection defined in the driver. If this is not included, the value will default to <code>1</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>BaudRate: This is an integer that specifies the default baud rate listed in the <serialsettings> capability tag in driver.xml. If this is not included, the value will default to <code>9600</code>.</p>
+
+<p>DataBits: This is an integer that specifies the data bits value listed in the <serialsettings> capability tag in driver.xml. If this is not included, the value will default to <code>8</code>.</p>
+
+<p>StopBits: This is an integer that specifies the stop bits value listed in the <serialsettings> capability tag in driver.xml. If this is not included, the value will default to <code>1</code>.</p>
+
+<p>Parity:This is a string that specifies the parity value listed in the <serialsettings> capability tag in driver.xml. Legal values are “even”, “odd”, and “none”. If this is not included, the value will default to: <code>&quot;none&quot;</code>.</p>
+
+<p>FlowControl: This is a string that specifies the flow control value listed in the <serialsettings> capability tag in driver.xml. If this is not included, the value will default to <code>“none”</code>.</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"Serial"</span><span class="p">:</span><span class="w"> 
+    </span><span class="p">{</span><span class="nl">"DefaultBindingID"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"BaudRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">19200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DataBits"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"StopBits"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Parity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"even"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"FlowControl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div>
+
+<p><strong>IR</strong></p>
+
+<p>This is an optional entry that can be used to specify the default starting binding id for any IR connections included in the driver. A possible sub-element for IR is:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first IR connection defined in the driver. If this is not included, the value will default to <code>1</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>For Example:</p>
+
+<p><code>&quot;IR&quot;: {&quot;DefaultBindingID&quot;: 1},</code></p>
+
+<p><strong>Zigbee</strong></p>
+
+<p>This is an optional entry that can be used to specify the default starting binding id for any Zigbee connections included in the driver. A possible sub-element for Zigbee is:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first Zigbee connection defined in the driver. If this is not included, the value will default to: <code>6001</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>For Example:</p>
+
+<p><code>&quot;Zigbee&quot;: {&quot;DefaultBindingID&quot;: 6001},</code></p>
+
+<p><strong>IP</strong></p>
+
+<p>This is an optional entry that can be used to specify the default starting binding id for any IP connections included in the driver. A possible sub-element for IP is:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first IP connection defined in the driver. If this is not included, the value will default to: <code>6001</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>For Example:</p>
+
+<p><code>&quot;IP&quot;: {&quot;DefaultBindingID&quot;: 6001},</code></p>
+
+<p><strong>Url</strong></p>
+
+<p>This is an optional entry that can be used to specify the default starting binding id and settings for any URL connections included in the driver. Possible sub-elements for URL are:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first URL connection defined in the driver. If this is not included, the value will default to: <code>6001</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>DefaultHTTPPort: This integer value specifies the default value of the HTTPPort. If it is not included, the value will be: <code>80</code>.</p>
+
+<p>DefaultRTSPPort: This integer value specifies the default value of the RTSPPort. If it is not included, the value will be: <code>554</code>.</p>
+
+<p>DefaultAuthenticationRequired: This Boolean string specifies the default value for whether authentication is required. If it is not included, the value will be: <code>“True”</code>.</p>
+
+<p>DefaultAuthenticationType: This string specifies the default type of authentication. If it is not included, the value will be: <code>“BASIC”</code>.</p>
+
+<p>DefaultUserName: This string specifies the default username. If it is not included, the value will be: <code>“admin”</code>.</p>
+
+<p>DefaultPassword: This string specifies the default password. If it is not included, the value will be:<code>“pass”</code>.</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"Url"</span><span class="p">:</span><span class="w"> 
+        </span><span class="p">{</span><span class="nl">"DefaultBindingID"</span><span class="p">:</span><span class="mi">6001</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"DefaultHTTPPort"</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"DefaultRTSPPort"</span><span class="p">:</span><span class="w"> </span><span class="mi">554</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"DefaultAuthenticationRequired"</span><span class="p">:</span><span class="s2">"True"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"DefaultAuthenticationType"</span><span class="p">:</span><span class="s2">"BASIC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"DefaultUserName"</span><span class="p">:</span><span class="s2">"admin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"DefaultPassword"</span><span class="p">:</span><span class="s2">"pass"</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p><strong>Network</strong></p>
+
+<p>This is an optional entry that can be used to specify the default starting binding id and settings for any Network connections included in the driver. Possible sub-elements for Network are:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first Network connection defined in the driver. If this is not included, the value will default to: <code>6000</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>DefaultUserName: This string specifies the default username. If it is not included, the value will be: <code>“”</code>.</p>
+
+<p>DefaultPassword: This string specifies the default password. If it is not included, the value will be:<code>“”</code>.</p>
+
+<p>DefaultIPAddress: This string value specifies the default network address. If it is not included, the value will be: <code>“0.0.0.0”</code>.</p>
+
+<p>DefaultIPPort: This integer value specifies the default network port. If it is not included, the value will be: <code>0</code>.</p>
+
+<p>DefaultBroadcastBindingID: This integer value specifies the binding id of the first Network broadcasting connection defined in the driver. If this is not included, the value will default to: <code>6002</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>DefaultBroadcastPort: This integer value specifies the default broadcasting port. If it is not included, the value will be: <code>9</code>.</p>
+
+<p>For example:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"Network"</span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="nl">"DefaultBindingID"</span><span class="p">:</span><span class="mi">6000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DefaultUserName"</span><span class="p">:</span><span class="s2">"admin"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DefaultPassword"</span><span class="p">:</span><span class="s2">"pass"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DefaultIPAddress"</span><span class="p">:</span><span class="s2">"127.0.0.1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DefaultIPPort"</span><span class="p">:</span><span class="mi">80</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DefaultBroadcastBindingID"</span><span class="p">:</span><span class="mi">6002</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DefaultBroadcastPort"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p><strong>MiniApp</strong></p>
+
+<p>This is an optional entry that can be used to specify the default starting binding id for any MiniApp connections included in the driver. A possible sub-element for MiniApp is:</p>
+
+<p>DefaultBindingID: This integer value specifies the binding id of the first MiniApp connection defined in the driver. If this is not included, the value will default to: <code>3100</code>. If a binding id is already in use, the value will be incremented until an unused value is found.</p>
+
+<p>For Example:</p>
+
+<p><code>&quot;MiniApp&quot;: {&quot;DefaultBindingID&quot;: 3100},</code></p>
+
+<p><strong>AV</strong></p>
+
+<p>This specifies the default classes that should be associated with different types of AV bindings that are specified in the driver. Possible sub-elements for AV are:</p>
+
+<p>DefaultVideoInputClasses: Specifies an array of strings that should be used as the class types for any video input bindings listed in the driver. Typical values are COMPONENT, COMPOSITE, and HDMI. If not specified, the default value will be: <code>[]</code>.</p>
+
+<p>DefaultVideoOutputClasses: Specifies an array of strings that should be used as the class types for any video output bindings listed in the driver. Typical values are COMPONENT, COMPOSITE, and HDMI. If not specified, the default value will be: <code>[]</code>.</p>
+
+<p>DefaultAudioInputClasses: Specifies an array of strings that should be used as the class types for any audio input bindings listed in the driver. Typical values are DIGITAL_COAX, DIGITAL_OPTICAL, and STEREO. If not specified, the default value will be:<code>[]</code>.</p>
+
+<p>DefaultAudioOutputClasses: Specifies an array of strings that should be used as the class types for any audio output bindings listed in the driver. Typical values are SPEAKER and STEREO. If not specified, the default value will be: <code>[]</code>.</p>
+
+<p>For Example:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"AV"</span><span class="p">:</span><span class="w"> 
+    </span><span class="p">{</span><span class="nl">"DefaultVideoInputClasses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"COMPONENT"</span><span class="p">,</span><span class="s2">"COMPOSITE"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"HDMI"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"DefaultVideoOutputClasses"</span><span class="p">[</span><span class="s2">"COMPONENT"</span><span class="p">,</span><span class="s2">"COMPOSITE"</span><span class="p">,</span><span class="s2">"HDMI"</span><span class="p">],</span><span class="w">
+    </span><span class="s2">"DefaultAudioInputClasses"</span><span class="p">[</span><span class="s2">"DIGITAL_COAX"</span><span class="p">,</span><span class="s2">"DIGITAL_OPTICAL"</span><span class="p">,</span><span class="s2">"STEREO"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"DefaultAudioOutputClasses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"SPEAKER"</span><span class="p">,</span><span class="s2">"STEREO"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='getting-started-with-jumpstart-jumpstartconfig-json-proxies'>Proxies</h3>
+<p>This specifies information for each of the supported proxies.  Some proxies will have some settings associated with them. They should all have a list of the proxy capabilities with desired default values. Possible sub-elements for Proxies contain information for individual proxies. They include:</p>
+
+<p><strong>AV Switch Proxy</strong>
+Note that the elements for the AV Switch Proxy are identical as those used for the Amplifier Proxy and the Audio Switch Proxy.</p>
+
+<p>The possible sub-element for AVSwitch is: </p>
+
+<p>Capabilities: This lists the default capabilities that should be specified for this proxy. For example:</p>
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"Proxies":  {
+ "AVSwitch":   {
+  "Capabilities":  {
+   "can_downclass": "True",
+   "can_switch": "True",
+   "can_upclass": "True",
+   "can_switch_separately": "False",
+   "requires_separate_switching": "False",
+   "has_discrete_balance_control": "True",
+   "has_discrete_bass_control": "True",
+   "has_discrete_input_select": "True",
+   "has_discrete_loudness_control": "True",
+   "has_discrete_mute_control": "True",
+   "has_discrete_treble_control": "True",
+   "has_discrete_volume_control": "True",
+   "has_toad_input_select": "True",
+   "has_toggle_loudness_control": "True",
+   "has_toggle_mute_control": "True",
+   "has_up_down_balance_control": "True",
+   "has_up_down_bass_control": "True",
+   "has_up_down_treble_control": "True",
+   "has_up_down_volume_control": "True",
+   "has_video_sense_control": "True"
+  }
+},
+</code></pre></div>
+
+<p><strong>Light Proxy</strong></p>
+
+<p>Possible sub-elements for Light are:</p>
+
+<p>ButtonLinkBindingIDBase: This integer value is the starting binding id for any button link bindings that may be associated with the light device.</p>
+
+<p>Capabilities: This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"Light":   {
+ "ButtonLinkBindingIDBase": 300,
+ "Capabilities":  {
+   "dimmer": "True",
+   "on_off": "True",
+   "set_level": "True",
+   "ramp_level": "True",
+   "min_max": "True",
+   "click_rates": "True",
+   "click_rate_min": "250",
+   "hold_rates": "True",
+   "hold_rate_min": "1000",
+   "cold_start": "True",
+   "has_leds": "True",
+   "supports_broadcast_scenes": "True",
+   "supports_multichannel_scenes": "False",
+   "hide_proxy_properties": "False",
+   "hide_proxy_events": "False",
+   "has_button_events": "True",
+   "advanced_scene_support": "True",
+   "load_group_support": "True",
+   "buttons_are_virtual": "False",
+   "has_load": "True",
+   "max_power": "0",
+   "min_power": "-7"
+ }
+},
+</code></pre></div>
+
+<p><strong>Lock Proxy</strong></p>
+
+<p>The possible sub-element for Lock is: </p>
+
+<p>Capabilities: This lists the default capabilities that should be specified for this proxy. For example: </p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"Lock":   {
+ "Capabilities":  {
+  "is_management_only": "False",
+  "has_admin_code": "True",
+  "has_schedule_lockout": "True",
+  "has_auto_lock_time": "True",
+  "auto_lock_time_values": "0",
+  "auto_lock_time_display_values": "OFF",
+  "has_log_items_count": "True",
+  "log_item_count_values": "5",
+  "has_lock_modes": "False",
+  "lock_modes_values": "normal",
+  "has_log_failed_attempts": "False",
+  "has_wrong_code_attempts": "False",
+  "wrong_code_attempts_values": "1",
+  "has_shutout_timer": "False",
+  "shutout_timer_values": "5",
+  "shutout_timer_display_values": "5sec",
+  "has_language": "False",
+  "language_values": "English",
+  "has_volume": "True",
+  "has_one_touch_locking": "False",
+  "has_daily_schedule": "True",
+  "has_date_range_schedule": "True",
+  "max_users": "30",
+  "has_settings": "True",
+  "has_custom_settings": "False",
+  "has_internal_history": "True",
+  "can_edit_user": "True",
+  "can_edit_user_pin": "True",
+  "can_add_remove_user": "True"
+ }
+},
+</code></pre></div>
+
+<p><strong>MediaPlayer Proxy</strong></p>
+
+<p>Possible sub-elements for MediaPlayer are:</p>
+
+<p>HasAudio: This is a Boolean string value that specifies whether media player proxies support audio. If not specified, the value defaults to: <code>“True”</code>.</p>
+
+<p>HasVideo: This is a Boolean string value that specifies whether media player proxies support video. If not specified, the value defaults to: <code>“True”</code>.</p>
+
+<p>This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"MediaPlayer":   {
+  "HasAudio": "True",
+  "HasVideo": "True",
+  "Capabilities":  {
+   "has_http_playback": "True",
+   "has_discrete_volume_control": "True",
+   "has_discrete_mute_control": "True"
+  }
+},
+</code></pre></div>
+
+<p><strong>Receiver Proxy</strong></p>
+
+<p>The possible sub-element for Receiver is: </p>
+
+<p>Capabilities: This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"Receiver":   {
+ "Capabilities":  {
+  "has_discrete_volume_control": "True",
+  "has_up_down_volume_control": "True",
+  "has_discrete_input_select": "True",
+  "has_toad_input_select": "True",
+  "has_discrete_surround_mode_select": "True",
+  "has_toad_surround_mode_select": "True",
+  "has_discrete_bass_control": "True",
+  "has_up_down_bass_control": "True",
+  "has_discrete_treble_control": "True",
+  "has_up_down_treble_control": "True",
+  "has_discrete_balance_control": "True",
+  "has_up_down_balance_control": "True",
+  "has_discrete_loudness_control": "True",
+  "has_toggle_loudness_control": "True",
+  "has_discrete_mute_control": "True",
+  "has_toggle_mute_control": "True",
+  "surround_modes": "<span class="nt">&lt;surround_mode&gt;&lt;id&gt;</span>22620<span class="nt">&lt;/id&gt;&lt;name&gt;</span>Stereo<span class="nt">&lt;/name&gt;&lt;/surround_mode&gt;&lt;surround_mode&gt;&lt;id&gt;</span>22624<span class="nt">&lt;/id&gt;&lt;name&gt;</span>THX<span class="nt">&lt;/name&gt;&lt;/surround_mode&gt;</span>"
+  }
+},
+</code></pre></div>
+
+<p><strong>SecurityPanel</strong></p>
+
+<p>The possible sub-element for SecurityPanel is: </p>
+
+<p>Capabilities. This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"SecurityPanel":   {
+  "Capabilities":  {
+   "can_set_time": "True",
+   "can_activate_partitions": "True"
+  }
+},
+</code></pre></div>
+
+<p><strong>SecurityPartition</strong></p>
+
+<p>Possible sub-elements for SecurityPartition are:</p>
+
+<p>Buttons: This is an arrow of elements for buttons A – D which may match the buttons on a security keypad. These buttons will show up on the Navigator interface.  Each button element has values for:</p>
+
+<p>tag: The XML tag label that will be in driver.xml associated with this button.</p>
+
+<p>Visible: A Boolean string value that specifies whether this button is visible in Navigator.</p>
+
+<p>Label: A string value that specifies how the button will show up in Navigator.</p>
+
+<p>Capabilities: This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"SecurityPartition":   {
+  "Buttons":  [
+   { "tag": "button_A", "visible": "True", "label": "Button A" },
+   { "tag": "button_B", "visible": "True", "label": "B" },
+   { "tag": "button_C", "visible": "True", "label": "C" },
+   { "tag": "button_D", "visible": "False", "label": "D" }
+  ],
+  "Capabilities":  {
+   "ui_version": "2",
+   "supports_virtual_keypad": "True",
+   "has_fire": "True",
+   "has_medical": "False",
+   "has_police": "False",
+   "has_panic": "True",
+   "star_label": "*",
+   "pound_label": "#",
+   "arm_states": "Stay,Away",
+   "functions": ""
+  }
+},
+</code></pre></div>
+
+<p><strong>Tuner</strong></p>
+
+<p>Possible sub-elements for Tuner are:</p>
+
+<p>HasVideo: This is a Boolean string value that specifies whether tuner proxies support video. If not specified, the value defaults to “False”.</p>
+
+<p>HasAM: This is a Boolean string value that specifies whether tuner proxies support AM radio. If not specified, the value defaults to “True”.</p>
+
+<p>HasFM: This is a Boolean string value that specifies whether tuner proxies support FM radio. If not specified, the value defaults to “True”.</p>
+
+<p>Capabilities: This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"Tuner":    {
+  "HasVideo": "False",
+  "HasAM":    "True",
+  "HasFM":    "True",
+  "Capabilities":  {
+   "selection_delay": "0",
+   "has_discrete_input_select": "True",
+   "has_toad_input_select": "True",
+   "has_tune_up_down": "True",
+   "has_search_up_down": "True",
+   "has_discrete_preset": "True",
+   "has_preset_up_down": "True",
+   "preset_count": "3",
+   "has_discrete_channel_select": "True",
+   "has_channel_up_down": "True",
+   "preface_band_with_tuner": "True",
+   "rf_network_type": "AMFM"
+  }
+},
+</code></pre></div>
+
+<p><strong>TV</strong></p>
+
+<p>The possible sub-element for Tv is: 
+Capabilities. This lists the default capabilities that should be specified for this proxy. For example:</p>
+
+<div class="highlight"><pre class="highlight xml tab-xml"><code>"Tv":   {
+  "Capabilities":  {
+   "has_discrete_volume_control": "True",
+   "has_up_down_volume_control": "True",
+   "has_discrete_input_select": "True",
+   "has_toad_input_select": "True",
+   "has_discrete_channel_select": "True",
+   "has_channel_up_down": "True",
+   "has_discrete_bass_control": "True",
+   "has_up_down_bass_control": "True",
+   "has_discrete_treble_control": "True",
+   "has_up_down_treble_control": "True",
+   "has_discrete_balance_control": "True",
+   "has_up_down_balance_control": "True",
+   "has_discrete_loudness_control": "True",
+   "has_toggle_loudness_control": "True",
+   "has_discrete_mute_control": "True",
+   "has_toggle_mute_control": "True",
+   "has_audio": "True",
+   "requires_channel_after_input": "True"
+   }
+  }
+}
+</code></pre></div>
+
+<h2 id='getting-started-with-jumpstart-jumprefresh-utility'>JumpRefresh Utility</h2>
+
+<p>JumpRefresh is a program that is a companion tool to JumpStart. While JumpStart will create source code for a new driver, JumpRefresh only copies template files that are not intended to be changed by the driver developer into the driver’s source code. The allows the driver developer to update their driver to use the latest template code without overwriting any changes or additions made to the driver code after its initial creation.</p>
+
+<p>The program takes the name of a .jumprefresh file as a parameter. The file is a Json file that contains:</p>
+
+<ol>
+<li>Information about where the template code is located </li>
+<li>Information about where the source directory for the driver source code is located. </li>
+<li>A list of which proxy and communication modules should be updated.</li>
+</ol>
+
+<p>The following is an example of executing JumpRefresh:</p>
+
+<p><code>python JumpRefresh.exe avswitch-ACME.jumprefresh</code></p>
+
+<p>The following is an example of .jumprefresh file contents:</p>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"TemplateDir"</span><span class="p">:</span><span class="w"> 
+    </span><span class="s2">"developcontrol4DriverDevdriverstemplate-code"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"DriverDir"</span><span class="p">:</span><span class="s2">"C:developavswitch-ACME"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nl">"Proxies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"AV Switch"</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"Communications"</span><span class="p">:[</span><span class="s2">"serial"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <h1 id='markdown-driver-documentation'>Markdown Driver Documentation</h1>
 
 <p>Documentation can play an important role in ensuring the proper configuration and use of a driver. Driver documentation is created by the driver writer and delivered within the driver file. After the driver is added to a project, the content is displayed in ComposerPro under the driver’s Advanced Properties/Documentation tab.</p>
@@ -7004,7 +8100,7 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 </tr>
 </tbody></table>
 
-<h4 id='proxy-specific-information-camera-proxy-and-dynamic-streams-persisting-data-post-o-s-2-10-0-driver-support-for-dynamic-streams'>Driver Support for Dynamic Streams</h4>
+<h4 id='proxy-specific-information-camera-proxy-and-dynamic-streams-proxies-driver-support-for-dynamic-streams'>Driver Support for Dynamic Streams</h4>
 
 <p>New camera drivers should implement the dynamic streams API to provide a list of streams that the Navigators can pick from. In order to support dynamic streams the driver should:</p>
 
@@ -7034,7 +8130,7 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 <li>rtsps - 443</li>
 </ul>
 
-<h4 id='proxy-specific-information-camera-proxy-and-dynamic-streams-persisting-data-post-o-s-2-10-0-support-for-caching-urls'>Support for Caching  URLs</h4>
+<h4 id='proxy-specific-information-camera-proxy-and-dynamic-streams-proxies-support-for-caching-urls'>Support for Caching  URLs</h4>
 
 <p>The ability to cache the stream URL list is also supported. This removes the need to have to execute the GET_STREAM_URLS request every time a camera stream is loaded. This is supported with the capability: dynamic_urls_use_type. </p>
 
