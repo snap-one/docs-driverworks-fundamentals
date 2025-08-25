@@ -462,6 +462,9 @@
                     <a href="#conditionals-simple-conditional" class="toc-h2 toc-link" data-title="Simple Conditional">Simple Conditional</a>
                   </li>
                   <li>
+                    <a href="#conditionals-dynamic-conditionals" class="toc-h2 toc-link" data-title="Dynamic Conditionals">Dynamic Conditionals</a>
+                  </li>
+                  <li>
                     <a href="#conditionals-conditional-xml-example-code" class="toc-h2 toc-link" data-title="Conditional XML Example Code">Conditional XML Example Code</a>
                   </li>
                   <li>
@@ -2138,6 +2141,62 @@ Before detailing each of the conditionals listed above, it’s worth noting the 
 
 <h2 id='conditionals-simple-conditional'>Simple Conditional</h2><h3 id='conditionals-simple-conditional-understanding-xml-in-a-simple-type-conditional'>Understanding XML in a SIMPLE Type Conditional</h3>
 <p>Your conditional XML code must be defined in a manner that can be used by ComposerPro. In this section, we’ll define a SIMPLE type conditional called <code>SIMPLE_LIGHT_ON</code>. In doing so we’ll look at each line of XML required to define this type of conditional to the right:</p>
+<div class="highlight"><pre class="highlight xml tab-xml"><code>1.  <span class="nt">&lt;conditionals&gt;</span>
+2.   <span class="nt">&lt;conditional&gt;</span>
+3.     <span class="nt">&lt;id&gt;</span>0<span class="nt">&lt;/id&gt;</span>
+4.     <span class="nt">&lt;name&gt;</span>SIMPLE_LIGHT_ON<span class="nt">&lt;/name&gt;</span>
+5.     <span class="nt">&lt;type&gt;</span>SIMPLE<span class="nt">&lt;/type&gt;</span>
+6.     <span class="nt">&lt;condition_statement&gt;</span>The light is on<span class="nt">&lt;/condition_statement&gt;</span>
+7.     <span class="nt">&lt;description&gt;</span>NAME is On<span class="nt">&lt;/description&gt;</span>
+8.   <span class="nt">&lt;/conditional&gt;</span>
+9.  <span class="nt">&lt;/conditionals&gt;</span>
+</code></pre></div>
+
+<p>Line 1: <code>&lt;conditionals&gt;&lt;/conditionals&gt; </code>
+This is the driver’s root XML tag that contains all the driver’s conditional code.</p>
+
+<p>Line 2: <code>&lt;conditional&gt;&lt;/conditional&gt; </code>
+XML tag for this unique conditional.</p>
+
+<p>Line 3: <code>&lt;id&gt;&lt;/id&gt;</code>
+The conditional’s numeric ID value. It is recommended that conditionals be numbered beginning with 0. All conditionals require a unique numeric ID.</p>
+
+<p>Line 4: <code>&lt;name&gt;&lt;/name&gt;</code>
+The name of the conditional. This is a unique name defined by the driver writer. It is used in the TestCondition function in the Lua code of the driver. This is given as the first parameter to the TestCondition function. This is how the driver knows what condition is being tested.</p>
+
+<p>Line 5: <code>&lt;type&gt;&lt;/type&gt;</code>
+The type of the conditional as defined above in the Conditional Types section.</p>
+
+<p>Line 6: &lt;<code>condition_statement&gt;&lt;/condition_statement&gt;</code> 
+The conditional statement states a question being asked regarding a state of the driver. This is the statement that is shown before the condition logic. For example, the Simple Light On conditional above, the question being asked is if ‘The Light is on’. It is basically a useful statement that supports the conditional. When an integrator is viewing this driver’s conditionals in ComposerPro, they can select “The Light is on” from the list of conditionals and can ultimately initiate programming when the light is in the On state.</p>
+
+<p>Line 7: <code>&lt;description&gt;&lt;/description&gt;</code>
+The description element needs to contain the NAME macro. NAME is a key value that is equivalent to your driver’s unique name. Every conditional needs to include NAME. ComposerPro treats the NAME macro in your conditional XML in a way that replaces it with your driver’s unique name. The unique name is formatted by the name of the room where the driver resides followed by “-&gt;”, followed by the name of the driver as it is named in the project. For example, consider that the name of our example driver is “Living Room Lamp” and it is in the Living Room. Based on this, “Living Room-&gt;Living Room Lamp” will replace NAME when your conditional programming description is displayed in the conditionals window and the script actions area of ComposerPro. Using the example above, ComposerPro will display the description XML element as: “If Living Room-&gt;Living Room Lamp is on”.</p>
+
+<h2 id='conditionals-dynamic-conditionals'>Dynamic Conditionals</h2>
+
+<p>Dynamic Conditionals differ from static conditionals in that they require the use of the GetConditionals API. These commands are dynamically created and displayed in ComposerPro for use in Programming. For example:</p>
+
+<div class="highlight"><pre class="highlight lua tab-lua"><code><span class="k">function</span> <span class="nf">GetConditionals</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">tConditionals</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">if</span> <span class="n">C4</span><span class="p">:</span><span class="n">GetCapability</span><span class="p">(</span><span class="s2">"dimmer"</span><span class="p">)</span> <span class="k">then</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">][</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"LIGHT_LEVEL"</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">][</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"NUMBER"</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">][</span><span class="s2">"condition_statement"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Light Level is"</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">][</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"NAME is LOGIC INTEGER"</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">][</span><span class="s2">"minimum"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"0"</span>
+    <span class="n">tConditionals</span><span class="p">[</span><span class="s2">"10"</span><span class="p">][</span><span class="s2">"maximum"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"100"</span>
+<span class="k">end</span>
+
+<span class="k">return</span> <span class="n">tConditionals</span>
+<span class="k">end</span>
+
+</code></pre></div>
+
+<p>Your conditional XML code must be defined in a manner that can be used by ComposerPro. In this section, we’ll define a SIMPLE type conditional called <code>SIMPLE_LIGHT_ON</code>. In doing so we’ll look at each line of XML required to define this type of conditional to the right:</p>
+
 <div class="highlight"><pre class="highlight xml tab-xml"><code>1.  <span class="nt">&lt;conditionals&gt;</span>
 2.   <span class="nt">&lt;conditional&gt;</span>
 3.     <span class="nt">&lt;id&gt;</span>0<span class="nt">&lt;/id&gt;</span>
