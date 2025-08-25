@@ -337,9 +337,9 @@ This function is required in order for a driver to use the DYNAMIC\_LIST type pa
 
 
 | Parameter | Description |
-| --- | --- |
-| str | commandName |
-| str | paramName |
+| --------- | ----------- |
+| str       | commandName |
+| str       | paramName   |
 
 
 ### Returns
@@ -461,3 +461,26 @@ For example, in the XML code to the right there are five device specific command
 - Sort Order numbering must be a positive number (including 0). The list is sorted in numerical order.
 -  If a sort order number value is used twice, the second Command using the same value will not be displayed.
 - When defining Commands that will use the Sort Order element, all of the Commands must include a numeric value. Failing to provide a sort order number for one Command will result in none of the Commands being sorted. For example, if you have ten Commands defined in your driver and one of them is missing the sort order element - none of the Commands will be sorted.
+
+## Dynamic Commands
+
+Support for dynamic commands was introduced in conjunction with O.S. 4.1.0. Dynamic Commands differ from static commands in that they require the use of the GetCommands API. These commands are dynamically created and displayed in ComposerPro for use in Programming. For example:
+
+
+```lua
+function GetCommands()
+local tCommands = {}
+
+ if C4:GetCapability("dimmer") then
+    tCommands["100"]                = {}
+    tCommands["100"]["name"]        = "SET_LEVEL"
+    tCommands["100"]["description"] = "Set NAME to PARAM1"
+    tCommands["100"]["sort_order"]  = "6"
+ end
+
+ return tCommands
+end
+```
+
+
+In the example above, the GetCommands function is used to return the data for a command with an ID of 100. This command is named SET\_LEVEL. SET\_LEVEL is created dynamically in ComposerPro id the light has the capability of being set to a dimmer as true.  It will be displayed in ComposerPro programming as a command that can be used to set a dimmer level to a provided parameter value. 
