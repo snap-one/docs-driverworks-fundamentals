@@ -518,6 +518,9 @@
                     <a href="#connections-non-binding-connection" class="toc-h2 toc-link" data-title="Non-Binding Connection">Non-Binding Connection</a>
                   </li>
                   <li>
+                    <a href="#connections-non-binding-keys-used" class="toc-h2 toc-link" data-title="Non-binding keys used:">Non-binding keys used:</a>
+                  </li>
+                  <li>
                     <a href="#connections-proxy-binding-multiple-proxies" class="toc-h2 toc-link" data-title="Proxy Binding Multiple Proxies">Proxy Binding Multiple Proxies</a>
                   </li>
                   <li>
@@ -3331,37 +3334,41 @@ and
 
 <p>The controller driver handles these commands through the standard ExecuteCommand function. Note that the driver ignores any of the native proxy commands typically received through ReceivedFrom Proxy.</p>
 
-<p>Non-binding keys used:<br>
-- ACME_MOIP_TRANSMITTER_BUS | Consumer</p>
+<p>Non-binding keys used:</p>
 
 <ul>
-<li><p>ACME_MOIP_TRANSCEIVER_BUS | Consumer</p></li>
-<li><p>ACME_MOIP_TRANSCEIVER_BUS | Provider</p></li>
-<li><p>ACME_MOIP_RECEIVER_BUS | Provider</p></li>
+<li>ACME_MOIP_TRANSMITTER_BUS | Consumer</li>
+<li>ACME_MOIP_TRANSCEIVER_BUS | Consumer</li>
+<li>ACME_MOIP_TRANSCEIVER_BUS | Provider</li>
+<li>ACME_MOIP_RECEIVER_BUS | Provider</li>
 </ul>
 
 <p><strong>acme_distributed_media_transmitter.c4z</strong></p>
 
 <p>The example transmitter driver delivers AV changes using the commands: SET_INPUT, DISCONNECT_INPUT and SET_VOLUME. These are sent to the controller driver as: HANDLE_SET_INPUT, HANDLE_ DISCONNECT_INPUT and HANDLE_ SET_VOLUME.</p>
 
-<p>Non-binding keys used:<br>
-- ACME_MOIP_TRANSMITTER_BUS | Provider</p>
+<h2 id='connections-non-binding-keys-used'>Non-binding keys used:</h2>
+
+<p>ACME_MOIP_TRANSMITTER_BUS | Provider</p>
 
 <p><strong>acme_distributed_media_receiver.c4z</strong></p>
 
 <p>The example receiver driver handles incoming AV changes using the commands: SET_INPUT, DISCONNECT_INPUT and SET_VOLUME. These are sent to the controller driver as: HANDLE_SET_INPUT, HANDLE_ DISCONNECT_INPUT and HANDLE_ SET_VOLUME.</p>
 
-<p>Non-binding keys used:
-- ACME_MOIP_RECEIVER_BUS | Consumer</p>
+<p>Non-binding keys used:</p>
+
+<ul>
+<li>ACME_MOIP_RECEIVER_BUS | Consumer</li>
+</ul>
 
 <p><strong>acme_distributed_media_transceiver.c4z</strong></p>
 
 <p>The example transceiver driver has the ability to deliver and receive AV Commands: SET_INPUT, DISCONNECT_INPUT and SET_VOLUME. These are sent to the controller driver as: HANDLE_SET_INPUT, HANDLE_ DISCONNECT_INPUT and HANDLE_ SET_VOLUME.</p>
 
-<p>Non-binding keys used:
-- ACME_MOIP_TRANSCEIVER_BUS | Consumer</p>
+<p>Non-binding keys used:</p>
 
 <ul>
+<li>ACME_MOIP_TRANSCEIVER_BUS | Consumer</li>
 <li>ACME_MOIP_TRANSCEIVER_BUS | Provider</li>
 </ul>
 
