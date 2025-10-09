@@ -90,13 +90,11 @@ The example controller driver can be considered the central hub for media distri
 
 The controller driver handles these commands through the standard ExecuteCommand function. Note that the driver ignores any of the native proxy commands typically received through ReceivedFrom Proxy.
 
-Non-binding keys used:  
+Non-binding keys used:
+
 - ACME\_MOIP\_TRANSMITTER\_BUS | Consumer
-
 - ACME\_MOIP\_TRANSCEIVER\_BUS | Consumer
-
 - ACME\_MOIP\_TRANSCEIVER\_BUS | Provider
-
 - ACME\_MOIP\_RECEIVER\_BUS | Provider
 
 
@@ -104,8 +102,9 @@ Non-binding keys used:
 
 The example transmitter driver delivers AV changes using the commands: SET\_INPUT, DISCONNECT\_INPUT and SET\_VOLUME. These are sent to the controller driver as: HANDLE\_SET\_INPUT, HANDLE\_ DISCONNECT\_INPUT and HANDLE\_ SET\_VOLUME.
 
-Non-binding keys used:  
-- ACME\_MOIP\_TRANSMITTER\_BUS | Provider
+Non-binding keys used:
+-   
+	ACME\_MOIP\_TRANSMITTER\_BUS | Provider
 
 
 **acme\_distributed\_media\_receiver.c4z**
@@ -113,6 +112,7 @@ Non-binding keys used:
 The example receiver driver handles incoming AV changes using the commands: SET\_INPUT, DISCONNECT\_INPUT and SET\_VOLUME. These are sent to the controller driver as: HANDLE\_SET\_INPUT, HANDLE\_ DISCONNECT\_INPUT and HANDLE\_ SET\_VOLUME.
 
 Non-binding keys used:
+
 - ACME\_MOIP\_RECEIVER\_BUS | Consumer
 
 
@@ -121,8 +121,8 @@ Non-binding keys used:
 The example transceiver driver has the ability to deliver and receive AV Commands: SET\_INPUT, DISCONNECT\_INPUT and SET\_VOLUME. These are sent to the controller driver as: HANDLE\_SET\_INPUT, HANDLE\_ DISCONNECT\_INPUT and HANDLE\_ SET\_VOLUME.
 
 Non-binding keys used:
-- ACME\_MOIP\_TRANSCEIVER\_BUS | Consumer
 
+- ACME\_MOIP\_TRANSCEIVER\_BUS | Consumer
 - ACME\_MOIP\_TRANSCEIVER\_BUS | Provider
 
 It is highly recommended that you exercise the sample drivers in a project, bound to source and endpoint device drivers. Studying the debug output in the drivers (particularly the Controller driver) will help clarify the concepts presented here. This exercise, in conjunction with the driver documentation included, will help you  best model AV non-binding connections in your drivers.
