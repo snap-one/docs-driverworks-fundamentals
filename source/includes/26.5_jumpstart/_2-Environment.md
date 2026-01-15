@@ -47,8 +47,8 @@ For example:
 ```json
 {
 	"General":{
-	  "TemplateDir": "..drivers-template-code", 
-	  "WorkDir": "NewDrivers",
+	  "TemplateDir": "C:\\Users\\OneDrive\\Documents\\drivers-template-code", 
+	  "WorkDir": "\\NewDrivers",
 	  "IncludeLuacheck": "True”,},
 	}
   }
@@ -74,7 +74,7 @@ This element specifies any additional files that the developer may want to have 
 
 ```json
 "Build": 
-{"BuildMethod": "CreateC4Z", "AdditionalFiles": "ExtraBatchFiles\dev.bat", "ExtraBatchFiles\rel.bat", "ExtraBatchFiles\rel.sh"},
+{"BuildMethod": "CreateC4Z", "AdditionalFiles": "ExtraBatchFiles\\dev.bat", "ExtraBatchFiles\\rel.bat" "ExtraBatchFiles\\rel.sh"},
 ```
 
 
