@@ -6984,8 +6984,8 @@ doesn’t exist, then each field will use its default value. For example:</p>
 
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"General"</span><span class="p">:{</span><span class="w">
-      </span><span class="nl">"TemplateDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..drivers-template-code"</span><span class="p">,</span><span class="w"> 
-      </span><span class="nl">"WorkDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NewDrivers"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"TemplateDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">OneDrive</span><span class="se">\\</span><span class="s2">Documents</span><span class="se">\\</span><span class="s2">drivers-template-code"</span><span class="p">,</span><span class="w"> 
+      </span><span class="nl">"WorkDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"</span><span class="se">\\</span><span class="s2">NewDrivers"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"IncludeLuacheck"</span><span class="p">:</span><span class="w"> </span><span class="s2">"True”,},
     }
   }
@@ -7008,7 +7008,7 @@ doesn’t exist, then each field will use its default value. For example:</p>
 <p>This element specifies any additional files that the developer may want to have included in the driver’s source directory. The files are specified by path names that JumpStart can access and are copied into the source directory. Any text strings in the source files of <code>^@JSPROJ^</code> will be replaced by the target name of the driver. For example:</p>
 
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="nl">"Build"</span><span class="p">:</span><span class="w"> 
-</span><span class="p">{</span><span class="nl">"BuildMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreateC4Z"</span><span class="p">,</span><span class="w"> </span><span class="nl">"AdditionalFiles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\d</span><span class="s2">ev.bat"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\r</span><span class="s2">el.bat"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\r</span><span class="s2">el.sh"</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="nl">"BuildMethod"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreateC4Z"</span><span class="p">,</span><span class="w"> </span><span class="nl">"AdditionalFiles"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\\</span><span class="s2">dev.bat"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\\</span><span class="s2">rel.bat"</span><span class="w"> </span><span class="s2">"ExtraBatchFiles</span><span class="se">\\</span><span class="s2">rel.sh"</span><span class="p">}</span><span class="err">,</span><span class="w">
 </span></code></pre></div>
 
 <h2 id='getting-started-with-jumpstart-driver-designation-file'>Driver Designation File</h2>
