@@ -65,7 +65,7 @@ Driver Packager is a Python utility used to create individual .c4z files from so
 
 For more information please see: [https://github.com/snap-one/drivers-driverpackager][1]
 
-For more information regarding luajit, please see: [https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit][2]
+For more information regarding luajit, please see: [https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit][2]
 
 [1]:	https://github.com/snap-one/drivers-driverpackager
 [2]:	https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit

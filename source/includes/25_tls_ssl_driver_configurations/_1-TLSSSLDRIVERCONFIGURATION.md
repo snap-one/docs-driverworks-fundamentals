@@ -6,7 +6,7 @@ If you use the DriverWorks SDK URL interface, you can implement basic or digest 
 
 [https://snap-one.github.io/docs-driverworks-api/#url-interface][1]
 
-[https://snap-one.github.io/docs-driverworks-api/#netportoptions][2]
+[https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions][2]
 
 [https://github.com/snap-one/docs-driverworks/tree/master/sample\_drivers][3]
 
@@ -96,7 +96,7 @@ If this property is omitted, then Director defaults to using sslv23 (which is th
 Please note that the `<certificate>`, `<private_key>`, and `<cacert>` expected in those XML tags for certificates and key information may all be contained in the same file.  It's not required to split the various certificates and keys out into separate files to work properly.  In the case that they are all contained in a single file, put that file's filename value in each of the XML tags.
 
 
-If a private key / key exchange is desired, you need to include your client\_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the [https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword][4] in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.
+If a private key / key exchange is desired, you need to include your client\_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the [https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword][4] in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.
 
 Once the connection is established, then you simply utilize the standard networking functions (e.g. [NetConnect][5] ) to communicate with the device. The returned information will come back on [ReceivedFromNetwork][6]
 
