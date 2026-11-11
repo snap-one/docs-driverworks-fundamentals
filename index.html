@@ -1415,7 +1415,7 @@ Entering the following in the driver’s Lua execute window will lock the lua wi
 
 <p>For more information please see: <a href="https://github.com/snap-one/drivers-driverpackager">https://github.com/snap-one/drivers-driverpackager</a></p>
 
-<p>For more information regarding luajit, please see: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit">https://snap-one.github.io/docs-driverworks-fundamentals/#control4-os-3-and-luajit</a></p>
+<p>For more information regarding luajit, please see: <a href="https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit">https://snap-one.github.io/docs-driverworks-fundamentals/#driverworks-and-luajit-control4-os-3-and-luajit</a></p>
 
 <h2 id='understanding-c4z-drivers-what-is-a-c4zproj-file'>What is a .c4zproj File</h2>
 
@@ -6803,7 +6803,7 @@ Note that functions cannot be members of a table that contain data that is inten
 
 <p><a href="https://snap-one.github.io/docs-driverworks-api/#url-interface">https://snap-one.github.io/docs-driverworks-api/#url-interface</a></p>
 
-<p><a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions">https://snap-one.github.io/docs-driverworks-api/#netportoptions</a></p>
+<p><a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions">https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netportoptions</a></p>
 
 <p><a href="https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers">https://github.com/snap-one/docs-driverworks/tree/master/sample_drivers</a></p>
 
@@ -6888,7 +6888,7 @@ Note that Control4 currently supports only the peer verification mode (<code>SSL
 
 <p>Please note that the <code>&lt;certificate&gt;</code>, <code>&lt;private_key&gt;</code>, and <code>&lt;cacert&gt;</code> expected in those XML tags for certificates and key information may all be contained in the same file.  It&#39;s not required to split the various certificates and keys out into separate files to work properly.  In the case that they are all contained in a single file, put that file&#39;s filename value in each of the XML tags.</p>
 
-<p>If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword" title="GetPrivatekeyPassword API">https://snap-one.github.io/docs-driverworks-api/#getprivatekeypassword</a> in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.</p>
+<p>If a private key / key exchange is desired, you need to include your client_private.key within the c4z file that contains your driver code. It should be pre-encrypted to protect the private key. You can then use the <a href="https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword" title="GetPrivatekeyPassword API">https://snap-one.github.io/docs-driverworks-api/#miscellaneous-interface-getprivatekeypassword</a> in your lua code to return the password that is needed for the Control4 system to access and use the private key in the key exchange. Obviously you will want to encrypt your driver code before distributing it in order to protect the client private key.</p>
 
 <p>Once the connection is established, then you simply utilize the standard networking functions (e.g. <a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-netconnect">NetConnect</a> ) to communicate with the device. The returned information will come back on <a href="https://snap-one.github.io/docs-driverworks-api/#serial-and-network-interface-receivedfromnetwork">ReceivedFromNetwork</a></p>
 
