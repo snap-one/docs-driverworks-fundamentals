@@ -136,7 +136,7 @@ When testing is complete, select **Reset Logs to Default Level** in **Logging Op
 
 To retrieve the log files, download a controller snapshot: in Composer Pro, select **Tools** > **Device Logs**, then select **Download** for the primary controller. The download can take a few minutes. Log files in `/var/log/debug`, including `director.log` and `driver_log.log`, are stored in RAM and are cleared when the controller reboots, so download the snapshot before rebooting. The snapshot is a .zip file that mirrors the controller's log directories (for example, `var/log/debug/director.log` and `var/log/log/driver_debug.log`) and includes the rotated, compressed copies of each log (`director.log.1.gz` and so on).
 
-_For further information regarding system logging, please see the System Manager Logging information._
+_For more information about log levels and log files, see the Controller Logging section._
 
 For reference, a list of sample load conditions and their respective log entries follows:
 
