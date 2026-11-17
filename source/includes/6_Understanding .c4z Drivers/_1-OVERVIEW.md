@@ -33,18 +33,20 @@ As you can see, this .c4z contains numerous .lua files. In order for all of the 
 
 <img src="images/6_understanding_c4z_drivers-Overview-04.png"/>
 
-In the example above, the file names are surrounded by quotation marks. The required Function uses the global variable LUA\_PATH to find the file. This variable is defined as LUA\_PATH = C4System; Driver. Based on this, Director will look for the .lua file on the controller first, The LUA\_PATH environment on the controller is:
-/control4/drivers/lua/?.lua;
+In the example above, each module name is surrounded by quotation marks. The require function searches the paths in the driver's `package.path` for a file that matches the module name. When Director loads a .c4z driver, it adds two entries to the end of the standard Lua search path:
 
-As each driver contains its own environment the LUA\_PATH for each driver would be:
+1. The driver's own .c4z directory on the controller, so `require "pool_init"` loads `pool_init.lua` from the .c4z.
+2. The directory that holds the Lua libraries delivered with Control4 OS.
 
-`LUA\_PATH=/control4/drivers/lua/?.lua;/etc/c4i/test\_driver\_name/?.lua`
+Because the driver's .c4z directory is searched first, a .lua file in the .c4z takes precedence over a library of the same name delivered with the OS.
 
-The required Function can also navigate a path to the .lua file if it is defined. For example:
+Name modules relative to the root of the .c4z, without the `.lua` extension. Use a dot to separate folder names; require converts each dot to a path separator. For example, the pool driver above loads `common/c4_init.lua` from its .c4z with:
 
-`require "/usr/local/lua/pool\_init.lua"`
+`require "common.c4_init"`
 
-When Director loads this .c4z file it will load all of the required .lua files into memory as one large .lua file and execute based on the contents of the assembled file.
+Do not pass absolute paths or file names that include `.lua` to require.
+
+Director loads each required .lua file the first time require is called for it. A module that is required more than once is loaded only once.
 
 Lua files can be included in a .c4z, defined using the require Function and still be excluded when DriverPackager assembles the final .c4z. This is useful in the event that a .lua file was included for testing purposes but is not needed when the final .c4z is delivered. This is handled in the .c4zproj file. Specifically, with the exclude parameter. For example, say a test.lua file was included in our .c4z, but is not needed when the driver is delivered. The .c4zproj file would look like the example to the right:
 
