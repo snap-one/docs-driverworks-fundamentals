@@ -115,13 +115,26 @@ There is no guarantee that that order of iteration through this table will be th
 
 
 ### Identifying Related Entries in the Driver Debug logs
-When Director attempts to load a driver it reports various errors and conditions to both the director.log and the `driver_debug.log` or: 
+When Director attempts to load a driver it reports various errors and conditions to both `director.log` and `driver_debug.log`:
 
 `/var/log/debug/director.log`
 
-`/mtn/internal/log/driver_debug.log`
+`/var/log/log/driver_debug.log`
 
-Note that the director.log rotates out its content frequently so driver errors are quickly lost. However, `driver_debug.log` should have very little content and will likely be easier to inspect.   `driver_debug.log` resides in a different directory as it is not cleared on controller reboots. By default, `driver_debug_nl` is set at Error level logging and won’t capture debug log statements. This can be changed to capture debug level for development testing with the following command: sysman log `driver_debug_nl` debug
+Note that `director.log` rotates out its content frequently so driver errors are quickly lost. However, `driver_debug.log` should have very little content and will likely be easier to inspect. `driver_debug.log` resides in a different directory as it is not cleared on controller reboots.
+
+`driver_debug.log` contains only the messages Director itself reports about drivers, such as load failures and runtime errors. Messages a driver writes with `C4:DebugLog` and `C4:ErrorLog` do not go to `driver_debug.log`; they go to `director.log` and `/var/log/debug/driver_log.log`. See the DebugLog and ErrorLog sections of the DriverWorks API Reference Guide.
+
+By default, `driver_debug.log` logs at the ERROR level and won't capture warning or debug messages. For development testing, the log level can be raised to DEBUG with C4 ToolBox:
+
+1. In Composer Pro, select **Tools** > **C4 ToolBox**. Under **Support Functions**, select **Logging**.
+2. In **Logging Options**, select **Enable Debug Logs**.
+3. In **Choose a Control4 Device**, select **Search Network**. If the controller isn't found, select **Add IP** and enter its IP address.
+4. Select the primary controller (listed in green) and select **Enable Debug Logs**.
+
+When testing is complete, select **Reset Logs to Default Level** in **Logging Options** and choose the same controller.
+
+To retrieve the log files, download a controller snapshot: in Composer Pro, select **Tools** > **Device Logs**, then select **Download** for the primary controller. The download can take a few minutes. Log files in `/var/log/debug`, including `director.log` and `driver_log.log`, are stored in RAM and are cleared when the controller reboots, so download the snapshot before rebooting. The snapshot is a .zip file that mirrors the controller's log directories (for example, `var/log/debug/director.log` and `var/log/log/driver_debug.log`) and includes the rotated, compressed copies of each log (`director.log.1.gz` and so on).
 
 _For further information regarding system logging, please see the System Manager Logging information._
 
