@@ -657,31 +657,19 @@
               </ul>
           </li>
           <li>
-            <a href="#system-manager-logging" class="toc-h1 toc-link" data-title="System Manager Logging">System Manager Logging</a>
+            <a href="#controller-logging" class="toc-h1 toc-link" data-title="Controller Logging">Controller Logging</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#system-manager-logging-introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
+                    <a href="#controller-logging-introduction" class="toc-h2 toc-link" data-title="Introduction">Introduction</a>
                   </li>
                   <li>
-                    <a href="#system-manager-logging-system-manager-logging-ui" class="toc-h2 toc-link" data-title="System Manager Logging UI">System Manager Logging UI</a>
+                    <a href="#controller-logging-log-levels" class="toc-h2 toc-link" data-title="Log Levels">Log Levels</a>
                   </li>
                   <li>
-                    <a href="#system-manager-logging-sorting-and-filtering-the-log-view" class="toc-h2 toc-link" data-title="Sorting and Filtering the Log View">Sorting and Filtering the Log View</a>
+                    <a href="#controller-logging-raising-log-levels" class="toc-h2 toc-link" data-title="Raising Log Levels">Raising Log Levels</a>
                   </li>
                   <li>
-                    <a href="#system-manager-logging-supported-log-types" class="toc-h2 toc-link" data-title="Supported Log Types">Supported Log Types</a>
-                  </li>
-                  <li>
-                    <a href="#system-manager-logging-changing-log-levels" class="toc-h2 toc-link" data-title="Changing Log Levels">Changing Log Levels</a>
-                  </li>
-                  <li>
-                    <a href="#system-manager-logging-viewing-log-file-data" class="toc-h2 toc-link" data-title="Viewing Log File Data">Viewing Log File Data</a>
-                  </li>
-                  <li>
-                    <a href="#system-manager-logging-adding-a-log-appender-column" class="toc-h2 toc-link" data-title="Adding a Log Appender Column">Adding a Log Appender Column</a>
-                  </li>
-                  <li>
-                    <a href="#system-manager-logging-advanced-logging-capabilities" class="toc-h2 toc-link" data-title="Advanced Logging Capabilities">Advanced Logging Capabilities</a>
+                    <a href="#controller-logging-retrieving-log-files" class="toc-h2 toc-link" data-title="Retrieving Log Files">Retrieving Log Files</a>
                   </li>
               </ul>
           </li>
@@ -1641,7 +1629,7 @@ In the Lua 5.1 language standard the pseudo-argument arg is no longer supported.
 
 <p>To retrieve the log files, download a controller snapshot: in Composer Pro, select <strong>Tools</strong> &gt; <strong>Device Logs</strong>, then select <strong>Download</strong> for the primary controller. The download can take a few minutes. Log files in <code>/var/log/debug</code>, including <code>director.log</code> and <code>driver_log.log</code>, are stored in RAM and are cleared when the controller reboots, so download the snapshot before rebooting. The snapshot is a .zip file that mirrors the controller&#39;s log directories (for example, <code>var/log/debug/director.log</code> and <code>var/log/log/driver_debug.log</code>) and includes the rotated, compressed copies of each log (<code>director.log.1.gz</code> and so on).</p>
 
-<p><em>For further information regarding system logging, please see the System Manager Logging information.</em></p>
+<p><em>For more information about log levels and log files, see the Controller Logging section.</em></p>
 
 <p>For reference, a list of sample load conditions and their respective log entries follows:</p>
 
@@ -5682,157 +5670,25 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 <p>On success, Director retrieves the country code and name from the response and stores them. Regardless of success or failure, Director then schedules another call to the geo location webservice. It does this by setting a timer. The interval for this timer is maintained by the following Director configuration setting: <code>geo-interval-minutes</code></p>
 
 <p>This configuration setting specifies the number of minutes until the next call to the geo location webservice. The default value is 60 minutes resulting in Director invoking the geo location webservice every hour, by default.</p>
-<h1 id='system-manager-logging'>System Manager Logging</h1>
+<h1 id='controller-logging'>Controller Logging</h1>
 
-<h2 id='system-manager-logging-introduction'>Introduction</h2>
+<h2 id='controller-logging-introduction'>Introduction</h2>
 
-<p>Beginning with OS system 2.6.0, the System Manager (sysman) utility has been enhanced with a logging interface. This interface has been delivered as a replacement for the previously supported c4log utility. The sysman log interface represents an enhancement to the previous supported system logging process. Some improvements include:</p>
+<p>Control4 OS writes log files on the controller for Director and the other Control4 processes. Driver developers use these logs to see messages their drivers write with <code>C4:DebugLog</code> and <code>C4:ErrorLog</code>, and messages Director reports about drivers, such as load failures and runtime errors.</p>
 
-<ul>
-<li><p>Deprecation of the c4log script. This has been replaced with enhanced logging control commands executed from within System Manager.</p></li>
-<li><p>Unified the existing logging levels and their messaging to provide consistency across logging output.</p></li>
-<li><p>Increased the number of logging utilities to deliver a more granular view of log content.</p></li>
-<li><p>Increased the number of logging utilities including independent, targeted logs and increased log level control to reduce the amount of times Director logs roll over.</p></li>
-<li><p>Added advanced logging features such as named loggers and appenders. This provides the ability to direct logs to other directory and network locations. This will prevent the loss of information which previously occurred due to system re-boots.</p></li>
-<li><p>Added a new log level: TRACE. This level logs an even greater level of detail than DEBUG. This should be used sparingly during the active investigation of an issue.</p></li>
-<li><p>Default functionality now sets Log levels to INFO rather than DEBUG unless tracking down an issue. This is only applicable in  versions. Release version logging defaults to DEBUG.</p></li>
-<li><p>Default functionality now sets logging to be enabled in a release version capturing FATAL and ERROR conditions.</p></li>
-<li><p>The ComposerPro System Manager UI has been enhanced to support the logging interface. Logs can be viewed and filtered and log levels assigned through System Manager.</p></li>
-</ul>
-
-<p>The purpose of this section is to provide instruction on how to use the sysman logging platform to:</p>
+<p>Shell access to the controller (SSH or PuTTY sessions) is no longer available, and the System Manager (sysman) utility and its command-line logging interface are not supported for driver development. Earlier versions of this guide described changing log levels, adding log appenders, and viewing log files with sysman. Use the Composer Pro tools described in this section instead:</p>
 
 <ul>
-<li><p>Connect to a controller from the System Manager Logging UI</p></li>
-<li><p>Review active Loggers within the UI</p></li>
-<li><p>Filter the results displayed in the UI</p></li>
-<li><p>Assign a logging level to an active Logger from within the UI</p></li>
-<li><p>View Log File content and Log File locations</p></li>
+<li><strong>C4 ToolBox</strong> raises the controller&#39;s logs to DEBUG and resets them to their default levels.</li>
+<li><strong>System Diagnostics</strong> sets the log level of an individual logger, such as <code>director</code>.</li>
+<li><strong>Device Logs</strong> downloads a controller snapshot that contains the log files.</li>
 </ul>
 
-<p>The Advanced Logging Capabilities section provides command line instructions on how to accomplish all of the above as well as information on how to assign Log Appenders.</p>
+<p>Log destinations and log rotation cannot be changed.</p>
 
-<h2 id='system-manager-logging-system-manager-logging-ui'>System Manager Logging UI</h2>
+<h2 id='controller-logging-log-levels'>Log Levels</h2>
 
-<p><strong>Accessing the UI</strong></p>
-
-<p>The System Manager Program can also be run independently from Composer Pro by double clicking the sysman.exe included with the operating system installation.</p>
-
-<p><img src="images/16_2-01-23bfd869.png"/></p>
-
-<p>Once Sysman is open, locate the controller from the Device list and connect to it. Next, click on the Logging tab to display the Sysman Logging UI:</p>
-
-<p><img src="images/16_2-02-b739339d.png"/></p>
-
-<p>The view shown below is the default view for Logging. The view includes all of the program level loggers running, the logging level they are currently using to capture log data and the destination where the log file resides.</p>
-
-<p><img src="images/16_2-03-716b447f.png"/></p>
-
-<h2 id='system-manager-logging-sorting-and-filtering-the-log-view'>Sorting and Filtering the Log View</h2>
-
-<p><strong>Sorting the Log View</strong>
-The Log view can be sorted alphabetically by clicking within the column header area. Doing so will arrange the log information for that column (along with its associated data found in the other columns) alphabetically. The arrow displayed in the header indicates if the display is sorted alphabetically from top to bottom or bottom to top.</p>
-
-<p><img src="images/16_3-01-6f1336e5.png"/></p>
-
-<p>The Log view can be sorted alphabetically by clicking within the column header area. Doing so will arrange the log information for that column (along with its associated data found in the other columns) alphabetically. The arrow displayed in the header indicates if the display is sorted alphabetically from top to bottom or bottom to top.</p>
-
-<p><strong>Filtering Log Information</strong>
-Filters are provided for all of columns displayed in the Log View except for the Name and Destination columns. Filters are useful as they allow you to display only the logging information you desire.</p>
-
-<p>By default, the Type column has a filter associated with it when the logging view is first accessed. You can tell that a column is filtered by the display of the filter icon:</p>
-
-<p><img src="images/16_3-02-bdb85643.png"/></p>
-
-<p>Using the Filter icon in the Type column can display all of the active loggers. This includes the Named loggers and the Syslog loggers. </p>
-
-<p><img src="images/16_3-03-db23077b.png"/></p>
-
-<p>Right clicking within the Type column header will display the Filtering menu item. Clicking on it will display all of the available items found under the Log Type category. In our example above, we have selected all of the log types to show in our Logging display. Clicking on the Apply button will change our Logging UI to show all log types:</p>
-
-<p><img src="images/16_3-04-c2bad323.png"/></p>
-
-<p>To add a filter to a column, simply right click on the column header and select the Filtering menu option:</p>
-
-<p><img src="images/16_3-05-faeeaac8.png"/></p>
-
-<p>In the example above, we’re creating a filter for the status column. After the Filtering menu item is selected, all of the available statuses are displayed. Populating a checkbox, or checkboxes will dictate what information is shown in the UI. Clicking the Apply button will change our Logging view to this:</p>
-
-<p><img src="images/16_3-06-20215082.png"/></p>
-
-<p>Because we chose the “set” item to filter our view on, the Logging screen only displays loggers with a status of set. Note the Filter icon is also now displayed in the Status column header.</p>
-
-<h2 id='system-manager-logging-supported-log-types'>Supported Log Types</h2>
-
-<p>Program – These are the logs of primary interest. Each of the named logs is associated with a major area of the Control4 system architecture.</p>
-
-<p>Named – These logs are used by specific functional areas of the Control4 system. Each named logger rolls up to the root level of one of the program loggers and, if not specifically configured to behave differently, the logs for the named logger are always shown in the Program log of the root logger.</p>
-
-<p>Syslog – The default Linux system logging is used by a couple of the Control4 systems processes. </p>
-
-<h2 id='system-manager-logging-changing-log-levels'>Changing Log Levels</h2>
-
-<p>Log levels can be changed from within the Sysman Logging UI. Doubling click within the cell that contains the logging level you wish to change. This will display a list of all available logging levels, simply select the desired level and the log setting is now changed.</p>
-
-<p><img src="images/16_5-01-38974b64.png"/></p>
-
-<h2 id='system-manager-logging-viewing-log-file-data'>Viewing Log File Data</h2>
-
-<p>Log file content can be viewed by highlighting a logger from the view and clicking on the Open Log button in the upper right hand corner of the Logging screen:</p>
-
-<p><img src="images/16_7-01-e9e894eb.png"/></p>
-
-<p>By default, the log file content will be displayed in Notepad.</p>
-
-<p>Viewing Log File Destinations
-The location of a log file can be viewed by highlighting a logger from the view and clicking on the View Destination button in the upper right hand corner of the Logging screen:</p>
-
-<p><img src="images/16_7-02-aaf64e2d.png"/></p>
-
-<p>The location of the log file is displayed in Windows Explorer.</p>
-
-<h2 id='system-manager-logging-adding-a-log-appender-column'>Adding a Log Appender Column</h2>
-
-<p>By default, the Log Appender column is not displayed on the Sysman Logging UI. This column can be added by right clicking on any of the column headers. Populate the Appender checkbox from the list of columns at the bottom of the menu:</p>
-
-<p><img src="images/16_8-01-840f2a3d.png"/></p>
-
-<p>The Appender column will be added to the view:</p>
-
-<p><img src="images/16_8-02-174f79a2.png"/></p>
-
-<p>For more information on using Log Appenders, please see the “Targeting Log Directories” section in the Advanced Logging Capabilities portion of this document.</p>
-
-<h2 id='system-manager-logging-advanced-logging-capabilities'>Advanced Logging Capabilities</h2>
-
-<p><strong>Determining the Status of a Log File</strong>
-Using the sysman logging interface you can ascertain the status of a log file using the first example to the right:</p>
-
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span>
-<span class="nx">lighttpd</span> <span class="nx">syslog</span> <span class="nx">err</span> <span class="nx">enabled</span> <span class="nx">file</span> <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">director</span><span class="p">.</span><span class="nx">log</span>
-<span class="nx">OK</span>
-</code></pre></div>
-
-<p>In this example, we can see that the director logging utility is set to a level of ERROR and it is using a file appender with a directory destination of: /var/log.</p>
-
-<p><strong>Assigning Log Levels</strong>
-Prior to 2.6.0, the only way to change a logging utility&#39;s level was to edit its .config file and then restart the controller. </p>
-
-<p>The Sysman Logging utility allows you to assign log levels to a specific log through its interface.  For example, if we wanted to set the logging level for our director log to DEBUG, we would enter the code from the second example:  </p>
-
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span> <span class="nx">debug</span>
-<span class="err"> </span><span class="nx">Logging</span> <span class="k">for</span> <span class="nx">director</span> <span class="kd">set</span> <span class="nx">to</span> <span class="nx">debug</span>
-<span class="err"> </span><span class="nx">OK</span>
-</code></pre></div>
-
-<p>In the third example, we can also return the log to value its default value of ERROR.</p>
-
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span> <span class="k">default</span>
-<span class="err">  </span><span class="nx">Logging</span> <span class="k">for</span> <span class="nx">director</span> <span class="kd">set</span> <span class="nx">to</span> <span class="k">default</span>
-<span class="err">  </span><span class="nx">OK</span>
-</code></pre></div>
-
-<p>Note that Logs for programs are always enabled. It is not possible to disable logging for a program. You can only reset it to its default value. Supported Log Levels include:</p>
+<p>Each logger writes only the messages at its current level or a more severe level. The supported log levels, from most to least severe, are:</p>
 
 <table><thead>
 <tr>
@@ -5850,116 +5706,78 @@ Prior to 2.6.0, the only way to change a logging utility&#39;s level was to edit
 </tr>
 <tr>
 <td>Warning</td>
-<td>WARN level designates potentially harmful situations.</td>
+<td>The WARN level designates potentially harmful situations.</td>
 </tr>
 <tr>
 <td>Info</td>
-<td>INFO level designates informational messages that highlight the progress of the application at coarse-grained level.</td>
+<td>The INFO level designates informational messages that highlight the progress of the application at a coarse-grained level.</td>
 </tr>
 <tr>
 <td>Debug</td>
-<td>The DEBUG Level designates fine-grained informational events that are most useful to debug an application.</td>
+<td>The DEBUG level designates fine-grained informational events that are most useful to debug an application.</td>
 </tr>
 <tr>
 <td>Trace</td>
-<td>The TRACE Level designates finer-grained informational events than the DEBUG.</td>
+<td>The TRACE level designates finer-grained informational events than DEBUG. Use it sparingly, during the active investigation of an issue.</td>
 </tr>
 </tbody></table>
 
-<p>By default, logging is enabled for all Control4 processes. The default log level is Error, meaning Fatal and Error level messages are logged. Warning, Info, Debug, and Trace messages are not.</p>
+<p>By default, release builds of Control4 OS log at ERROR, so only Fatal and Error messages are written. Messages a driver writes with <code>C4:DebugLog</code> do not appear until the log level is raised to DEBUG or TRACE.</p>
 
-<p><strong>Targeting Log Directories</strong></p>
+<p>Raise log levels only while testing, and return them to their default levels when testing is complete. Higher log levels write more data, and logs such as <code>director.log</code> then fill and rotate more quickly.</p>
 
-<p>Prior to 2.6.0, the only way to change a logging utility’s destination directory was to edit its .config file and then restart the controller. </p>
+<h2 id='controller-logging-raising-log-levels'>Raising Log Levels</h2>
 
-<p>Beginning with OS 2.6.0, the use “Log Appenders” is supported. Log Appenders deliver a log file to a specific destination. The assignment of a Log Appender cannot be done through the sysman interface. It must be done through an SSL connection. There are three kinds of Log Appenders supported by the sysman logging interface:</p>
+<p><strong>Using C4 ToolBox</strong></p>
 
-<ul>
-<li>syslog appenders - These send log messages to syslog.</li>
-<li>file appenders - These write log messages to a file. </li>
-<li>socket appenders - These send log messages to a specific host and port number.</li>
-</ul>
+<p>C4 ToolBox raises the controller&#39;s logs, including <code>director.log</code> and <code>driver_log.log</code>, to DEBUG:</p>
 
-<p>Most Control4 programs use a simple file appender at the root logger. The sysman log interface allows users to add additional appenders, as well as remove appenders. The following examples to the right show these actions using the director log.</p>
+<ol>
+<li>In Composer Pro, select <strong>Tools</strong> &gt; <strong>C4 ToolBox</strong>. Under <strong>Support Functions</strong>, select <strong>Logging</strong>.</li>
+<li>In <strong>Logging Options</strong>, select <strong>Enable Debug Logs</strong>.</li>
+<li>In <strong>Choose a Control4 Device</strong>, select <strong>Search Network</strong>. If the controller isn&#39;t found, select <strong>Add IP</strong> and enter its IP address.</li>
+<li>Select the primary controller (listed in green) and select <strong>Enable Debug Logs</strong>.</li>
+</ol>
 
-<p>First, we’ll set the log level of debug using the same syntax used previously.</p>
+<p>When testing is complete, select <strong>Reset Logs to Default Level</strong> in <strong>Logging Options</strong> and choose the same controller.</p>
 
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span> <span class="nx">debug</span>
-<span class="nx">Logging</span> <span class="k">for</span> <span class="nx">director</span> <span class="kd">set</span> <span class="nx">to</span> <span class="nx">debug</span>
-<span class="nx">OK</span>
-</code></pre></div>
+<p><strong>Using System Diagnostics</strong></p>
 
-<p>Next, we’ll add a new destination directory for the director’s log file (my-director.log). To do this we need to add a file appender.</p>
+<p>To set the level of a single logger, in Composer Pro, select <strong>Tools</strong> &gt; <strong>System Diagnostics</strong> and select the <strong>Logging</strong> tab. Set <strong>Logger</strong> to the logger you want to change, such as <code>director</code>, and set <strong>Log Level</strong> to the level you want.</p>
 
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span> <span class="nx">add</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">my</span><span class="o">-</span><span class="nx">director</span><span class="p">.</span><span class="nx">log</span>
-<span class="nx">Added</span> <span class="nx">file</span> <span class="nx">appender</span> <span class="nx">director_0</span> <span class="nx">to</span> <span class="nx">director</span> <span class="k">for</span> <span class="sr">/tmp/my</span><span class="o">-</span><span class="nx">director</span><span class="p">.</span><span class="nx">log</span>
-<span class="nx">OK</span>
-</code></pre></div>
+<p><code>driver_log.log</code> is not one of the loggers listed in System Diagnostics. To raise it, use C4 ToolBox.</p>
 
-<p>This code sample adds a new file appender which will write the log file to: /tmp/my-director.log. </p>
+<p>Because <code>director.log</code> fills and rotates quickly, use a controller snapshot rather than <strong>Start Tail</strong> to review driver messages.</p>
 
-<p>Note that the confirmation message displayed by sysman also includes the appender name or <code>director_0</code> in the example.</p>
+<h2 id='controller-logging-retrieving-log-files'>Retrieving Log Files</h2>
 
-<p>The <code>director_0</code> name is also used when we need to remove the appender.</p>
+<p>To retrieve the log files, download a controller snapshot: in Composer Pro, select <strong>Tools</strong> &gt; <strong>Device Logs</strong>, then select <strong>Download</strong> for the primary controller. The download can take a few minutes.</p>
 
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span> <span class="nx">remove</span> <span class="nx">director_0</span>
-<span class="nx">Removed</span> <span class="nx">appender</span> <span class="nx">director_0</span> <span class="k">from</span> <span class="nx">director</span>
-<span class="nx">OK</span>
-</code></pre></div>
+<p>The snapshot is a .zip file that mirrors the controller&#39;s log directories and includes the rotated, compressed copies of each log (for example, <code>director.log.1.gz</code>). The log files of most interest to driver developers are:</p>
 
-<p>Any log file destination must begin with a slash &quot;/&quot; character as this creates the log4cplus file appender.</p>
+<table><thead>
+<tr>
+<th>Log File</th>
+<th>Contents</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>var/log/debug/director.log</code></td>
+<td>Director&#39;s log. Includes messages drivers write with <code>C4:DebugLog</code> and <code>C4:ErrorLog</code>.</td>
+</tr>
+<tr>
+<td><code>var/log/debug/driver_log.log</code></td>
+<td>Messages drivers write with <code>C4:DebugLog</code> and <code>C4:ErrorLog</code>.</td>
+</tr>
+<tr>
+<td><code>var/log/log/driver_debug.log</code></td>
+<td>Messages Director reports about drivers, such as load failures and runtime errors.</td>
+</tr>
+</tbody></table>
 
-<p>If the destination is a host:port number, for example &quot;192.168.0.100:5400&quot;, sysman will create a socket appender and configure it for the given host and port.</p>
+<p>Log files in <code>/var/log/debug</code> are stored in RAM and are cleared when the controller reboots, so download the snapshot before rebooting. <code>driver_debug.log</code> is not cleared on reboot.</p>
 
-<p>If the destination is a host name, for example, &quot;director&quot; (this is the host name of the controller running the director process), sysman will create a syslog appender and send log messages there. Note that the target syslog process must be configured to receive these messages and route them appropriately. See the fourth example to the right.</p>
-
-<div class="highlight"><pre class="highlight javascript"><code><span class="o">/</span><span class="err">#</span> <span class="nx">sysman</span> <span class="nx">log</span> <span class="nx">director</span> <span class="nx">add</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">tmp_director</span><span class="p">.</span><span class="nx">log</span>
-<span class="nx">Log</span> <span class="nx">file</span> <span class="k">for</span> <span class="nx">director</span> <span class="kd">set</span> <span class="nx">to</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">tmp_light</span><span class="p">.</span><span class="nx">log</span>
-<span class="nx">OK</span>
-</code></pre></div>
-
-<p><strong>Log File Size and Rotation Settings</strong>
-Configuration of log file size and rotation setting has not changed with new sysman logging utility. These can be configured in the logrotate.conf file on the controller. The file can be edited using a text editor.</p>
-
-<p><strong>Reviewing the Status of All Active Loggers</strong>
-An overview of the status of all loggers can be displayed through the sysman command line by entering: sysman.log
-The resulting output is to the right:</p>
-
-<div class="highlight"><pre class="highlight javascript"><code><span class="err"> </span><span class="nx">Logger</span>            <span class="nx">Type</span>      <span class="nx">Level</span>    <span class="nx">Status</span>      <span class="nx">Appender</span>         <span class="nx">Destination</span><span class="err"> </span>
-<span class="err"> </span><span class="nx">audio3client</span>      <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">audio</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">audio3client_nl</span>   <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">audio3server</span>      <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">audio</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">audio3server_nl</span>   <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">audio_asp_nl</span>      <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">audio_buffer_nl</span>   <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">audio_utils_nl</span>    <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">audioclient</span>       <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">audio</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">audioclient_nl</span>    <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">audioserver</span>       <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">audio</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">audioserver_nl</span>    <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">c4lookup</span>          <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">c4lookup</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">c4lookup_nl</span>       <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">c4net_nl</span>          <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">c4perfd</span>           <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">c4perfd</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">c4perfd_nl</span>        <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">c4rmengined</span>       <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">c4rmengined</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">c4rmengined_nl</span>    <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">c4server</span>          <span class="nx">program</span>   <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">c4server</span><span class="p">.</span><span class="nx">log</span>
-<span class="err"> </span><span class="nx">c4server_nl</span>       <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>
-<span class="err"> </span><span class="nx">cli_event</span>         <span class="nx">named</span>     <span class="nx">error</span>    <span class="nx">defaulted</span>   <span class="nx">cli_event</span>        <span class="nx">unknown</span>
-<span class="err"> </span><span class="nx">daemon</span>            <span class="nx">syslog</span>    <span class="nx">debug</span>    <span class="kd">set</span>         <span class="nx">syslog</span>           <span class="nx">director</span>
-<span class="err"> </span><span class="k">default</span>           <span class="nx">program</span>   <span class="nx">error</span>    <span class="kd">set</span>         <span class="nx">rootAppender</span><span class="err">    </span>
-<span class="err"> </span><span class="nx">director</span>          <span class="nx">program</span>   <span class="nx">error</span>    <span class="kd">set</span>         <span class="nx">rootAppender</span>     <span class="o">/</span><span class="kd">var</span><span class="sr">/log/</span><span class="nx">director</span><span class="p">.</span><span class="nx">log</span>
-</code></pre></div>
-
-<ul>
-<li><p>The first column titled “Logger” shows the program or named logger.</p></li>
-<li><p>The “Type” column shows the type of logger. There are three types of loggers: syslog loggers, program log4cplus root loggers and named log4cplus loggers. Note that the sysman interface doesn’t expose the differences between these types of loggers. However, it is exposed here as Log Type as it may be useful when reviewing groups of loggers.</p></li>
-<li><p>The “Level” column, Level, indicates the current logging level.</p></li>
-<li><p>The “Status” column Status indicates if the level is set explicitly or derived from the logging defaults.</p></li>
-<li><p>The “Appender” column indicates the type of destination. This will be a file, syslog host, named appender or root appender.</p></li>
-<li><p>The Destination column shows where log lines are sent. This will be either a file name, host name, syslog ident, or console.</p></li>
-</ul>
+<p>For more information, see the DebugLog and ErrorLog sections of the DriverWorks API Reference Guide.</p>
 <h1 id='handling-binary-data'>Handling Binary Data</h1>
 
 <h2 id='handling-binary-data-operating-system-3-and-binary-data'>Operating System 3 and Binary Data</h2>
