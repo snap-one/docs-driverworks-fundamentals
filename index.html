@@ -1618,13 +1618,28 @@ In the Lua 5.1 language standard the pseudo-argument arg is no longer supported.
 
 <h3 id='driverworks-and-luajit-control4-os-3-and-luajit-identifying-related-entries-in-the-driver-debug-logs'>Identifying Related Entries in the Driver Debug logs</h3>
 
-<p>When Director attempts to load a driver it reports various errors and conditions to both the director.log and the <code>driver_debug.log</code> or: </p>
+<p>When Director attempts to load a driver it reports various errors and conditions to both <code>director.log</code> and <code>driver_debug.log</code>:</p>
 
 <p><code>/var/log/debug/director.log</code></p>
 
-<p><code>/mtn/internal/log/driver_debug.log</code></p>
+<p><code>/var/log/log/driver_debug.log</code></p>
 
-<p>Note that the director.log rotates out its content frequently so driver errors are quickly lost. However, <code>driver_debug.log</code> should have very little content and will likely be easier to inspect.   <code>driver_debug.log</code> resides in a different directory as it is not cleared on controller reboots. By default, <code>driver_debug_nl</code> is set at Error level logging and won’t capture debug log statements. This can be changed to capture debug level for development testing with the following command: sysman log <code>driver_debug_nl</code> debug</p>
+<p>Note that <code>director.log</code> rotates out its content frequently so driver errors are quickly lost. However, <code>driver_debug.log</code> should have very little content and will likely be easier to inspect. <code>driver_debug.log</code> resides in a different directory as it is not cleared on controller reboots.</p>
+
+<p><code>driver_debug.log</code> contains only the messages Director itself reports about drivers, such as load failures and runtime errors. Messages a driver writes with <code>C4:DebugLog</code> and <code>C4:ErrorLog</code> do not go to <code>driver_debug.log</code>; they go to <code>director.log</code> and <code>/var/log/debug/driver_log.log</code>. See the DebugLog and ErrorLog sections of the DriverWorks API Reference Guide.</p>
+
+<p>By default, <code>driver_debug.log</code> logs at the ERROR level and won&#39;t capture warning or debug messages. For development testing, the log level can be raised to DEBUG with C4 ToolBox:</p>
+
+<ol>
+<li>In Composer Pro, select <strong>Tools</strong> &gt; <strong>C4 ToolBox</strong>. Under <strong>Support Functions</strong>, select <strong>Logging</strong>.</li>
+<li>In <strong>Logging Options</strong>, select <strong>Enable Debug Logs</strong>.</li>
+<li>In <strong>Choose a Control4 Device</strong>, select <strong>Search Network</strong>. If the controller isn&#39;t found, select <strong>Add IP</strong> and enter its IP address.</li>
+<li>Select the primary controller (listed in green) and select <strong>Enable Debug Logs</strong>.</li>
+</ol>
+
+<p>When testing is complete, select <strong>Reset Logs to Default Level</strong> in <strong>Logging Options</strong> and choose the same controller.</p>
+
+<p>To retrieve the log files, download a controller snapshot: in Composer Pro, select <strong>Tools</strong> &gt; <strong>Device Logs</strong>, then select <strong>Download</strong> for the primary controller. The download can take a few minutes. Log files in <code>/var/log/debug</code>, including <code>director.log</code> and <code>driver_log.log</code>, are stored in RAM and are cleared when the controller reboots, so download the snapshot before rebooting. The snapshot is a .zip file that mirrors the controller&#39;s log directories (for example, <code>var/log/debug/director.log</code> and <code>var/log/log/driver_debug.log</code>) and includes the rotated, compressed copies of each log (<code>director.log.1.gz</code> and so on).</p>
 
 <p><em>For further information regarding system logging, please see the System Manager Logging information.</em></p>
 
