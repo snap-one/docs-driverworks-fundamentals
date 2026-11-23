@@ -6230,14 +6230,17 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 
 <h3 id='driver-icon-management-using-xml-dependencies-to-automatically-load-and-bind-dependent-drivers-single-proxy-drivers'>Single Proxy Drivers</h3>
 
-<p>Single Proxy drivers define their icons using the same XML strings as a combo driver. However, they also have the ability to define additional icons in the &lt;proxies&gt; area of the XML.</p>
+<p>Single Proxy drivers use the same top-level &lt;small&gt; and &lt;large&gt; XML tags as a combo driver. However, ComposerPro uses those top-level tags only for its driver lists, such as My Drivers in the Items area. The icon shown for the device in the project tree (the System Design view) comes from the icon attributes on the driver&#39;s &lt;proxy&gt; element.</p>
 
-<p>If the &lt;small&gt;&lt;/small&gt; XML tag is populated with an image or UL to an image, that file will always be used in the My Drivers list of the Items area in ComposerPro. The &lt;large&gt;&lt;/large&gt; XML tag is used to populate the List View area of ComposerPro unless a different icon is defined in the &lt;proxies&gt;&lt;/proxies&gt; XML section of the driver. If a different icon is defined, the contents of the &lt;large&gt;&lt;/large&gt; XML tag will be disregarded.</p>
+<p>If the &lt;proxy&gt; element has no icon attributes, the project tree shows the default icon of the Control4 proxy the driver uses (for example, the padlock for the Lock proxy), even when the top-level &lt;small&gt; and &lt;large&gt; tags are set. To use your own icon in both places, set the top-level tags <strong>and</strong> repeat the icons on the &lt;proxy&gt; element using the <code>small_image</code> and <code>large_image</code> attributes described below.</p>
+
+<p>Icons are applied when a driver instance is added to the project. Adding or changing the &lt;proxy&gt; icon attributes in a driver update doesn&#39;t change the icon of instances that are already in the project.</p>
 
 <p>Additional icons and other useful attributes are defined under the &lt;proxies&gt; XML tag. For example, let&#39;s consider a Keypad driver that obtains its icon from the delivered images with ComposerPro. Its proxy XML definition is shown to the right.</p>
 
-<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;proxies</span> <span class="na">qty=</span><span class="s">"1"</span><span class="nt">&gt;</span>~
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;proxies</span> <span class="na">qty=</span><span class="s">"1"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5003"</span> <span class="na">name=</span><span class="s">"KEYPAD"</span> <span class="na">small_image=</span><span class="s">"devices_sm/keypad_16.gif"</span> <span class="na">large_image=</span><span class="s">"devices_lg/keypad_32.gif"</span><span class="nt">&gt;</span>light_v2<span class="nt">&lt;/proxy&gt;</span>
+<span class="nt">&lt;/proxies&gt;</span>
 </code></pre></div>
 
 <p>If we look at the XML attributes for the proxy section we can see the proxy binding ID is defined first. This is required for the correct icon to be displayed. Next we see a name attribute. This attribute is useful as it defines the driver&#39;s name that will be displayed in ComposerPro and on devices running Navigator. This is especially useful when dealing with multi-proxy drivers and its use is further explained below. When left blank, the name of the proxy used by the driver will be displayed. Following the name attribute we can see the small and large image icon attributes. Note the format the XML follows:</p>
@@ -6252,17 +6255,17 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 
 <div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;proxies</span> <span class="na">qty=</span><span class="s">"1"</span><span class="nt">&gt;</span>
  <span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5001"</span> <span class="na">name=</span><span class="s">"KEYPAD"</span> <span class="na">image_source=</span><span class="s">"url"</span> 
-  <span class="na">small_image=</span><span class="s">"http://192.168.1.111/driver/`driver_singleproxy/image/devices_sm/keypad_16.gif"</span> 
-  <span class="na">large_image=</span><span class="s">"http://192.168.1.111/driver/`driver_singleproxy/image/devices_lg keypad_32.gif"</span><span class="nt">&gt;</span>keypad_proxy<span class="nt">&lt;/proxy&gt;</span>
+  <span class="na">small_image=</span><span class="s">"http://192.168.1.111/driver/driver_singleproxy/image/devices_sm/keypad_16.gif"</span>
+  <span class="na">large_image=</span><span class="s">"http://192.168.1.111/driver/driver_singleproxy/image/devices_lg/keypad_32.gif"</span><span class="nt">&gt;</span>keypad_proxy<span class="nt">&lt;/proxy&gt;</span>
 <span class="nt">&lt;/proxies&gt;</span>
 </code></pre></div>
 
-<p>Again we see the proxy binding ID and name attributes defined followed by the <code>image_source</code> value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with &quot;http://<code>&quot;</code></p>
+<p>Again we see the proxy binding ID and name attributes defined followed by the <code>image_source</code> value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with <code>http://</code>.</p>
 
 <p>Finally, if our single proxy driver uses an image provided through the .c4z file, our &lt;proxy&gt; XML would look like the last example.</p>
 
-<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;proxies</span> <span class="na">qty =</span> <span class="s">"1"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5002"</span> <span class="na">name=</span><span class="s">"KEYPAD"</span> <span class="err">image\</span><span class="na">_source=</span><span class="s">"c4z"</span> <span class="err">small\</span><span class="na">_image=</span><span class="s">"images/devices\_sm/keypad\_16.gif"</span><span class="err">\`</span>   <span class="na">large_image=</span><span class="s">"Images/Devices_Lg/keypad_32.gif"</span><span class="nt">&gt;</span>light_v2<span class="nt">&lt;/proxy&gt;</span>
+<div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;proxies</span> <span class="na">qty=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5001"</span> <span class="na">name=</span><span class="s">"KEYPAD"</span> <span class="na">image_source=</span><span class="s">"c4z"</span> <span class="na">small_image=</span><span class="s">"images/devices_sm/keypad_16.gif"</span> <span class="na">large_image=</span><span class="s">"images/devices_lg/keypad_32.gif"</span><span class="nt">&gt;</span>light_v2<span class="nt">&lt;/proxy&gt;</span>
 <span class="nt">&lt;/proxies&gt;</span>
 </code></pre></div>
 
@@ -6278,7 +6281,7 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 
 <p>In this driver, the <code>devices_sm</code> directory will hold the small icons and the <code>devices_lg</code> will hold the large format.  Using the example above we can see the directory path (following the www level) to the images.</p>
 
-<p>Note that if no custom images are defined in the driver&#39;s XML, the default icon for the Control4 Proxy used by the driver will be displayed.</p>
+<p>Note that if the &lt;proxy&gt; element defines no icon attributes, the project tree displays the default icon for the Control4 proxy used by the driver, even if the top-level &lt;small&gt; and &lt;large&gt; tags are set.</p>
 
 <h3 id='driver-icon-management-using-xml-dependencies-to-automatically-load-and-bind-dependent-drivers-multi-proxy-drivers'>Multi Proxy Drivers</h3>
 
@@ -6289,13 +6292,13 @@ Your driver can trigger events within the Control4 system. Events are used to ca
 <div class="highlight"><pre class="highlight xml tab-xml"><code><span class="nt">&lt;small</span> <span class="na">image_source=</span><span class="s">"c4z"</span><span class="nt">&gt;</span>images/devices_sm/receiver_16.gif<span class="nt">&lt;/small&gt;</span>
 <span class="nt">&lt;large</span> <span class="na">image_source=</span><span class="s">"c4z"</span><span class="nt">&gt;</span>images/devices_lg/receiver_32.gif<span class="nt">&lt;/large&gt;</span>
 <span class="nt">&lt;control&gt;</span>lua_gen<span class="nt">&lt;/control&gt;</span>
-<span class="nt">&lt;controlmethod&gt;</span>~serial~<span class="nt">&lt;/controlmethod&gt;</span>
-<span class="nt">&lt;driver&gt;</span>~DriverWorks~<span class="nt">&lt;/driver&gt;</span>
+<span class="nt">&lt;controlmethod&gt;</span>serial<span class="nt">&lt;/controlmethod&gt;</span>
+<span class="nt">&lt;driver&gt;</span>DriverWorks<span class="nt">&lt;/driver&gt;</span>
 <span class="nt">&lt;proxies</span> <span class="na">qty=</span><span class="s">"3"</span><span class="nt">&gt;</span>
-<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5001"</span> <span class="na">name=</span><span class="s">"My Receiver"</span><span class="nt">&gt;</span>~receiver~<span class="nt">&lt;/proxy&gt;</span>
-<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5002"</span> <span class="na">name=</span><span class="s">"Media Player"</span> <span class="na">image_source=</span><span class="s">"c4z"</span> <span class="na">small_image=</span><span class="s">"images/devices_sm/media_player_16.gif” 
-large_image="</span><span class="err">images/devices_lg/media_player_32.gif"</span><span class="nt">&gt;</span>dvd<span class="nt">&lt;/proxy&gt;</span>
-<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5003"</span> <span class="na">name=</span><span class="s">"Streaming"</span> <span class="na">image_source=</span><span class="s">"c4z"</span> <span class="na">small_image=</span><span class="s">"images/devices_sm/stream_16.gif"</span><span class="err">large\</span><span class="na">_image=</span><span class="s">"i`mages/devices\_lg/stream\_32.gif"</span><span class="nt">&gt;</span>dvd~<span class="nt">&lt;/proxy&gt;</span>
+<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5001"</span> <span class="na">name=</span><span class="s">"My Receiver"</span><span class="nt">&gt;</span>receiver<span class="nt">&lt;/proxy&gt;</span>
+<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5002"</span> <span class="na">name=</span><span class="s">"Media Player"</span> <span class="na">image_source=</span><span class="s">"c4z"</span> <span class="na">small_image=</span><span class="s">"images/devices_sm/media_player_16.gif"</span>
+<span class="na">large_image=</span><span class="s">"images/devices_lg/media_player_32.gif"</span><span class="nt">&gt;</span>dvd<span class="nt">&lt;/proxy&gt;</span>
+<span class="nt">&lt;proxy</span> <span class="na">proxybindingid=</span><span class="s">"5003"</span> <span class="na">name=</span><span class="s">"Streaming"</span> <span class="na">image_source=</span><span class="s">"c4z"</span> <span class="na">small_image=</span><span class="s">"images/devices_sm/stream_16.gif"</span> <span class="na">large_image=</span><span class="s">"images/devices_lg/stream_32.gif"</span><span class="nt">&gt;</span>dvd<span class="nt">&lt;/proxy&gt;</span>
 <span class="nt">&lt;/proxies&gt;</span>
 </code></pre></div>
 
