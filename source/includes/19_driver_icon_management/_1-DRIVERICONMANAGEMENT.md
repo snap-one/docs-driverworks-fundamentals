@@ -86,15 +86,18 @@ The `devices_sm` directory will contain the small images and the `devices_lg` wi
 
 
 ### Single Proxy Drivers
-Single Proxy drivers define their icons using the same XML strings as a combo driver. However, they also have the ability to define additional icons in the \<proxies\> area of the XML.
+Single Proxy drivers use the same top-level \<small\> and \<large\> XML tags as a combo driver. However, ComposerPro uses those top-level tags only for its driver lists, such as My Drivers in the Items area. The icon shown for the device in the project tree (the System Design view) comes from the icon attributes on the driver's \<proxy\> element.
 
-If the \<small\>\</small\> XML tag is populated with an image or UL to an image, that file will always be used in the My Drivers list of the Items area in ComposerPro. The \<large\>\</large\> XML tag is used to populate the List View area of ComposerPro unless a different icon is defined in the \<proxies\>\</proxies\> XML section of the driver. If a different icon is defined, the contents of the \<large\>\</large\> XML tag will be disregarded.
+If the \<proxy\> element has no icon attributes, the project tree shows the default icon of the Control4 proxy the driver uses (for example, the padlock for the Lock proxy), even when the top-level \<small\> and \<large\> tags are set. To use your own icon in both places, set the top-level tags **and** repeat the icons on the \<proxy\> element using the `small_image` and `large_image` attributes described below.
+
+Icons are applied when a driver instance is added to the project. Adding or changing the \<proxy\> icon attributes in a driver update doesn't change the icon of instances that are already in the project.
 
 Additional icons and other useful attributes are defined under the \<proxies\> XML tag. For example, let's consider a Keypad driver that obtains its icon from the delivered images with ComposerPro. Its proxy XML definition is shown to the right.
 
 ```xml
-<proxies qty="1">~
+<proxies qty="1">
 <proxy proxybindingid="5003" name="KEYPAD" small_image="devices_sm/keypad_16.gif" large_image="devices_lg/keypad_32.gif">light_v2</proxy>
+</proxies>
 ```
 
 
@@ -113,19 +116,19 @@ If our single proxy driver requires the use of icons through a URL, the proxy XM
 ```xml
 <proxies qty="1">
  <proxy proxybindingid="5001" name="KEYPAD" image_source="url" 
-  small_image="http://192.168.1.111/driver/`driver_singleproxy/image/devices_sm/keypad_16.gif" 
-  large_image="http://192.168.1.111/driver/`driver_singleproxy/image/devices_lg keypad_32.gif">keypad_proxy</proxy>
+  small_image="http://192.168.1.111/driver/driver_singleproxy/image/devices_sm/keypad_16.gif"
+  large_image="http://192.168.1.111/driver/driver_singleproxy/image/devices_lg/keypad_32.gif">keypad_proxy</proxy>
 </proxies>
 ```
 
 
-Again we see the proxy binding ID and name attributes defined followed by the `image_source` value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with "http://`"`
+Again we see the proxy binding ID and name attributes defined followed by the `image_source` value. This is followed by the small and large image attributes but note the URL to the images in quotations. As mentioned earlier, the only requirement for the URL definition is that it begins with `http://`.
 
 Finally, if our single proxy driver uses an image provided through the .c4z file, our \<proxy\> XML would look like the last example.
 
 ```xml
-<proxies qty = "1">
-<proxy proxybindingid="5002" name="KEYPAD" image\_source="c4z" small\_image="images/devices\_sm/keypad\_16.gif"\` 	large_image="Images/Devices_Lg/keypad_32.gif">light_v2</proxy>
+<proxies qty="1">
+<proxy proxybindingid="5001" name="KEYPAD" image_source="c4z" small_image="images/devices_sm/keypad_16.gif" large_image="images/devices_lg/keypad_32.gif">light_v2</proxy>
 </proxies>
 ```
 
@@ -141,7 +144,7 @@ and
 
 In this driver, the `devices_sm` directory will hold the small icons and the `devices_lg` will hold the large format.  Using the example above we can see the directory path (following the www level) to the images.
 
-Note that if no custom images are defined in the driver's XML, the default icon for the Control4 Proxy used by the driver will be displayed.
+Note that if the \<proxy\> element defines no icon attributes, the project tree displays the default icon for the Control4 proxy used by the driver, even if the top-level \<small\> and \<large\> tags are set.
 
 
 ### Multi Proxy Drivers
@@ -153,13 +156,13 @@ This driver implements icons from two different locations: the receiver portion 
 <small image_source="c4z">images/devices_sm/receiver_16.gif</small>
 <large image_source="c4z">images/devices_lg/receiver_32.gif</large>
 <control>lua_gen</control>
-<controlmethod>~serial~</controlmethod>
-<driver>~DriverWorks~</driver>
+<controlmethod>serial</controlmethod>
+<driver>DriverWorks</driver>
 <proxies qty="3">
-<proxy proxybindingid="5001" name="My Receiver">~receiver~</proxy>
-<proxy proxybindingid="5002" name="Media Player" image_source="c4z" small_image="images/devices_sm/media_player_16.gif” 
+<proxy proxybindingid="5001" name="My Receiver">receiver</proxy>
+<proxy proxybindingid="5002" name="Media Player" image_source="c4z" small_image="images/devices_sm/media_player_16.gif"
 large_image="images/devices_lg/media_player_32.gif">dvd</proxy>
-<proxy proxybindingid="5003" name="Streaming" image_source="c4z" small_image="images/devices_sm/stream_16.gif"large\_image="i`mages/devices\_lg/stream\_32.gif">dvd~</proxy>
+<proxy proxybindingid="5003" name="Streaming" image_source="c4z" small_image="images/devices_sm/stream_16.gif" large_image="images/devices_lg/stream_32.gif">dvd</proxy>
 </proxies>
 ```
 
